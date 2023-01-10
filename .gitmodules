@@ -9,3 +9,6 @@
 [submodule "lib/solmate"]
 	path = lib/solmate
 	url = https://github.com/rari-capital/solmate
+[submodule "lib/create3-factory"]
+	path = lib/create3-factory
+	url = https://github.com/lifinance/create3-factory
