@@ -12,3 +12,8 @@
 [submodule "lib/create3-factory"]
 	path = lib/create3-factory
 	url = https://github.com/lifinance/create3-factory
+[submodule "lib/sgn-v2-contracts"]
+	path = lib/sgn-v2-contracts
+	url = https://github.com/celer-network/sgn-v2-contracts
+[submodule "lib\\sgn-v2-contracts"]
+	branch = 6b83d3c9ff9c2e3407f91ecc52000388163d9142
