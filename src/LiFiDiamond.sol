@@ -2,12 +2,14 @@
 pragma solidity 0.8.17;
 
 import { LibDiamond } from "./Libraries/LibDiamond.sol";
+import { LibFees } from "./Libraries/LibFees.sol";
 import { IDiamondCut } from "./Interfaces/IDiamondCut.sol";
 import { LibUtil } from "./Libraries/LibUtil.sol";
 
 contract LiFiDiamond {
     constructor(address _contractOwner, address _diamondCutFacet) payable {
         LibDiamond.setContractOwner(_contractOwner);
+        LibFees.setMaxRubicPlatformFee(250_000); // 25%
 
         // Add the diamondCut external function from the diamondCutFacet
         IDiamondCut.FacetCut[] memory cut = new IDiamondCut.FacetCut[](1);
