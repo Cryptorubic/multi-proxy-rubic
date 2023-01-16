@@ -4,6 +4,7 @@ pragma solidity 0.8.17;
 import { IRubic } from "../Interfaces/IRubic.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
+import { LibFees } from "../Libraries/LibFees.sol";
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
 import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSlippageTooHigh } from "../Errors/GenericErrors.sol";
 
@@ -127,6 +128,13 @@ contract SwapperV2 is IRubic {
             revert NoSwapDataProvided();
         }
 
+//        LibFees.depositAndAccrueFees(
+//            _bridgeData.minAmount,
+//            _deBridgeData.nativeFee,
+//            _bridgeData.sendingAssetId,
+//            _bridgeData.integrator
+//        );
+
         address finalTokenId = _swaps[numSwaps - 1].receivingAssetId;
         uint256 initialBalance = LibAsset.getOwnBalance(finalTokenId);
 
@@ -136,7 +144,7 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        LibAsset.depositAssets(_swaps);
+        LibAsset.depositAsset(_swaps[0].sendingAssetId, _swaps[0].fromAmount);
         _executeSwaps(_transactionId, _swaps, _leftoverReceiver, initialBalances);
 
         uint256 newBalance = LibAsset.getOwnBalance(finalTokenId) - initialBalance;
@@ -176,7 +184,7 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        LibAsset.depositAssets(_swaps);
+        LibAsset.depositAsset(_swaps[0].sendingAssetId, _swaps[0].fromAmount);
         ReserveData memory rd = ReserveData(_transactionId, _leftoverReceiver, _nativeReserve);
         _executeSwaps(rd, _swaps, initialBalances);
 

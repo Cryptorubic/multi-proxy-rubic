@@ -64,10 +64,37 @@ library LibFees {
         }
     }
 
+    function depositAndAccrueFees(
+        uint256 _sendingAmount,
+        uint256 _extraNativeFees,
+        address _sendingAssetId,
+        address _integrator
+    ) internal returns (uint256 amountWithoutFees) {
+        uint256 accruedFixedCryptoFee = accrueFixedCryptoFee(_integrator);
+        if (_sendingAssetId == LibAsset.NATIVE_ASSETID) {
+            LibAsset.depositAsset(LibAsset.NATIVE_ASSETID, _sendingAmount + accruedFixedCryptoFee + _extraNativeFees);
+
+            amountWithoutFees = accrueTokenFees(
+                _integrator,
+                _sendingAmount,
+                LibAsset.NATIVE_ASSETID
+            );
+        } else {
+            LibAsset.depositAsset(_sendingAssetId, _sendingAmount);
+            LibAsset.depositAsset(LibAsset.NATIVE_ASSETID, accruedFixedCryptoFee + _extraNativeFees);
+
+            amountWithoutFees = LibFees.accrueTokenFees(
+                _integrator,
+                _sendingAmount,
+                _sendingAssetId
+            );
+        }
+    }
+
     /**
      * @dev Calculates and accrues fixed crypto fee
      * @param _integrator Integrator's address if there is one
-     * @return The msg.value without fixedCryptoFee
+     * @return The amount of fixedCryptoFee
      */
     function accrueFixedCryptoFee(
         address _integrator
@@ -104,8 +131,7 @@ library LibFees {
             _integrator
         );
 
-        // Underflow is prevented by sol 0.8
-        return (msg.value - _fixedCryptoFee);
+        return _fixedCryptoFee;
     }
 
      /**
@@ -113,14 +139,11 @@ library LibFees {
      * @param _integrator Integrator's address if there is one
      * @param _amountWithFee Total amount passed by the user
      * @param _token The token in which the fees are collected
-     * @param _initBlockchainNum Used if the _calculateFee is overriden by
-     * WithDestinationFunctionality, otherwise is ignored
      * @return Amount of tokens without fee
      */
     function accrueTokenFees(
         address _integrator,
         uint256 _amountWithFee,
-        uint256 _initBlockchainNum,
         address _token
     ) internal returns (uint256) {
         FeesStorage storage fs = feesStorage();
@@ -128,9 +151,8 @@ library LibFees {
 
         (uint256 _totalFees, uint256 _RubicFee) = _calculateFee(
             fs,
-            _info,
             _amountWithFee,
-            _initBlockchainNum
+            _info
         );
 
         if (_integrator != address(0)) {
@@ -329,9 +351,8 @@ library LibFees {
 
     function _calculateFee(
         FeesStorage storage _fs,
-        IFeesFacet.IntegratorFeeInfo memory _info,
         uint256 _amountWithFee,
-        uint256
+        IFeesFacet.IntegratorFeeInfo memory _info
     )
         private
         view

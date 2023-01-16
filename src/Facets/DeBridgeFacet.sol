@@ -4,6 +4,7 @@ pragma solidity 0.8.17;
 import { IRubic } from "../Interfaces/IRubic.sol";
 import { IDeBridgeGate } from "../Interfaces/IDeBridgeGate.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
+import { LibFees } from "../Libraries/LibFees.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
 import { InformationMismatch } from "../Errors/GenericErrors.sol";
@@ -60,7 +61,7 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via DeBridge
     /// @param _bridgeData the core information needed for bridging
     /// @param _deBridgeData data specific to DeBridge
-    function startBridgeTokensViaDeBridge(IRubic.BridgeData calldata _bridgeData, DeBridgeData calldata _deBridgeData)
+    function startBridgeTokensViaDeBridge(IRubic.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData)
         external
         payable
         nonReentrant
@@ -70,7 +71,13 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     {
         validateDestinationCallFlag(_bridgeData, _deBridgeData);
 
-        LibAsset.depositAsset(_bridgeData.sendingAssetId, _bridgeData.minAmount);
+        _bridgeData.minAmount = LibFees.depositAndAccrueFees(
+            _bridgeData.minAmount,
+            _deBridgeData.nativeFee,
+            _bridgeData.sendingAssetId,
+            _bridgeData.integrator
+        );
+
         _startBridge(_bridgeData, _deBridgeData);
     }
 
