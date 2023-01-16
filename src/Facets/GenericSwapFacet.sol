@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
@@ -13,10 +13,10 @@ import { InvalidReceiver } from "../Errors/GenericErrors.sol";
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for swapping through ANY APPROVED DEX
 /// @dev Uses calldata to execute APPROVED arbitrary methods on DEXs
-contract GenericSwapFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract GenericSwapFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Events ///
 
-    event LiFiSwappedGeneric(
+    event RubicSwappedGeneric(
         bytes32 indexed transactionId,
         string integrator,
         string referrer,
@@ -51,7 +51,7 @@ contract GenericSwapFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
         address receivingAssetId = _swapData[_swapData.length - 1].receivingAssetId;
         LibAsset.transferAsset(receivingAssetId, _receiver, postSwapBalance);
 
-        emit LiFiSwappedGeneric(
+        emit RubicSwappedGeneric(
             _transactionId,
             _integrator,
             _referrer,

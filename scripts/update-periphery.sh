@@ -13,7 +13,7 @@ CONTRACTS=$(gum choose --no-limit erc20Proxy axelarExecutor executor receiver fe
 
 ADDRS="deployments/$NETWORK$FILE_SUFFIX.json"
 
-DIAMOND=$(jq -r '.LiFiDiamond' $ADDRS)
+DIAMOND=$(jq -r '.RubicMultiProxy' $ADDRS)
 ERC20PROXY=$(jq -r '.ERC20Proxy // "0x"' $ADDRS)
 AXELAREXECUTOR=$(jq -r '.AxelarExecutor // "0x"' $ADDRS)
 EXECUTOR=$(jq -r '.Executor // "0x"' $ADDRS)

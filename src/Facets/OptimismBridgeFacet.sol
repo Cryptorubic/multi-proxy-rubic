@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IL1StandardBridge } from "../Interfaces/IL1StandardBridge.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
@@ -14,7 +14,7 @@ import { LibUtil } from "../Libraries/LibUtil.sol";
 /// @title Optimism Bridge Facet
 /// @author Li.Finance (https://li.finance)
 /// @notice Provides functionality for bridging through Optimism Bridge
-contract OptimismBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract OptimismBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.optimism");
@@ -94,7 +94,7 @@ contract OptimismBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData Data contaning core information for bridging
     /// @param _bridgeData Data specific to Optimism Bridge
     function startBridgeTokensViaOptimismBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         OptimismData calldata _optimismData
     )
         external
@@ -114,7 +114,7 @@ contract OptimismBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData An array of swap related data for performing swaps before bridging
     /// @param _bridgeData Data specific to Optimism Bridge
     function swapAndStartBridgeTokensViaOptimismBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         OptimismData calldata _optimismData
     )
@@ -140,7 +140,7 @@ contract OptimismBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Optimism Bridge
     /// @param _bridgeData Data contaning core information for bridging
     /// @param _bridgeData Data specific to Optimism Bridge
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, OptimismData calldata _optimismData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, OptimismData calldata _optimismData) private {
         Storage storage s = getStorage();
         IL1StandardBridge nonStandardBridge = s.bridges[_bridgeData.sendingAssetId];
         IL1StandardBridge bridge = LibUtil.isZeroAddress(address(nonStandardBridge))
@@ -166,7 +166,7 @@ contract OptimismBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             }
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
     /// @dev fetch local storage

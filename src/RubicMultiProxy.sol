@@ -6,7 +6,7 @@ import { LibFees } from "./Libraries/LibFees.sol";
 import { IDiamondCut } from "./Interfaces/IDiamondCut.sol";
 import { LibUtil } from "./Libraries/LibUtil.sol";
 
-contract LiFiDiamond {
+contract RubicMultiProxy {
     constructor(address _contractOwner, address _diamondCutFacet) payable {
         LibDiamond.setContractOwner(_contractOwner);
         LibFees.setMaxRubicPlatformFee(250_000); // 25%

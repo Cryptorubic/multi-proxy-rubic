@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IOmniBridge } from "../Interfaces/IOmniBridge.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -12,7 +12,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title OmniBridge Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through OmniBridge
-contract OmniBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract OmniBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The chain id of Gnosis.
@@ -40,7 +40,7 @@ contract OmniBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @notice Bridges tokens via OmniBridge
     /// @param _bridgeData Data contaning core information for bridging
-    function startBridgeTokensViaOmniBridge(ILiFi.BridgeData memory _bridgeData)
+    function startBridgeTokensViaOmniBridge(IRubic.BridgeData memory _bridgeData)
         external
         payable
         nonReentrant
@@ -57,7 +57,7 @@ contract OmniBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData Data contaning core information for bridging
     /// @param _swapData An array of swap related data for performing swaps before bridging
     function swapAndStartBridgeTokensViaOmniBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData
     )
         external
@@ -81,7 +81,7 @@ contract OmniBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev Contains the business logic for the bridge via OmniBridge
     /// @param _bridgeData Data contaning core information for bridging
-    function _startBridge(ILiFi.BridgeData memory _bridgeData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData) private {
         if (LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {
             wethOmniBridge.wrapAndRelayTokens{ value: _bridgeData.minAmount }(_bridgeData.receiver);
         } else {
@@ -93,6 +93,6 @@ contract OmniBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             foreignOmniBridge.relayTokens(_bridgeData.sendingAssetId, _bridgeData.receiver, _bridgeData.minAmount);
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 }

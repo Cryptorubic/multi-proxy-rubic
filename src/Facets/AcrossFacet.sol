@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IAcrossSpokePool } from "../Interfaces/IAcrossSpokePool.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
@@ -16,7 +16,7 @@ import { CannotBridgeToSameNetwork } from "src/Errors/GenericErrors.sol";
 /// @title Across Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Across Protocol
-contract AcrossFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract AcrossFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.across");
@@ -54,7 +54,7 @@ contract AcrossFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via Across
     /// @param _bridgeData the core information needed for bridging
     /// @param _acrossData data specific to Across
-    function startBridgeTokensViaAcross(ILiFi.BridgeData memory _bridgeData, AcrossData calldata _acrossData)
+    function startBridgeTokensViaAcross(IRubic.BridgeData memory _bridgeData, AcrossData calldata _acrossData)
         external
         payable
         nonReentrant
@@ -72,7 +72,7 @@ contract AcrossFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData an array of swap related data for performing swaps before bridging
     /// @param _acrossData data specific to Across
     function swapAndStartBridgeTokensViaAcross(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         AcrossData memory _acrossData
     )
@@ -98,7 +98,7 @@ contract AcrossFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Across
     /// @param _bridgeData the core information needed for bridging
     /// @param _acrossData data specific to Across
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, AcrossData memory _acrossData) internal {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, AcrossData memory _acrossData) internal {
         if (block.chainid == _bridgeData.destinationChainId) revert CannotBridgeToSameNetwork();
         bool isNative = _bridgeData.sendingAssetId == LibAsset.NATIVE_ASSETID;
         address sendingAsset = _bridgeData.sendingAssetId;
@@ -114,6 +114,6 @@ contract AcrossFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             _acrossData.quoteTimestamp
         );
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 }

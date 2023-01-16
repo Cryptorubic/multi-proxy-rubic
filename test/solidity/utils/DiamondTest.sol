@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import "lifi/LiFiDiamond.sol";
+import "lifi/RubicMultiProxy.sol";
 import "lifi/Facets/DiamondCutFacet.sol";
 import "lifi/Facets/DiamondLoupeFacet.sol";
 import "lifi/Facets/OwnershipFacet.sol";
@@ -10,11 +10,11 @@ import "lifi/Interfaces/IDiamondCut.sol";
 contract DiamondTest {
     IDiamondCut.FacetCut[] internal cut;
 
-    function createDiamond() internal returns (LiFiDiamond) {
+    function createDiamond() internal returns (RubicMultiProxy) {
         DiamondCutFacet diamondCut = new DiamondCutFacet();
         DiamondLoupeFacet diamondLoupe = new DiamondLoupeFacet();
         OwnershipFacet ownership = new OwnershipFacet();
-        LiFiDiamond diamond = new LiFiDiamond(address(this), address(diamondCut));
+        RubicMultiProxy diamond = new RubicMultiProxy(address(this), address(diamondCut));
 
         bytes4[] memory functionSelectors;
 
@@ -58,7 +58,7 @@ contract DiamondTest {
     }
 
     function addFacet(
-        LiFiDiamond _diamond,
+        RubicMultiProxy _diamond,
         address _facet,
         bytes4[] memory _selectors
     ) internal {

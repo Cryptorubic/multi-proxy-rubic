@@ -5,14 +5,14 @@ import { IERC20 } from "@axelar-network/axelar-cgp-solidity/contracts/interfaces
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IERC20Proxy } from "../Interfaces/IERC20Proxy.sol";
 import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
 
 /// @title Executor
 /// @author LI.FI (https://li.fi)
 /// @notice Arbitrary execution contract used for cross-chain swaps and message passing
-contract Executor is ILiFi, ReentrancyGuard, TransferrableOwnership {
+contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// Storage ///
 
     /// @notice The address of the ERC20Proxy contract
@@ -156,7 +156,7 @@ contract Executor is ILiFi, ReentrancyGuard, TransferrableOwnership {
             LibAsset.transferAsset(finalAssetId, _receiver, finalAssetPostSwapBalance - finalAssetStartingBalance);
         }
 
-        emit LiFiTransferCompleted(
+        emit RubicTransferCompleted(
             _transactionId,
             _transferredAssetId,
             _receiver,

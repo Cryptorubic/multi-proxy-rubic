@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IDeBridgeGate } from "../Interfaces/IDeBridgeGate.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -12,7 +12,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title DeBridge Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through DeBridge Protocol
-contract DeBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.debridge");
@@ -60,7 +60,7 @@ contract DeBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via DeBridge
     /// @param _bridgeData the core information needed for bridging
     /// @param _deBridgeData data specific to DeBridge
-    function startBridgeTokensViaDeBridge(ILiFi.BridgeData calldata _bridgeData, DeBridgeData calldata _deBridgeData)
+    function startBridgeTokensViaDeBridge(IRubic.BridgeData calldata _bridgeData, DeBridgeData calldata _deBridgeData)
         external
         payable
         nonReentrant
@@ -79,7 +79,7 @@ contract DeBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData an array of swap related data for performing swaps before bridging
     /// @param _deBridgeData data specific to DeBridge
     function swapAndStartBridgeTokensViaDeBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         DeBridgeData calldata _deBridgeData
     )
@@ -112,7 +112,7 @@ contract DeBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via DeBridge
     /// @param _bridgeData the core information needed for bridging
     /// @param _deBridgeData data specific to DeBridge
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData) internal {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData) internal {
         bool isNative = LibAsset.isNativeAsset(_bridgeData.sendingAssetId);
         uint256 nativeAssetAmount = _deBridgeData.nativeFee;
 
@@ -133,10 +133,10 @@ contract DeBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             abi.encode(_deBridgeData.autoParams)
         );
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
-    function validateDestinationCallFlag(ILiFi.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData)
+    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData)
         private
         pure
     {

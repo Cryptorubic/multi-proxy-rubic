@@ -3,7 +3,7 @@ import { MultichainFacet__factory, ERC20__factory } from '../typechain'
 import { node_url } from '../utils/network'
 import * as deployment from '../export/deployments-staging.json'
 
-const LIFI_ADDRESS = deployment[100].xdai.contracts.LiFiDiamond.address
+const LIFI_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
 const anyTokenAddress = '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
 const multichainRouter = '0x4f3Aff3A747fCADe12598081e80c6605A8be192F'
 const tokenAddress = '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174'

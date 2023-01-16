@@ -6,7 +6,7 @@ The DeBridge Facet works by forwarding DeBridge specific calls to a DeBridgeGate
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->A[DeBridgeFacet]
+    D{RubicMultiProxy}-- DELEGATECALL -->A[DeBridgeFacet]
     A -- CALL --> DeBridgeGate
 ```
 
@@ -69,11 +69,11 @@ Swapping is performed by a swap specific library that expects an array of callda
 
 The swap library can be found [here](../src/Libraries/LibSwap.sol).
 
-## LiFi Data
+## Rubic Data
 
 Some methods accept a `BridgeData _bridgeData` parameter.
 
-This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/ILiFi.sol).
+This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/IRubic.sol).
 
 The receiving asset id can be get from `gatewayRouter.calculateL2TokenAddress(assetId)`.
 

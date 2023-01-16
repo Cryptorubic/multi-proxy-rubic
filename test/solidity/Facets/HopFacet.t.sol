@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import { ILiFi, LibSwap, LibAllowList, TestBaseFacet, console, ERC20 } from "../utils/TestBaseFacet.sol";
+import { IRubic, LibSwap, LibAllowList, TestBaseFacet, console, ERC20 } from "../utils/TestBaseFacet.sol";
 import { HopFacet } from "lifi/Facets/HopFacet.sol";
 import { OnlyContractOwner, InvalidConfig, NotInitialized, AlreadyInitialized, InvalidAmount } from "src/Errors/GenericErrors.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 
 // Stub HopFacet Contract
 contract TestHopFacet is HopFacet {
@@ -31,7 +31,7 @@ contract HopFacetTest is TestBaseFacet {
     // -----
 
     TestHopFacet internal hopFacet;
-    ILiFi.BridgeData internal validBridgeData;
+    IRubic.BridgeData internal validBridgeData;
     HopFacet.HopData internal validHopData;
 
     function setUp() public {
@@ -200,7 +200,7 @@ contract HopFacetTest is TestBaseFacet {
 
     function testRevert_RegisterBridgeWithUninitializedFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        LiFiDiamond diamond2 = createDiamond();
+        RubicMultiProxy diamond2 = createDiamond();
 
         TestHopFacet hopFacet2 = new TestHopFacet();
         bytes4[] memory functionSelectors = new bytes4[](6);
@@ -220,7 +220,7 @@ contract HopFacetTest is TestBaseFacet {
 
     function test_OwnerCanInitializeFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        LiFiDiamond diamond2 = createDiamond();
+        RubicMultiProxy diamond2 = createDiamond();
 
         TestHopFacet hopFacet2 = new TestHopFacet();
         bytes4[] memory functionSelectors = new bytes4[](6);
@@ -305,7 +305,7 @@ contract HopFacetTest is TestBaseFacet {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, address(hopFacet2));
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         hopFacet2.startBridgeTokensViaHop(bridgeData, validHopData);
     }

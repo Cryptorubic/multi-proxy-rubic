@@ -8,7 +8,7 @@ import { UnAuthorized, InvalidConfig, InsufficientBalance, NotAContract, Contrac
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibBytes } from "../Libraries/LibBytes.sol";
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IExecutor } from "../Interfaces/IExecutor.sol";
 import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
 import { IMessageReceiverApp } from "celer-network/contracts/message/interfaces/IMessageReceiverApp.sol";
@@ -19,7 +19,7 @@ import { IBridge as ICBridge } from "celer-network/contracts/interfaces/IBridge.
 /// @title RelayerCBridge
 /// @author LI.FI (https://li.fi)
 /// @notice Relayer contract for CBridge/CelerIM that forwards calls to cBridge and handles refunds
-contract RelayerCBridge is ILiFi, ReentrancyGuard, TransferrableOwnership {
+contract RelayerCBridge is IRubic, ReentrancyGuard, TransferrableOwnership {
     using SafeERC20 for IERC20;
 
     /// Storage ///
@@ -108,7 +108,7 @@ contract RelayerCBridge is ILiFi, ReentrancyGuard, TransferrableOwnership {
         // return funds to cBridgeData.refundAddress
         LibAsset.transferAsset(_token, payable(refundAddress), _amount);
 
-        emit LiFiTransferRecovered(transactionId, _token, refundAddress, _amount, block.timestamp);
+        emit RubicTransferRecovered(transactionId, _token, refundAddress, _amount, block.timestamp);
 
         return IMessageReceiverApp.ExecutionStatus.Success;
     }
@@ -118,7 +118,7 @@ contract RelayerCBridge is ILiFi, ReentrancyGuard, TransferrableOwnership {
      * @param _bridgeData the core information needed for bridging
      * @param _cBridgeData data specific to CBridge
      */
-    function sendTokenTransfer(ILiFi.BridgeData memory _bridgeData, CBridgeFacet.CBridgeData memory _cBridgeData)
+    function sendTokenTransfer(IRubic.BridgeData memory _bridgeData, CBridgeFacet.CBridgeData memory _cBridgeData)
         external
         payable
         onlyDiamond
@@ -320,7 +320,7 @@ contract RelayerCBridge is ILiFi, ReentrancyGuard, TransferrableOwnership {
         }
 
         if (!success) {
-            emit LiFiTransferRecovered(_transactionId, assetId, refundAddress, amount, block.timestamp);
+            emit RubicTransferRecovered(_transactionId, assetId, refundAddress, amount, block.timestamp);
         }
     }
 

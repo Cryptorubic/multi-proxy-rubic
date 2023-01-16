@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { AccessManagerFacet } from "lifi/Facets/AccessManagerFacet.sol";
 import { LibAccess } from "lifi/Libraries/LibAccess.sol";
@@ -18,7 +18,7 @@ contract RestrictedContract {
 
 contract AccessManagerFacetTest is DSTest, DiamondTest {
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     AccessManagerFacet internal accessMgr;
     RestrictedContract internal restricted;
 

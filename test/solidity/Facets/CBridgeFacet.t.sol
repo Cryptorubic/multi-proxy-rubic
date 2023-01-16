@@ -232,7 +232,7 @@ contract CBridgeFacetTest is TestBaseFacet {
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
 
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -267,7 +267,7 @@ contract CBridgeFacetTest is TestBaseFacet {
         );
 
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -300,7 +300,7 @@ contract CBridgeFacetTest is TestBaseFacet {
         );
 
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -330,7 +330,7 @@ contract CBridgeFacetTest is TestBaseFacet {
         );
 
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(true);
         vm.stopPrank();
@@ -367,7 +367,7 @@ contract CBridgeFacetTest is TestBaseFacet {
         );
 
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();

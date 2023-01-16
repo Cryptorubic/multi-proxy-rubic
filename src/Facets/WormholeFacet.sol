@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IWormholeRouter } from "../Interfaces/IWormholeRouter.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
@@ -18,7 +18,7 @@ import { LibMappings } from "../Libraries/LibMappings.sol";
 /// @title Wormhole Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Wormhole
-contract WormholeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.wormhole");
 
     address internal constant NON_EVM_ADDRESS = 0x11f111f111f111F111f111f111F111f111f111F1;
@@ -85,7 +85,7 @@ contract WormholeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via Wormhole
     /// @param _bridgeData the core information needed for bridging
     /// @param _wormholeData data specific to Wormhole
-    function startBridgeTokensViaWormhole(ILiFi.BridgeData memory _bridgeData, WormholeData calldata _wormholeData)
+    function startBridgeTokensViaWormhole(IRubic.BridgeData memory _bridgeData, WormholeData calldata _wormholeData)
         external
         payable
         nonReentrant
@@ -103,7 +103,7 @@ contract WormholeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData an array of swap related data for performing swaps before bridging
     /// @param _wormholeData data specific to Wormhole
     function swapAndStartBridgeTokensViaWormhole(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         WormholeData calldata _wormholeData
     )
@@ -158,7 +158,7 @@ contract WormholeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Wormhole
     /// @param _bridgeData the core information needed for bridging
     /// @param _wormholeData data specific to Wormhole
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, WormholeData calldata _wormholeData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, WormholeData calldata _wormholeData) private {
         uint16 toWormholeChainId = getWormholeChainId(_bridgeData.destinationChainId);
         uint16 fromWormholeChainId = getWormholeChainId(block.chainid);
 
@@ -193,7 +193,7 @@ contract WormholeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             emit BridgeToNonEVMChain(_bridgeData.transactionId, toWormholeChainId, _wormholeData.receiver);
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
     /// @notice Gets the wormhole chain id for a given lifi chain id

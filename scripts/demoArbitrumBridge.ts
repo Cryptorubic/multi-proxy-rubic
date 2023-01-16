@@ -24,14 +24,14 @@ const msg = (msg: string) => {
 // Test process
 
 // Bridge Non-Native Asset
-// Approve TEST for LiFiDiamond for swapping
+// Approve TEST for RubicMultiProxy for swapping
 // Swap TEST -> USDC via uniswap on Goerli
 // Bridge USDC on Goerli -> USDC on Arbitrum Goerli via Arbitrum Native Bridge
 
 // Bridge Native Asset
 // Bridge ETH on Goerli -> ETH on Arbitrum Goerli via Arbitrum Native Bridge
 
-const LIFI_ADDRESS = '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE' // LiFiDiamond address on Goerli
+const LIFI_ADDRESS = '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE' // RubicMultiProxy address on Goerli
 const USDC_ADDRESS = '0x98339D8C260052B7ad81c28c16C0b98420f2B46a' // USDC address on Goerli
 const TEST_TOKEN_ADDRESS = '0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1' // TEST Token address on Goerli
 const UNISWAP_ADDRESS = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D' // Uniswap router address on Goerli
@@ -186,7 +186,7 @@ async function main() {
       msg('Token approved for swapping')
     }
 
-    // Call LiFi smart contract to start the bridge process -- WITH SWAP
+    // Call Rubic smart contract to start the bridge process -- WITH SWAP
     await lifi.swapAndStartBridgeTokensViaArbitrumBridge(
       bridgeData,
       swapData,
@@ -248,7 +248,7 @@ async function main() {
     // Total cost
     const cost = maxSubmissionCost.add(maxFeePerGas.mul(maxGasLimit))
 
-    // Call LiFi smart contract to start the bridge process
+    // Call Rubic smart contract to start the bridge process
     await lifi.startBridgeTokensViaArbitrumBridge(bridgeData, arbitrumData, {
       gasLimit: '500000',
       value: amount.add(cost),
@@ -348,7 +348,7 @@ async function main() {
       msg('Token approved for swapping')
     }
 
-    // Call LiFi smart contract to start the bridge process -- WITH SWAP
+    // Call Rubic smart contract to start the bridge process -- WITH SWAP
     await lifi.swapAndStartBridgeTokensViaArbitrumBridge(
       bridgeData,
       swapData,

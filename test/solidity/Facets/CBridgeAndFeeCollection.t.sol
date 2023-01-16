@@ -3,10 +3,10 @@
 //
 //import { DSTest } from "ds-test/test.sol";
 //import { console } from "../utils/Console.sol";
-//import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+//import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 //import { Vm } from "forge-std/Vm.sol";
 //import { CBridgeFacet } from "lifi/Facets/CBridgeFacet.sol";
-//import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
+//import { IRubic } from "lifi/Interfaces/IRubic.sol";
 //import { IBridge as ICBridge } from "celer-network/contracts/interfaces/IBridge.sol";
 //import { LibSwap } from "lifi/Libraries/LibSwap.sol";
 //import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
@@ -41,7 +41,7 @@
 //    address internal constant CBRIDGE_MESSAGE_BUS_ETH = 0x4066D196A423b2b3B8B054f4F40efB47a74E200C;
 //
 //    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-//    LiFiDiamond internal diamond;
+//    RubicMultiProxy internal diamond;
 //    TestCBridgeFacet internal cBridge;
 //    ERC20 internal usdc;
 //    ERC20 internal dai;
@@ -96,7 +96,7 @@
 //        uint256 lifiFee = 5 * 10**usdc.decimals();
 //        address integrator = address(0xb33f);
 //
-//        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+//        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
 //            "cbridge",
 //            "",
@@ -146,7 +146,7 @@
 //        uint256 fee = 0.001 ether;
 //        uint256 lifiFee = 0.00015 ether;
 //
-//        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+//        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
 //            "cbridge",
 //            "",
@@ -193,7 +193,7 @@
 //        uint256 fee = 10 * 10**usdc.decimals();
 //        uint256 lifiFee = 5 * 10**usdc.decimals();
 //
-//        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+//        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
 //            "cbridge",
 //            "",
@@ -267,7 +267,7 @@
 //        uint256 fee = 0.01 ether;
 //        uint256 lifiFee = 0.0015 ether;
 //
-//        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+//        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
 //            "cbridge",
 //            "",
@@ -338,7 +338,7 @@
 //        uint256 fee = 10 * 10**dai.decimals();
 //        uint256 lifiFee = 5 * 10**dai.decimals();
 //
-//        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+//        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
 //            "cbridge",
 //            "",
@@ -413,7 +413,7 @@
 //        uint256 fee = 10 * 10**usdc.decimals();
 //        uint256 lifiFee = 5 * 10**usdc.decimals();
 //
-//        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+//        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
 //            "cbridge",
 //            "",

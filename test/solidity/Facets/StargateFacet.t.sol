@@ -1,7 +1,7 @@
 //// SPDX-License-Identifier: Unlicense
 //pragma solidity 0.8.17;
 //
-//import { LibAllowList, TestBaseFacet, console, LiFiDiamond } from "../utils/TestBaseFacet.sol";
+//import { LibAllowList, TestBaseFacet, console, RubicMultiProxy } from "../utils/TestBaseFacet.sol";
 //import { OnlyContractOwner, InvalidConfig, AlreadyInitialized } from "src/Errors/GenericErrors.sol";
 //import { StargateFacet } from "lifi/Facets/StargateFacet.sol";
 //import { IStargateRouter } from "lifi/Interfaces/IStargateRouter.sol";
@@ -170,7 +170,7 @@
 //    }
 //
 //    function test_revert_ConfigContainsZeroAddress() public {
-//        LiFiDiamond diamond2 = createDiamond();
+//        RubicMultiProxy diamond2 = createDiamond();
 //        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
 //        feeCollector = new FeeCollector(address(this));
 //
@@ -200,7 +200,7 @@
 //    }
 //
 //    function test_revert_InitializeAsNonOwner() public {
-//        LiFiDiamond diamond2 = createDiamond();
+//        RubicMultiProxy diamond2 = createDiamond();
 //        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
 //        feeCollector = new FeeCollector(address(this));
 //

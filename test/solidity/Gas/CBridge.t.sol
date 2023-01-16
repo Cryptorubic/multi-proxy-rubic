@@ -2,11 +2,11 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { CBridgeFacet, MsgDataTypes } from "lifi/Facets/CBridgeFacet.sol";
 import { IBridge as ICBridge } from "celer-network/contracts/interfaces/IBridge.sol";
-import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
+import { IRubic } from "lifi/Interfaces/IRubic.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { IMessageBus } from "celer-network/contracts/message/interfaces/IMessageBus.sol";
 import { RelayerCBridge } from "lifi/Periphery/RelayerCBridge.sol";
@@ -21,7 +21,7 @@ contract CBridgeGasTest is DSTest, DiamondTest {
 
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
     ICBridge internal immutable cBridgeRouter = ICBridge(CBRIDGE_ROUTER);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     CBridgeFacet internal cBridge;
     ERC20 internal usdc;
     ERC20 internal dai;
@@ -76,10 +76,10 @@ contract CBridgeGasTest is DSTest, DiamondTest {
         vm.startPrank(WHALE);
         usdc.approve(address(cBridge), amount);
 
-        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
             "",
             "cbridge",
-            "",
+            address(0),
             address(0),
             USDC_ADDRESS,
             WHALE,

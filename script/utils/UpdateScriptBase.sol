@@ -27,7 +27,7 @@ contract UpdateScriptBase is Script {
 
         string memory path = string.concat(root, "/deployments/", network, ".", fileSuffix, "json");
         string memory json = vm.readFile(path);
-        diamond = json.readAddress(".LiFiDiamond");
+        diamond = json.readAddress(".RubicMultiProxy");
         cutter = DiamondCutFacet(diamond);
         loupe = DiamondLoupeFacet(diamond);
     }

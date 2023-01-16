@@ -3,10 +3,10 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { SwapperV2, LibSwap } from "lifi/Helpers/SwapperV2.sol";
-import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
+import { IRubic } from "lifi/Interfaces/IRubic.sol";
 import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
 import { TestAMM } from "../utils/TestAMM.sol";
 import { TestToken as ERC20 } from "../utils/TestToken.sol";
@@ -38,7 +38,7 @@ contract TestSwapperV2 is SwapperV2 {
 
 contract SwapperV2Test is DSTest, DiamondTest {
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     TestAMM internal amm;
     TestSwapperV2 internal swapper;
 

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IMultichainToken } from "../Interfaces/IMultichainToken.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
@@ -18,7 +18,7 @@ interface IMultichainERC20 {
 /// @title Multichain Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Multichain (Prev. AnySwap)
-contract MultichainFacet is ILiFi, SwapperV2, ReentrancyGuard, Validatable {
+contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
     /// Storage ///
 
     bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.multichain");
@@ -136,7 +136,7 @@ contract MultichainFacet is ILiFi, SwapperV2, ReentrancyGuard, Validatable {
     /// @param _bridgeData the core information needed for bridging
     /// @param _multichainData data specific to Multichain
     function startBridgeTokensViaMultichain(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         MultichainData calldata _multichainData
     )
         external
@@ -160,7 +160,7 @@ contract MultichainFacet is ILiFi, SwapperV2, ReentrancyGuard, Validatable {
     /// @param _swapData an array of swap related data for performing swaps before bridging
     /// @param _multichainData data specific to Multichain
     function swapAndStartBridgeTokensViaMultichain(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         MultichainData memory _multichainData
     )
@@ -190,7 +190,7 @@ contract MultichainFacet is ILiFi, SwapperV2, ReentrancyGuard, Validatable {
     /// @dev Contains the business logic for the bridge via Multichain
     /// @param _bridgeData the core information needed for bridging
     /// @param _multichainData data specific to Multichain
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, MultichainData memory _multichainData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, MultichainData memory _multichainData) private {
         // check if sendingAsset is a Multichain token that needs to be called directly in order to bridge it
         if (_multichainData.router == _bridgeData.sendingAssetId) {
             IMultichainERC20(_bridgeData.sendingAssetId).Swapout(_bridgeData.minAmount, _bridgeData.receiver);
@@ -222,7 +222,7 @@ contract MultichainFacet is ILiFi, SwapperV2, ReentrancyGuard, Validatable {
             }
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
     /// @dev fetch local storage

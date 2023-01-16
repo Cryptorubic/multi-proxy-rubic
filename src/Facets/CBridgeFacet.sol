@@ -2,7 +2,7 @@
 pragma solidity 0.8.17;
 
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
 import { ExternalCallFailed, InvalidReceiver, InvalidAmount, InvalidCaller, InvalidConfig, InformationMismatch, CannotBridgeToSameNetwork } from "../Errors/GenericErrors.sol";
@@ -21,7 +21,7 @@ interface CelerToken {
 /// @title CBridge Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through CBridge
-contract CBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract CBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The contract address of the cbridge on the source chain.
@@ -62,7 +62,7 @@ contract CBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via CBridge
     /// @param _bridgeData the core information needed for bridging
     /// @param _cBridgeData data specific to CBridge
-    function startBridgeTokensViaCBridge(ILiFi.BridgeData memory _bridgeData, CBridgeData calldata _cBridgeData)
+    function startBridgeTokensViaCBridge(IRubic.BridgeData memory _bridgeData, CBridgeData calldata _cBridgeData)
         external
         payable
         nonReentrant
@@ -97,7 +97,7 @@ contract CBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData an array of swap related data for performing swaps before bridging
     /// @param _cBridgeData data specific to CBridge
     function swapAndStartBridgeTokensViaCBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         CBridgeData memory _cBridgeData
     )
@@ -132,7 +132,7 @@ contract CBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via CBridge
     /// @param _bridgeData the core information needed for bridging
     /// @param _cBridgeData data specific to CBridge
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, CBridgeData memory _cBridgeData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, CBridgeData memory _cBridgeData) private {
         // assuming messageBusFee is pre-calculated off-chain and available in _cBridgeData
         // determine correct native asset amount to be forwarded (if so) and send funds to relayer
         uint256 msgValue = LibAsset.isNativeAsset(_bridgeData.sendingAssetId) ? _bridgeData.minAmount : 0;
@@ -153,11 +153,11 @@ contract CBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             );
         }
 
-        // emit LiFi event
-        emit LiFiTransferStarted(_bridgeData);
+        // emit Rubic event
+        emit RubicTransferStarted(_bridgeData);
     }
 
-    function validateDestinationCallFlag(ILiFi.BridgeData memory _bridgeData, CBridgeData memory _cBridgeData)
+    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, CBridgeData memory _cBridgeData)
         private
         pure
     {

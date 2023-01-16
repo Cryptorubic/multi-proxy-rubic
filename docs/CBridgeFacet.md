@@ -9,7 +9,7 @@ Supports various bridging types (e.g. xAsset bridge as well as xLiquidity bridge
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->CBridgeFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->CBridgeFacet;
     CBridgeFacet -- CALL --> C(CBridge)
 ```
 
@@ -51,11 +51,11 @@ Swapping is performed by a swap specific library that expects an array of callda
 
 The swap library can be found [here](../src/Libraries/LibSwap.sol).
 
-## LiFi Data
+## Rubic Data
 
 Some methods accept a `BridgeData _bridgeData` parameter.
 
-This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/ILiFi.sol).
+This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/IRubic.sol).
 
 ## Getting Sample Calls to interact with the Facet
 

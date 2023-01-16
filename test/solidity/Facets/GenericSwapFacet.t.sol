@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { GenericSwapFacet } from "lifi/Facets/GenericSwapFacet.sol";
 import { LibSwap } from "lifi/Libraries/LibSwap.sol";
@@ -32,7 +32,7 @@ contract GenericSwapFacetTest is DSTest, DiamondTest {
     // -----
 
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     TestGenericSwapFacet internal genericSwapFacet;
     ERC20 internal usdc;
     ERC20 internal dai;

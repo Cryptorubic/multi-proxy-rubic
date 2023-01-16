@@ -6,7 +6,7 @@ import { console } from "../utils/Console.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { Executor } from "lifi/Periphery/Executor.sol";
 import { ERC20Proxy } from "lifi/Periphery/ERC20Proxy.sol";
-import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
+import { IRubic } from "lifi/Interfaces/IRubic.sol";
 import { TestAMM } from "../utils/TestAMM.sol";
 import { TestToken as ERC20 } from "../utils/TestToken.sol";
 import { LibSwap } from "lifi/Libraries/LibSwap.sol";

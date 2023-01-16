@@ -2,11 +2,11 @@
 
 ## How it works
 
-The Wormhole Facet works by forwarding Wormhole (Portal) specific calls to the [Wormhole Router](https://etherscan.io/address/0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B). All bridging is done by calling the `transferTokens` method. Currently we do not support transferring native tokens trough Wormhole. 
+The Wormhole Facet works by forwarding Wormhole (Portal) specific calls to the [Wormhole Router](https://etherscan.io/address/0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B). All bridging is done by calling the `transferTokens` method. Currently we do not support transferring native tokens trough Wormhole.
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->WormholeFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->WormholeFacet;
     WormholeFacet -- CALL --> C(Wormhole)
 ```
 
@@ -39,11 +39,11 @@ Swapping is performed by a swap specific library that expects an array of callda
 
 The swap library can be found [here](../src/Libraries/LibSwap.sol).
 
-## LiFi Data
+## Rubic Data
 
 Some methods accept a `BridgeData _bridgeData` parameter.
 
-This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/ILiFi.sol).
+This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/IRubic.sol).
 
 ## Getting Sample Calls to interact with the Facet
 

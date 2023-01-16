@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IGravityRouter } from "../Interfaces/IGravityRouter.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -12,7 +12,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Gravity Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Gravity
-contract GravityFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract GravityFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The contract address of the router on the source chain.
@@ -36,7 +36,7 @@ contract GravityFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @notice Bridges tokens via Gravity
     /// @param _bridgeData the core information needed for bridging
-    function startBridgeTokensViaGravity(ILiFi.BridgeData memory _bridgeData, GravityData memory _gravityData)
+    function startBridgeTokensViaGravity(IRubic.BridgeData memory _bridgeData, GravityData memory _gravityData)
         external
         payable
         nonReentrant
@@ -54,7 +54,7 @@ contract GravityFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData the core information needed for bridging
     /// @param _swapData an array of swap related data for performing swaps before bridging
     function swapAndStartBridgeTokensViaGravity(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         GravityData memory _gravityData
     )
@@ -80,12 +80,12 @@ contract GravityFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev Contains the business logic for the bridge via Hyphen
     /// @param _bridgeData the core information needed for bridging
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, GravityData memory _gravityData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, GravityData memory _gravityData) private {
         // Give the Gravity router approval to bridge tokens
         LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), address(router), _bridgeData.minAmount);
 
         router.sendToCosmos(_bridgeData.sendingAssetId, _gravityData.destinationAddress, _bridgeData.minAmount);
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 }

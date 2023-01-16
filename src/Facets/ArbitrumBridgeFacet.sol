@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IGatewayRouter } from "../Interfaces/IGatewayRouter.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -12,7 +12,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Arbitrum Bridge Facet
 /// @author Li.Finance (https://li.finance)
 /// @notice Provides functionality for bridging through Arbitrum Bridge
-contract ArbitrumBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract ArbitrumBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice Chain id of Arbitrum.
@@ -51,7 +51,7 @@ contract ArbitrumBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData Data containing core information for bridging
     /// @param _arbitrumData Data for gateway router address, asset id and amount
     function startBridgeTokensViaArbitrumBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         ArbitrumData calldata _arbitrumData
     )
         external
@@ -72,7 +72,7 @@ contract ArbitrumBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData An array of swap related data for performing swaps before bridging
     /// @param _arbitrumData Data for gateway router address, asset id and amount
     function swapAndStartBridgeTokensViaArbitrumBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         ArbitrumData calldata _arbitrumData
     )
@@ -110,7 +110,7 @@ contract ArbitrumBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _cost Additional amount of native asset for the fee
     /// @param _receivedEther Amount of ether received from
     function _startBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         ArbitrumData calldata _arbitrumData,
         uint256 _cost,
         uint256 _receivedEther
@@ -128,11 +128,11 @@ contract ArbitrumBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             _startTokenBridge(_bridgeData, _arbitrumData, _cost);
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
     function _startTokenBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         ArbitrumData calldata _arbitrumData,
         uint256 cost
     ) private {
@@ -152,7 +152,7 @@ contract ArbitrumBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     }
 
     function _startNativeBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         ArbitrumData calldata _arbitrumData,
         uint256 cost
     ) private {

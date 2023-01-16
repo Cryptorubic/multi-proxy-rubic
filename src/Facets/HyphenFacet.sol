@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IHyphenRouter } from "../Interfaces/IHyphenRouter.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -13,7 +13,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Hyphen Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Hyphen
-contract HyphenFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract HyphenFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The contract address of the router on the source chain.
@@ -31,7 +31,7 @@ contract HyphenFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @notice Bridges tokens via Hyphen
     /// @param _bridgeData the core information needed for bridging
-    function startBridgeTokensViaHyphen(ILiFi.BridgeData memory _bridgeData)
+    function startBridgeTokensViaHyphen(IRubic.BridgeData memory _bridgeData)
         external
         payable
         nonReentrant
@@ -48,7 +48,7 @@ contract HyphenFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData the core information needed for bridging
     /// @param _swapData an array of swap related data for performing swaps before bridging
     function swapAndStartBridgeTokensViaHyphen(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData
     )
         external
@@ -72,7 +72,7 @@ contract HyphenFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev Contains the business logic for the bridge via Hyphen
     /// @param _bridgeData the core information needed for bridging
-    function _startBridge(ILiFi.BridgeData memory _bridgeData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData) private {
         if (!LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {
             // Give the Hyphen router approval to bridge tokens
             LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), address(router), _bridgeData.minAmount);
@@ -92,6 +92,6 @@ contract HyphenFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             );
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 }

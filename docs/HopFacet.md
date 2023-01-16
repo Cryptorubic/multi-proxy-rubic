@@ -6,7 +6,7 @@ The Hop Facet works by forwarding Hop specific calls to the [Hop Bridge contract
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->HopFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->HopFacet;
     HopFacet -- CALL --> H(Hop Bridge)
     HopFacet -- CALL --> W(Hop AMM Wrapper) --> H
 ```
@@ -50,11 +50,11 @@ Swapping is performed by a swap specific library that expects an array of callda
 
 The swap library can be found [here](../src/Libraries/LibSwap.sol).
 
-## LiFi Data
+## Rubic Data
 
 Some methods accept a `BridgeData _bridgeData` parameter.
 
-This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/ILiFi.sol).
+This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/IRubic.sol).
 
 ## Getting Sample Calls to interact with the Facet
 

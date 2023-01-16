@@ -6,7 +6,7 @@ The Arbitrum Bridge Facet works by forwarding Arbitrum Native Bridge specific ca
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->A[ArbitrumBridgeFacet]
+    D{RubicMultiProxy}-- DELEGATECALL -->A[ArbitrumBridgeFacet]
     A -- CALL --> ArbitrumNativeBridge(GatewayRouter, Inbox)
 ```
 
@@ -61,11 +61,11 @@ Swapping is performed by a swap specific library that expects an array of callda
 
 The swap library can be found [here](../src/Libraries/LibSwap.sol).
 
-## LiFi Data
+## Rubic Data
 
 Some methods accept a `BridgeData _bridgeData` parameter.
 
-This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/ILiFi.sol).
+This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/IRubic.sol).
 
 The receiving asset id can be get from `gatewayRouter.calculateL2TokenAddress(assetId)`.
 

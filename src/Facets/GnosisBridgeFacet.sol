@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IXDaiBridge } from "../Interfaces/IXDaiBridge.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -14,7 +14,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Gnosis Bridge Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through XDaiBridge
-contract GnosisBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract GnosisBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The DAI address on the source chain.
@@ -38,7 +38,7 @@ contract GnosisBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @notice Bridges tokens via XDaiBridge
     /// @param _bridgeData the core information needed for bridging
-    function startBridgeTokensViaXDaiBridge(ILiFi.BridgeData memory _bridgeData)
+    function startBridgeTokensViaXDaiBridge(IRubic.BridgeData memory _bridgeData)
         external
         payable
         nonReentrant
@@ -57,7 +57,7 @@ contract GnosisBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData the core information needed for bridging
     /// @param _swapData an object containing swap related data to perform swaps before bridging
     function swapAndStartBridgeTokensViaXDaiBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData
     )
         external
@@ -86,9 +86,9 @@ contract GnosisBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev Contains the business logic for the bridge via XDaiBridge
     /// @param _bridgeData the core information needed for bridging
-    function _startBridge(ILiFi.BridgeData memory _bridgeData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData) private {
         LibAsset.maxApproveERC20(IERC20(DAI), address(xDaiBridge), _bridgeData.minAmount);
         xDaiBridge.relayTokens(_bridgeData.receiver, _bridgeData.minAmount);
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 }

@@ -10,7 +10,7 @@ const msg = (msg: string) => {
   console.log(chalk.green(msg))
 }
 
-const LIFI_ADDRESS = deployment[100].xdai.contracts.LiFiDiamond.address
+const LIFI_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
 const POLYGON_USDT_ADDRESS = '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
 const POLYGON_USDC_ADDRESS = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
 const UNISWAP_ADDRESS = '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff'
@@ -88,7 +88,7 @@ async function main() {
       destinationDeadline: deadline,
     }
 
-    // Call LiFi smart contract to start the bridge process -- WITH SWAP
+    // Call Rubic smart contract to start the bridge process -- WITH SWAP
     msg('Sending...')
     const tx = await lifi.swapAndStartBridgeTokensViaHop(
       lifiData,

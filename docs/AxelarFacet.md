@@ -17,7 +17,7 @@ Without tokens
 ```solidity
 /// @notice Initiates a cross-chain contract call via Axelar Network
 /// @param destinationChain the chain to execute on
-/// @param destinationAddress the address of the LiFi contract on the destinationChain
+/// @param destinationAddress the address of the Rubic contract on the destinationChain
 /// @param callTo the address of the contract to call
 /// @param callData the encoded calldata for the contract call
 function executeCallViaAxelar(
@@ -33,7 +33,7 @@ With tokens
 ```solidity
 /// @notice Initiates a cross-chain contract call while sending a token via Axelar Network
 /// @param destinationChain the chain to execute on
-/// @param destinationAddress the address of the LiFi contract on the destinationChain
+/// @param destinationAddress the address of the Rubic contract on the destinationChain
 /// @param symbol the symbol of the token to send with the transaction
 /// @param amount the amount of tokens to send
 /// @param callTo the address of the contract to call

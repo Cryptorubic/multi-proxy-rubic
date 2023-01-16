@@ -7,7 +7,7 @@ fi
 
 NETWORK=$(cat ./networks | gum filter --placeholder "Network")
 
-DIAMOND=$(jq -r '.LiFiDiamond' "./deployments/${NETWORK}.${FILE_SUFFIX}json")
+DIAMOND=$(jq -r '.RubicMultiProxy' "./deployments/${NETWORK}.${FILE_SUFFIX}json")
 CFG_DEXS=($(jq --arg n "$NETWORK" -r '.[$n] | @sh' "./config/dexs.json" | tr -d \' | tr '[:upper:]' '[:lower:]'))
 
 RPC="ETH_NODE_URI_$(tr '[:lower:]' '[:upper:]' <<< "$NETWORK")"
@@ -27,7 +27,7 @@ if [[ ! ${#NEW_DEXS[@]} -eq 0 ]]; then
   for d in "${NEW_DEXS[@]}"; do
     PARAMS+="${d},"
   done
-  cast send $DIAMOND "batchAddDex(address[])" "[${PARAMS::-1}]" --rpc-url ${!RPC} --private-key ${PRIVATE_KEY} --legacy 
+  cast send $DIAMOND "batchAddDex(address[])" "[${PARAMS::-1}]" --rpc-url ${!RPC} --private-key ${PRIVATE_KEY} --legacy
 else
   echo 'No new DEXs to add'
 fi

@@ -29,7 +29,7 @@ contract AxelarFacet is ReentrancyGuard {
     }
 
     /// @param destinationChain the chain to execute on
-    /// @param destinationAddress the address of the LiFi contract on the destinationChain
+    /// @param destinationAddress the address of the Rubic contract on the destinationChain
     /// @param callTo the address of the contract to call
     /// @param callData the encoded calldata for the contract call
     struct AxelarCallParameters {

@@ -8,7 +8,7 @@ const msg = (msg: string) => {
   console.log(chalk.green(msg))
 }
 
-const LIFI_ADDRESS = deployment[100].xdai.contracts.LiFiDiamond.address
+const LIFI_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
 const destinationChainId = 56
 const MAX_SLIPPAGE = 1000000
 
@@ -94,7 +94,7 @@ async function main() {
     maxSlippage: MAX_SLIPPAGE,
   }
 
-  // Call LiFi smart contract to start the bridge process -- WITH SWAP
+  // Call Rubic smart contract to start the bridge process -- WITH SWAP
   await lifi.swapAndStartBridgeTokensViaCBridge(
     lifiData,
     [

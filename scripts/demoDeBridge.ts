@@ -113,7 +113,7 @@ async function main() {
       msg('Token approved for swapping')
     }
 
-    // Call LiFi smart contract to start the bridge process -- WITH SWAP
+    // Call Rubic smart contract to start the bridge process -- WITH SWAP
     await lifi.swapAndStartBridgeTokensViaDeBridge(
       bridgeData,
       swapData,
@@ -159,7 +159,7 @@ async function main() {
       },
     }
 
-    // Call LiFi smart contract to start the bridge process
+    // Call Rubic smart contract to start the bridge process
     await lifi.startBridgeTokensViaDeBridge(bridgeData, deBridgeData, {
       value: amount.add(nativeFee),
       gasLimit: 500000,

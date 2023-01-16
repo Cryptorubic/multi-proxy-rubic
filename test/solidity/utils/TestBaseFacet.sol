@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity >=0.8.0;
 
-import { TestBase, LiFiDiamond, DSTest, LibSwap, ILiFi, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
+import { TestBase, RubicMultiProxy, DSTest, LibSwap, IRubic, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
 import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized } from "src/Errors/GenericErrors.sol";
 
 contract ReentrancyChecker is DSTest {
@@ -65,7 +65,7 @@ abstract contract TestBaseFacet is TestBase {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -87,7 +87,7 @@ abstract contract TestBaseFacet is TestBase {
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
 
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -108,7 +108,7 @@ abstract contract TestBaseFacet is TestBase {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(true);
         vm.stopPrank();
@@ -142,7 +142,7 @@ abstract contract TestBaseFacet is TestBase {
             block.timestamp
         );
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         // approval
         dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
@@ -214,7 +214,7 @@ abstract contract TestBaseFacet is TestBase {
         //     deposit all remaining ETH to the bridge. We cannot access that value (minAmount + remaining gas)
         //     therefore the test is designed to only check if an event was emitted but not match the parameters
         vm.expectEmit(false, false, false, false, _facetTestContractAddress);
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         // approval
         usdc.approve(_facetTestContractAddress, amountIn);

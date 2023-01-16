@@ -6,7 +6,7 @@ import { InsufficientBalance } from "src/Errors/GenericErrors.sol";
 import { GnosisBridgeFacet } from "lifi/Facets/GnosisBridgeFacet.sol";
 import { IXDaiBridge } from "lifi/Interfaces/IXDaiBridge.sol";
 
-// import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+// import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 
 // Stub GnosisBridgeFacet Contract
 contract TestGnosisBridgeFacet is GnosisBridgeFacet {
@@ -127,7 +127,7 @@ contract GnosisBridgeFacetTest is TestBaseFacet {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, address(gnosisBridgeFacet));
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -192,7 +192,7 @@ contract GnosisBridgeFacetTest is TestBaseFacet {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, address(gnosisBridgeFacet));
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();

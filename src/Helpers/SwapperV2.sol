@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
@@ -10,7 +10,7 @@ import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSl
 /// @title Swapper
 /// @author LI.FI (https://li.fi)
 /// @notice Abstract contract to provide swap functionality
-contract SwapperV2 is ILiFi {
+contract SwapperV2 is IRubic {
     /// Types ///
 
     /// @dev only used to get around "Stack Too Deep" errors

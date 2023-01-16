@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { WithdrawFacet } from "lifi/Facets/WithdrawFacet.sol";
@@ -25,7 +25,7 @@ contract CBridgeRefundTestPolygon is DSTest, DiamondTest {
     bytes internal CALLDATA;
 
     Vm internal constant vm = Vm(HEVM_ADDRESS);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     WithdrawFacet internal withdrawFacet;
 
     ///@notice Init calldata for extra call.
@@ -75,7 +75,7 @@ contract CBridgeRefundTestPolygon is DSTest, DiamondTest {
     function setUp() public {
         fork();
 
-        diamond = LiFiDiamond(payable(LIFI_ADDRESS));
+        diamond = RubicMultiProxy(payable(LIFI_ADDRESS));
         withdrawFacet = new WithdrawFacet();
 
         bytes4[] memory selector = new bytes4[](1);

@@ -9,7 +9,7 @@ It does this by using the [LibSwap](./LibSwap.md) library.
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->GenericSwapFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->GenericSwapFacet;
     GenericSwapFacet -- SWAPs --> GenericSwapFacet
     GenericSwapFacet -- withdraw --> USER
 ```

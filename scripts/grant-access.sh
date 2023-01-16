@@ -9,7 +9,7 @@ METHODS=$(gum choose --no-limit 'addDex|0x536db266' 'batchAddDex|0xfcd8e49e' 're
 
 ADDRS="deployments/$NETWORK.json"
 
-DIAMOND=$(jq -r '.LiFiDiamond' $ADDRS)
+DIAMOND=$(jq -r '.RubicMultiProxy' $ADDRS)
 
 
 echo "Updating permissions for $ADDRESS on $NETWORK"

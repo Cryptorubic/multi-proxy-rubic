@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IHopBridge } from "../Interfaces/IHopBridge.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
@@ -14,7 +14,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Hop Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Hop
-contract HopFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract HopFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.hop");
@@ -95,7 +95,7 @@ contract HopFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via Hop Protocol
     /// @param _bridgeData the core information needed for bridging
     /// @param _hopData data specific to Hop Protocol
-    function startBridgeTokensViaHop(ILiFi.BridgeData memory _bridgeData, HopData calldata _hopData)
+    function startBridgeTokensViaHop(IRubic.BridgeData memory _bridgeData, HopData calldata _hopData)
         external
         payable
         nonReentrant
@@ -113,7 +113,7 @@ contract HopFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData an array of swap related data for performing swaps before bridging
     /// @param _hopData data specific to Hop Protocol
     function swapAndStartBridgeTokensViaHop(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         HopData memory _hopData
     )
@@ -139,7 +139,7 @@ contract HopFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Hop Protocol
     /// @param _bridgeData the core information needed for bridging
     /// @param _hopData data specific to Hop Protocol
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, HopData memory _hopData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, HopData memory _hopData) private {
         // Do HOP stuff
         if (block.chainid == _bridgeData.destinationChainId) revert CannotBridgeToSameNetwork();
 
@@ -177,7 +177,7 @@ contract HopFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
                 _hopData.destinationDeadline
             );
         }
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
     /// @dev fetch local storage

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import { LibAllowList, TestBaseFacet, console, ERC20, LiFiDiamond } from "../utils/TestBaseFacet.sol";
+import { LibAllowList, TestBaseFacet, console, ERC20, RubicMultiProxy } from "../utils/TestBaseFacet.sol";
 import { OnlyContractOwner, NotInitialized, AlreadyInitialized } from "src/Errors/GenericErrors.sol";
 import { MultichainFacet, IMultichainToken } from "lifi/Facets/MultichainFacet.sol";
 
@@ -211,7 +211,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, address(multichainFacet));
-        emit LiFiTransferStarted(bridgeData);
+        emit RubicTransferStarted(bridgeData);
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
@@ -265,7 +265,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function test_revert_RegisterRoutersWithUninitializedFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        LiFiDiamond diamond2 = createDiamond();
+        RubicMultiProxy diamond2 = createDiamond();
 
         TestMultichainFacet multichainFacet2 = new TestMultichainFacet();
         bytes4[] memory functionSelectors = new bytes4[](7);
@@ -286,7 +286,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function test_OwnerCanInitializeFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        LiFiDiamond diamond2 = createDiamond();
+        RubicMultiProxy diamond2 = createDiamond();
 
         TestMultichainFacet multichainFacet2 = new TestMultichainFacet();
         bytes4[] memory functionSelectors = new bytes4[](7);

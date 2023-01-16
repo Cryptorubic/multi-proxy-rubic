@@ -3,10 +3,10 @@ pragma solidity >=0.8.0;
 
 import { Test, DSTest } from "forge-std/Test.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
+import { IRubic } from "lifi/Interfaces/IRubic.sol";
 import { LibSwap } from "lifi/Libraries/LibSwap.sol";
 import { UniswapV2Router02 } from "../utils/Interfaces.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
 import { LibUtil } from "lifi/Libraries/LibUtil.sol";
@@ -63,7 +63,7 @@ contract ReentrancyChecker {
 }
 
 //common utilities for forge tests
-abstract contract TestBase is Test, DiamondTest, ILiFi {
+abstract contract TestBase is Test, DiamondTest, IRubic {
     address internal _facetTestContractAddress;
     uint64 internal currentTxId;
     bytes32 internal nextUser = keccak256(abi.encodePacked("user address"));
@@ -71,8 +71,8 @@ abstract contract TestBase is Test, DiamondTest, ILiFi {
     ERC20 internal usdc;
     ERC20 internal dai;
     ERC20 internal weth;
-    LiFiDiamond internal diamond;
-    ILiFi.BridgeData internal bridgeData;
+    RubicMultiProxy internal diamond;
+    IRubic.BridgeData internal bridgeData;
     LibSwap.SwapData[] internal swapData;
     uint256 internal defaultDAIAmount;
     uint256 internal defaultUSDCAmount;
@@ -231,10 +231,10 @@ abstract contract TestBase is Test, DiamondTest, ILiFi {
     }
 
     function setDefaultBridgeData() internal {
-        bridgeData = ILiFi.BridgeData({
+        bridgeData = IRubic.BridgeData({
             transactionId: "",
             bridge: "<UpdateWithYourBridgeName>",
-            integrator: "",
+            integrator: address(0),
             referrer: address(0),
             sendingAssetId: ADDRESS_USDC,
             receiver: USER_RECEIVER,
@@ -315,12 +315,12 @@ abstract contract TestBase is Test, DiamondTest, ILiFi {
 
     //#region Utility Functions (may be used in tests)
 
-    function printBridgeData(ILiFi.BridgeData memory _bridgeData) internal {
+    function printBridgeData(IRubic.BridgeData memory _bridgeData) internal {
         console.log("----------------------------------");
         console.log("CURRENT VALUES OF _bridgeData: ");
         emit log_named_bytes32("transactionId               ", _bridgeData.transactionId);
         emit log_named_string("bridge                      ", _bridgeData.bridge);
-        emit log_named_string("integrator                  ", _bridgeData.integrator);
+        emit log_named_address("integrator                  ", _bridgeData.integrator);
         emit log_named_address("referrer                    ", _bridgeData.referrer);
         emit log_named_address("sendingAssetId              ", _bridgeData.sendingAssetId);
         emit log_named_address("receiver                    ", _bridgeData.receiver);

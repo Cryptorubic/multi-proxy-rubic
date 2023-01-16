@@ -105,7 +105,7 @@ contract RelayerCBridgeTest is TestBase {
         );
 
         vm.expectEmit(true, true, true, true, address(executor));
-        emit LiFiTransferCompleted(transactionId, ADDRESS_DAI, USER_RECEIVER, defaultUSDCAmount, block.timestamp);
+        emit RubicTransferCompleted(transactionId, ADDRESS_DAI, USER_RECEIVER, defaultUSDCAmount, block.timestamp);
 
         // call function in RelayerCBridge to complete transaction
         relayer.executeMessageWithTransfer(
@@ -184,7 +184,7 @@ contract RelayerCBridgeTest is TestBase {
 
         // prepare check for events
         vm.expectEmit(true, true, true, true, address(relayer));
-        emit LiFiTransferRecovered(transactionId, ADDRESS_DAI, USER_REFUND, swapData[0].fromAmount, block.timestamp);
+        emit RubicTransferRecovered(transactionId, ADDRESS_DAI, USER_REFUND, swapData[0].fromAmount, block.timestamp);
 
         // call function in RelayerCBridge to complete transaction
         relayer.executeMessageWithTransfer(
@@ -243,7 +243,7 @@ contract RelayerCBridgeTest is TestBase {
         // prepare check for events
 
         vm.expectEmit(true, true, true, true, address(relayer));
-        emit LiFiTransferRecovered(transactionId, ADDRESS_DAI, USER_REFUND, swapData[0].fromAmount, block.timestamp);
+        emit RubicTransferRecovered(transactionId, ADDRESS_DAI, USER_REFUND, swapData[0].fromAmount, block.timestamp);
 
         // call function in ReceiverCelerIM to complete transaction
         relayer.executeMessageWithTransferRefund(ADDRESS_DAI, swapData[0].fromAmount, payload, address(this));

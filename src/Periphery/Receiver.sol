@@ -5,7 +5,7 @@ import { IERC20, SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/Saf
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IExecutor } from "../Interfaces/IExecutor.sol";
 import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
 import { UnAuthorized } from "../Errors/GenericErrors.sol";
@@ -13,7 +13,7 @@ import { UnAuthorized } from "../Errors/GenericErrors.sol";
 /// @title Executor
 /// @author LI.FI (https://li.fi)
 /// @notice Arbitrary execution contract used for cross-chain swaps and message passing
-contract Receiver is ILiFi, ReentrancyGuard, TransferrableOwnership {
+contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
     using SafeERC20 for IERC20;
 
     /// Storage ///
@@ -198,7 +198,7 @@ contract Receiver is ILiFi, ReentrancyGuard, TransferrableOwnership {
                 // case 1a: not enough gas left to execute calls
                 receiver.call{ value: amount }("");
 
-                emit LiFiTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
+                emit RubicTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
                 return;
             }
 
@@ -223,7 +223,7 @@ contract Receiver is ILiFi, ReentrancyGuard, TransferrableOwnership {
                 // case 2a: not enough gas left to execute calls
                 token.safeTransfer(receiver, amount);
 
-                emit LiFiTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
+                emit RubicTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
                 return;
             }
 
@@ -237,7 +237,7 @@ contract Receiver is ILiFi, ReentrancyGuard, TransferrableOwnership {
                 )
             {} catch {
                 token.safeTransfer(receiver, amount);
-                emit LiFiTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
+                emit RubicTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
             }
 
             token.safeApprove(address(executor), 0);

@@ -49,7 +49,7 @@ function executeMessageWithTransferRefund(
 /// @dev can only be called by the LI.FI diamond contract on the respective chain
 /// @param _bridgeData the core information needed for bridging
 /// @param _cBridgeData data specific to CBridge
-function sendTokenTransfer(ILiFi.BridgeData memory _bridgeData, CBridgeFacet.CBridgeData memory _cBridgeData)
+function sendTokenTransfer(IRubic.BridgeData memory _bridgeData, CBridgeFacet.CBridgeData memory _cBridgeData)
     external
     payable
     onlyDiamond

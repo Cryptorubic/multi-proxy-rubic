@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IConnextHandler } from "../Interfaces/IConnextHandler.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
@@ -14,7 +14,7 @@ import { LibMappings } from "../Libraries/LibMappings.sol";
 /// @title Amarok Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Connext Amarok
-contract AmarokFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract AmarokFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The contract address of the connext handler on the source chain.
@@ -134,7 +134,7 @@ contract AmarokFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             _amarokData.callData
         );
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
     function getAmarokDomain(uint256 _chainId) private view returns (uint32) {

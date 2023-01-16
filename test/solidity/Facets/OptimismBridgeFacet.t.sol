@@ -2,10 +2,10 @@
 pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { OptimismBridgeFacet } from "lifi/Facets/OptimismBridgeFacet.sol";
-import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
+import { IRubic } from "lifi/Interfaces/IRubic.sol";
 import { LibSwap } from "lifi/Libraries/LibSwap.sol";
 import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
@@ -40,12 +40,12 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
     // -----
 
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     TestOptimismBridgeFacet internal optimismBridgeFacet;
     UniswapV2Router02 internal uniswap;
     ERC20 internal usdc;
     ERC20 internal dai;
-    ILiFi.BridgeData internal validBridgeData;
+    IRubic.BridgeData internal validBridgeData;
     OptimismBridgeFacet.OptimismData internal validOptimismData;
 
     function fork() internal {
@@ -82,10 +82,10 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
         optimismBridgeFacet.setFunctionApprovalBySignature(uniswap.swapExactTokensForTokens.selector);
         optimismBridgeFacet.setFunctionApprovalBySignature(uniswap.swapETHForExactTokens.selector);
 
-        validBridgeData = ILiFi.BridgeData({
+        validBridgeData = IRubic.BridgeData({
             transactionId: "",
             bridge: "optimism",
-            integrator: "",
+            integrator: address(0),
             referrer: address(0),
             sendingAssetId: DAI_L1_ADDRESS,
             receiver: DAI_L1_HOLDER,
@@ -102,7 +102,7 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
 
         dai.approve(address(optimismBridgeFacet), 10_000 * 10**dai.decimals());
 
-        ILiFi.BridgeData memory bridgeData = validBridgeData;
+        IRubic.BridgeData memory bridgeData = validBridgeData;
         bridgeData.minAmount = 0;
 
         vm.expectRevert(InvalidAmount.selector);
@@ -116,7 +116,7 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
 
         dai.approve(address(optimismBridgeFacet), 10_000 * 10**dai.decimals());
 
-        ILiFi.BridgeData memory bridgeData = validBridgeData;
+        IRubic.BridgeData memory bridgeData = validBridgeData;
         bridgeData.receiver = address(0);
 
         vm.expectRevert(InvalidReceiver.selector);
@@ -141,7 +141,7 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
     function testRevertToBridgeTokensWhenSendingNoEnoughNativeAsset() public {
         vm.startPrank(DAI_L1_HOLDER);
 
-        ILiFi.BridgeData memory bridgeData = validBridgeData;
+        IRubic.BridgeData memory bridgeData = validBridgeData;
         bridgeData.sendingAssetId = address(0);
         bridgeData.minAmount = 3e18;
 
@@ -156,7 +156,7 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
 
         dai.approve(address(optimismBridgeFacet), 10_000 * 10**dai.decimals());
 
-        ILiFi.BridgeData memory bridgeData = validBridgeData;
+        IRubic.BridgeData memory bridgeData = validBridgeData;
         bridgeData.hasSourceSwaps = true;
 
         vm.expectRevert(InformationMismatch.selector);
@@ -206,7 +206,7 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
             true
         );
 
-        ILiFi.BridgeData memory bridgeData = validBridgeData;
+        IRubic.BridgeData memory bridgeData = validBridgeData;
         bridgeData.hasSourceSwaps = true;
 
         optimismBridgeFacet.swapAndStartBridgeTokensViaOptimismBridge(bridgeData, swapData, validOptimismData);

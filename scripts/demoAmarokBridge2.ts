@@ -11,11 +11,11 @@ const msg = (msg: string) => {
 // Test process
 
 // Bridge Non-Native Asset
-// Approve USDC for LiFiDiamond for swapping
+// Approve USDC for RubicMultiProxy for swapping
 // Swap USDC -> TestToken via uniswap on Goerli
 // Bridge TestToken on Goerli -> TestToken on Optimism Goerli via Connext Amarok
 
-const LIFI_ADDRESS = '0x9DD11f4fc672006EA9E666b6a222C5A8141f2Ac0' // LiFiDiamond address on Goerli
+const LIFI_ADDRESS = '0x9DD11f4fc672006EA9E666b6a222C5A8141f2Ac0' // RubicMultiProxy address on Goerli
 const GOERLI_TOKEN_ADDRESS = '0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1' // TestToken address on Goerli
 const OPTIMISM_GOERLI_TOKEN_ADDRESS =
   '0x68Db1c8d85C09d546097C65ec7DCBFF4D6497CbF' // TestToken address on Optimism Goerli
@@ -94,7 +94,7 @@ async function main() {
     msg('Token approved for swapping')
   }
 
-  // Call LiFi smart contract to start the bridge process -- WITH SWAP
+  // Call Rubic smart contract to start the bridge process -- WITH SWAP
   await lifi.swapAndStartBridgeTokensViaAmarok(
     lifiData,
     [

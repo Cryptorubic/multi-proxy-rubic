@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IStargateRouter, IFactory, IPool } from "../Interfaces/IStargateRouter.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
@@ -14,7 +14,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Stargate Facet
 /// @author Li.Finance (https://li.finance)
 /// @notice Provides functionality for bridging through Stargate
-contract StargateFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The contract address of the stargate router on the source chain.
@@ -104,7 +104,7 @@ contract StargateFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via Stargate Bridge
     /// @param _bridgeData Data used purely for tracking and analytics
     /// @param _stargateData Data specific to Stargate Bridge
-    function startBridgeTokensViaStargate(ILiFi.BridgeData memory _bridgeData, StargateData calldata _stargateData)
+    function startBridgeTokensViaStargate(IRubic.BridgeData memory _bridgeData, StargateData calldata _stargateData)
         external
         payable
         nonReentrant
@@ -123,7 +123,7 @@ contract StargateFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _swapData An array of swap related data for performing swaps before bridging
     /// @param _stargateData Data specific to Stargate Bridge
     function swapAndStartBridgeTokensViaStargate(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData,
         StargateData calldata _stargateData
     )
@@ -167,7 +167,7 @@ contract StargateFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Stargate Bridge
     /// @param _bridgeData Data used purely for tracking and analytics
     /// @param _stargateData Data specific to Stargate Bridge
-    function _startBridge(ILiFi.BridgeData memory _bridgeData, StargateData calldata _stargateData)
+    function _startBridge(IRubic.BridgeData memory _bridgeData, StargateData calldata _stargateData)
         private
         noNativeAsset(_bridgeData)
     {
@@ -185,10 +185,10 @@ contract StargateFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             _stargateData.callData
         );
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 
-    function validateDestinationCallFlag(ILiFi.BridgeData memory _bridgeData, StargateData calldata _stargateData)
+    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, StargateData calldata _stargateData)
         private
         pure
     {

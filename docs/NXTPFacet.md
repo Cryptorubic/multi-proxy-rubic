@@ -6,7 +6,7 @@ The NXTP Facet works by forwarding NXTP (Connext) specific calls to NXTP's Trans
 
 ```mermaid
 graph LR;
-    D{LiFiDiamond}-- DELEGATECALL -->NXTPFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->NXTPFacet;
     NXTPFacet -- CALL --> N(NXTP Transaction Manager)
 ```
 
@@ -14,7 +14,7 @@ The NXTP protocol also allows for calling contracts on the receiving chain once 
 
 ```mermaid
 graph LR;
-    G(Gelato) -- CALL --> D{LiFiDiamond}
+    G(Gelato) -- CALL --> D{RubicMultiProxy}
     D -- DELEGATECALL --> NXTPFacet;
 ```
 
@@ -69,11 +69,11 @@ Swapping is performed by a swap specific library that expects an array of callda
 
 The swap library can be found [here](../src/Libraries/LibSwap.sol).
 
-## LiFi Data
+## Rubic Data
 
 Some methods accept a `BridgeData _bridgeData` parameter.
 
-This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/ILiFi.sol).
+This parameter is strictly for analytics purposes. It's used to emit events that we can later track and index in our subgraphs and provide data on how our contracts are being used. `BridgeData` and the events we can emit can be found [here](../src/Interfaces/IRubic.sol).
 
 ## Getting Sample Calls to interact with the Facet
 

@@ -5,8 +5,8 @@ import { IHopBridge } from "lifi/Interfaces/IHopBridge.sol";
 import { Test } from "forge-std/Test.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { HopFacet } from "lifi/Facets/HopFacet.sol";
-import { ILiFi } from "lifi/Interfaces/ILiFi.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { IRubic } from "lifi/Interfaces/IRubic.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { console } from "../utils/Console.sol";
 
 contract HopGasTest is Test, DiamondTest {
@@ -16,7 +16,7 @@ contract HopGasTest is Test, DiamondTest {
 
     IHopBridge internal hop;
     ERC20 internal usdc;
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     HopFacet internal hopFacet;
 
     function fork() internal {
@@ -64,10 +64,10 @@ contract HopGasTest is Test, DiamondTest {
         uint256 amountOutMin = 99 * 10**usdc.decimals();
         uint256 deadline = block.timestamp + 20 minutes;
 
-        ILiFi.BridgeData memory bridgeData = ILiFi.BridgeData(
+        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
             "",
             "hop",
-            "",
+            address(0),
             address(0),
             USDC_ADDRESS,
             WHALE,

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import { Test, TestBase, LiFiDiamond, DSTest, ILiFi, LibSwap, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "../utils/TestBase.sol";
+import { Test, TestBase, RubicMultiProxy, DSTest, IRubic, LibSwap, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "../utils/TestBase.sol";
 import { OnlyContractOwner } from "src/Errors/GenericErrors.sol";
 
 import { Receiver } from "lifi/Periphery/Receiver.sol";
@@ -161,7 +161,7 @@ contract ReceiverTest is TestBase {
             block.timestamp
         );
         vm.expectEmit(true, true, true, true, address(executor));
-        emit LiFiTransferCompleted(transferId, ADDRESS_DAI, USER_RECEIVER, defaultUSDCAmount, block.timestamp);
+        emit RubicTransferCompleted(transferId, ADDRESS_DAI, USER_RECEIVER, defaultUSDCAmount, block.timestamp);
 
         // call xReceive function to complete transaction
         receiver.xReceive(transferId, swapData[0].fromAmount, ADDRESS_DAI, USER_SENDER, fakeDomain, payload);
@@ -220,7 +220,7 @@ contract ReceiverTest is TestBase {
         // emit Transfer(address(receiver), USER_RECEIVER, swapData[0].fromAmount);
 
         vm.expectEmit(true, true, true, true, address(receiver));
-        emit LiFiTransferRecovered(transferId, ADDRESS_DAI, USER_RECEIVER, swapData[0].fromAmount, block.timestamp);
+        emit RubicTransferRecovered(transferId, ADDRESS_DAI, USER_RECEIVER, swapData[0].fromAmount, block.timestamp);
 
         // call xReceive function to complete transaction
         receiver.xReceive(transferId, swapData[0].fromAmount, ADDRESS_DAI, USER_SENDER, fakeDomain, payload);
@@ -300,7 +300,7 @@ contract ReceiverTest is TestBase {
             block.timestamp
         );
         vm.expectEmit(true, true, true, true, address(executor));
-        emit LiFiTransferCompleted(
+        emit RubicTransferCompleted(
             0x7478496400000000000000000000000000000000000000000000000000000000,
             ADDRESS_DAI,
             USER_RECEIVER,
@@ -322,7 +322,7 @@ contract ReceiverTest is TestBase {
 
         vm.startPrank(stargateRouter);
         vm.expectEmit(true, true, true, true, address(receiver));
-        emit LiFiTransferRecovered(keccak256("123"), ADDRESS_USDC, address(1), defaultUSDCAmount, block.timestamp);
+        emit RubicTransferRecovered(keccak256("123"), ADDRESS_USDC, address(1), defaultUSDCAmount, block.timestamp);
 
         receiver.sgReceive{ gas: 100000 }(0, "", 0, ADDRESS_USDC, defaultUSDCAmount, payload);
     }

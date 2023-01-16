@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-interface ILiFi {
+interface IRubic {
     /// Structs ///
 
     struct BridgeData {
         bytes32 transactionId;
         string bridge;
-        string integrator;
+        address integrator;
         address referrer;
         address sendingAssetId;
         address receiver;
@@ -19,9 +19,9 @@ interface ILiFi {
 
     /// Events ///
 
-    event LiFiTransferStarted(ILiFi.BridgeData bridgeData);
+    event RubicTransferStarted(IRubic.BridgeData bridgeData);
 
-    event LiFiTransferCompleted(
+    event RubicTransferCompleted(
         bytes32 indexed transactionId,
         address receivingAssetId,
         address receiver,
@@ -29,7 +29,7 @@ interface ILiFi {
         uint256 timestamp
     );
 
-    event LiFiTransferRecovered(
+    event RubicTransferRecovered(
         bytes32 indexed transactionId,
         address receivingAssetId,
         address receiver,

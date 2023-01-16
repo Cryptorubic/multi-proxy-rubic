@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { ILiFi } from "../Interfaces/ILiFi.sol";
+import { IRubic } from "../Interfaces/IRubic.sol";
 import { IRootChainManager } from "../Interfaces/IRootChainManager.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -12,7 +12,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Polygon Bridge Facet
 /// @author Li.Finance (https://li.finance)
 /// @notice Provides functionality for bridging through Polygon Bridge
-contract PolygonBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
+contract PolygonBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
     /// @notice The chain id of Polygon.
@@ -38,7 +38,7 @@ contract PolygonBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @notice Bridges tokens via Polygon Bridge
     /// @param _bridgeData Data containing core information for bridging
-    function startBridgeTokensViaPolygonBridge(ILiFi.BridgeData memory _bridgeData)
+    function startBridgeTokensViaPolygonBridge(IRubic.BridgeData memory _bridgeData)
         external
         payable
         nonReentrant
@@ -55,7 +55,7 @@ contract PolygonBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _bridgeData Data containing core information for bridging
     /// @param _swapData An array of swap related data for performing swaps before bridging
     function swapAndStartBridgeTokensViaPolygonBridge(
-        ILiFi.BridgeData memory _bridgeData,
+        IRubic.BridgeData memory _bridgeData,
         LibSwap.SwapData[] calldata _swapData
     )
         external
@@ -79,7 +79,7 @@ contract PolygonBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev Contains the business logic for the bridge via Polygon Bridge
     /// @param _bridgeData Data containing core information for bridging
-    function _startBridge(ILiFi.BridgeData memory _bridgeData) private {
+    function _startBridge(IRubic.BridgeData memory _bridgeData) private {
         address childToken;
 
         if (LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {
@@ -93,6 +93,6 @@ contract PolygonBridgeFacet is ILiFi, ReentrancyGuard, SwapperV2, Validatable {
             rootChainManager.depositFor(_bridgeData.receiver, _bridgeData.sendingAssetId, depositData);
         }
 
-        emit LiFiTransferStarted(_bridgeData);
+        emit RubicTransferStarted(_bridgeData);
     }
 }

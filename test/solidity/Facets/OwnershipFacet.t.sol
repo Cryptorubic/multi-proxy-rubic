@@ -3,13 +3,13 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, LiFiDiamond } from "../utils/DiamondTest.sol";
+import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { OwnershipFacet } from "lifi/Facets/OwnershipFacet.sol";
 
 contract OwnershipFacetTest is DSTest, DiamondTest {
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
-    LiFiDiamond internal diamond;
+    RubicMultiProxy internal diamond;
     OwnershipFacet internal ownershipFacet;
 
     function setUp() public {
