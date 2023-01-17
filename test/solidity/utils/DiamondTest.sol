@@ -17,6 +17,8 @@ contract DiamondTest {
         DiamondCutFacet diamondCut = new DiamondCutFacet();
         DiamondLoupeFacet diamondLoupe = new DiamondLoupeFacet();
         OwnershipFacet ownership = new OwnershipFacet();
+        AccessManagerFacet access = new AccessManagerFacet();
+        FeesFacet fees = new FeesFacet();
         RubicMultiProxy diamond = new RubicMultiProxy(address(this), address(diamondCut));
 
         bytes4[] memory functionSelectors;
@@ -53,7 +55,52 @@ contract DiamondTest {
             })
         );
 
+        // Fees Facet
+
+        functionSelectors = new bytes4[](4);
+        functionSelectors[0] = FeesFacet.setFixedNativeFee.selector;
+        functionSelectors[1] = FeesFacet.setRubicPlatformFee.selector;
+        functionSelectors[2] = FeesFacet.setIntegratorInfo.selector;
+        //functionSelectors[3] = FeesFacet.fixedNativeFee.selector;
+
+        cut.push(
+            IDiamondCut.FacetCut({
+                facetAddress: address(fees),
+                action: IDiamondCut.FacetCutAction.Add,
+                functionSelectors: functionSelectors
+            })
+        );
+
+        // Access Facet
+
+        functionSelectors = new bytes4[](1);
+        functionSelectors[0] = AccessManagerFacet.setCanExecute.selector;
+
+        cut.push(
+            IDiamondCut.FacetCut({
+                facetAddress: address(access),
+                action: IDiamondCut.FacetCutAction.Add,
+                functionSelectors: functionSelectors
+            })
+        );
+
         DiamondCutFacet(address(diamond)).diamondCut(cut, address(0), "");
+
+        IAccessManagerFacet(address(diamond)).setCanExecute(
+            FeesFacet.setFixedNativeFee.selector,
+            address(this),
+            true
+        );
+        IAccessManagerFacet(address(diamond)).setCanExecute(
+            FeesFacet.setRubicPlatformFee.selector,
+            address(this),
+            true
+        );
+        IAccessManagerFacet(address(diamond)).setCanExecute(
+            FeesFacet.setIntegratorInfo.selector,
+            address(this),
+            true
+        );
 
         delete cut;
 
