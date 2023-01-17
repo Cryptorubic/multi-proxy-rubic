@@ -114,6 +114,28 @@ abstract contract TestBaseFacet is TestBase {
         vm.stopPrank();
     }
 
+    function testBase_CanBridgeNativeTokensWithFees()
+        public
+        virtual
+        setFixedNativeFee
+        assertBalanceChange(address(0), USER_SENDER, -int256((1 ether + addToMessageValue)))
+        assertBalanceChange(address(0), USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
+        assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
+    {
+        vm.startPrank(USER_SENDER);
+        // customize bridgeData
+        bridgeData.sendingAssetId = address(0);
+        bridgeData.minAmount = 1 ether;
+
+        //prepare check for events
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        emit RubicTransferStarted(bridgeData);
+
+        initiateBridgeTxWithFacet(true);
+        vm.stopPrank();
+    }
+
     function testBase_CanSwapAndBridgeTokens()
         public
         virtual

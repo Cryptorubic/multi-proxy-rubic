@@ -4,6 +4,7 @@ pragma solidity >=0.8.0;
 import { Test, DSTest } from "forge-std/Test.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { IRubic } from "rubic/Interfaces/IRubic.sol";
+import { IFeesFacet } from "rubic/Interfaces/IFeesFacet.sol";
 import { LibSwap } from "rubic/Libraries/LibSwap.sol";
 import { UniswapV2Router02 } from "../utils/Interfaces.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
@@ -115,7 +116,17 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     address internal constant USER_DAI_WHALE = 0x4aa42145Aa6Ebf72e164C9bBC74fbD3788045016;
     address internal constant USER_WETH_WHALE = 0xF04a5cC80B1E94C69B48f5ee68a08CD2F09A7c3E;
 
+    // Fees
+    uint256 constant FIXED_NATIVE_FEE = 2 ether / 100;
+
     // MODIFIERS
+
+    modifier setFixedNativeFee() {
+        IFeesFacet(address(diamond)).setFixedNativeFee(FIXED_NATIVE_FEE);
+
+        addToMessageValue += FIXED_NATIVE_FEE;
+        _;
+    }
 
     //@dev token == address(0) => check balance of native token
     modifier assertBalanceChange(
