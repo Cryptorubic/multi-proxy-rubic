@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console, ERC20, RubicMultiProxy } from "../utils/TestBaseFacet.sol";
 import { OnlyContractOwner, NotInitialized, AlreadyInitialized } from "src/Errors/GenericErrors.sol";
-import { MultichainFacet, IMultichainToken } from "lifi/Facets/MultichainFacet.sol";
+import { MultichainFacet, IMultichainToken } from "rubic/Facets/MultichainFacet.sol";
 
 // Stub MultichainFacet Contract
 contract TestMultichainFacet is MultichainFacet {

@@ -5,9 +5,9 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { AccessManagerFacet } from "lifi/Facets/AccessManagerFacet.sol";
-import { LibAccess } from "lifi/Libraries/LibAccess.sol";
-import { UnAuthorized } from "lifi/Errors/GenericErrors.sol";
+import { AccessManagerFacet } from "rubic/Facets/AccessManagerFacet.sol";
+import { LibAccess } from "rubic/Libraries/LibAccess.sol";
+import { UnAuthorized } from "rubic/Errors/GenericErrors.sol";
 
 contract RestrictedContract {
     function restrictedMethod() external view returns (bool) {

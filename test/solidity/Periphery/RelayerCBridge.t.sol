@@ -2,13 +2,13 @@
 pragma solidity 0.8.17;
 
 import { LibSwap, LibAllowList, TestBase, console } from "../utils/TestBase.sol";
-import { InvalidAmount, UnAuthorized, ExternalCallFailed } from "lifi/Errors/GenericErrors.sol";
-import { CBridgeFacet, IMessageBus, MsgDataTypes } from "lifi/Facets/CBridgeFacet.sol";
+import { InvalidAmount, UnAuthorized, ExternalCallFailed } from "rubic/Errors/GenericErrors.sol";
+import { CBridgeFacet, IMessageBus, MsgDataTypes } from "rubic/Facets/CBridgeFacet.sol";
 import { IMessageReceiverApp } from "celer-network/contracts/message/interfaces/IMessageReceiverApp.sol";
 import { IBridge as ICBridge } from "celer-network/contracts/interfaces/IBridge.sol";
-import { RelayerCBridge } from "lifi/Periphery/RelayerCBridge.sol";
-import { ERC20Proxy } from "lifi/Periphery/ERC20Proxy.sol";
-import { Executor } from "lifi/Periphery/Executor.sol";
+import { RelayerCBridge } from "rubic/Periphery/RelayerCBridge.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
+import { Executor } from "rubic/Periphery/Executor.sol";
 
 interface Ownable {
     function owner() external returns (address);

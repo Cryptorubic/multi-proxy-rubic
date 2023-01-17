@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { WormholeFacet } from "lifi/Facets/WormholeFacet.sol";
+import { WormholeFacet } from "rubic/Facets/WormholeFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;

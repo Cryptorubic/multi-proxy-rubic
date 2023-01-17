@@ -2,8 +2,8 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
-import { NXTPFacet } from "lifi/Facets/NXTPFacet.sol";
-import { ITransactionManager } from "lifi/Interfaces/ITransactionManager.sol";
+import { NXTPFacet } from "rubic/Facets/NXTPFacet.sol";
+import { ITransactionManager } from "rubic/Interfaces/ITransactionManager.sol";
 
 // Stub NXTPFacet Contract
 contract TestNXTPFacet is NXTPFacet {

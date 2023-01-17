@@ -2,8 +2,8 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
-import { ArbitrumBridgeFacet } from "lifi/Facets/ArbitrumBridgeFacet.sol";
-import { IGatewayRouter } from "lifi/Interfaces/IGatewayRouter.sol";
+import { ArbitrumBridgeFacet } from "rubic/Facets/ArbitrumBridgeFacet.sol";
+import { IGatewayRouter } from "rubic/Interfaces/IGatewayRouter.sol";
 
 // Stub ArbitrumBridgeFacet Contract
 contract TestArbitrumBridgeFacet is ArbitrumBridgeFacet {

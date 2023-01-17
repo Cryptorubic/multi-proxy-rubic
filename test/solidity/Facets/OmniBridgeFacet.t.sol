@@ -2,8 +2,8 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
-import { OmniBridgeFacet } from "lifi/Facets/OmniBridgeFacet.sol";
-import { IOmniBridge } from "lifi/Interfaces/IOmniBridge.sol";
+import { OmniBridgeFacet } from "rubic/Facets/OmniBridgeFacet.sol";
+import { IOmniBridge } from "rubic/Interfaces/IOmniBridge.sol";
 
 // Stub OmniBridgeFacet Contract
 contract TestOmniBridgeFacet is OmniBridgeFacet {

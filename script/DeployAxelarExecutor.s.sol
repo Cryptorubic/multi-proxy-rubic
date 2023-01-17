@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { AxelarExecutor } from "lifi/Periphery/AxelarExecutor.sol";
+import { AxelarExecutor } from "rubic/Periphery/AxelarExecutor.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;

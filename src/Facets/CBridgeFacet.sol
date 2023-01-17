@@ -10,7 +10,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 import { IBridge as ICBridge } from "celer-network/contracts/interfaces/IBridge.sol";
 import { MessageSenderLib, MsgDataTypes, IMessageBus } from "celer-network/contracts/message/libraries/MessageSenderLib.sol";
 import { IMessageReceiverApp } from "celer-network/contracts/message/interfaces/IMessageReceiverApp.sol";
-import { RelayerCBridge } from "lifi/Periphery/RelayerCBridge.sol";
+import { RelayerCBridge } from "rubic/Periphery/RelayerCBridge.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 

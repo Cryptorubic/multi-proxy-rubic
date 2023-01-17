@@ -2,20 +2,13 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
-import { DeBridgeFacet } from "lifi/Facets/DeBridgeFacet.sol";
-import { IDeBridgeGate } from "lifi/Interfaces/IDeBridgeGate.sol";
+import { TestFacet } from "../utils/TestBase.sol";
+import { DeBridgeFacet } from "rubic/Facets/DeBridgeFacet.sol";
+import { IDeBridgeGate } from "rubic/Interfaces/IDeBridgeGate.sol";
 
 // Stub DeBridgeFacet Contract
-contract TestDeBridgeFacet is DeBridgeFacet {
+contract TestDeBridgeFacet is DeBridgeFacet, TestFacet {
     constructor(IDeBridgeGate _deBridgeGate) DeBridgeFacet(_deBridgeGate) {}
-
-    function addDex(address _dex) external {
-        LibAllowList.addAllowedContract(_dex);
-    }
-
-    function setFunctionApprovalBySignature(bytes4 _signature) external {
-        LibAllowList.addAllowedSelector(_signature);
-    }
 }
 
 contract DeBridgeFacetTest is TestBaseFacet {

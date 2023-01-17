@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { DiamondLoupeFacet } from "lifi/Facets/DiamondLoupeFacet.sol";
+import { DiamondLoupeFacet } from "rubic/Facets/DiamondLoupeFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("DiamondLoupeFacet") {}

@@ -6,7 +6,7 @@ import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
-import { WithdrawFacet } from "lifi/Facets/WithdrawFacet.sol";
+import { WithdrawFacet } from "rubic/Facets/WithdrawFacet.sol";
 
 // Test CBridge refund by forking polygon at 25085298
 // Actual refund was processed at 25085299(Feb-18-2022 03:24:09 PM +UTC)

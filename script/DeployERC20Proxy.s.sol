@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { ERC20Proxy } from "lifi/Periphery/ERC20Proxy.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("ERC20Proxy") {}

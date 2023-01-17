@@ -12,6 +12,6 @@ hardhat/=node_modules/hardhat/
 sgn-v2-contracts/=lib/sgn-v2-contracts/contracts/
 solmate/=lib/solmate/src/
 
-lifi/=src/
+rubic/=src/
 celer-network/=lib/sgn-v2-contracts
 test/=test/

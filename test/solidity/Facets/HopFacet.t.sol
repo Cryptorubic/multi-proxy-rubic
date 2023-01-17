@@ -2,7 +2,7 @@
 pragma solidity 0.8.17;
 
 import { IRubic, LibSwap, LibAllowList, TestBaseFacet, console, ERC20 } from "../utils/TestBaseFacet.sol";
-import { HopFacet } from "lifi/Facets/HopFacet.sol";
+import { HopFacet } from "rubic/Facets/HopFacet.sol";
 import { OnlyContractOwner, InvalidConfig, NotInitialized, AlreadyInitialized, InvalidAmount } from "src/Errors/GenericErrors.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 

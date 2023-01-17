@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { PeripheryRegistryFacet } from "lifi/Facets/PeripheryRegistryFacet.sol";
+import { PeripheryRegistryFacet } from "rubic/Facets/PeripheryRegistryFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("PeripheryRegistryFacet") {}

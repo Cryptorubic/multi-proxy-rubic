@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { DexManagerFacet } from "lifi/Facets/DexManagerFacet.sol";
+import { DexManagerFacet } from "rubic/Facets/DexManagerFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("DexManagerFacet") {}

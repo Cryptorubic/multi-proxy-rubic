@@ -3,25 +3,19 @@ pragma solidity 0.8.17;
 
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
+import { IAccessManagerFacet } from "../Interfaces/IAccessManagerFacet.sol";
 import { CannotAuthoriseSelf } from "../Errors/GenericErrors.sol";
 
 /// @title Access Manager Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for managing method level access control
-contract AccessManagerFacet {
-    /// Events ///
-    event ExecutionAllowed(address indexed account, bytes4 indexed method);
-    event ExecutionDenied(address indexed account, bytes4 indexed method);
-
-    /// @notice Sets whether a specific address can call a method
-    /// @param _selector The method selector to set access for
-    /// @param _executor The address to set method access for
-    /// @param _canExecute Whether or not the address can execute the specified method
+contract AccessManagerFacet is IAccessManagerFacet {
+    /// @inheritdoc IAccessManagerFacet
     function setCanExecute(
         bytes4 _selector,
         address _executor,
         bool _canExecute
-    ) external {
+    ) external override {
         if (_executor == address(this)) {
             revert CannotAuthoriseSelf();
         }
@@ -34,10 +28,8 @@ contract AccessManagerFacet {
         }
     }
 
-    /// @notice Check if a method can be executed by a specific address
-    /// @param _selector The method selector to check
-    /// @param _executor The address to check
-    function addressCanExecuteMethod(bytes4 _selector, address _executor) external view returns (bool) {
+    /// @inheritdoc IAccessManagerFacet
+    function addressCanExecuteMethod(bytes4 _selector, address _executor) external override view returns (bool) {
         return LibAccess.accessStorage().execAccess[_selector][_executor];
     }
 }

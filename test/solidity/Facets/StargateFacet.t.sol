@@ -3,9 +3,9 @@
 //
 //import { LibAllowList, TestBaseFacet, console, RubicMultiProxy } from "../utils/TestBaseFacet.sol";
 //import { OnlyContractOwner, InvalidConfig, AlreadyInitialized } from "src/Errors/GenericErrors.sol";
-//import { StargateFacet } from "lifi/Facets/StargateFacet.sol";
-//import { IStargateRouter } from "lifi/Interfaces/IStargateRouter.sol";
-//import { FeeCollector } from "lifi/Periphery/FeeCollector.sol";
+//import { StargateFacet } from "rubic/Facets/StargateFacet.sol";
+//import { IStargateRouter } from "rubic/Interfaces/IStargateRouter.sol";
+//import { FeeCollector } from "rubic/Periphery/FeeCollector.sol";
 //
 //// Stub CBridgeFacet Contract
 //contract TestStargateFacet is StargateFacet {

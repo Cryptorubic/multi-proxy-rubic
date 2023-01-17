@@ -4,14 +4,14 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { CBridgeFacet, MsgDataTypes } from "lifi/Facets/CBridgeFacet.sol";
+import { CBridgeFacet, MsgDataTypes } from "rubic/Facets/CBridgeFacet.sol";
 import { IBridge as ICBridge } from "celer-network/contracts/interfaces/IBridge.sol";
-import { IRubic } from "lifi/Interfaces/IRubic.sol";
+import { IRubic } from "rubic/Interfaces/IRubic.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { IMessageBus } from "celer-network/contracts/message/interfaces/IMessageBus.sol";
-import { RelayerCBridge } from "lifi/Periphery/RelayerCBridge.sol";
-import { ERC20Proxy } from "lifi/Periphery/ERC20Proxy.sol";
-import { Executor } from "lifi/Periphery/Executor.sol";
+import { RelayerCBridge } from "rubic/Periphery/RelayerCBridge.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
+import { Executor } from "rubic/Periphery/Executor.sol";
 
 contract CBridgeGasTest is DSTest, DiamondTest {
     address internal constant CBRIDGE_ROUTER = 0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820;

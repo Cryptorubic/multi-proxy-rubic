@@ -2,8 +2,8 @@
 pragma solidity 0.8.17;
 
 import { IRubic, LibSwap, LibAllowList, TestBaseFacet, console, ERC20 } from "../utils/TestBaseFacet.sol";
-import { AmarokFacet } from "lifi/Facets/AmarokFacet.sol";
-import { IConnextHandler } from "lifi/Interfaces/IConnextHandler.sol";
+import { AmarokFacet } from "rubic/Facets/AmarokFacet.sol";
+import { IConnextHandler } from "rubic/Interfaces/IConnextHandler.sol";
 import { OnlyContractOwner, InvalidConfig, NotInitialized, AlreadyInitialized, InvalidAmount } from "src/Errors/GenericErrors.sol";
 
 // Stub AmarokFacet Contract

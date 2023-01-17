@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { GenericSwapFacet } from "lifi/Facets/GenericSwapFacet.sol";
+import { GenericSwapFacet } from "rubic/Facets/GenericSwapFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("GenericSwapFacet") {}

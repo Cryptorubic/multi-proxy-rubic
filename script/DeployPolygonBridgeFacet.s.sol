@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { PolygonBridgeFacet } from "lifi/Facets/PolygonBridgeFacet.sol";
+import { PolygonBridgeFacet } from "rubic/Facets/PolygonBridgeFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;

@@ -5,7 +5,7 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { DexManagerFacet } from "lifi/Facets/DexManagerFacet.sol";
+import { DexManagerFacet } from "rubic/Facets/DexManagerFacet.sol";
 
 contract Foo {}
 

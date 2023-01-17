@@ -3,8 +3,8 @@ pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
 import { OnlyContractOwner } from "src/Errors/GenericErrors.sol";
-import { WormholeFacet } from "lifi/Facets/WormholeFacet.sol";
-import { IWormholeRouter } from "lifi/Interfaces/IWormholeRouter.sol";
+import { WormholeFacet } from "rubic/Facets/WormholeFacet.sol";
+import { IWormholeRouter } from "rubic/Interfaces/IWormholeRouter.sol";
 
 // Stub WormholeFacet Contract
 contract TestWormholeFacet is WormholeFacet {

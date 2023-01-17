@@ -1,11 +1,14 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import "lifi/RubicMultiProxy.sol";
-import "lifi/Facets/DiamondCutFacet.sol";
-import "lifi/Facets/DiamondLoupeFacet.sol";
-import "lifi/Facets/OwnershipFacet.sol";
-import "lifi/Interfaces/IDiamondCut.sol";
+import "rubic/RubicMultiProxy.sol";
+import "rubic/Facets/DiamondCutFacet.sol";
+import "rubic/Facets/DiamondLoupeFacet.sol";
+import "rubic/Facets/OwnershipFacet.sol";
+import "rubic/Facets/FeesFacet.sol";
+import "rubic/Facets/AccessManagerFacet.sol";
+import "rubic/Interfaces/IAccessManagerFacet.sol";
+import "rubic/Interfaces/IDiamondCut.sol";
 
 contract DiamondTest {
     IDiamondCut.FacetCut[] internal cut;

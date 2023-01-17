@@ -3,8 +3,8 @@ pragma solidity 0.8.17;
 
 import { LibSwap, LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
 import { InsufficientBalance } from "src/Errors/GenericErrors.sol";
-import { GnosisBridgeFacet } from "lifi/Facets/GnosisBridgeFacet.sol";
-import { IXDaiBridge } from "lifi/Interfaces/IXDaiBridge.sol";
+import { GnosisBridgeFacet } from "rubic/Facets/GnosisBridgeFacet.sol";
+import { IXDaiBridge } from "rubic/Interfaces/IXDaiBridge.sol";
 
 // import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { MultichainFacet } from "lifi/Facets/MultichainFacet.sol";
+import { MultichainFacet } from "rubic/Facets/MultichainFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("MultichainFacet") {}

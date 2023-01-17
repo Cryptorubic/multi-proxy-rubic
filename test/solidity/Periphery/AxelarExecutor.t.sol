@@ -4,8 +4,8 @@ pragma solidity 0.8.17;
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { AxelarExecutor } from "lifi/Periphery/AxelarExecutor.sol";
-import { ERC20Proxy } from "lifi/Periphery/ERC20Proxy.sol";
+import { AxelarExecutor } from "rubic/Periphery/AxelarExecutor.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
 import { TestToken as ERC20 } from "../utils/TestToken.sol";
 
 // Stub Vault Contract

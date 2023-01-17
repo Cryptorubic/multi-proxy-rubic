@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { CBridgeFacet } from "lifi/Facets/CBridgeFacet.sol";
+import { CBridgeFacet } from "rubic/Facets/CBridgeFacet.sol";
 import { console } from "test/solidity/utils/Console.sol"; // TODO: REMOVE
 
 contract DeployScript is DeployScriptBase {

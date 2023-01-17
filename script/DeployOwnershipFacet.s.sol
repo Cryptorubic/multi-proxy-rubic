@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { OwnershipFacet } from "lifi/Facets/OwnershipFacet.sol";
+import { OwnershipFacet } from "rubic/Facets/OwnershipFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("OwnershipFacet") {}

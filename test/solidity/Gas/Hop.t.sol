@@ -1,11 +1,11 @@
 pragma solidity 0.8.17;
 
 import "ds-test/test.sol";
-import { IHopBridge } from "lifi/Interfaces/IHopBridge.sol";
+import { IHopBridge } from "rubic/Interfaces/IHopBridge.sol";
 import { Test } from "forge-std/Test.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
-import { HopFacet } from "lifi/Facets/HopFacet.sol";
-import { IRubic } from "lifi/Interfaces/IRubic.sol";
+import { HopFacet } from "rubic/Facets/HopFacet.sol";
+import { IRubic } from "rubic/Interfaces/IRubic.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { console } from "../utils/Console.sol";
 

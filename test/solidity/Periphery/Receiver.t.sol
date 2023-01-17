@@ -4,10 +4,10 @@ pragma solidity 0.8.17;
 import { Test, TestBase, RubicMultiProxy, DSTest, IRubic, LibSwap, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "../utils/TestBase.sol";
 import { OnlyContractOwner } from "src/Errors/GenericErrors.sol";
 
-import { Receiver } from "lifi/Periphery/Receiver.sol";
+import { Receiver } from "rubic/Periphery/Receiver.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { ERC20Proxy } from "lifi/Periphery/ERC20Proxy.sol";
-import { Executor } from "lifi/Periphery/Executor.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
+import { Executor } from "rubic/Periphery/Executor.sol";
 
 contract ReceiverTest is TestBase {
     using stdJson for string;

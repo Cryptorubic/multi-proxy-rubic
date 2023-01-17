@@ -2,8 +2,8 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
-import { PolygonBridgeFacet } from "lifi/Facets/PolygonBridgeFacet.sol";
-import { IRootChainManager } from "lifi/Interfaces/IRootChainManager.sol";
+import { PolygonBridgeFacet } from "rubic/Facets/PolygonBridgeFacet.sol";
+import { IRootChainManager } from "rubic/Interfaces/IRootChainManager.sol";
 
 // Stub PolygonBridgeFacet Contract
 contract TestPolygonBridgeFacet is PolygonBridgeFacet {

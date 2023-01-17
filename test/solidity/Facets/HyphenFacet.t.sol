@@ -2,8 +2,8 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
-import { HyphenFacet } from "lifi/Facets/HyphenFacet.sol";
-import { IHyphenRouter } from "lifi/Interfaces/IHyphenRouter.sol";
+import { HyphenFacet } from "rubic/Facets/HyphenFacet.sol";
+import { IHyphenRouter } from "rubic/Interfaces/IHyphenRouter.sol";
 
 // Stub HyphenFacet Contract
 contract TestHyphenFacet is HyphenFacet {

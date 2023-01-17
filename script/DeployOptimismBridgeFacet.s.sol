@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { OptimismBridgeFacet } from "lifi/Facets/OptimismBridgeFacet.sol";
+import { OptimismBridgeFacet } from "rubic/Facets/OptimismBridgeFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("OptimismBridgeFacet") {}

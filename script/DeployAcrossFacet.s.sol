@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { AcrossFacet } from "lifi/Facets/AcrossFacet.sol";
+import { AcrossFacet } from "rubic/Facets/AcrossFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;

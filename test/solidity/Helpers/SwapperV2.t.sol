@@ -5,12 +5,12 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { SwapperV2, LibSwap } from "lifi/Helpers/SwapperV2.sol";
-import { IRubic } from "lifi/Interfaces/IRubic.sol";
-import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
+import { SwapperV2, LibSwap } from "rubic/Helpers/SwapperV2.sol";
+import { IRubic } from "rubic/Interfaces/IRubic.sol";
+import { LibAllowList } from "rubic/Libraries/LibAllowList.sol";
 import { TestAMM } from "../utils/TestAMM.sol";
 import { TestToken as ERC20 } from "../utils/TestToken.sol";
-import { LibAsset } from "lifi/Libraries/LibAsset.sol";
+import { LibAsset } from "rubic/Libraries/LibAsset.sol";
 
 // Stub SwapperV2 Contract
 contract TestSwapperV2 is SwapperV2 {

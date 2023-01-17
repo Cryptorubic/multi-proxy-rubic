@@ -4,14 +4,14 @@ pragma solidity 0.8.17;
 import { DSTest } from "ds-test/test.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { OptimismBridgeFacet } from "lifi/Facets/OptimismBridgeFacet.sol";
-import { IRubic } from "lifi/Interfaces/IRubic.sol";
-import { LibSwap } from "lifi/Libraries/LibSwap.sol";
-import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
+import { OptimismBridgeFacet } from "rubic/Facets/OptimismBridgeFacet.sol";
+import { IRubic } from "rubic/Interfaces/IRubic.sol";
+import { LibSwap } from "rubic/Libraries/LibSwap.sol";
+import { LibAllowList } from "rubic/Libraries/LibAllowList.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { UniswapV2Router02 } from "../utils/Interfaces.sol";
-import { IL1StandardBridge } from "lifi/Interfaces/IL1StandardBridge.sol";
-import "lifi/Errors/GenericErrors.sol";
+import { IL1StandardBridge } from "rubic/Interfaces/IL1StandardBridge.sol";
+import "rubic/Errors/GenericErrors.sol";
 
 // Stub OptimismBridgeFacet Contract
 contract TestOptimismBridgeFacet is OptimismBridgeFacet {

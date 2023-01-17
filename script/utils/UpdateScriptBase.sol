@@ -4,8 +4,8 @@ pragma solidity ^0.8.17;
 import { Script } from "forge-std/Script.sol";
 import { stdJson } from "forge-std/StdJson.sol";
 import "forge-std/console.sol";
-import { DiamondCutFacet, IDiamondCut } from "lifi/Facets/DiamondCutFacet.sol";
-import { DiamondLoupeFacet } from "lifi/Facets/DiamondLoupeFacet.sol";
+import { DiamondCutFacet, IDiamondCut } from "rubic/Facets/DiamondCutFacet.sol";
+import { DiamondLoupeFacet } from "rubic/Facets/DiamondLoupeFacet.sol";
 
 contract UpdateScriptBase is Script {
     using stdJson for string;

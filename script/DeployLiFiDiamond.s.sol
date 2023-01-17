@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { RubicMultiProxy } from "lifi/RubicMultiProxy.sol";
+import { RubicMultiProxy } from "rubic/RubicMultiProxy.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;

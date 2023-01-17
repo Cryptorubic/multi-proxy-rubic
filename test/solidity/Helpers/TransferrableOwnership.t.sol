@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { TransferrableOwnership } from "lifi/Helpers/TransferrableOwnership.sol";
+import { TransferrableOwnership } from "rubic/Helpers/TransferrableOwnership.sol";
 
 contract TransferrableOwnershipTest is DSTest {
     TransferrableOwnership internal ownable;

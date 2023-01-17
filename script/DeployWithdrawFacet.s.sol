@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
-import { WithdrawFacet } from "lifi/Facets/WithdrawFacet.sol";
+import { WithdrawFacet } from "rubic/Facets/WithdrawFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     constructor() DeployScriptBase("WithdrawFacet") {}

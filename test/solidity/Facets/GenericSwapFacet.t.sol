@@ -5,9 +5,9 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { GenericSwapFacet } from "lifi/Facets/GenericSwapFacet.sol";
-import { LibSwap } from "lifi/Libraries/LibSwap.sol";
-import { LibAllowList } from "lifi/Libraries/LibAllowList.sol";
+import { GenericSwapFacet } from "rubic/Facets/GenericSwapFacet.sol";
+import { LibSwap } from "rubic/Libraries/LibSwap.sol";
+import { LibAllowList } from "rubic/Libraries/LibAllowList.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { UniswapV2Router02 } from "../utils/Interfaces.sol";
 

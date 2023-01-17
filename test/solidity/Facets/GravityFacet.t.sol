@@ -3,8 +3,8 @@ pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
 import { NativeAssetNotSupported } from "src/Errors/GenericErrors.sol";
-import { GravityFacet } from "lifi/Facets/GravityFacet.sol";
-import { IGravityRouter } from "lifi/Interfaces/IGravityRouter.sol";
+import { GravityFacet } from "rubic/Facets/GravityFacet.sol";
+import { IGravityRouter } from "rubic/Interfaces/IGravityRouter.sol";
 
 // Stub GravityFacet Contract
 contract TestGravityFacet is GravityFacet {
