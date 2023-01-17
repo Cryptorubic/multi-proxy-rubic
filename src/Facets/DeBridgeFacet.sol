@@ -71,10 +71,10 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     {
         validateDestinationCallFlag(_bridgeData, _deBridgeData);
 
-        _bridgeData.minAmount = LibFees.depositAndAccrueFees(
+        _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
+            _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
             _deBridgeData.nativeFee,
-            _bridgeData.sendingAssetId,
             _bridgeData.integrator
         );
 
@@ -103,6 +103,7 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender),
             _deBridgeData.nativeFee
         );

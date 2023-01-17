@@ -4,6 +4,7 @@ import { InsufficientBalance, NullAddrIsNotAnERC20Token, NullAddrIsNotAValidSpen
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { LibSwap } from "./LibSwap.sol";
+import { LibFees } from "./LibFees.sol";
 
 /// @title LibAsset
 /// @notice This library contains helpers for dealing with onchain transfers
@@ -91,27 +92,83 @@ library LibAsset {
         if (asset.balanceOf(to) - prevBalance != amount) revert InvalidAmount();
     }
 
-    function depositAsset(address assetId, uint256 amount) internal {
+    /// @dev Deposits asset for bridging and accrues fixed and token fees
+    /// @param assetId Address of asset to deposit
+    /// @param amount Amount of asset to bridge
+    /// @param extraNativeAmount Amount of native token to send to a bridge
+    /// @param integrator Integrator for whom to count the fees
+    /// @return amountWithoutFees Amount of tokens to bridge minus fees
+    function depositAssetAndAccrueFees(
+        address assetId,
+        uint256 amount,
+        uint256 extraNativeAmount,
+        address integrator
+    ) internal returns (uint256 amountWithoutFees){
+        uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(integrator);
+        // Check that msg value is at least greater than fixed native fee + extra fee sending to bridge
+        if (msg.value < accruedFixedNativeFee + extraNativeAmount) revert InvalidAmount();
+
+        amountWithoutFees = _depositAndAccrueTokenFee(
+            assetId,
+            amount,
+            accruedFixedNativeFee,
+            extraNativeAmount,
+            integrator
+        );
+    }
+
+    /// @dev Deposits assets for each swap that requires and accrues fixed and token fees
+    /// @param swaps Array of swap datas
+    /// @param integrator Integrator for whom to count the fees
+    /// @return amountWithoutFees Array of swap datas with updated amounts
+    function depositAssetsAndAccrueFees(
+        LibSwap.SwapData[] memory swaps,
+        address integrator
+    ) internal returns (LibSwap.SwapData[] memory){
+        uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(integrator);
+        if (msg.value < accruedFixedNativeFee) revert InvalidAmount();
+        for (uint256 i = 0; i < swaps.length; ) {
+            LibSwap.SwapData memory swap = swaps[i];
+            if (swap.requiresDeposit) {
+                swap.fromAmount = _depositAndAccrueTokenFee(
+                    swap.sendingAssetId,
+                    swap.fromAmount,
+                    accruedFixedNativeFee,
+                    0,
+                    integrator
+                );
+            }
+            swaps[i] = swap;
+            unchecked {
+                i++;
+            }
+        }
+
+        return swaps;
+    }
+
+    function _depositAndAccrueTokenFee(
+        address assetId,
+        uint256 amount,
+        uint256 accruedFixedNativeFee,
+        uint256 extraNativeAmount,
+        address integrator
+    ) private returns (uint256 amountWithoutFees) {
         if (isNativeAsset(assetId)) {
-            if (msg.value < amount) revert InvalidAmount();
+            // Check that msg value greater than sending amount + fixed native fees + extra fees sending to bridge
+            if (msg.value < amount + accruedFixedNativeFee + extraNativeAmount) revert InvalidAmount();
         } else {
             if (amount == 0) revert InvalidAmount();
             uint256 balance = IERC20(assetId).balanceOf(msg.sender);
             if (balance < amount) revert InsufficientBalance(amount, balance);
             transferFromERC20(assetId, msg.sender, address(this), amount);
         }
-    }
 
-    function depositAssets(LibSwap.SwapData[] calldata swaps) internal {
-        for (uint256 i = 0; i < swaps.length; ) {
-            LibSwap.SwapData memory swap = swaps[i];
-            if (swap.requiresDeposit) {
-                depositAsset(swap.sendingAssetId, swap.fromAmount);
-            }
-            unchecked {
-                i++;
-            }
-        }
+        amountWithoutFees = LibFees.accrueTokenFees(
+            integrator,
+            amount,
+            assetId
+        );
     }
 
     /// @notice Determines whether the given assetId is the native asset

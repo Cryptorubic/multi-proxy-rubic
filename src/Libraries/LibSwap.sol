@@ -27,7 +27,7 @@ library LibSwap {
         uint256 timestamp
     );
 
-    function swap(bytes32 transactionId, SwapData calldata _swap) internal {
+    function swap(bytes32 transactionId, SwapData memory _swap) internal {
         if (!LibAsset.isContract(_swap.callTo)) revert InvalidContract();
         uint256 fromAmount = _swap.fromAmount;
         if (fromAmount == 0) revert NoSwapFromZeroBalance();

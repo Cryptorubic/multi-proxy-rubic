@@ -135,7 +135,7 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
             startingBalance = LibAsset.getOwnBalance(_transferredAssetId);
             if (_depositAllowance) {
                 uint256 allowance = IERC20(_transferredAssetId).allowance(msg.sender, address(this));
-                LibAsset.depositAsset(_transferredAssetId, allowance);
+                LibAsset.transferFromERC20(_transferredAssetId, msg.sender, address(this), allowance);
             } else {
                 erc20Proxy.transferFrom(_transferredAssetId, msg.sender, address(this), _amount);
             }

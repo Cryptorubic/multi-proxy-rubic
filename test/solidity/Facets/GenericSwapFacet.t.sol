@@ -97,7 +97,7 @@ contract GenericSwapFacetTest is DSTest, DiamondTest {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric("", "", "", payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric("", address(0), "", payable(USDC_HOLDER), amountOut, swapData);
         vm.stopPrank();
     }
 }

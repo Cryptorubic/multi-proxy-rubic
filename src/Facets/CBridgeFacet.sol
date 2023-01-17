@@ -114,6 +114,7 @@ contract CBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender)
         );
         if (!LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {

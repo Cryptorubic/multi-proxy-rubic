@@ -18,7 +18,7 @@ contract GenericSwapFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     event RubicSwappedGeneric(
         bytes32 indexed transactionId,
-        string integrator,
+        address integrator,
         string referrer,
         address fromAssetId,
         address toAssetId,
@@ -30,14 +30,14 @@ contract GenericSwapFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @notice Performs multiple swaps in one transaction
     /// @param _transactionId the transaction id associated with the operation
-    /// @param _integrator the name of the integrator
+    /// @param _integrator the address of the integrator
     /// @param _referrer the address of the referrer
     /// @param _receiver the address to receive the swapped tokens into (also excess tokens)
     /// @param _minAmount the minimum amount of the final asset to receive
     /// @param _swapData an object containing swap related data to perform swaps before bridging
     function swapTokensGeneric(
         bytes32 _transactionId,
-        string calldata _integrator,
+        address _integrator,
         string calldata _referrer,
         address payable _receiver,
         uint256 _minAmount,
@@ -47,7 +47,7 @@ contract GenericSwapFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             revert InvalidReceiver();
         }
 
-        uint256 postSwapBalance = _depositAndSwap(_transactionId, _minAmount, _swapData, _receiver);
+        uint256 postSwapBalance = _depositAndSwap(_transactionId, _minAmount, _swapData, _integrator, _receiver);
         address receivingAssetId = _swapData[_swapData.length - 1].receivingAssetId;
         LibAsset.transferAsset(receivingAssetId, _receiver, postSwapBalance);
 

@@ -152,7 +152,7 @@ contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
             _swapAndCompleteBridgeTokens(_transactionId, _swapData, assetId, receiver, msg.value, false);
         } else {
             uint256 allowance = IERC20(assetId).allowance(msg.sender, address(this));
-            LibAsset.depositAsset(assetId, allowance);
+            LibAsset.transferFromERC20(assetId, msg.sender, address(this), allowance);
             _swapAndCompleteBridgeTokens(_transactionId, _swapData, assetId, receiver, allowance, false);
         }
     }

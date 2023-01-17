@@ -62,9 +62,19 @@ contract ArbitrumBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable 
         doesNotContainDestinationCalls(_bridgeData)
         validateBridgeData(_bridgeData)
     {
-        uint256 cost = _arbitrumData.maxSubmissionCost + _arbitrumData.maxGas * _arbitrumData.maxGasPrice;
-        LibAsset.depositAsset(_bridgeData.sendingAssetId, _bridgeData.minAmount);
-        _startBridge(_bridgeData, _arbitrumData, cost, msg.value);
+        _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
+            _bridgeData.sendingAssetId,
+            _bridgeData.minAmount,
+            _arbitrumData.maxSubmissionCost + _arbitrumData.maxGas * _arbitrumData.maxGasPrice,
+            _bridgeData.integrator
+        );
+
+        _startBridge(
+            _bridgeData,
+            _arbitrumData,
+            // calculated twice because of "stack too deep"
+            _arbitrumData.maxSubmissionCost + _arbitrumData.maxGas * _arbitrumData.maxGasPrice
+        );
     }
 
     /// @notice Performs a swap before bridging via Arbitrum Bridge
@@ -86,11 +96,11 @@ contract ArbitrumBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable 
     {
         uint256 cost = _arbitrumData.maxSubmissionCost + _arbitrumData.maxGas * _arbitrumData.maxGasPrice;
 
-        uint256 ethBalance = address(this).balance - msg.value;
         _bridgeData.minAmount = _depositAndSwap(
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender),
             cost
         );
@@ -99,7 +109,7 @@ contract ArbitrumBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable 
             _bridgeData.minAmount -= cost;
         }
 
-        _startBridge(_bridgeData, _arbitrumData, cost, address(this).balance - ethBalance);
+        _startBridge(_bridgeData, _arbitrumData, cost);
     }
 
     /// Private Methods ///
@@ -108,19 +118,12 @@ contract ArbitrumBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable 
     /// @param _bridgeData Data containing core information for bridging
     /// @param _arbitrumData Data for gateway router address, asset id and amount
     /// @param _cost Additional amount of native asset for the fee
-    /// @param _receivedEther Amount of ether received from
     function _startBridge(
         IRubic.BridgeData memory _bridgeData,
         ArbitrumData calldata _arbitrumData,
-        uint256 _cost,
-        uint256 _receivedEther
+        uint256 _cost
     ) private validateBridgeData(_bridgeData) {
         bool isNativeTransfer = LibAsset.isNativeAsset(_bridgeData.sendingAssetId);
-
-        uint256 requiredEther = isNativeTransfer ? _cost + _bridgeData.minAmount : _cost;
-        if (_receivedEther < requiredEther) {
-            revert InvalidAmount();
-        }
 
         if (isNativeTransfer) {
             _startNativeBridge(_bridgeData, _arbitrumData, _cost);

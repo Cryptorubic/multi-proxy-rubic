@@ -94,7 +94,12 @@ contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         doesNotContainDestinationCalls(_bridgeData)
         validateBridgeData(_bridgeData)
     {
-        LibAsset.depositAsset(_bridgeData.sendingAssetId, _bridgeData.minAmount);
+        LibAsset.depositAssetAndAccrueFees(
+            _bridgeData.sendingAssetId,
+            _bridgeData.minAmount,
+            0,
+            _bridgeData.integrator
+        );
         _startBridge(_bridgeData, _wormholeData);
     }
 
@@ -119,6 +124,7 @@ contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender)
         );
         _startBridge(_bridgeData, _wormholeData);

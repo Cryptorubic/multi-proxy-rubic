@@ -19,12 +19,12 @@ library LibFees {
     error ShareTooHigh();
     // ----------------
 
-    event FixedCryptoFee(
+    event FixedNativeFee(
         uint256 RubicPart,
         uint256 integratorPart,
         address indexed integrator
     );
-    event FixedCryptoFeeCollected(
+    event FixedNativeFeeCollected(
         uint256 amount,
         address collector
     );
@@ -40,20 +40,20 @@ library LibFees {
         address token
     );
     event RubicTokenFeeCollected(uint256 amount, address token);
-    event SetFixedCryptoFee(uint256 fee);
+    event SetFixedNativeFee(uint256 fee);
     event SetRubicPlatformFee(uint256 fee);
     event SetMaxRubicPlatformFee(uint256 fee);
 
     struct FeesStorage {
         mapping(address => IFeesFacet.IntegratorFeeInfo) integratorToFeeInfo;
         mapping(address => mapping(address => uint256)) availableIntegratorTokenFee;
-        mapping(address => uint256) availableIntegratorCryptoFee;
+        mapping(address => uint256) availableIntegratorNativeFee;
         mapping(address => uint256)  availableRubicTokenFee;
-        uint256 availableRubicCryptoFee;
+        uint256 availableRubicNativeFee;
         uint256 maxRubicPlatformFee; // sets in constructor
         uint256 RubicPlatformFee;
         // Rubic fixed fee for swap
-        uint256 fixedCryptoFee;
+        uint256 fixedNativeFee;
     }
 
     function feesStorage() internal pure returns (FeesStorage storage fs) {
@@ -64,74 +64,47 @@ library LibFees {
         }
     }
 
-    function depositAndAccrueFees(
-        uint256 _sendingAmount,
-        uint256 _extraNativeFees,
-        address _sendingAssetId,
-        address _integrator
-    ) internal returns (uint256 amountWithoutFees) {
-        uint256 accruedFixedCryptoFee = accrueFixedCryptoFee(_integrator);
-        if (_sendingAssetId == LibAsset.NATIVE_ASSETID) {
-            LibAsset.depositAsset(LibAsset.NATIVE_ASSETID, _sendingAmount + accruedFixedCryptoFee + _extraNativeFees);
-
-            amountWithoutFees = accrueTokenFees(
-                _integrator,
-                _sendingAmount,
-                LibAsset.NATIVE_ASSETID
-            );
-        } else {
-            LibAsset.depositAsset(_sendingAssetId, _sendingAmount);
-            LibAsset.depositAsset(LibAsset.NATIVE_ASSETID, accruedFixedCryptoFee + _extraNativeFees);
-
-            amountWithoutFees = LibFees.accrueTokenFees(
-                _integrator,
-                _sendingAmount,
-                _sendingAssetId
-            );
-        }
-    }
-
     /**
      * @dev Calculates and accrues fixed crypto fee
      * @param _integrator Integrator's address if there is one
-     * @return The amount of fixedCryptoFee
+     * @return The amount of fixedNativeFee
      */
-    function accrueFixedCryptoFee(
+    function accrueFixedNativeFee(
         address _integrator
     ) internal returns (uint256) {
-        uint256 _fixedCryptoFee;
+        uint256 _fixedNativeFee;
         uint256 _RubicPart;
 
         FeesStorage storage fs = feesStorage();
         IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[_integrator];
 
         if (_info.isIntegrator) {
-            _fixedCryptoFee = uint256(_info.fixedFeeAmount);
+            _fixedNativeFee = uint256(_info.fixedFeeAmount);
 
-            if (_fixedCryptoFee > 0) {
+            if (_fixedNativeFee > 0) {
                 _RubicPart =
-                    (_fixedCryptoFee *
+                    (_fixedNativeFee *
                         _info.RubicFixedCryptoShare) /
                     DENOMINATOR;
 
-                fs.availableIntegratorCryptoFee[_integrator] +=
-                    _fixedCryptoFee -
+                fs.availableIntegratorNativeFee[_integrator] +=
+                    _fixedNativeFee -
                     _RubicPart;
             }
         } else {
-            _fixedCryptoFee = fs.fixedCryptoFee;
-            _RubicPart = _fixedCryptoFee;
+            _fixedNativeFee = fs.fixedNativeFee;
+            _RubicPart = _fixedNativeFee;
         }
 
-        fs.availableRubicCryptoFee += _RubicPart;
+        fs.availableRubicNativeFee += _RubicPart;
 
-        emit FixedCryptoFee(
+        emit FixedNativeFee(
             _RubicPart,
-            _fixedCryptoFee - _RubicPart,
+            _fixedNativeFee - _RubicPart,
             _integrator
         );
 
-        return _fixedCryptoFee;
+        return _fixedNativeFee;
     }
 
      /**
@@ -181,9 +154,9 @@ library LibFees {
         uint256 _amount;
 
         if (_token == address(0)) {
-            _amount = fs.availableIntegratorCryptoFee[_integrator];
-            fs.availableIntegratorCryptoFee[_integrator] = 0;
-            emit FixedCryptoFeeCollected(_amount, _integrator);
+            _amount = fs.availableIntegratorNativeFee[_integrator];
+            fs.availableIntegratorNativeFee[_integrator] = 0;
+            emit FixedNativeFeeCollected(_amount, _integrator);
         }
 
         _amount += fs.availableIntegratorTokenFee[_token][
@@ -231,17 +204,17 @@ library LibFees {
      * @dev Calling this function managers can collect Rubic's fixed crypto fee
      * @param _recipient The recipient
      */
-    function collectRubicCryptoFee(
+    function collectRubicNativeFee(
         address _recipient
     ) internal {
         FeesStorage storage fs = feesStorage();
 
-        uint256 _cryptoFee = fs.availableRubicCryptoFee;
-        fs.availableRubicCryptoFee = 0;
+        uint256 _NativeFee = fs.availableRubicNativeFee;
+        fs.availableRubicNativeFee = 0;
 
-        LibAsset.transferAsset(address(0), payable(_recipient), _cryptoFee);
+        LibAsset.transferAsset(address(0), payable(_recipient), _NativeFee);
 
-        emit FixedCryptoFeeCollected(_cryptoFee, msg.sender);
+        emit FixedNativeFeeCollected(_NativeFee, msg.sender);
     }
 
         /**
@@ -270,15 +243,15 @@ library LibFees {
 
     /**
      * @dev Sets fixed crypto fee
-     * @param _fixedCryptoFee Fixed crypto fee
+     * @param _fixedNativeFee Fixed crypto fee
      */
-    function setFixedCryptoFee(
-        uint256 _fixedCryptoFee
+    function setFixedNativeFee(
+        uint256 _fixedNativeFee
     ) internal {
         FeesStorage storage fs = feesStorage();
-        fs.fixedCryptoFee = _fixedCryptoFee;
+        fs.fixedNativeFee = _fixedNativeFee;
 
-        emit SetFixedCryptoFee(_fixedCryptoFee);
+        emit SetFixedNativeFee(_fixedNativeFee);
     }
 
     /**

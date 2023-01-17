@@ -150,7 +150,12 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
         Storage storage s = getStorage();
         if (!s.allowedRouters[_multichainData.router]) revert InvalidRouter();
         if (!LibAsset.isNativeAsset(_bridgeData.sendingAssetId))
-            LibAsset.depositAsset(_bridgeData.sendingAssetId, _bridgeData.minAmount);
+            LibAsset.depositAssetAndAccrueFees(
+                _bridgeData.sendingAssetId,
+                _bridgeData.minAmount,
+                0,
+                _bridgeData.integrator
+            );
 
         _startBridge(_bridgeData, _multichainData);
     }
@@ -180,6 +185,7 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender)
         );
         _startBridge(_bridgeData, _multichainData);

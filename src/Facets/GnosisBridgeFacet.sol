@@ -49,7 +49,12 @@ contract GnosisBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         onlyAllowDestinationChain(_bridgeData, GNOSIS_CHAIN_ID)
         onlyAllowSourceToken(_bridgeData, DAI)
     {
-        LibAsset.depositAsset(DAI, _bridgeData.minAmount);
+        LibAsset.depositAssetAndAccrueFees(
+            DAI,
+            _bridgeData.minAmount,
+            0,
+            _bridgeData.integrator
+        );
         _startBridge(_bridgeData);
     }
 
@@ -77,6 +82,7 @@ contract GnosisBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender)
         );
         _startBridge(_bridgeData);

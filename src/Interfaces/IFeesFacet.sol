@@ -43,7 +43,7 @@ interface IFeesFacet {
      * @dev Calling this function managers can collect Rubic's fixed crypto fee
      * @param _recipient The recipient
      */
-    function collectRubicCryptoFee(
+    function collectRubicNativeFee(
         address _recipient
     ) external;
 
@@ -59,10 +59,10 @@ interface IFeesFacet {
 
     /**
      * @dev Sets fixed crypto fee
-     * @param _fixedCryptoFee Fixed crypto fee
+     * @param _fixedNativeFee Fixed crypto fee
      */
-    function setFixedCryptoFee(
-        uint256 _fixedCryptoFee
+    function setFixedNativeFee(
+        uint256 _fixedNativeFee
     ) external;
 
     /**

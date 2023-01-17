@@ -24,11 +24,11 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setFixedCryptoFee(
-        uint256 _fixedCryptoFee
+    function setFixedNativeFee(
+        uint256 _fixedNativeFee
     ) external override {
         LibAccess.enforceAccessControl();
-        LibFees.setFixedCryptoFee(_fixedCryptoFee);
+        LibFees.setFixedNativeFee(_fixedNativeFee);
     }
 
     /// @inheritdoc IFeesFacet
@@ -66,10 +66,10 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function collectRubicCryptoFee(
+    function collectRubicNativeFee(
         address _recipient
     ) external override {
         LibAccess.enforceAccessControl();
-        LibFees.collectRubicCryptoFee(_recipient);
+        LibFees.collectRubicNativeFee(_recipient);
     }
 }

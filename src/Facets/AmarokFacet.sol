@@ -70,7 +70,12 @@ contract AmarokFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             revert InformationMismatch();
         }
 
-        LibAsset.depositAsset(_bridgeData.sendingAssetId, _bridgeData.minAmount);
+        LibAsset.depositAssetAndAccrueFees(
+            _bridgeData.sendingAssetId,
+            _bridgeData.minAmount,
+            0,
+            _bridgeData.integrator
+        );
         _startBridge(_bridgeData, _amarokData);
     }
 
@@ -99,6 +104,7 @@ contract AmarokFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.transactionId,
             _bridgeData.minAmount,
             _swapData,
+            _bridgeData.integrator,
             payable(msg.sender)
         );
         _startBridge(_bridgeData, _amarokData);

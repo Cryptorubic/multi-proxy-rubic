@@ -3,6 +3,7 @@ pragma solidity 0.8.17;
 
 import { IRubic } from "../Interfaces/IRubic.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
+import { LibBytes } from "../Libraries/LibBytes.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibFees } from "../Libraries/LibFees.sol";
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
@@ -29,7 +30,7 @@ contract SwapperV2 is IRubic {
     /// @param _leftoverReceiver Address to send leftover tokens to
     /// @param _initialBalances Array of initial token balances
     modifier noLeftovers(
-        LibSwap.SwapData[] calldata _swaps,
+        LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
         uint256[] memory _initialBalances
     ) {
@@ -64,7 +65,7 @@ contract SwapperV2 is IRubic {
     /// @param _leftoverReceiver Address to send leftover tokens to
     /// @param _initialBalances Array of initial token balances
     modifier noLeftoversReserve(
-        LibSwap.SwapData[] calldata _swaps,
+        LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
         uint256[] memory _initialBalances,
         uint256 _nativeReserve
@@ -114,12 +115,14 @@ contract SwapperV2 is IRubic {
     /// @param _transactionId the transaction id associated with the operation
     /// @param _minAmount the minimum amount of the final asset to receive
     /// @param _swaps Array of data used to execute swaps
+    /// @param _integrator Integrator for whom to count the fees
     /// @param _leftoverReceiver The address to send leftover funds to
     /// @return uint256 result of the swap
     function _depositAndSwap(
         bytes32 _transactionId,
         uint256 _minAmount,
-        LibSwap.SwapData[] calldata _swaps,
+        LibSwap.SwapData[] memory _swaps,
+        address _integrator,
         address payable _leftoverReceiver
     ) internal returns (uint256) {
         uint256 numSwaps = _swaps.length;
@@ -127,13 +130,6 @@ contract SwapperV2 is IRubic {
         if (numSwaps == 0) {
             revert NoSwapDataProvided();
         }
-
-//        LibFees.depositAndAccrueFees(
-//            _bridgeData.minAmount,
-//            _deBridgeData.nativeFee,
-//            _bridgeData.sendingAssetId,
-//            _bridgeData.integrator
-//        );
 
         address finalTokenId = _swaps[numSwaps - 1].receivingAssetId;
         uint256 initialBalance = LibAsset.getOwnBalance(finalTokenId);
@@ -144,7 +140,7 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        LibAsset.depositAsset(_swaps[0].sendingAssetId, _swaps[0].fromAmount);
+        LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         _executeSwaps(_transactionId, _swaps, _leftoverReceiver, initialBalances);
 
         uint256 newBalance = LibAsset.getOwnBalance(finalTokenId) - initialBalance;
@@ -160,12 +156,14 @@ contract SwapperV2 is IRubic {
     /// @param _transactionId the transaction id associated with the operation
     /// @param _minAmount the minimum amount of the final asset to receive
     /// @param _swaps Array of data used to execute swaps
+    /// @param _integrator Integrator for whom to count the fees
     /// @param _leftoverReceiver The address to send leftover funds to
     /// @param _nativeReserve Amount of native token to prevent from being swept back to the caller
     function _depositAndSwap(
         bytes32 _transactionId,
         uint256 _minAmount,
         LibSwap.SwapData[] calldata _swaps,
+        address _integrator,
         address payable _leftoverReceiver,
         uint256 _nativeReserve
     ) internal returns (uint256) {
@@ -184,7 +182,7 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        LibAsset.depositAsset(_swaps[0].sendingAssetId, _swaps[0].fromAmount);
+        LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         ReserveData memory rd = ReserveData(_transactionId, _leftoverReceiver, _nativeReserve);
         _executeSwaps(rd, _swaps, initialBalances);
 
@@ -206,19 +204,19 @@ contract SwapperV2 is IRubic {
     /// @param _initialBalances Array of initial balances
     function _executeSwaps(
         bytes32 _transactionId,
-        LibSwap.SwapData[] calldata _swaps,
+        LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
         uint256[] memory _initialBalances
     ) internal noLeftovers(_swaps, _leftoverReceiver, _initialBalances) {
         uint256 numSwaps = _swaps.length;
         for (uint256 i = 0; i < numSwaps; ) {
-            LibSwap.SwapData calldata currentSwap = _swaps[i];
+            LibSwap.SwapData memory currentSwap = _swaps[i];
 
             if (
                 !((LibAsset.isNativeAsset(currentSwap.sendingAssetId) ||
                     LibAllowList.contractIsAllowed(currentSwap.approveTo)) &&
                     LibAllowList.contractIsAllowed(currentSwap.callTo) &&
-                    LibAllowList.selectorIsAllowed(bytes4(currentSwap.callData[:4])))
+                    LibAllowList.selectorIsAllowed(LibBytes.getFirst4Bytes(currentSwap.callData)))
             ) revert ContractCallNotAllowed();
 
             LibSwap.swap(_transactionId, currentSwap);
@@ -245,7 +243,7 @@ contract SwapperV2 is IRubic {
                 !((LibAsset.isNativeAsset(currentSwap.sendingAssetId) ||
                     LibAllowList.contractIsAllowed(currentSwap.approveTo)) &&
                     LibAllowList.contractIsAllowed(currentSwap.callTo) &&
-                    LibAllowList.selectorIsAllowed(bytes4(currentSwap.callData[:4])))
+                    LibAllowList.selectorIsAllowed(LibBytes.getFirst4Bytes(currentSwap.callData)))
             ) revert ContractCallNotAllowed();
 
             LibSwap.swap(_reserveData.transactionId, currentSwap);
@@ -259,7 +257,7 @@ contract SwapperV2 is IRubic {
     /// @dev Fetches balances of tokens to be swapped before swapping.
     /// @param _swaps Array of data used to execute swaps
     /// @return uint256[] Array of token balances.
-    function _fetchBalances(LibSwap.SwapData[] calldata _swaps) private view returns (uint256[] memory) {
+    function _fetchBalances(LibSwap.SwapData[] memory _swaps) private view returns (uint256[] memory) {
         uint256 numSwaps = _swaps.length;
         uint256[] memory balances = new uint256[](numSwaps);
         address asset;
