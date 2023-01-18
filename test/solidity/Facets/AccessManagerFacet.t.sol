@@ -27,10 +27,12 @@ contract AccessManagerFacetTest is DSTest, DiamondTest {
         accessMgr = new AccessManagerFacet();
         restricted = new RestrictedContract();
 
-        bytes4[] memory functionSelectors = new bytes4[](1);
-        functionSelectors[0] = accessMgr.setCanExecute.selector;
-        addFacet(diamond, address(accessMgr), functionSelectors);
+        // Already added in DiamondTest.sol
+//        bytes4[] memory functionSelectors = new bytes4[](1);
+//        functionSelectors[0] = accessMgr.setCanExecute.selector;
+//        addFacet(diamond, address(accessMgr), functionSelectors);
 
+        bytes4[] memory functionSelectors = new bytes4[](1);
         functionSelectors[0] = restricted.restrictedMethod.selector;
         addFacet(diamond, address(restricted), functionSelectors);
 
