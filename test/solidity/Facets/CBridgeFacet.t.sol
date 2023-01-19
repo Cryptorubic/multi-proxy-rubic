@@ -120,13 +120,13 @@ contract CBridgeFacetTest is TestBaseFacet {
 
     function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            cBridgeFacet.swapAndStartBridgeTokensViaCBridge{ value: swapData[0].fromAmount }(
+            cBridgeFacet.swapAndStartBridgeTokensViaCBridge{ value: swapData[0].fromAmount + addToMessageValue }(
                 bridgeData,
                 swapData,
                 cBridgeData
             );
         } else {
-            cBridgeFacet.swapAndStartBridgeTokensViaCBridge(bridgeData, swapData, cBridgeData);
+            cBridgeFacet.swapAndStartBridgeTokensViaCBridge{ value: addToMessageValue }(bridgeData, swapData, cBridgeData);
         }
     }
 

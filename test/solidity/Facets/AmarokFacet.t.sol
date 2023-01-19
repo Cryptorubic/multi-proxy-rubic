@@ -82,13 +82,13 @@ contract AmarokFacetTest is TestBaseFacet {
 
     function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            amarokFacet.swapAndStartBridgeTokensViaAmarok{ value: swapData[0].fromAmount }(
+            amarokFacet.swapAndStartBridgeTokensViaAmarok{ value: swapData[0].fromAmount + addToMessageValue }(
                 bridgeData,
                 swapData,
                 amarokData
             );
         } else {
-            amarokFacet.swapAndStartBridgeTokensViaAmarok(bridgeData, swapData, amarokData);
+            amarokFacet.swapAndStartBridgeTokensViaAmarok{ value: addToMessageValue }(bridgeData, swapData, amarokData);
         }
     }
 

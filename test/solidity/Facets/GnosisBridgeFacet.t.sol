@@ -103,12 +103,12 @@ contract GnosisBridgeFacetTest is TestBaseFacet {
 
     function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            gnosisBridgeFacet.swapAndStartBridgeTokensViaXDaiBridge{ value: swapData[0].fromAmount }(
+            gnosisBridgeFacet.swapAndStartBridgeTokensViaXDaiBridge{ value: swapData[0].fromAmount + addToMessageValue }(
                 bridgeData,
                 swapData
             );
         } else {
-            gnosisBridgeFacet.swapAndStartBridgeTokensViaXDaiBridge(bridgeData, swapData);
+            gnosisBridgeFacet.swapAndStartBridgeTokensViaXDaiBridge{ value: addToMessageValue }(bridgeData, swapData);
         }
     }
 

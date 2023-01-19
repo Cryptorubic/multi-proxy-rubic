@@ -58,21 +58,26 @@ contract AcrossFacetTest is TestBaseFacet {
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            acrossFacet.startBridgeTokensViaAcross{ value: bridgeData.minAmount }(bridgeData, validAcrossData);
+            acrossFacet.startBridgeTokensViaAcross{ value: bridgeData.minAmount + addToMessageValue }(bridgeData, validAcrossData);
         } else {
-            acrossFacet.startBridgeTokensViaAcross(bridgeData, validAcrossData);
+            acrossFacet.startBridgeTokensViaAcross{ value: addToMessageValue }(bridgeData, validAcrossData);
         }
     }
 
     function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            acrossFacet.swapAndStartBridgeTokensViaAcross{ value: swapData[0].fromAmount }(
+            acrossFacet.swapAndStartBridgeTokensViaAcross{ value: swapData[0].fromAmount + addToMessageValue }(
                 bridgeData,
                 swapData,
                 validAcrossData
             );
         } else {
-            acrossFacet.swapAndStartBridgeTokensViaAcross(bridgeData, swapData, validAcrossData);
+            acrossFacet.swapAndStartBridgeTokensViaAcross{ value: addToMessageValue }
+            (
+                bridgeData,
+                swapData,
+                validAcrossData
+            );
         }
     }
 

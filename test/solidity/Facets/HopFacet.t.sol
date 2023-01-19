@@ -87,13 +87,13 @@ contract HopFacetTest is TestBaseFacet {
 
     function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            hopFacet.swapAndStartBridgeTokensViaHop{ value: swapData[0].fromAmount }(
+            hopFacet.swapAndStartBridgeTokensViaHop{ value: swapData[0].fromAmount + addToMessageValue }(
                 bridgeData,
                 swapData,
                 validHopData
             );
         } else {
-            hopFacet.swapAndStartBridgeTokensViaHop(bridgeData, swapData, validHopData);
+            hopFacet.swapAndStartBridgeTokensViaHop{ value: addToMessageValue }(bridgeData, swapData, validHopData);
         }
     }
 

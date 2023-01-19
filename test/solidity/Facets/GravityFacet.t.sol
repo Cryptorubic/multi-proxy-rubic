@@ -66,7 +66,7 @@ contract GravityFacetTest is TestBaseFacet {
         if (isNative) {
             revert NativeAssetNotSupported();
         } else {
-            gravityFacet.swapAndStartBridgeTokensViaGravity(bridgeData, swapData, gravityData);
+            gravityFacet.swapAndStartBridgeTokensViaGravity{ value: addToMessageValue }(bridgeData, swapData, gravityData);
         }
     }
 
