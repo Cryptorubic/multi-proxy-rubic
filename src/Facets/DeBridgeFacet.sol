@@ -108,9 +108,10 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _deBridgeData.nativeFee
         );
 
-        if (LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {
-            _bridgeData.minAmount -= _deBridgeData.nativeFee;
-        }
+        // Not needed because user deposits nativeFee
+//        if (LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {
+//            _bridgeData.minAmount -= _deBridgeData.nativeFee;
+//        }
 
         _startBridge(_bridgeData, _deBridgeData);
     }
