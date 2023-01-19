@@ -31,7 +31,7 @@ const msg = (msg: string) => {
 // Bridge Native Asset
 // Bridge ETH on Goerli -> ETH on Arbitrum Goerli via Arbitrum Native Bridge
 
-const LIFI_ADDRESS = '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE' // RubicMultiProxy address on Goerli
+const RUBIC_ADDRESS = '0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE' // RubicMultiProxy address on Goerli
 const USDC_ADDRESS = '0x98339D8C260052B7ad81c28c16C0b98420f2B46a' // USDC address on Goerli
 const TEST_TOKEN_ADDRESS = '0x7ea6eA49B0b0Ae9c5db7907d139D9Cd3439862a1' // TEST Token address on Goerli
 const UNISWAP_ADDRESS = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D' // Uniswap router address on Goerli
@@ -63,7 +63,7 @@ async function main() {
   wallet = wallet.connect(l1Provider)
   const walletAddress = await wallet.getAddress()
 
-  const lifi = ArbitrumBridgeFacet__factory.connect(LIFI_ADDRESS, wallet)
+  const rubic = ArbitrumBridgeFacet__factory.connect(RUBIC_ADDRESS, wallet)
 
   const l1GatewayRouter = IGatewayRouter__factory.connect(
     config['goerli'].gatewayRouter,
@@ -85,7 +85,7 @@ async function main() {
     ])
 
     const path = [TEST_TOKEN_ADDRESS, USDC_ADDRESS]
-    const to = LIFI_ADDRESS // should be a checksummed recipient address
+    const to = RUBIC_ADDRESS // should be a checksummed recipient address
     const deadline = Math.floor(Date.now() / 1000) + 60 * 20 // 20 minutes from the current Unix time
 
     const dexSwapData =
@@ -109,7 +109,7 @@ async function main() {
       },
     ]
 
-    // LIFI Data
+    // RUBIC Data
     const bridgeData = {
       transactionId: utils.randomBytes(32),
       bridge: 'arbitrum',
@@ -142,7 +142,7 @@ async function main() {
       'finalizeInboundTransfer',
       [
         USDC_ADDRESS, // L1 Token address
-        LIFI_ADDRESS,
+        RUBIC_ADDRESS,
         walletAddress, // Receiver address
         amountOut, // Sending amount
         utils.defaultAbiCoder.encode(['bytes', 'bytes'], [deployData, '0x']),
@@ -179,15 +179,15 @@ async function main() {
     const cost = maxSubmissionCost.add(maxFeePerGas.mul(maxGasLimit))
 
     // Approve ERC20 for swapping -- TOKEN -> USDC
-    const allowance = await token.allowance(walletAddress, LIFI_ADDRESS)
+    const allowance = await token.allowance(walletAddress, RUBIC_ADDRESS)
     if (amountIn.gt(allowance)) {
-      await token.approve(LIFI_ADDRESS, amountIn)
+      await token.approve(RUBIC_ADDRESS, amountIn)
 
       msg('Token approved for swapping')
     }
 
     // Call Rubic smart contract to start the bridge process -- WITH SWAP
-    await lifi.swapAndStartBridgeTokensViaArbitrumBridge(
+    await rubic.swapAndStartBridgeTokensViaArbitrumBridge(
       bridgeData,
       swapData,
       arbitrumData,
@@ -203,7 +203,7 @@ async function main() {
     // Bridge amount
     const amount = utils.parseEther('0.0001')
 
-    // LIFI Data
+    // RUBIC Data
     const bridgeData = {
       transactionId: utils.randomBytes(32),
       bridge: 'arbitrum',
@@ -221,7 +221,7 @@ async function main() {
 
     const estimates = await gasEstimator.estimateAll(
       {
-        from: LIFI_ADDRESS,
+        from: RUBIC_ADDRESS,
         to: walletAddress,
         data: '0x',
         l2CallValue: errorTriggerCost,
@@ -249,7 +249,7 @@ async function main() {
     const cost = maxSubmissionCost.add(maxFeePerGas.mul(maxGasLimit))
 
     // Call Rubic smart contract to start the bridge process
-    await lifi.startBridgeTokensViaArbitrumBridge(bridgeData, arbitrumData, {
+    await rubic.startBridgeTokensViaArbitrumBridge(bridgeData, arbitrumData, {
       gasLimit: '500000',
       value: amount.add(cost),
     })
@@ -271,7 +271,7 @@ async function main() {
     ])
 
     const path = [USDC_ADDRESS, WETH_ADDRESS]
-    const to = lifi.address // should be a checksummed recipient address
+    const to = rubic.address // should be a checksummed recipient address
     const deadline = Math.floor(Date.now() / 1000) + 60 * 20 // 20 minutes from the current Unix time
 
     const dexSwapData =
@@ -295,7 +295,7 @@ async function main() {
       },
     ]
 
-    // LIFI Data
+    // RUBIC Data
     const bridgeData = {
       transactionId: utils.randomBytes(32),
       bridge: 'arbitrum',
@@ -313,7 +313,7 @@ async function main() {
 
     const estimates = await gasEstimator.estimateAll(
       {
-        from: LIFI_ADDRESS,
+        from: RUBIC_ADDRESS,
         to: walletAddress,
         data: '0x',
         l2CallValue: errorTriggerCost,
@@ -341,15 +341,15 @@ async function main() {
     const cost = maxSubmissionCost.add(maxFeePerGas.mul(maxGasLimit))
 
     // Approve ERC20 for swapping -- USDC -> ETH
-    const allowance = await usdc.allowance(walletAddress, LIFI_ADDRESS)
+    const allowance = await usdc.allowance(walletAddress, RUBIC_ADDRESS)
     if (erc20AmountIn.gt(allowance)) {
-      await usdc.approve(LIFI_ADDRESS, erc20AmountIn)
+      await usdc.approve(RUBIC_ADDRESS, erc20AmountIn)
 
       msg('Token approved for swapping')
     }
 
     // Call Rubic smart contract to start the bridge process -- WITH SWAP
-    await lifi.swapAndStartBridgeTokensViaArbitrumBridge(
+    await rubic.swapAndStartBridgeTokensViaArbitrumBridge(
       bridgeData,
       swapData,
       arbitrumData,

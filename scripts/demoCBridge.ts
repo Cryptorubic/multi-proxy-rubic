@@ -8,7 +8,7 @@ const msg = (msg: string) => {
   console.log(chalk.green(msg))
 }
 
-const LIFI_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
+const RUBIC_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
 const destinationChainId = 56
 const MAX_SLIPPAGE = 1000000
 
@@ -24,13 +24,13 @@ async function main() {
   const provider = new providers.FallbackProvider([provider1])
   wallet = wallet.connect(provider)
 
-  const lifi = CBridgeFacet__factory.connect(LIFI_ADDRESS, wallet)
-  console.log('ADDRESS', lifi.address)
+  const rubic = CBridgeFacet__factory.connect(RUBIC_ADDRESS, wallet)
+  console.log('ADDRESS', rubic.address)
   const amountIn = '25000000'
   const amountOut = '20000010'
 
   const path = [POLYGON_USDC_ADDRESS, POLYGON_USDT_ADDRESS]
-  const to = LIFI_ADDRESS // should be a checksummed recipient address
+  const to = RUBIC_ADDRESS // should be a checksummed recipient address
   const deadline = Math.floor(Date.now() / 1000) + 60 * 20 // 20 minutes from the current Unix time
 
   const uniswap = new Contract(
@@ -42,9 +42,9 @@ async function main() {
   )
 
   const token = ERC20__factory.connect(POLYGON_USDC_ADDRESS, wallet)
-  await token.approve(lifi.address, amountOut)
+  await token.approve(rubic.address, amountOut)
 
-  const lifiData = {
+  const rubicData = {
     transactionId: utils.randomBytes(32),
     integrator: 'ACME Devs',
     referrer: constants.AddressZero,
@@ -65,7 +65,7 @@ async function main() {
 
   // Test for startBridgeTokensViaCBridge
 
-  await lifi.startBridgeTokensViaCBridge(lifiData, CBridgeData, {
+  await rubic.startBridgeTokensViaCBridge(rubicData, CBridgeData, {
     gasLimit: 500000,
   })
 
@@ -81,7 +81,7 @@ async function main() {
   )
 
   // Approve ERC20 for swapping -- USDT
-  await token.approve(lifi.address, amountOut)
+  await token.approve(rubic.address, amountOut)
 
   msg('Token approved for swapping')
 
@@ -95,8 +95,8 @@ async function main() {
   }
 
   // Call Rubic smart contract to start the bridge process -- WITH SWAP
-  await lifi.swapAndStartBridgeTokensViaCBridge(
-    lifiData,
+  await rubic.swapAndStartBridgeTokensViaCBridge(
+    rubicData,
     [
       {
         sendingAssetId: POLYGON_USDC_ADDRESS,

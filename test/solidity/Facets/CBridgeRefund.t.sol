@@ -14,7 +14,7 @@ import { WithdrawFacet } from "rubic/Facets/WithdrawFacet.sol";
 // or `forge test --match-contract CBridgeRefundTest --fork-url POLYGON_RPC_URL --fork-block-number 25085298`
 contract CBridgeRefundTestPolygon is DSTest, DiamondTest {
     address internal constant CBRIDGE_ADDRESS = 0x88DCDC47D2f83a99CF0000FDF667A468bB958a78;
-    address internal constant LIFI_ADDRESS = 0x5A9Fd7c39a6C488E715437D7b1f3C823d5596eD1;
+    address internal constant RUBIC_ADDRESS = 0x5A9Fd7c39a6C488E715437D7b1f3C823d5596eD1;
     address internal constant OWNER_ADDRESS = 0xCB1e9fA11Edd27098A6B2Ff23cB6b79183ccf8Ee;
 
     // Reference to https://polygonscan.com/tx/0x989872993fde04e81e74027047032305201448da4a4b32999d83fdd2b18ad3bd
@@ -75,7 +75,7 @@ contract CBridgeRefundTestPolygon is DSTest, DiamondTest {
     function setUp() public {
         fork();
 
-        diamond = RubicMultiProxy(payable(LIFI_ADDRESS));
+        diamond = RubicMultiProxy(payable(RUBIC_ADDRESS));
         withdrawFacet = new WithdrawFacet();
 
         bytes4[] memory selector = new bytes4[](1);

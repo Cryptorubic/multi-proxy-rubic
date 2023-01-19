@@ -21,7 +21,7 @@ interface IMultichainERC20 {
 contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.multichain");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.multichain");
 
     struct Storage {
         mapping(address => bool) allowedRouters;

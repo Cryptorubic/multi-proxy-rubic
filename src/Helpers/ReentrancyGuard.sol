@@ -7,7 +7,7 @@ pragma solidity 0.8.17;
 abstract contract ReentrancyGuard {
     /// Storage ///
 
-    bytes32 private constant NAMESPACE = keccak256("com.lifi.reentrancyguard");
+    bytes32 private constant NAMESPACE = keccak256("com.rubic.reentrancyguard");
 
     /// Types ///
 

@@ -23,7 +23,7 @@ contract TestWormholeFacet is WormholeFacet {
 
 contract WormholeFacetTest is TestBaseFacet {
     // EVENTS
-    event WormholeChainIdMapped(uint256 indexed lifiChainId, uint256 indexed wormholeChainId);
+    event WormholeChainIdMapped(uint256 indexed rubicChainId, uint256 indexed wormholeChainId);
     event BridgeToNonEVMChain(bytes32 indexed transactionId, uint256 indexed wormholeChainId, bytes32 receiver);
 
     // These values are for Mainnet

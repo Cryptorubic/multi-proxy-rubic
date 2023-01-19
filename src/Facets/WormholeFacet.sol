@@ -19,7 +19,7 @@ import { LibMappings } from "../Libraries/LibMappings.sol";
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Wormhole
 contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.wormhole");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.wormhole");
 
     address internal constant NON_EVM_ADDRESS = 0x11f111f111f111F111f111f111F111f111f111F1;
 
@@ -45,7 +45,7 @@ contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Events ///
 
     event WormholeInitialized(Config[] configs);
-    event WormholeChainIdMapped(uint256 indexed lifiChainId, uint256 indexed wormholeChainId);
+    event WormholeChainIdMapped(uint256 indexed rubicChainId, uint256 indexed wormholeChainId);
     event WormholeChainIdsMapped(Config[] configs);
     event BridgeToNonEVMChain(bytes32 indexed transactionId, uint256 indexed wormholeChainId, bytes32 receiver);
 
@@ -130,14 +130,14 @@ contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         _startBridge(_bridgeData, _wormholeData);
     }
 
-    /// @notice Creates a mapping between a lifi chain id and a wormhole chain id
-    /// @param _lifiChainId lifi chain id
+    /// @notice Creates a mapping between a rubic chain id and a wormhole chain id
+    /// @param _rubicChainId rubic chain id
     /// @param _wormholeChainId wormhole chain id
-    function setWormholeChainId(uint256 _lifiChainId, uint16 _wormholeChainId) external {
+    function setWormholeChainId(uint256 _rubicChainId, uint16 _wormholeChainId) external {
         LibDiamond.enforceIsContractOwner();
         LibMappings.WormholeMappings storage sm = LibMappings.getWormholeMappings();
-        sm.wormholeChainId[_lifiChainId] = _wormholeChainId;
-        emit WormholeChainIdMapped(_lifiChainId, _wormholeChainId);
+        sm.wormholeChainId[_rubicChainId] = _wormholeChainId;
+        emit WormholeChainIdMapped(_rubicChainId, _wormholeChainId);
     }
 
     /// @notice Creates mappings between chain ids and wormhole chain ids
@@ -202,13 +202,13 @@ contract WormholeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         emit RubicTransferStarted(_bridgeData);
     }
 
-    /// @notice Gets the wormhole chain id for a given lifi chain id
-    /// @param _lifiChainId uint256 of the lifi chain ID
+    /// @notice Gets the wormhole chain id for a given rubic chain id
+    /// @param _rubicChainId uint256 of the rubic chain ID
     /// @return uint16 of the wormhole chain id
-    function getWormholeChainId(uint256 _lifiChainId) private view returns (uint16) {
+    function getWormholeChainId(uint256 _rubicChainId) private view returns (uint16) {
         LibMappings.WormholeMappings storage sm = LibMappings.getWormholeMappings();
-        uint16 wormholeChainId = sm.wormholeChainId[_lifiChainId];
-        if (wormholeChainId == 0) revert UnsupportedChainId(_lifiChainId);
+        uint16 wormholeChainId = sm.wormholeChainId[_rubicChainId];
+        if (wormholeChainId == 0) revert UnsupportedChainId(_rubicChainId);
         return wormholeChainId;
     }
 }

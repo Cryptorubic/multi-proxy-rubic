@@ -93,7 +93,7 @@
 //
 //        uint256 amount = 1_000 * 10**usdc.decimals();
 //        uint256 fee = 10 * 10**usdc.decimals();
-//        uint256 lifiFee = 5 * 10**usdc.decimals();
+//        uint256 rubicFee = 5 * 10**usdc.decimals();
 //        address integrator = address(0xb33f);
 //
 //        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
@@ -103,7 +103,7 @@
 //            address(0),
 //            USDC_ADDRESS,
 //            WHALE,
-//            amount - fee - lifiFee,
+//            amount - fee - rubicFee,
 //            100,
 //            true,
 //            false
@@ -116,7 +116,7 @@
 //            USDC_ADDRESS,
 //            USDC_ADDRESS,
 //            amount,
-//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, USDC_ADDRESS, fee, lifiFee, integrator),
+//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, USDC_ADDRESS, fee, rubicFee, integrator),
 //            true
 //        );
 //
@@ -130,12 +130,12 @@
 //        });
 //
 //        // Approve USDC
-//        usdc.approve(address(cBridge), amount + fee + lifiFee);
+//        usdc.approve(address(cBridge), amount + fee + rubicFee);
 //        cBridge.swapAndStartBridgeTokensViaCBridge(bridgeData, swapData, data);
 //        vm.stopPrank();
 //
 //        assertEq(feeCollector.getTokenBalance(integrator, USDC_ADDRESS), fee);
-//        assertEq(feeCollector.getLifiTokenBalance(USDC_ADDRESS), lifiFee);
+//        assertEq(feeCollector.getLifiTokenBalance(USDC_ADDRESS), rubicFee);
 //        assertEq(usdc.balanceOf(address(cBridge)), 0); // !!
 //    }
 //
@@ -144,7 +144,7 @@
 //
 //        uint256 amount = 0.1 ether;
 //        uint256 fee = 0.001 ether;
-//        uint256 lifiFee = 0.00015 ether;
+//        uint256 rubicFee = 0.00015 ether;
 //
 //        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
@@ -174,16 +174,16 @@
 //            address(feeCollector),
 //            address(0),
 //            address(0),
-//            amount + fee + lifiFee,
-//            abi.encodeWithSelector(feeCollector.collectNativeFees.selector, fee, lifiFee, address(0xb33f)),
+//            amount + fee + rubicFee,
+//            abi.encodeWithSelector(feeCollector.collectNativeFees.selector, fee, rubicFee, address(0xb33f)),
 //            true
 //        );
 //
-//        cBridge.swapAndStartBridgeTokensViaCBridge{ value: amount + fee + lifiFee }(bridgeData, swapData, data);
+//        cBridge.swapAndStartBridgeTokensViaCBridge{ value: amount + fee + rubicFee }(bridgeData, swapData, data);
 //        vm.stopPrank();
 //
 //        assertEq(feeCollector.getTokenBalance(address(0xb33f), address(0)), fee);
-//        assertEq(feeCollector.getLifiTokenBalance((address(0))), lifiFee);
+//        assertEq(feeCollector.getLifiTokenBalance((address(0))), rubicFee);
 //    }
 //
 //    function testCanCollectTokenFeesSwapAndBridgeTokens() public {
@@ -191,7 +191,7 @@
 //
 //        uint256 amountToBridge = 1_000 * 10**dai.decimals();
 //        uint256 fee = 10 * 10**usdc.decimals();
-//        uint256 lifiFee = 5 * 10**usdc.decimals();
+//        uint256 rubicFee = 5 * 10**usdc.decimals();
 //
 //        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
@@ -228,8 +228,8 @@
 //            address(feeCollector),
 //            USDC_ADDRESS,
 //            USDC_ADDRESS,
-//            amountIn + fee + lifiFee,
-//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, USDC_ADDRESS, fee, lifiFee, address(0xb33f)),
+//            amountIn + fee + rubicFee,
+//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, USDC_ADDRESS, fee, rubicFee, address(0xb33f)),
 //            true
 //        );
 //
@@ -250,12 +250,12 @@
 //            false
 //        );
 //        // Approve USDC
-//        usdc.approve(address(cBridge), amountIn + fee + lifiFee);
+//        usdc.approve(address(cBridge), amountIn + fee + rubicFee);
 //        cBridge.swapAndStartBridgeTokensViaCBridge(bridgeData, swapData, data);
 //        vm.stopPrank();
 //
 //        assertEq(feeCollector.getTokenBalance(address(0xb33f), USDC_ADDRESS), fee);
-//        assertEq(feeCollector.getLifiTokenBalance(USDC_ADDRESS), lifiFee);
+//        assertEq(feeCollector.getLifiTokenBalance(USDC_ADDRESS), rubicFee);
 //        assertEq(usdc.balanceOf(address(cBridge)), 0);
 //        assertEq(dai.balanceOf(address(cBridge)), 0);
 //    }
@@ -265,7 +265,7 @@
 //
 //        uint256 amountToBridge = 1000 * 10**usdc.decimals();
 //        uint256 fee = 0.01 ether;
-//        uint256 lifiFee = 0.0015 ether;
+//        uint256 rubicFee = 0.0015 ether;
 //
 //        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
@@ -302,8 +302,8 @@
 //            address(feeCollector),
 //            address(0),
 //            address(0),
-//            fee + lifiFee,
-//            abi.encodeWithSelector(feeCollector.collectNativeFees.selector, fee, lifiFee, address(0xb33f)),
+//            fee + rubicFee,
+//            abi.encodeWithSelector(feeCollector.collectNativeFees.selector, fee, rubicFee, address(0xb33f)),
 //            true
 //        );
 //
@@ -322,11 +322,11 @@
 //            ),
 //            false
 //        );
-//        cBridge.swapAndStartBridgeTokensViaCBridge{ value: amountIn + fee + lifiFee }(bridgeData, swapData, data);
+//        cBridge.swapAndStartBridgeTokensViaCBridge{ value: amountIn + fee + rubicFee }(bridgeData, swapData, data);
 //        vm.stopPrank();
 //
 //        assertEq(feeCollector.getTokenBalance(address(0xb33f), address(0)), fee);
-//        assertEq(feeCollector.getLifiTokenBalance(address(0)), lifiFee);
+//        assertEq(feeCollector.getLifiTokenBalance(address(0)), rubicFee);
 //        assertEq(address(cBridge).balance, 0);
 //        assertEq(usdc.balanceOf(address(cBridge)), 0);
 //    }
@@ -336,7 +336,7 @@
 //
 //        uint256 amountToBridge = 1_000 * 10**dai.decimals();
 //        uint256 fee = 10 * 10**dai.decimals();
-//        uint256 lifiFee = 5 * 10**dai.decimals();
+//        uint256 rubicFee = 5 * 10**dai.decimals();
 //
 //        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
@@ -364,7 +364,7 @@
 //        address[] memory path = new address[](2);
 //        path[0] = USDC_ADDRESS;
 //        path[1] = DAI_ADDRESS;
-//        uint256[] memory amounts = uniswap.getAmountsIn(amountToBridge + fee + lifiFee, path);
+//        uint256[] memory amounts = uniswap.getAmountsIn(amountToBridge + fee + rubicFee, path);
 //        uint256 amountIn = amounts[0];
 //
 //        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](2);
@@ -391,17 +391,17 @@
 //            address(feeCollector),
 //            DAI_ADDRESS,
 //            DAI_ADDRESS,
-//            fee + lifiFee,
-//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, DAI_ADDRESS, fee, lifiFee, address(0xb33f)),
+//            fee + rubicFee,
+//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, DAI_ADDRESS, fee, rubicFee, address(0xb33f)),
 //            false
 //        );
 //        // Approve USDC
-//        usdc.approve(address(cBridge), amountIn + fee + lifiFee);
+//        usdc.approve(address(cBridge), amountIn + fee + rubicFee);
 //        cBridge.swapAndStartBridgeTokensViaCBridge(bridgeData, swapData, data);
 //        vm.stopPrank();
 //
 //        assertEq(feeCollector.getTokenBalance(address(0xb33f), DAI_ADDRESS), fee);
-//        assertEq(feeCollector.getLifiTokenBalance(DAI_ADDRESS), lifiFee);
+//        assertEq(feeCollector.getLifiTokenBalance(DAI_ADDRESS), rubicFee);
 //        assertEq(usdc.balanceOf(address(cBridge)), 0);
 //        assertEq(dai.balanceOf(address(cBridge)), 0);
 //    }
@@ -411,7 +411,7 @@
 //
 //        uint256 amountToBridge = 1000 * 10**usdc.decimals();
 //        uint256 fee = 10 * 10**usdc.decimals();
-//        uint256 lifiFee = 5 * 10**usdc.decimals();
+//        uint256 rubicFee = 5 * 10**usdc.decimals();
 //
 //        IRubic.BridgeData memory bridgeData = IRubic.BridgeData(
 //            "",
@@ -439,7 +439,7 @@
 //        address[] memory path = new address[](2);
 //        path[0] = WETH_ADDRESS;
 //        path[1] = USDC_ADDRESS;
-//        uint256[] memory amounts = uniswap.getAmountsIn(amountToBridge + fee + lifiFee, path);
+//        uint256[] memory amounts = uniswap.getAmountsIn(amountToBridge + fee + rubicFee, path);
 //        uint256 amountIn = amounts[0];
 //
 //        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](2);
@@ -452,7 +452,7 @@
 //            amountIn,
 //            abi.encodeWithSelector(
 //                uniswap.swapETHForExactTokens.selector,
-//                amountToBridge + fee + lifiFee,
+//                amountToBridge + fee + rubicFee,
 //                path,
 //                address(cBridge),
 //                block.timestamp
@@ -465,15 +465,15 @@
 //            address(feeCollector),
 //            USDC_ADDRESS,
 //            USDC_ADDRESS,
-//            fee + lifiFee,
-//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, USDC_ADDRESS, fee, lifiFee, address(0xb33f)),
+//            fee + rubicFee,
+//            abi.encodeWithSelector(feeCollector.collectTokenFees.selector, USDC_ADDRESS, fee, rubicFee, address(0xb33f)),
 //            false
 //        );
 //        cBridge.swapAndStartBridgeTokensViaCBridge{ value: amountIn }(bridgeData, swapData, data);
 //        vm.stopPrank();
 //
 //        assertEq(feeCollector.getTokenBalance(address(0xb33f), USDC_ADDRESS), fee);
-//        assertEq(feeCollector.getLifiTokenBalance(USDC_ADDRESS), lifiFee);
+//        assertEq(feeCollector.getLifiTokenBalance(USDC_ADDRESS), rubicFee);
 //        assertEq(address(cBridge).balance, 0);
 //        assertEq(usdc.balanceOf(address(cBridge)), 0);
 //    }

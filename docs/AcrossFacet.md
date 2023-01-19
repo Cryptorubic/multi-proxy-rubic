@@ -56,7 +56,7 @@ The quote result looks like the following:
 ```javascript
 const quoteResult = {
   id: '0x...', // quote id
-  type: 'lifi', // the type of the quote (all lifi contract calls have the type "lifi")
+  type: 'rubic', // the type of the quote (all rubic contract calls have the type "rubic")
   tool: 'across', // the bridge tool used for the transaction
   action: {}, // information about what is going to happen
   estimate: {}, // information about the estimated outcome of the call

@@ -19,7 +19,7 @@ import { CannotBridgeToSameNetwork } from "src/Errors/GenericErrors.sol";
 contract AcrossFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.across");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.across");
 
     /// @notice The contract address of the spoke pool on the source chain.
     IAcrossSpokePool private immutable spokePool;

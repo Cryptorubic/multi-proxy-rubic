@@ -10,7 +10,7 @@ const msg = (msg: string) => {
   console.log(chalk.green(msg))
 }
 
-const LIFI_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
+const RUBIC_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
 const POLYGON_USDT_ADDRESS = '0xc2132d05d31c914a87c6611c10748aeb04b58e8f'
 const POLYGON_USDC_ADDRESS = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
 const UNISWAP_ADDRESS = '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff'
@@ -22,7 +22,7 @@ async function main() {
   let wallet = Wallet.fromMnemonic(<string>process.env.MNEMONIC)
   const provider = new providers.JsonRpcProvider(node_url('polygon'))
   wallet = wallet.connect(provider)
-  const lifi = HopFacet__factory.connect(LIFI_ADDRESS, wallet)
+  const rubic = HopFacet__factory.connect(RUBIC_ADDRESS, wallet)
   const bridge = hop.connect(provider).bridge('USDC')
 
   let HopData
@@ -37,7 +37,7 @@ async function main() {
     const fee = await bridge.getTotalFee(amountOut, Chain.Polygon, Chain.xDai)
 
     const path = [POLYGON_USDT_ADDRESS, POLYGON_USDC_ADDRESS]
-    const to = LIFI_ADDRESS // should be a checksummed recipient address
+    const to = RUBIC_ADDRESS // should be a checksummed recipient address
     const deadline = Math.floor(Date.now() / 1000) + 60 * 120 // 2 hours from the current Unix time
 
     const uniswap = new Contract(
@@ -61,11 +61,11 @@ async function main() {
 
     const token = ERC20__factory.connect(POLYGON_USDC_ADDRESS, wallet)
     // Approve ERC20 for swapping -- USDT -> USDC
-    await token.approve(lifi.address, amountIn)
+    await token.approve(rubic.address, amountIn)
 
     msg('Token approved for swapping')
 
-    const lifiData = {
+    const rubicData = {
       transactionId: utils.randomBytes(32),
       integrator: 'ACME Devs',
       referrer: constants.AddressZero,
@@ -90,8 +90,8 @@ async function main() {
 
     // Call Rubic smart contract to start the bridge process -- WITH SWAP
     msg('Sending...')
-    const tx = await lifi.swapAndStartBridgeTokensViaHop(
-      lifiData,
+    const tx = await rubic.swapAndStartBridgeTokensViaHop(
+      rubicData,
       [
         {
           sendingAssetId: POLYGON_USDC_ADDRESS,
@@ -116,14 +116,14 @@ async function main() {
     const token = ERC20__factory.connect(POLYGON_USDC_ADDRESS, wallet)
     const amount = utils.parseUnits(amountToSwap, 6)
 
-    await token.approve(lifi.address, amount)
+    await token.approve(rubic.address, amount)
 
     msg('Getting Hop info...')
     const fee = await bridge.getTotalFee(amount, Chain.Polygon, Chain.xDai)
 
     const deadline = Math.floor(Date.now() / 1000) + 60 * 120 // 2 hours from the current Unix time
 
-    const lifiData = {
+    const rubicData = {
       transactionId: utils.randomBytes(32),
       integrator: 'ACME Devs',
       referrer: constants.AddressZero,
@@ -148,7 +148,7 @@ async function main() {
 
     msg('Sending...')
 
-    const tx = await lifi.startBridgeTokensViaHop(lifiData, HopData, {
+    const tx = await rubic.startBridgeTokensViaHop(rubicData, HopData, {
       gasLimit: 500000,
     })
 

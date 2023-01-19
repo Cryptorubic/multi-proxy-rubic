@@ -12,7 +12,7 @@ import { LibAsset } from "../Libraries/LibAsset.sol";
 contract OwnershipFacet is IERC173 {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.ownership");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.ownership");
     struct Storage {
         address newOwner;
     }

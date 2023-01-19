@@ -9,9 +9,9 @@ import { LibAccess } from "../Libraries/LibAccess.sol";
 /// @notice Provides mappings for all facets that may need them
 library LibMappings {
     /// Types ///
-    bytes32 internal constant STARGATE_NAMESPACE = keccak256("com.lifi.library.mappings.stargate");
-    bytes32 internal constant WORMHOLE_NAMESPACE = keccak256("com.lifi.library.mappings.wormhole");
-    bytes32 internal constant AMAROK_NAMESPACE = keccak256("com.lifi.library.mappings.amarok");
+    bytes32 internal constant STARGATE_NAMESPACE = keccak256("com.rubic.library.mappings.stargate");
+    bytes32 internal constant WORMHOLE_NAMESPACE = keccak256("com.rubic.library.mappings.wormhole");
+    bytes32 internal constant AMAROK_NAMESPACE = keccak256("com.rubic.library.mappings.amarok");
 
     /// Storage ///
     struct StargateMappings {

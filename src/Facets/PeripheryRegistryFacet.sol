@@ -5,10 +5,10 @@ import { LibDiamond } from "../Libraries/LibDiamond.sol";
 
 /// @title Periphery Registry Facet
 /// @author LI.FI (https://li.fi)
-/// @notice A simple registry to track LIFI periphery contracts
+/// @notice A simple registry to track RUBIC periphery contracts
 contract PeripheryRegistryFacet {
     /// Storage ///
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.periphery_registry");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.periphery_registry");
     struct Storage {
         mapping(string => address) contracts;
     }

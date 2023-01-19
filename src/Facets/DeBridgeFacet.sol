@@ -16,7 +16,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.debridge");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.debridge");
 
     /// @notice The contract address of the spoke pool on the source chain.
     IDeBridgeGate private immutable deBridgeGate;

@@ -12,7 +12,7 @@ const msg = (msg: string) => {
   console.log(chalk.green(msg))
 }
 
-const LIFI_ADDRESS = '0xF0e74c6438bBC9997534860968A59C70223CC53C'
+const RUBIC_ADDRESS = '0xF0e74c6438bBC9997534860968A59C70223CC53C'
 const DAI_ADDRESS = '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063'
 const USDC_ADDRESS = '0x2791bca1f2de4661ed88a30c99a7a9449aa84174'
 const UNISWAP_ADDRESS = '0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff'
@@ -30,7 +30,7 @@ async function main() {
   wallet = wallet.connect(provider)
   const walletAddress = await wallet.getAddress()
 
-  const lifi = DeBridgeFacet__factory.connect(LIFI_ADDRESS, wallet)
+  const rubic = DeBridgeFacet__factory.connect(RUBIC_ADDRESS, wallet)
 
   const deBridgeGate = IDeBridgeGate__factory.connect(
     config['polygon'].deBridgeGate,
@@ -40,7 +40,7 @@ async function main() {
   // Swap and Bridge Non-Native Asset
   {
     const path = [DAI_ADDRESS, USDC_ADDRESS]
-    const to = LIFI_ADDRESS // should be a checksummed recipient address
+    const to = RUBIC_ADDRESS // should be a checksummed recipient address
     const deadline = Math.floor(Date.now() / 1000) + 60 * 20 // 20 minutes from the current Unix time
 
     const uniswap = new Contract(
@@ -106,15 +106,15 @@ async function main() {
 
     // Approve ERC20 for swapping -- DAI -> USDC
     const dai = ERC20__factory.connect(DAI_ADDRESS, wallet)
-    const allowance = await dai.allowance(walletAddress, LIFI_ADDRESS)
+    const allowance = await dai.allowance(walletAddress, RUBIC_ADDRESS)
     if (amountIn.gt(allowance)) {
-      await dai.approve(LIFI_ADDRESS, amountIn)
+      await dai.approve(RUBIC_ADDRESS, amountIn)
 
       msg('Token approved for swapping')
     }
 
     // Call Rubic smart contract to start the bridge process -- WITH SWAP
-    await lifi.swapAndStartBridgeTokensViaDeBridge(
+    await rubic.swapAndStartBridgeTokensViaDeBridge(
       bridgeData,
       swapData,
       deBridgeData,
@@ -160,7 +160,7 @@ async function main() {
     }
 
     // Call Rubic smart contract to start the bridge process
-    await lifi.startBridgeTokensViaDeBridge(bridgeData, deBridgeData, {
+    await rubic.startBridgeTokensViaDeBridge(bridgeData, deBridgeData, {
       value: amount.add(nativeFee),
       gasLimit: 500000,
     })

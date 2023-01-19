@@ -17,7 +17,7 @@ import { Validatable } from "../Helpers/Validatable.sol";
 contract HopFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.hop");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.hop");
 
     struct Storage {
         mapping(address => IHopBridge) bridges;

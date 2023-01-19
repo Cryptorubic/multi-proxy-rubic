@@ -88,13 +88,13 @@ contract HyphenFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
                 _bridgeData.sendingAssetId,
                 _bridgeData.receiver,
                 _bridgeData.minAmount,
-                "LIFI"
+                "RUBIC"
             );
         } else {
             router.depositNative{ value: _bridgeData.minAmount }(
                 _bridgeData.receiver,
                 _bridgeData.destinationChainId,
-                "LIFI"
+                "RUBIC"
             );
         }
 

@@ -70,10 +70,10 @@ contract ExecutorTest is DSTest {
             bytes32("abcde"),
             "polygon",
             "0x1234",
-            abi.encodePacked(address(setter), abi.encodeWithSignature("setMessage(string)", "lifi"))
+            abi.encodePacked(address(setter), abi.encodeWithSignature("setMessage(string)", "rubic"))
         );
 
-        assertEq(setter.message(), "lifi");
+        assertEq(setter.message(), "rubic");
     }
 
     function testCanExecuteAxelarPayloadWithToken() public {

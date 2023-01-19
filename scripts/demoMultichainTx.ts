@@ -3,7 +3,7 @@ import { MultichainFacet__factory, ERC20__factory } from '../typechain'
 import { node_url } from '../utils/network'
 import * as deployment from '../export/deployments-staging.json'
 
-const LIFI_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
+const RUBIC_ADDRESS = deployment[100].xdai.contracts.RubicMultiProxy.address
 const anyTokenAddress = '0xd69b31c3225728cc57ddaf9be532a4ee1620be51'
 const multichainRouter = '0x4f3Aff3A747fCADe12598081e80c6605A8be192F'
 const tokenAddress = '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174'
@@ -16,13 +16,13 @@ async function main() {
   const provider = new providers.FallbackProvider([provider1])
   wallet = wallet.connect(provider)
 
-  const lifi = MultichainFacet__factory.connect(LIFI_ADDRESS, wallet)
+  const rubic = MultichainFacet__factory.connect(RUBIC_ADDRESS, wallet)
 
   const token = ERC20__factory.connect(tokenAddress, wallet)
   const amount = utils.parseUnits(amountToSwap, 6)
-  await token.approve(lifi.address, amount)
+  await token.approve(rubic.address, amount)
 
-  const lifiData = {
+  const rubicData = {
     transactionId: utils.randomBytes(32),
     integrator: 'ACME Devs',
     referrer: constants.AddressZero,
@@ -41,7 +41,7 @@ async function main() {
     toChainId: destinationChainId,
   }
 
-  await lifi.startBridgeTokensViaMultichasin(lifiData, Multichain, {
+  await rubic.startBridgeTokensViaMultichasin(rubicData, Multichain, {
     gasLimit: 500000,
   })
 }

@@ -14,7 +14,7 @@ import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 contract AxelarFacet is ReentrancyGuard {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.axelar");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.axelar");
 
     /// @notice The contract address of the gateway on the source chain.
     IAxelarGateway private immutable gateway;

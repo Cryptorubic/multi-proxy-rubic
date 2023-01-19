@@ -8,7 +8,7 @@ import { InvalidContract } from "../Errors/GenericErrors.sol";
 /// @notice Library for managing and accessing the conract address allow list
 library LibAllowList {
     /// Storage ///
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.library.allow.list");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.library.allow.list");
 
     struct AllowListStorage {
         mapping(address => bool) allowlist;

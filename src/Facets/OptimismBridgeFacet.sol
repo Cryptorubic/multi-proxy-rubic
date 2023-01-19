@@ -17,7 +17,7 @@ import { LibUtil } from "../Libraries/LibUtil.sol";
 contract OptimismBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.lifi.facets.optimism");
+    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.optimism");
 
     struct Storage {
         mapping(address => IL1StandardBridge) bridges;
