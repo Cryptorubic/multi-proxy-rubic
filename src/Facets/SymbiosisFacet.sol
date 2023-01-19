@@ -27,7 +27,8 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     struct SymbiosisData {
         bytes firstSwapCalldata;
         bytes secondSwapCalldata;
-        address[] approvedTokens;
+        address intermediateToken;
+        address bridgingToken;
         address firstDexRouter;
         address secondDexRouter;
         address relayRecipient;
@@ -56,9 +57,8 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         refundExcessNative(payable(msg.sender))
         validateBridgeData(_bridgeData)
         doesNotContainSourceSwaps(_bridgeData)
+        doesNotContainDestinationCalls(_bridgeData)
     {
-        validateDestinationCallFlag(_bridgeData, _symbiosisData);
-
         _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
@@ -85,8 +85,6 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
     {
-        validateDestinationCallFlag(_bridgeData, _symbiosisData);
-
         _bridgeData.minAmount = _depositAndSwap(
             _bridgeData.transactionId,
             _bridgeData.minAmount,
@@ -113,11 +111,16 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), symbiosisGateway, _bridgeData.minAmount);
         }
 
+        address[] memory approvedTokens = new address[](3);
+        approvedTokens[0] = _bridgeData.sendingAssetId;
+        approvedTokens[1] = _symbiosisData.intermediateToken;
+        approvedTokens[2] = _symbiosisData.bridgingToken;
+
         symbiosisMetaRouter.metaRoute{ value: nativeAssetAmount }(
             ISymbiosisMetaRouter.MetaRouteTransaction(
                 _symbiosisData.firstSwapCalldata,
                 _symbiosisData.secondSwapCalldata,
-                _symbiosisData.approvedTokens,
+                approvedTokens,
                 _symbiosisData.firstDexRouter,
                 _symbiosisData.secondDexRouter,
                 _bridgeData.minAmount,
@@ -128,18 +131,5 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         );
 
         emit RubicTransferStarted(_bridgeData);
-    }
-
-    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, SymbiosisData calldata _symbiosisData)
-        private
-        pure
-    {
-        if ((_symbiosisData.otherSideCalldata.length > 0) != _bridgeData.hasDestinationCall) {
-            revert InformationMismatch();
-        }
-
-        if (_symbiosisData.approvedTokens[0] != _bridgeData.sendingAssetId) {
-            revert InformationMismatch();
-        }
     }
 }
