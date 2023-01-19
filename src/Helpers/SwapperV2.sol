@@ -105,7 +105,7 @@ contract SwapperV2 is IRubic {
         uint256 finalBalance = address(this).balance;
         uint256 excess = finalBalance > initialBalance ? finalBalance - initialBalance : 0;
         if (excess > 0) {
-            LibAsset.transferAsset(LibAsset.NATIVE_ASSETID, _refundReceiver, excess);
+            //LibAsset.transferAsset(LibAsset.NATIVE_ASSETID, _refundReceiver, excess);
         }
     }
 
