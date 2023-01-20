@@ -97,4 +97,25 @@ contract SymbiosisFacetTest is TestBaseFacet {
         vm.assume(amount > 10);
         super.testBase_CanBridgeTokens_fuzzed(amount);
     }
+
+    function testBase_CanBridgeNativeTokens() public override {
+        address[] memory path = new address[](2);
+        path[0] = ADDRESS_WETH;
+        path[1] = ADDRESS_USDC;
+
+        symbiosisData.firstDexRouter = address(ADDRESS_UNISWAP);
+        symbiosisData.firstSwapCalldata = abi.encodeWithSelector(
+            uniswap.swapExactETHForTokens.selector,
+            0,
+            path,
+            SYMBIOSIS_METAROUTER,
+            block.timestamp + 20 minutes
+        );
+
+        super.testBase_CanBridgeNativeTokens();
+    }
+
+    function testBase_CanSwapAndBridgeNativeTokens() public override {
+        super.testBase_CanSwapAndBridgeNativeTokens();
+    }
 }
