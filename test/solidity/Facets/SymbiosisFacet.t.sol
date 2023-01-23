@@ -83,7 +83,7 @@ contract SymbiosisFacetTest is TestBaseFacet {
             "",
             "",
             address(0),
-            address(usdc),
+            ADDRESS_USDC,
             address(0),
             address(0),
             RELAY_RECIPIENT,
@@ -103,6 +103,7 @@ contract SymbiosisFacetTest is TestBaseFacet {
         path[0] = ADDRESS_WETH;
         path[1] = ADDRESS_USDC;
 
+        symbiosisData.intermediateToken = ADDRESS_USDC;
         symbiosisData.firstDexRouter = address(ADDRESS_UNISWAP);
         symbiosisData.firstSwapCalldata = abi.encodeWithSelector(
             uniswap.swapExactETHForTokens.selector,
@@ -115,7 +116,39 @@ contract SymbiosisFacetTest is TestBaseFacet {
         super.testBase_CanBridgeNativeTokens();
     }
 
+    function testBase_CanBridgeNativeTokensWithFees() public override {
+        address[] memory path = new address[](2);
+        path[0] = ADDRESS_WETH;
+        path[1] = ADDRESS_USDC;
+
+        symbiosisData.intermediateToken = ADDRESS_USDC;
+        symbiosisData.firstDexRouter = address(ADDRESS_UNISWAP);
+        symbiosisData.firstSwapCalldata = abi.encodeWithSelector(
+            uniswap.swapExactETHForTokens.selector,
+            0,
+            path,
+            SYMBIOSIS_METAROUTER,
+            block.timestamp + 20 minutes
+        );
+
+        super.testBase_CanBridgeNativeTokensWithFees();
+    }
+
     function testBase_CanSwapAndBridgeNativeTokens() public override {
+        address[] memory path = new address[](2);
+        path[0] = ADDRESS_WETH;
+        path[1] = ADDRESS_USDC;
+
+        symbiosisData.intermediateToken = ADDRESS_USDC;
+        symbiosisData.firstDexRouter = address(ADDRESS_UNISWAP);
+        symbiosisData.firstSwapCalldata = abi.encodeWithSelector(
+            uniswap.swapExactETHForTokens.selector,
+            0,
+            path,
+            SYMBIOSIS_METAROUTER,
+            block.timestamp + 20 minutes
+        );
+
         super.testBase_CanSwapAndBridgeNativeTokens();
     }
 }
