@@ -61,7 +61,7 @@ contract DiamondTest {
         functionSelectors[0] = FeesFacet.setFixedNativeFee.selector;
         functionSelectors[1] = FeesFacet.setRubicPlatformFee.selector;
         functionSelectors[2] = FeesFacet.setIntegratorInfo.selector;
-        //functionSelectors[3] = FeesFacet.fixedNativeFee.selector;
+        functionSelectors[3] = FeesFacet.fixedNativeFee.selector;
 
         cut.push(
             IDiamondCut.FacetCut({

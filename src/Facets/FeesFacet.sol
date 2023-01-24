@@ -72,4 +72,14 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         LibAccess.enforceAccessControl();
         LibFees.collectRubicNativeFee(_recipient);
     }
+
+    /// VIEW FUNCTIONS /// TODO: add more view functions
+
+    function fixedNativeFee() external override view returns(
+        uint256 _fixedNativeFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _fixedNativeFee = s.fixedNativeFee;
+    }
 }
