@@ -140,7 +140,7 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
+        _swaps = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         _executeSwaps(_transactionId, _swaps, _leftoverReceiver, initialBalances);
 
         uint256 newBalance = LibAsset.getOwnBalance(finalTokenId) - initialBalance;
@@ -182,7 +182,7 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
+        _swaps = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         ReserveData memory rd = ReserveData(_transactionId, _leftoverReceiver, _nativeReserve);
         _executeSwaps(rd, _swaps, initialBalances);
 
