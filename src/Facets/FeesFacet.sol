@@ -73,7 +73,7 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         LibFees.collectRubicNativeFee(_recipient);
     }
 
-    /// VIEW FUNCTIONS /// TODO: add more view functions
+    /// VIEW FUNCTIONS ///
 
     function fixedNativeFee() external override view returns(
         uint256 _fixedNativeFee
@@ -81,5 +81,61 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _fixedNativeFee = s.fixedNativeFee;
+    }
+
+    function RubicPlatformFee() external override view returns(
+        uint256 _RubicPlatformFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _RubicPlatformFee = s.RubicPlatformFee;
+    }
+
+    function maxRubicPlatformFee() external override view returns(
+        uint256 _maxRubicPlatformFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _maxRubicPlatformFee = s.maxRubicPlatformFee;
+    }
+
+    function availableRubicNativeFee() external override view returns(
+        uint256 _availableRubicNativeFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _availableRubicNativeFee = s.availableRubicNativeFee;
+    }
+
+    function availableRubicTokenFee(address _token) external override view returns(
+        uint256 _availableRubicTokenFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _availableRubicTokenFee = s.availableRubicTokenFee[_token];
+    }
+
+    function availableIntegratorNativeFee(address _integrator) external override view returns(
+        uint256 _availableIntegratorNativeFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _availableIntegratorNativeFee = s.availableIntegratorNativeFee[_integrator];
+    }
+
+    function availableIntegratorTokenFee(address _token, address _integrator) external override view returns(
+        uint256 _availableIntegratorTokenFee
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _availableIntegratorTokenFee = s.availableIntegratorTokenFee[_token][_integrator];
+    }
+
+    function integratorToFeeInfo(address _integrator) external override view returns(
+        IFeesFacet.IntegratorFeeInfo memory _info
+    ) {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _info = s.integratorToFeeInfo[_integrator];
     }
 }

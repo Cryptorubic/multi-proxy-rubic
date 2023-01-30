@@ -82,7 +82,37 @@ interface IFeesFacet {
         uint256 _maxFee
     ) external;
 
+    /// VIEW FUNCTIONS ///
+
     function fixedNativeFee() external view returns(
         uint256 _fixedNativeFee
+    );
+
+    function RubicPlatformFee() external view returns(
+        uint256 _RubicPlatformFee
+    );
+
+    function maxRubicPlatformFee() external view returns(
+        uint256 _maxRubicPlatformFee
+    );
+
+    function availableRubicNativeFee() external view returns(
+        uint256 _availableRubicNativeFee
+    );
+
+    function availableRubicTokenFee(address _token) external view returns(
+        uint256 _availableRubicTokenFee
+    );
+
+    function availableIntegratorNativeFee(address _integrator) external view returns(
+        uint256 _availableIntegratorNativeFee
+    );
+
+    function availableIntegratorTokenFee(address _token, address _integrator) external view returns(
+        uint256 _availableIntegratorTokenFee
+    );
+
+    function integratorToFeeInfo(address _integrator) external view returns(
+        IFeesFacet.IntegratorFeeInfo memory _info
     );
 }
