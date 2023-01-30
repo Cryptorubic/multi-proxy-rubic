@@ -34,6 +34,7 @@
     "ethers": "^5.7.1",
     "fs-extra": "^10.0.1",
     "hardhat": "^2.9.0",
+    "hardhat-preprocessor": "^0.1.5",
     "husky": "^8.0.1",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
@@ -63,6 +64,7 @@
     "gas": "make snapshot",
     "coverage": "make coverage",
     "execute": "node ./_scripts.js run",
+    "deploy": "node ./_scripts.js deploy",
     "abi:generate": "make clean && hardhat compile && hardhat diamondABI",
     "typechain": "make clean && forge build --skip script --skip test --skip Base --skip Test && typechain --target ethers-v5 'out/**/*.json' --out-dir typechain"
   },

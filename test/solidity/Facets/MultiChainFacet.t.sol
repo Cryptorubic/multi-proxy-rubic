@@ -114,21 +114,21 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            multichainFacet.startBridgeTokensViaMultichain{ value: bridgeData.minAmount }(bridgeData, multichainData);
+            multichainFacet.startBridgeTokensViaMultichain{ value: bridgeData.minAmount + addToMessageValue }(bridgeData, multichainData);
         } else {
-            multichainFacet.startBridgeTokensViaMultichain(bridgeData, multichainData);
+            multichainFacet.startBridgeTokensViaMultichain{ value: addToMessageValue }(bridgeData, multichainData);
         }
     }
 
     function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            multichainFacet.swapAndStartBridgeTokensViaMultichain{ value: swapData[0].fromAmount }(
+            multichainFacet.swapAndStartBridgeTokensViaMultichain{ value: swapData[0].fromAmount + addToMessageValue }(
                 bridgeData,
                 swapData,
                 multichainData
             );
         } else {
-            multichainFacet.swapAndStartBridgeTokensViaMultichain(bridgeData, swapData, multichainData);
+            multichainFacet.swapAndStartBridgeTokensViaMultichain{ value: addToMessageValue }(bridgeData, swapData, multichainData);
         }
     }
 
@@ -142,6 +142,14 @@ contract MultichainFacetTest is TestBaseFacet {
     {
         multichainData.router = ANYSWAPV6ROUTER;
         super.testBase_CanBridgeNativeTokens();
+    }
+
+    function testBase_CanBridgeNativeTokensWithFees()
+        public
+        override
+    {
+        multichainData.router = ANYSWAPV6ROUTER;
+        super.testBase_CanBridgeNativeTokensWithFees();
     }
 
     function testBase_CanSwapAndBridgeNativeTokens() public override {

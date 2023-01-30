@@ -3,6 +3,7 @@ pragma solidity >=0.8.0;
 
 import { TestBase, RubicMultiProxy, DSTest, LibSwap, IRubic, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
 import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized } from "src/Errors/GenericErrors.sol";
+import { IFeesFacet } from 'rubic/Interfaces/IFeesFacet.sol';
 
 contract ReentrancyChecker is DSTest {
     address private _facetAddress;
@@ -122,6 +123,7 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(address(0), USER_RECEIVER, 0)
         assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
         assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
+        assertBalanceChange(address(0), _facetTestContractAddress, int(IFeesFacet(_facetTestContractAddress).fixedNativeFee()))
     {
         vm.startPrank(USER_SENDER);
         // customize bridgeData

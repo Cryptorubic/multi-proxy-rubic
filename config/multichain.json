@@ -173,7 +173,9 @@
     "0x7c598c96d02398d89fbcb9d41eab3df0c16f227d",
     "0x7c598c96d02398d89fbcb9d41eab3df0c16f227d"
   ],
-  "polygon": [
+  "polygon": {
+    "anyNative": "0x21804205c744dd98fbc87898704564d5094bb167",
+    "routers": [
     "0x2ef4a574b72e1f555185afa8a09c6d1a8ac4025c",
     "0x6ab6d61428fde76768d7b45d8bfeec19c6ef91a8",
     "0x2bf9b864cdc97b08b6d79ad4663e71b8ab65c45c",
@@ -299,7 +301,9 @@
     "0x4f3aff3a747fcade12598081e80c6605a8be192f",
     "0xafaace7138ab3c2bcb2db4264f8312e1bbb80653",
     "0x6ff0609046a38d76bd40c5863b4d1a2dce687f73"
-  ],
+  ]
+  }
+  ,
   "bsc": [
     "0x2f3bca2631fff538b8a55207f6c2081457e229f7",
     "0xa5342d72d04c133180f376753f90a4b2eee29bb3",

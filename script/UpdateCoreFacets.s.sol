@@ -9,6 +9,7 @@ import { OwnershipFacet } from "rubic/Facets/OwnershipFacet.sol";
 import { WithdrawFacet } from "rubic/Facets/WithdrawFacet.sol";
 import { DexManagerFacet } from "rubic/Facets/DexManagerFacet.sol";
 import { AccessManagerFacet } from "rubic/Facets/AccessManagerFacet.sol";
+import { FeesFacet } from "rubic/Facets/FeesFacet.sol";
 
 contract DeployScript is UpdateScriptBase {
     using stdJson for string;
@@ -21,6 +22,7 @@ contract DeployScript is UpdateScriptBase {
         address withdraw = json.readAddress(".WithdrawFacet");
         address dexMgr = json.readAddress(".DexManagerFacet");
         address accessMgr = json.readAddress(".AccessManagerFacet");
+        address fees = json.readAddress(".FeesFacet");
 
         vm.startBroadcast(deployerPrivateKey);
 
@@ -68,6 +70,15 @@ contract DeployScript is UpdateScriptBase {
                 facetAddress: accessMgr,
                 action: IDiamondCut.FacetCutAction.Add,
                 functionSelectors: getSelectors("AccessManagerFacet", emptyExclude)
+            })
+        );
+
+        // Fees Facet
+        cut.push(
+            IDiamondCut.FacetCut({
+                facetAddress: fees,
+                action: IDiamondCut.FacetCutAction.Add,
+                functionSelectors: getSelectors("FeesFacet", emptyExclude)
             })
         );
 

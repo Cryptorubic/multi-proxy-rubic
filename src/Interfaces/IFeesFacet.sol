@@ -81,4 +81,8 @@ interface IFeesFacet {
     function setMaxRubicPlatformFee(
         uint256 _maxFee
     ) external;
+
+    function fixedNativeFee() external view returns(
+        uint256 _fixedNativeFee
+    );
 }
