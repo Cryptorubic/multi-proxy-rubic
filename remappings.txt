@@ -1,17 +1,11 @@
-@axelar-network/=node_modules/@axelar-network/
-@connext/=node_modules/@connext/
-@eth-optimism/=node_modules/@eth-optimism/
-@openzeppelin/=node_modules/@openzeppelin/
-@uniswap/=node_modules/@uniswap/
 create3-factory/=lib/create3-factory/src/
 ds-test/=lib/ds-test/src/
 eth-gas-reporter/=node_modules/eth-gas-reporter/
 forge-std/=lib/forge-std/src/
 hardhat-deploy/=node_modules/hardhat-deploy/
 hardhat/=node_modules/hardhat/
-sgn-v2-contracts/=lib/sgn-v2-contracts/contracts/
 solmate/=lib/solmate/src/
 
 rubic/=src/
-celer-network/=lib/sgn-v2-contracts
+celer-network/=lib/sgn-v2-contracts/
 test/=test/
