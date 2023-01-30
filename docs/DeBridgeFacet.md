@@ -60,6 +60,17 @@ struct DeBridgeData {
 }
 
 ```
+## Fees
+
+There are **three** fees included in the DeBridge interaction:
+1) [fixed native fee](./LibFees.md)
+2) [token fee](./LibFees.md)
+3) DeBridge native fee
+
+- **Fixed native fee** is subtracted from message value whether there is swap or not.
+- **Token fee** is subtracted from the token transferred from user whether there is swap or not.
+- **DeBridge native fee** is subtracted from message value **if there is no swap** and implied to be included in the result amount of native tokens after swap **if there is a swap** (with native tokens as resulting token)
+
 
 ## Swap Data
 
