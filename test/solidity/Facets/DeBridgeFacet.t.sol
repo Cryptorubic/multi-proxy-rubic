@@ -17,6 +17,13 @@ contract DeBridgeFacetTest is TestBaseFacet {
     uint256 internal constant DST_CHAIN_ID = 56;
     uint256 public constant REVERT_IF_EXTERNAL_FAIL = 1;
 
+    struct SubmissionAutoParamsTo {
+        uint256 executionFee;
+        uint256 flags;
+        bytes fallbackAddress;
+        bytes data;
+    }
+
     TestDeBridgeFacet internal deBridgeFacet;
     DeBridgeFacet.DeBridgeData internal deBridgeData;
 
@@ -84,12 +91,12 @@ contract DeBridgeFacetTest is TestBaseFacet {
             nativeFee,
             false,
             0,
-            DeBridgeFacet.SubmissionAutoParamsTo(
+            abi.encode(SubmissionAutoParamsTo(
                 executionFee,
                 REVERT_IF_EXTERNAL_FAIL,
                 abi.encodePacked(USER_RECEIVER),
                 ""
-            )
+            ))
         );
     }
 

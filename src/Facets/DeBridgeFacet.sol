@@ -23,17 +23,17 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// Types ///
 
-    /// @param executionFee Fee paid to the transaction executor.
-    /// @param flags Flags set specific flows for call data execution.
-    /// @param fallbackAddress Receiver of the tokens if the call fails.
-    /// @param data Message/Call data to be passed to the receiver
-    ///             on the destination chain during the external call execution.
-    struct SubmissionAutoParamsTo {
-        uint256 executionFee;
-        uint256 flags;
-        bytes fallbackAddress;
-        bytes data;
-    }
+//    /// @param executionFee Fee paid to the transaction executor.
+//    /// @param flags Flags set specific flows for call data execution.
+//    /// @param fallbackAddress Receiver of the tokens if the call fails.
+//    /// @param data Message/Call data to be passed to the receiver
+//    ///             on the destination chain during the external call execution.
+//    struct SubmissionAutoParamsTo {
+//        uint256 executionFee;
+//        uint256 flags;
+//        bytes fallbackAddress;
+//        bytes data;
+//    }
 
     /// @param permit deadline + signature for approving the spender by signature.
     /// @param nativeFee Native fee for the bridging when useAssetFee is false.
@@ -45,7 +45,7 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         uint256 nativeFee;
         bool useAssetFee;
         uint32 referralCode;
-        SubmissionAutoParamsTo autoParams;
+        bytes autoParams;
     }
 
     /// Constructor ///
@@ -69,7 +69,7 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         validateBridgeData(_bridgeData)
         doesNotContainSourceSwaps(_bridgeData)
     {
-        validateDestinationCallFlag(_bridgeData, _deBridgeData);
+        //validateDestinationCallFlag(_bridgeData, _deBridgeData);
 
         _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
@@ -97,7 +97,7 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
     {
-        validateDestinationCallFlag(_bridgeData, _deBridgeData);
+        //validateDestinationCallFlag(_bridgeData, _deBridgeData);
 
         _bridgeData.minAmount = _depositAndSwap(
             _bridgeData.transactionId,
@@ -138,18 +138,18 @@ contract DeBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _deBridgeData.permit,
             _deBridgeData.useAssetFee,
             _deBridgeData.referralCode,
-            abi.encode(_deBridgeData.autoParams)
+            _deBridgeData.autoParams
         );
 
         emit RubicTransferStarted(_bridgeData);
     }
 
-    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData)
-        private
-        pure
-    {
-        if ((_deBridgeData.autoParams.data.length > 0) != _bridgeData.hasDestinationCall) {
-            revert InformationMismatch();
-        }
-    }
+//    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, DeBridgeData calldata _deBridgeData)
+//        private
+//        pure
+//    {
+//        if ((_deBridgeData.autoParams.data.length > 0) != _bridgeData.hasDestinationCall) {
+//            revert InformationMismatch();
+//        }
+//    }
 }
