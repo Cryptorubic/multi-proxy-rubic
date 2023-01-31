@@ -34,29 +34,18 @@ If you do not desire immediate redemption, you can leave `executionFee` as 0. If
 This data is specific to DeBridge and is represented as the following struct type:
 
 ```solidity
-/// @param executionFee Fee paid to the transaction executor.
-/// @param flags Flags set specific flows for call data execution.
-/// @param fallbackAddress Receiver of the tokens if the call fails.
-/// @param data Message/Call data to be passed to the receiver
-///             on the destination chain during the external call execution.
-struct SubmissionAutoParamsTo {
-    uint256 executionFee;
-    uint256 flags;
-    bytes fallbackAddress;
-    bytes data;
-}
 
 /// @param permit deadline + signature for approving the spender by signature.
 /// @param nativeFee Native fee for the bridging when useAssetFee is false.
 /// @param useAssetFee Use assets fee for pay protocol fix (work only for specials token)
 /// @param referralCode Referral code.
-/// @param autoParams Structure that enables passing arbitrary messages and call data.
+/// @param autoParams Encoded autoParams data fetched from DeBridge API.
 struct DeBridgeData {
     bytes permit;
     uint256 nativeFee;
     bool useAssetFee;
     uint32 referralCode;
-    SubmissionAutoParamsTo autoParams;
+    bytes autoParams;
 }
 
 ```
