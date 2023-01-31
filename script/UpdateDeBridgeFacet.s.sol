@@ -20,6 +20,8 @@ contract DeployScript is UpdateScriptBase {
         // DeBridge
         if (loupe.facetFunctionSelectors(facet).length == 0) {
             bytes4[] memory exclude;
+//            exclude[0] = (bytes4(hex'b1c902bf'));
+//            exclude[1] = (bytes4(hex'a1518823'));
             cut.push(
                 IDiamondCut.FacetCut({
                     facetAddress: address(facet),
