@@ -94,6 +94,30 @@ abstract contract TestBaseFacet is TestBase {
         vm.stopPrank();
     }
 
+    function testBase_CanBridgeTokensWithFees()
+        public
+        virtual
+        setIntegratorFee(defaultUSDCAmount)
+        assertBalanceChange(ADDRESS_USDC, USER_SENDER, -int256(defaultUSDCAmount))
+        assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
+        assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_USDC, address(diamond), int256(addTokenAmount))
+    {
+        vm.startPrank(USER_SENDER);
+        // approval 
+        usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
+
+        bridgeData.integrator = USER_SENDER;
+        //prepare check for events
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+
+        emit RubicTransferStarted(bridgeData);
+
+        initiateBridgeTxWithFacet(false);
+        vm.stopPrank();
+    }
+
     function testBase_CanBridgeNativeTokens()
         public
         virtual
