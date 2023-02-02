@@ -81,7 +81,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     // tokenAddress => userAddress => balance
     mapping(address => mapping(address => uint256)) internal initialBalances;
     uint256 internal addToMessageValue;
-    uint256 internal addTokenAmount; 
+    uint256 internal feeTokenAmount; 
     // set these custom values in your test file to
     uint256 internal customBlockNumberForForking;
     string internal customRpcUrlForForking;
@@ -138,7 +138,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
             RubicFixedCryptoShare: 0, 
             fixedFeeAmount: 0
         }));
-        addTokenAmount += amount * TOKEN_FEE / DENOMINATOR;
+        feeTokenAmount += amount * TOKEN_FEE / DENOMINATOR;
         _;
     }
 

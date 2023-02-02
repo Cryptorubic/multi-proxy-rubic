@@ -4,7 +4,6 @@ pragma solidity >=0.8.0;
 import { TestBase, RubicMultiProxy, DSTest, LibSwap, IRubic, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
 import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized } from "src/Errors/GenericErrors.sol";
 import { IFeesFacet } from 'rubic/Interfaces/IFeesFacet.sol';
-
 contract ReentrancyChecker is DSTest {
     address private _facetAddress;
     bytes private _callData;
@@ -102,7 +101,7 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
         assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
         assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
-        assertBalanceChange(ADDRESS_USDC, address(diamond), int256(addTokenAmount))
+        assertBalanceChange(ADDRESS_USDC, address(diamond), int256(feeTokenAmount))
     {
         vm.startPrank(USER_SENDER);
         // approval 
@@ -111,8 +110,18 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.integrator = USER_SENDER;
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-
-        emit RubicTransferStarted(bridgeData);
+        emit RubicTransferStarted(IRubic.BridgeData(
+            bridgeData.transactionId,
+            bridgeData.bridge,
+            bridgeData.integrator,
+            bridgeData.referrer,
+            bridgeData.sendingAssetId,
+            bridgeData.receiver,
+            bridgeData.minAmount - feeTokenAmount,
+            bridgeData.destinationChainId,
+            bridgeData.hasSourceSwaps,
+            bridgeData.hasDestinationCall
+        ));
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
