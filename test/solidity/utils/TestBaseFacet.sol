@@ -104,7 +104,7 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(ADDRESS_USDC, address(diamond), int256(feeTokenAmount))
     {
         vm.startPrank(USER_SENDER);
-        // approval 
+        // approval
         usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
 
         bridgeData.integrator = USER_SENDER;
@@ -216,6 +216,7 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
         assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
         assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_DAI, address(diamond), int256(feeTokenAmount))
     {
         vm.startPrank(USER_SENDER);
 
@@ -238,7 +239,7 @@ abstract contract TestBaseFacet is TestBase {
             bridgeData.minAmount,
             block.timestamp
         );
-    
+
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
         console.log("in test");
         emit RubicTransferStarted(bridgeData);

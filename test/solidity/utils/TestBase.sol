@@ -81,7 +81,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     // tokenAddress => userAddress => balance
     mapping(address => mapping(address => uint256)) internal initialBalances;
     uint256 internal addToMessageValue;
-    uint256 internal feeTokenAmount; 
+    uint256 internal feeTokenAmount;
     // set these custom values in your test file to
     uint256 internal customBlockNumberForForking;
     string internal customRpcUrlForForking;
@@ -133,9 +133,9 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     modifier setIntegratorFee(uint256 amount) {
         IFeesFacet(address(diamond)).setIntegratorInfo(USER_SENDER, IFeesFacet.IntegratorFeeInfo({
             isIntegrator: true,
-            tokenFee: TOKEN_FEE, 
+            tokenFee: TOKEN_FEE,
             RubicTokenShare: 0,
-            RubicFixedCryptoShare: 0, 
+            RubicFixedCryptoShare: 0,
             fixedFeeAmount: 0
         }));
         feeTokenAmount += amount * TOKEN_FEE / DENOMINATOR;
@@ -268,7 +268,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
                 approveTo: address(uniswap),
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: ADDRESS_USDC,
-                fromAmount: amountIn,
+                fromAmount: amountIn * DENOMINATOR / (DENOMINATOR - TOKEN_FEE) ,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,
@@ -302,7 +302,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
                 approveTo: address(uniswap),
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: address(0),
-                fromAmount: amountIn,
+                fromAmount: amountIn * DENOMINATOR / (DENOMINATOR - TOKEN_FEE),
                 callData: abi.encodeWithSelector(
                     uniswap.swapTokensForExactETH.selector,
                     amountOut,
