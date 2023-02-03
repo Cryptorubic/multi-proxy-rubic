@@ -107,7 +107,7 @@ contract SwapperV2 is IRubic {
         uint256 finalBalance = address(this).balance;
         uint256 excess = finalBalance > initialBalance ? finalBalance - initialBalance : 0;
         if (excess > 0) {
-            LibAsset.transferAsset(LibAsset.NATIVE_ASSETID, _refundReceiver, excess);
+            // LibAsset.transferAsset(LibAsset.NATIVE_ASSETID, _refundReceiver, excess);
         }
     }
 
@@ -143,7 +143,6 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        // TODO: fix _swaps
         (_swaps, feeAmounts) = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         _executeSwaps(_transactionId, _swaps, _leftoverReceiver, initialBalances, feeAmounts);
 
@@ -187,7 +186,6 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        // TODO: fix _swaps
         (_swaps, feeAmounts) = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         ReserveData memory rd = ReserveData(_transactionId, _leftoverReceiver, _nativeReserve);
         _executeSwaps(rd, _swaps, initialBalances, feeAmounts);
@@ -213,7 +211,7 @@ contract SwapperV2 is IRubic {
         LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
         uint256[] memory _initialBalances,
-        uint256[] memory feeAmounts 
+        uint256[] memory feeAmounts
     ) internal noLeftovers(_swaps, _leftoverReceiver, _initialBalances, feeAmounts) {
         uint256 numSwaps = _swaps.length;
         for (uint256 i = 0; i < numSwaps; ) {
