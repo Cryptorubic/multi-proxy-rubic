@@ -103,12 +103,12 @@ library LibAsset {
         uint256 amount,
         uint256 extraNativeAmount,
         address integrator
-    ) internal returns (uint256 amountWithoutFees){
+    ) internal returns (uint256 amountWithoutFees, uint256 feeAmount){
         uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(integrator);
         // Check that msg value is at least greater than fixed native fee + extra fee sending to bridge
         if (msg.value < accruedFixedNativeFee + extraNativeAmount) revert InvalidAmount();
 
-        amountWithoutFees = _depositAndAccrueTokenFee(
+        (amountWithoutFees, feeAmount) = _depositAndAccrueTokenFee(
             assetId,
             amount,
             accruedFixedNativeFee,
@@ -124,13 +124,14 @@ library LibAsset {
     function depositAssetsAndAccrueFees(
         LibSwap.SwapData[] memory swaps,
         address integrator
-    ) internal returns (LibSwap.SwapData[] memory){
+    ) internal returns (LibSwap.SwapData[] memory, uint256[] memory){
         uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(integrator);
+        uint256[] memory feeAmounts = new uint256[](swaps.length); 
         if (msg.value < accruedFixedNativeFee) revert InvalidAmount();
         for (uint256 i = 0; i < swaps.length; ) {
             LibSwap.SwapData memory swap = swaps[i];
             if (swap.requiresDeposit) {
-                swap.fromAmount = _depositAndAccrueTokenFee(
+                (swap.fromAmount, feeAmounts[i]) = _depositAndAccrueTokenFee(
                     swap.sendingAssetId,
                     swap.fromAmount,
                     accruedFixedNativeFee,
@@ -144,7 +145,7 @@ library LibAsset {
             }
         }
 
-        return swaps;
+        return (swaps, feeAmounts);
     }
 
     function _depositAndAccrueTokenFee(
@@ -153,7 +154,7 @@ library LibAsset {
         uint256 accruedFixedNativeFee,
         uint256 extraNativeAmount,
         address integrator
-    ) private returns (uint256 amountWithoutFees) {
+    ) private returns (uint256 amountWithoutFees, uint256 feeAmount) {
         if (isNativeAsset(assetId)) {
             // Check that msg value greater than sending amount + fixed native fees + extra fees sending to bridge
             if (msg.value < amount + accruedFixedNativeFee + extraNativeAmount) revert InvalidAmount();
@@ -164,11 +165,15 @@ library LibAsset {
             transferFromERC20(assetId, msg.sender, address(this), amount);
         }
 
-        amountWithoutFees = LibFees.accrueTokenFees(
+        (amountWithoutFees, feeAmount) = LibFees.accrueTokenFees(
             integrator,
             amount,
             assetId
         );
+        
+        if(isNativeAsset(assetId)) {
+            feeAmount += accruedFixedNativeFee;
+        } 
     }
 
     /// @notice Determines whether the given assetId is the native asset

@@ -4,7 +4,6 @@ pragma solidity >=0.8.0;
 import { TestBase, RubicMultiProxy, DSTest, LibSwap, IRubic, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
 import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized } from "src/Errors/GenericErrors.sol";
 import { IFeesFacet } from 'rubic/Interfaces/IFeesFacet.sol';
-
 contract ReentrancyChecker is DSTest {
     address private _facetAddress;
     bytes private _callData;
@@ -94,6 +93,40 @@ abstract contract TestBaseFacet is TestBase {
         vm.stopPrank();
     }
 
+    function testBase_CanBridgeTokensWithFees()
+        public
+        virtual
+        setIntegratorFee(defaultUSDCAmount)
+        assertBalanceChange(ADDRESS_USDC, USER_SENDER, -int256(defaultUSDCAmount))
+        assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
+        assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_USDC, address(diamond), int256(feeTokenAmount))
+    {
+        vm.startPrank(USER_SENDER);
+        // approval
+        usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
+
+        bridgeData.integrator = USER_SENDER;
+        //prepare check for events
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        emit RubicTransferStarted(IRubic.BridgeData(
+            bridgeData.transactionId,
+            bridgeData.bridge,
+            bridgeData.integrator,
+            bridgeData.referrer,
+            bridgeData.sendingAssetId,
+            bridgeData.receiver,
+            bridgeData.minAmount - feeTokenAmount,
+            bridgeData.destinationChainId,
+            bridgeData.hasSourceSwaps,
+            bridgeData.hasDestinationCall
+        ));
+
+        initiateBridgeTxWithFacet(false);
+        vm.stopPrank();
+    }
+
     function testBase_CanBridgeNativeTokens()
         public
         virtual
@@ -166,6 +199,49 @@ abstract contract TestBaseFacet is TestBase {
             block.timestamp
         );
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        emit RubicTransferStarted(bridgeData);
+
+        // approval
+        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+
+        // execute call in child contract
+        initiateSwapAndBridgeTxWithFacet(false);
+    }
+
+    function testBase_CanSwapAndBridgeTokensWithFees()
+        public
+        virtual
+        setIntegratorFee(swapData[0].fromAmount)
+        assertBalanceChange(ADDRESS_DAI, USER_SENDER, -int256(swapData[0].fromAmount))
+        assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
+        assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_DAI, address(diamond), int256(feeTokenAmount))
+    {
+        vm.startPrank(USER_SENDER);
+
+        // prepare bridgeData
+        bridgeData.hasSourceSwaps = true;
+        bridgeData.integrator = USER_SENDER;
+
+        // reset swap data
+        setDefaultSwapDataSingleDAItoUSDC();
+
+        //prepare check for events
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        console.log("in test");
+        emit AssetSwapped(
+            bridgeData.transactionId,
+            ADDRESS_UNISWAP,
+            ADDRESS_DAI,
+            ADDRESS_USDC,
+            swapData[0].fromAmount - feeTokenAmount,
+            bridgeData.minAmount,
+            block.timestamp
+        );
+
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        console.log("in test");
         emit RubicTransferStarted(bridgeData);
 
         // approval

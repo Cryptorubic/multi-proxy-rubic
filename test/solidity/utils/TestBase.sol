@@ -81,6 +81,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     // tokenAddress => userAddress => balance
     mapping(address => mapping(address => uint256)) internal initialBalances;
     uint256 internal addToMessageValue;
+    uint256 internal feeTokenAmount;
     // set these custom values in your test file to
     uint256 internal customBlockNumberForForking;
     string internal customRpcUrlForForking;
@@ -118,13 +119,26 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
 
     // Fees
     uint256 constant FIXED_NATIVE_FEE = 2 ether / 100;
-
+    uint32 constant TOKEN_FEE = 1e4;
+    uint256 constant DENOMINATOR = 1e6;
     // MODIFIERS
 
     modifier setFixedNativeFee() {
         IFeesFacet(address(diamond)).setFixedNativeFee(FIXED_NATIVE_FEE);
 
         addToMessageValue += FIXED_NATIVE_FEE;
+        _;
+    }
+
+    modifier setIntegratorFee(uint256 amount) {
+        IFeesFacet(address(diamond)).setIntegratorInfo(USER_SENDER, IFeesFacet.IntegratorFeeInfo({
+            isIntegrator: true,
+            tokenFee: TOKEN_FEE,
+            RubicTokenShare: 0,
+            RubicFixedCryptoShare: 0,
+            fixedFeeAmount: 0
+        }));
+        feeTokenAmount += amount * TOKEN_FEE / DENOMINATOR;
         _;
     }
 
@@ -254,7 +268,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
                 approveTo: address(uniswap),
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: ADDRESS_USDC,
-                fromAmount: amountIn,
+                fromAmount: amountIn * DENOMINATOR / (DENOMINATOR - TOKEN_FEE) ,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,
@@ -288,7 +302,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
                 approveTo: address(uniswap),
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: address(0),
-                fromAmount: amountIn,
+                fromAmount: amountIn * DENOMINATOR / (DENOMINATOR - TOKEN_FEE),
                 callData: abi.encodeWithSelector(
                     uniswap.swapTokensForExactETH.selector,
                     amountOut,
