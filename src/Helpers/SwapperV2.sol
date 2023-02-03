@@ -7,7 +7,7 @@ import { LibBytes } from "../Libraries/LibBytes.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibFees } from "../Libraries/LibFees.sol";
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
-import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSlippageTooHigh } from "../Errors/GenericErrors.sol";
+import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSlippageTooHigh, FeesGone } from "../Errors/GenericErrors.sol";
 
 /// @title Swapper
 /// @author LI.FI (https://li.fi)
@@ -46,7 +46,8 @@ contract SwapperV2 is IRubic {
                 address curAsset = _swaps[i].receivingAssetId;
                 // Handle multi-to-one swaps
                 if (curAsset != finalAsset) {
-                    curBalance = LibAsset.getOwnBalance(curAsset) - _feeAmounts[i] - _initialBalances[i];
+                                                            // if user deposits receiving token in the next swap
+                    curBalance = LibAsset.getOwnBalance(curAsset) - _feeAmounts[i+1] - _initialBalances[i];
                     if (curBalance > 0) {
                         LibAsset.transferAsset(curAsset, _leftoverReceiver, curBalance);
                     }
@@ -56,7 +57,20 @@ contract SwapperV2 is IRubic {
                 }
             }
         } else {
+            uint256 curBalance;
+
             _;
+
+            for (uint256 i = 0; i < numSwaps - 1; ) {
+                address curAsset = _swaps[i].sendingAssetId;
+                curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
+                if (curBalance < _feeAmounts[i]) {
+                    revert FeesGone();
+                }
+                unchecked {
+                    ++i;
+                }
+            }
         }
     }
 
@@ -83,7 +97,8 @@ contract SwapperV2 is IRubic {
                 address curAsset = _swaps[i].receivingAssetId;
                 // Handle multi-to-one swaps
                 if (curAsset != finalAsset) {
-                    curBalance = LibAsset.getOwnBalance(curAsset) - _feeAmounts[i] - _initialBalances[i];
+                                                    // if user deposits receiving token in the next swap
+                    curBalance = LibAsset.getOwnBalance(curAsset) - _feeAmounts[i+1] - _initialBalances[i];
                     uint256 reserve = LibAsset.isNativeAsset(curAsset) ? _nativeReserve : 0;
                     if (curBalance > 0) {
                         LibAsset.transferAsset(curAsset, _leftoverReceiver, curBalance - reserve);
@@ -94,7 +109,20 @@ contract SwapperV2 is IRubic {
                 }
             }
         } else {
+            uint256 curBalance;
+
             _;
+
+            for (uint256 i = 0; i < numSwaps - 1; ) {
+                address curAsset = _swaps[i].sendingAssetId;
+                curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
+                if (curBalance < _feeAmounts[i]) {
+                    revert FeesGone();
+                }
+                unchecked {
+                    ++i;
+                }
+            }
         }
     }
 
