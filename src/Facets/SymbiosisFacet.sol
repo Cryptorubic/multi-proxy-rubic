@@ -14,10 +14,6 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Symbiosis Protocol
 contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
-    /// Storage ///
-
-    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.symbiosis");
-
     /// @notice The contract address of the Symbiosis router on the source chain
     ISymbiosisMetaRouter private immutable symbiosisMetaRouter;
     address private immutable symbiosisGateway;
