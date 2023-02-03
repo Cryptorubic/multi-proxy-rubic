@@ -118,7 +118,7 @@ library LibFees {
         address _integrator,
         uint256 _amountWithFee,
         address _token
-    ) internal returns (uint256) {
+    ) internal returns (uint256, uint256) {
         FeesStorage storage fs = feesStorage();
         IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[_integrator];
 
@@ -142,7 +142,7 @@ library LibFees {
             _token
         );
 
-        return _amountWithFee - _totalFees;
+        return (_amountWithFee - _totalFees, _totalFees);
     }
 
     function collectIntegrator(
