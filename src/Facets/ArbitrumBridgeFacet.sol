@@ -62,7 +62,7 @@ contract ArbitrumBridgeFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable 
         doesNotContainDestinationCalls(_bridgeData)
         validateBridgeData(_bridgeData)
     {
-        (_bridgeData.minAmount, ) = LibAsset.depositAssetAndAccrueFees(
+        _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
             _arbitrumData.maxSubmissionCost + _arbitrumData.maxGas * _arbitrumData.maxGasPrice,

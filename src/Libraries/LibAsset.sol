@@ -103,12 +103,12 @@ library LibAsset {
         uint256 amount,
         uint256 extraNativeAmount,
         address integrator
-    ) internal returns (uint256 amountWithoutFees, uint256 feeAmount){
+    ) internal returns (uint256 amountWithoutFees){
         uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(integrator);
         // Check that msg value is at least greater than fixed native fee + extra fee sending to bridge
         if (msg.value < accruedFixedNativeFee + extraNativeAmount) revert InvalidAmount();
 
-        (amountWithoutFees, feeAmount) = _depositAndAccrueTokenFee(
+        (amountWithoutFees, ) = _depositAndAccrueTokenFee(
             assetId,
             amount,
             accruedFixedNativeFee,
@@ -126,7 +126,7 @@ library LibAsset {
         address integrator
     ) internal returns (LibSwap.SwapData[] memory, uint256[] memory){
         uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(integrator);
-        uint256[] memory feeAmounts = new uint256[](swaps.length); 
+        uint256[] memory feeAmounts = new uint256[](swaps.length);
         if (msg.value < accruedFixedNativeFee) revert InvalidAmount();
         for (uint256 i = 0; i < swaps.length; ) {
             LibSwap.SwapData memory swap = swaps[i];
@@ -170,10 +170,10 @@ library LibAsset {
             amount,
             assetId
         );
-        
+
         if(isNativeAsset(assetId)) {
             feeAmount += accruedFixedNativeFee;
-        } 
+        }
     }
 
     /// @notice Determines whether the given assetId is the native asset

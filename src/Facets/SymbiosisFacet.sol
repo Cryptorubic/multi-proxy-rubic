@@ -55,7 +55,7 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         doesNotContainSourceSwaps(_bridgeData)
         doesNotContainDestinationCalls(_bridgeData)
     {
-        (_bridgeData.minAmount, ) = LibAsset.depositAssetAndAccrueFees(
+        _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
             0,
