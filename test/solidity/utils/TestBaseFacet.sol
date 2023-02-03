@@ -208,6 +208,48 @@ abstract contract TestBaseFacet is TestBase {
         initiateSwapAndBridgeTxWithFacet(false);
     }
 
+    function testBase_CanSwapAndBridgeTokensWithFees()
+        public
+        virtual
+        setIntegratorFee(swapData[0].fromAmount)
+        assertBalanceChange(ADDRESS_DAI, USER_SENDER, -int256(swapData[0].fromAmount))
+        assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
+        assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
+        assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
+    {
+        vm.startPrank(USER_SENDER);
+
+        // prepare bridgeData
+        bridgeData.hasSourceSwaps = true;
+        bridgeData.integrator = USER_SENDER;
+
+        // reset swap data
+        setDefaultSwapDataSingleDAItoUSDC();
+
+        //prepare check for events
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        console.log("in test");
+        emit AssetSwapped(
+            bridgeData.transactionId,
+            ADDRESS_UNISWAP,
+            ADDRESS_DAI,
+            ADDRESS_USDC,
+            swapData[0].fromAmount - feeTokenAmount,
+            bridgeData.minAmount,
+            block.timestamp
+        );
+    
+        vm.expectEmit(true, true, true, true, _facetTestContractAddress);
+        console.log("in test");
+        emit RubicTransferStarted(bridgeData);
+
+        // approval
+        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+
+        // execute call in child contract
+        initiateSwapAndBridgeTxWithFacet(false);
+    }
+
     function testBase_CanSwapAndBridgeNativeTokens()
         public
         virtual
