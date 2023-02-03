@@ -8,5 +8,6 @@
   "AccessManagerFacet": "0xdEFE87b3eCbd4cf4427ab8Dd73eCABc04c2F252a",
   "DexManagerFacet": "0x607F9c53eCab8Bf7e75f4a94f7FF5d896F8Ec1f0",
   "FeesFacet": "0xf93cF6Be3b77402E003Ae5fceb4dfE5bed146d50",
-  "MultichainFacet": "0x69eF7E0cbCf967e51874d7a89CfB2F6609170CCb"
+  "MultichainFacet": "0x69eF7E0cbCf967e51874d7a89CfB2F6609170CCb",
+  "SymbiosisFacet": "0x992e73228490A6c265A505093A93501601710515"
 }
