@@ -2,7 +2,7 @@
 pragma solidity >=0.8.0;
 
 import { TestBase, RubicMultiProxy, DSTest, LibSwap, IRubic, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
-import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized } from "src/Errors/GenericErrors.sol";
+import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized, FeesGone } from "src/Errors/GenericErrors.sol";
 import { IFeesFacet } from 'rubic/Interfaces/IFeesFacet.sol';
 contract ReentrancyChecker is DSTest {
     address private _facetAddress;
@@ -369,6 +369,59 @@ abstract contract TestBaseFacet is TestBase {
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
+    }
+
+    function testBase_Revert_SendingFeesInDexCall()
+        public
+        virtual
+        setIntegratorFee(swapData[0].fromAmount)
+    {
+        vm.startPrank(USER_SENDER);
+
+        // prepare bridgeData
+        bridgeData.hasSourceSwaps = true;
+        bridgeData.integrator = USER_SENDER;
+
+        // preapre swapData
+        delete swapData;
+        // Swap DAI -> USDC
+        address[] memory path = new address[](2);
+        path[0] = ADDRESS_DAI;
+        path[1] = ADDRESS_USDC;
+
+        uint256 amountOut = defaultUSDCAmount;
+
+        // Calculate DAI amount
+        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
+        uint256 amountIn = amounts[0];
+
+        swapData.push(
+            LibSwap.SwapData({
+                callTo: address(uniswap),
+                approveTo: address(uniswap),
+                sendingAssetId: ADDRESS_DAI,
+                receivingAssetId: ADDRESS_USDC,
+                fromAmount: amountIn,
+                callData: abi.encodeWithSelector(
+                    uniswap.swapExactTokensForTokens.selector,
+                    amountIn,
+                    amountOut,
+                    path,
+                    _facetTestContractAddress,
+                    block.timestamp + 20 minutes
+                ),
+                requiresDeposit: true
+            })
+        );
+
+        // approval
+        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+
+        // prepare revert
+        vm.expectRevert(FeesGone.selector);
+
+        // execute call in child contract
+        initiateSwapAndBridgeTxWithFacet(false);
     }
 
     function testBase_Revert_SwapAndBridgeWithInvalidAmount() public virtual {
