@@ -229,7 +229,6 @@ abstract contract TestBaseFacet is TestBase {
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        console.log("in test");
         emit AssetSwapped(
             bridgeData.transactionId,
             ADDRESS_UNISWAP,
@@ -241,7 +240,6 @@ abstract contract TestBaseFacet is TestBase {
         );
 
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
-        console.log("in test");
         emit RubicTransferStarted(bridgeData);
 
         // approval
