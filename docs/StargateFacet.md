@@ -52,6 +52,16 @@ struct StargateData {
 
 ```
 
+## Fees
+
+There are **three** fees included in the Stargate interaction:
+1) [fixed native fee](./LibFees.md)
+2) [token fee](./LibFees.md)
+3) Stargate lzFee
+
+- **Fixed native fee** is subtracted from message value whether there is swap or not.
+- **Token fee** is subtracted from the token transferred from user whether there is swap or not.
+- **Stargate lzFee** is fee that Stargate needs to pay for the cross chain message, pass in swap() as msg.value
 ## Swap Data
 
 Some methods accept a `SwapData _swapData` parameter.

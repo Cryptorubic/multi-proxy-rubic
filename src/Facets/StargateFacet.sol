@@ -114,10 +114,10 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         noNativeAsset(_bridgeData)
     {
         validateDestinationCallFlag(_bridgeData, _stargateData);
-        LibAsset.depositAssetAndAccrueFees(
+        _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
-            0,
+            _stargateData.lzFee,
             _bridgeData.integrator
         );
         _startBridge(_bridgeData, _stargateData);
