@@ -61,7 +61,7 @@ contract SwapperV2 is IRubic {
 
             _;
 
-            for (uint256 i = 0; i < numSwaps - 1; ) {
+            for (uint256 i = 0; i < numSwaps; ) {
                 address curAsset = _swaps[i].sendingAssetId;
                 curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
                 if (curBalance < _feeAmounts[i]) {
@@ -113,7 +113,7 @@ contract SwapperV2 is IRubic {
 
             _;
 
-            for (uint256 i = 0; i < numSwaps - 1; ) {
+            for (uint256 i = 0; i < numSwaps; ) {
                 address curAsset = _swaps[i].sendingAssetId;
                 curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
                 if (curBalance < _feeAmounts[i]) {
