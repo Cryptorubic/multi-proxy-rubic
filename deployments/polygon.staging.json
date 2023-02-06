@@ -9,5 +9,6 @@
   "DexManagerFacet": "0x607F9c53eCab8Bf7e75f4a94f7FF5d896F8Ec1f0",
   "FeesFacet": "0xf93cF6Be3b77402E003Ae5fceb4dfE5bed146d50",
   "MultichainFacet": "0x69eF7E0cbCf967e51874d7a89CfB2F6609170CCb",
-  "SymbiosisFacet": "0x68cBf3475B7F91012c1B96C84F7067e4D9FCac52"
+  "SymbiosisFacet": "0x68cBf3475B7F91012c1B96C84F7067e4D9FCac52",
+  "GenericSwapFacet": "0xD683cE1947fF50c242b4EDC978f1D3Fc45B81c55"
 }
