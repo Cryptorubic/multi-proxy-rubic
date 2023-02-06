@@ -19,7 +19,7 @@ contract GenericSwapFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     event RubicSwappedGeneric(
         bytes32 indexed transactionId,
         address integrator,
-        string referrer,
+        address referrer,
         address fromAssetId,
         address toAssetId,
         uint256 fromAmount,
@@ -38,7 +38,7 @@ contract GenericSwapFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     function swapTokensGeneric(
         bytes32 _transactionId,
         address _integrator,
-        string calldata _referrer,
+        address _referrer,
         address payable _receiver,
         uint256 _minAmount,
         LibSwap.SwapData[] calldata _swapData
