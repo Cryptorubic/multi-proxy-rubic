@@ -60,7 +60,7 @@
 //    function setUp() public {
 //        fork();
 //
-//        diamond = createDiamond();
+//        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 //        erc20Proxy = new ERC20Proxy(address(this));
 //        executor = new Executor(address(this), address(erc20Proxy));
 //        relayer = new RelayerCBridge(address(this), CBRIDGE_MESSAGE_BUS_ETH, address(diamond), address(executor));

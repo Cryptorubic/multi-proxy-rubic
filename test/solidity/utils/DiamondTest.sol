@@ -13,7 +13,7 @@ import "rubic/Interfaces/IDiamondCut.sol";
 contract DiamondTest {
     IDiamondCut.FacetCut[] internal cut;
 
-    function createDiamond() internal returns (RubicMultiProxy) {
+    function createDiamond(address treasury, uint256 maxRubicPlatformFee) internal returns (RubicMultiProxy) {
         DiamondCutFacet diamondCut = new DiamondCutFacet();
         DiamondLoupeFacet diamondLoupe = new DiamondLoupeFacet();
         OwnershipFacet ownership = new OwnershipFacet();
@@ -22,6 +22,7 @@ contract DiamondTest {
         RubicMultiProxy diamond = new RubicMultiProxy(address(this), address(diamondCut));
 
         bytes4[] memory functionSelectors;
+        bytes memory initCallData = abi.encodeWithSelector(FeesFacet.initialize.selector, treasury, maxRubicPlatformFee);
 
         // Diamond Loupe
 
@@ -57,11 +58,12 @@ contract DiamondTest {
 
         // Fees Facet
 
-        functionSelectors = new bytes4[](4);
+        functionSelectors = new bytes4[](5);
         functionSelectors[0] = FeesFacet.setFixedNativeFee.selector;
         functionSelectors[1] = FeesFacet.setRubicPlatformFee.selector;
         functionSelectors[2] = FeesFacet.setIntegratorInfo.selector;
         functionSelectors[3] = FeesFacet.fixedNativeFee.selector;
+        functionSelectors[4] = FeesFacet.calcTokenFees.selector;
 
         cut.push(
             IDiamondCut.FacetCut({
@@ -84,7 +86,7 @@ contract DiamondTest {
             })
         );
 
-        DiamondCutFacet(address(diamond)).diamondCut(cut, address(0), "");
+        DiamondCutFacet(address(diamond)).diamondCut(cut, address(fees), initCallData);
 
         IAccessManagerFacet(address(diamond)).setCanExecute(
             FeesFacet.setFixedNativeFee.selector,

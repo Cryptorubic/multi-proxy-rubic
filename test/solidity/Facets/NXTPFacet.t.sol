@@ -32,7 +32,7 @@ contract NXTPFacetTest is TestBaseFacet {
     function setUp() public {
         initTestBase();
 
-        diamond = createDiamond();
+        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         nxtpFacet = new TestNXTPFacet(ITransactionManager(TRANSACTION_MANAGER_ETH));
 
         bytes4[] memory functionSelectors = new bytes4[](4);

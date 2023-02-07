@@ -23,7 +23,7 @@ contract AccessManagerFacetTest is DSTest, DiamondTest {
     RestrictedContract internal restricted;
 
     function setUp() public {
-        diamond = createDiamond();
+        diamond = createDiamond(address(this), 1);
         accessMgr = new AccessManagerFacet();
         restricted = new RestrictedContract();
 

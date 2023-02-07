@@ -44,7 +44,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
     TestSwapperV2 internal swapper;
 
     function setUp() public {
-        diamond = createDiamond();
+        diamond = createDiamond(address(this), 1);
         amm = new TestAMM();
         swapper = new TestSwapperV2();
 

@@ -11,41 +11,12 @@ interface IFeesFacet {
     }
 
     /**
-     * @dev Integrator can collect fees calling this function
-     * @param _token The token to collect fees in
+     * @dev Initializes the FeesFacet with treasury address and max fee amount
+     * No need to check initialized status because if max fee is 0 than there is no token fees
+     * @param _feeTreasure Address to send fees to
+     * @param _maxRubicPlatformFee Max value of Tubic token fees
      */
-    function collectIntegratorFee(
-        address _token
-    ) external;
-
-    /**
-     * @dev Managers can collect integrator's fees calling this function
-     * Fees go to the integrator
-     * @param _integrator Address of the integrator
-     * @param _token The token to collect fees in
-     */
-    function collectIntegratorFee(
-        address _integrator,
-        address _token
-    ) external;
-
-    /**
-     * @dev Calling this function managers can collect Rubic's token fee
-     * @param _token The token to collect fees in
-     * @param _recipient The recipient
-     */
-    function collectRubicFee(
-        address _token,
-        address _recipient
-    ) external;
-
-    /**
-     * @dev Calling this function managers can collect Rubic's fixed crypto fee
-     * @param _recipient The recipient
-     */
-    function collectRubicNativeFee(
-        address _recipient
-    ) external;
+    function initialize(address _feeTreasure, uint256 _maxRubicPlatformFee) external;
 
      /**
      * @dev Sets fee info associated with an integrator
@@ -84,6 +55,11 @@ interface IFeesFacet {
 
     /// VIEW FUNCTIONS ///
 
+    function calcTokenFees(
+        uint256 _amount,
+        address _integrator
+    ) external view returns(uint256 totalFees, uint256 RubicFees, uint256 integratorFees);
+
     function fixedNativeFee() external view returns(
         uint256 _fixedNativeFee
     );
@@ -94,22 +70,6 @@ interface IFeesFacet {
 
     function maxRubicPlatformFee() external view returns(
         uint256 _maxRubicPlatformFee
-    );
-
-    function availableRubicNativeFee() external view returns(
-        uint256 _availableRubicNativeFee
-    );
-
-    function availableRubicTokenFee(address _token) external view returns(
-        uint256 _availableRubicTokenFee
-    );
-
-    function availableIntegratorNativeFee(address _integrator) external view returns(
-        uint256 _availableIntegratorNativeFee
-    );
-
-    function availableIntegratorTokenFee(address _token, address _integrator) external view returns(
-        uint256 _availableIntegratorTokenFee
     );
 
     function integratorToFeeInfo(address _integrator) external view returns(

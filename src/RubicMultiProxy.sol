@@ -9,7 +9,6 @@ import { LibUtil } from "./Libraries/LibUtil.sol";
 contract RubicMultiProxy {
     constructor(address _contractOwner, address _diamondCutFacet) payable {
         LibDiamond.setContractOwner(_contractOwner);
-        LibFees.setMaxRubicPlatformFee(250_000); // 25%
 
         // Add the diamondCut external function from the diamondCutFacet
         IDiamondCut.FacetCut[] memory cut = new IDiamondCut.FacetCut[](1);

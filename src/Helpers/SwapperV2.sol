@@ -7,7 +7,7 @@ import { LibBytes } from "../Libraries/LibBytes.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibFees } from "../Libraries/LibFees.sol";
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
-import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSlippageTooHigh, FeesGone } from "../Errors/GenericErrors.sol";
+import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSlippageTooHigh } from "../Errors/GenericErrors.sol";
 
 /// @title Swapper
 /// @author LI.FI (https://li.fi)
@@ -32,8 +32,7 @@ contract SwapperV2 is IRubic {
     modifier noLeftovers(
         LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
-        uint256[] memory _initialBalances,
-        uint256[] memory _feeAmounts
+        uint256[] memory _initialBalances
     ) {
         uint256 numSwaps = _swaps.length;
         if (numSwaps != 1) {
@@ -46,8 +45,7 @@ contract SwapperV2 is IRubic {
                 address curAsset = _swaps[i].receivingAssetId;
                 // Handle multi-to-one swaps
                 if (curAsset != finalAsset) {
-                                                            // if user deposits receiving token in the next swap
-                    curBalance = LibAsset.getOwnBalance(curAsset) - _feeAmounts[i+1] - _initialBalances[i];
+                    curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
                     if (curBalance > 0) {
                         LibAsset.transferAsset(curAsset, _leftoverReceiver, curBalance);
                     }
@@ -57,20 +55,7 @@ contract SwapperV2 is IRubic {
                 }
             }
         } else {
-            uint256 curBalance;
-
             _;
-
-            for (uint256 i = 0; i < numSwaps; ) {
-                address curAsset = _swaps[i].sendingAssetId;
-                curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
-                if (curBalance < _feeAmounts[i]) {
-                    revert FeesGone();
-                }
-                unchecked {
-                    ++i;
-                }
-            }
         }
     }
 
@@ -83,8 +68,7 @@ contract SwapperV2 is IRubic {
         LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
         uint256[] memory _initialBalances,
-        uint256 _nativeReserve,
-        uint256[] memory _feeAmounts
+        uint256 _nativeReserve
     ) {
         uint256 numSwaps = _swaps.length;
         if (numSwaps != 1) {
@@ -97,8 +81,7 @@ contract SwapperV2 is IRubic {
                 address curAsset = _swaps[i].receivingAssetId;
                 // Handle multi-to-one swaps
                 if (curAsset != finalAsset) {
-                                                    // if user deposits receiving token in the next swap
-                    curBalance = LibAsset.getOwnBalance(curAsset) - _feeAmounts[i+1] - _initialBalances[i];
+                    curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
                     uint256 reserve = LibAsset.isNativeAsset(curAsset) ? _nativeReserve : 0;
                     if (curBalance > 0) {
                         LibAsset.transferAsset(curAsset, _leftoverReceiver, curBalance - reserve);
@@ -109,20 +92,7 @@ contract SwapperV2 is IRubic {
                 }
             }
         } else {
-            uint256 curBalance;
-
             _;
-
-            for (uint256 i = 0; i < numSwaps; ) {
-                address curAsset = _swaps[i].sendingAssetId;
-                curBalance = LibAsset.getOwnBalance(curAsset) - _initialBalances[i];
-                if (curBalance < _feeAmounts[i]) {
-                    revert FeesGone();
-                }
-                unchecked {
-                    ++i;
-                }
-            }
         }
     }
 
@@ -135,7 +105,7 @@ contract SwapperV2 is IRubic {
         uint256 finalBalance = address(this).balance;
         uint256 excess = finalBalance > initialBalance ? finalBalance - initialBalance : 0;
         if (excess > 0) {
-            // LibAsset.transferAsset(LibAsset.NATIVE_ASSETID, _refundReceiver, excess);
+            LibAsset.transferAsset(LibAsset.NATIVE_ASSETID, _refundReceiver, excess);
         }
     }
 
@@ -156,7 +126,6 @@ contract SwapperV2 is IRubic {
         address payable _leftoverReceiver
     ) internal returns (uint256) {
         uint256 numSwaps = _swaps.length;
-        uint256[] memory feeAmounts;
 
         if (numSwaps == 0) {
             revert NoSwapDataProvided();
@@ -171,8 +140,8 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        (_swaps, feeAmounts) = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
-        _executeSwaps(_transactionId, _swaps, _leftoverReceiver, initialBalances, feeAmounts);
+        _swaps = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
+        _executeSwaps(_transactionId, _swaps, _leftoverReceiver, initialBalances);
 
         uint256 newBalance = LibAsset.getOwnBalance(finalTokenId) - initialBalance;
 
@@ -199,7 +168,6 @@ contract SwapperV2 is IRubic {
         uint256 _nativeReserve
     ) internal returns (uint256) {
         uint256 numSwaps = _swaps.length;
-        uint256[] memory feeAmounts;
 
         if (numSwaps == 0) {
             revert NoSwapDataProvided();
@@ -214,9 +182,9 @@ contract SwapperV2 is IRubic {
 
         uint256[] memory initialBalances = _fetchBalances(_swaps);
 
-        (_swaps, feeAmounts) = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
+        _swaps = LibAsset.depositAssetsAndAccrueFees(_swaps, _integrator);
         ReserveData memory rd = ReserveData(_transactionId, _leftoverReceiver, _nativeReserve);
-        _executeSwaps(rd, _swaps, initialBalances, feeAmounts);
+        _executeSwaps(rd, _swaps, initialBalances);
 
         uint256 newBalance = LibAsset.getOwnBalance(finalTokenId) - initialBalance;
 
@@ -238,9 +206,8 @@ contract SwapperV2 is IRubic {
         bytes32 _transactionId,
         LibSwap.SwapData[] memory _swaps,
         address payable _leftoverReceiver,
-        uint256[] memory _initialBalances,
-        uint256[] memory feeAmounts
-    ) internal noLeftovers(_swaps, _leftoverReceiver, _initialBalances, feeAmounts) {
+        uint256[] memory _initialBalances
+    ) internal noLeftovers(_swaps, _leftoverReceiver, _initialBalances) {
         uint256 numSwaps = _swaps.length;
         for (uint256 i = 0; i < numSwaps; ) {
             LibSwap.SwapData memory currentSwap = _swaps[i];
@@ -266,9 +233,8 @@ contract SwapperV2 is IRubic {
     function _executeSwaps(
         ReserveData memory _reserveData,
         LibSwap.SwapData[] memory _swaps,
-        uint256[] memory _initialBalances,
-        uint256[] memory _feeAmounts
-    ) internal noLeftoversReserve(_swaps, _reserveData.leftoverReceiver, _initialBalances, _reserveData.nativeReserve, _feeAmounts) {
+        uint256[] memory _initialBalances
+    ) internal noLeftoversReserve(_swaps, _reserveData.leftoverReceiver, _initialBalances, _reserveData.nativeReserve) {
         uint256 numSwaps = _swaps.length;
         for (uint256 i = 0; i < numSwaps; ) {
             LibSwap.SwapData memory currentSwap = _swaps[i];
