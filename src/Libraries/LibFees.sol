@@ -9,7 +9,7 @@ import { LibAsset } from "../Libraries/LibAsset.sol";
 /// Implementation of EIP-2535 Diamond Standard
 /// https://eips.ethereum.org/EIPS/eip-2535
 library LibFees {
-    bytes32 internal constant FFES_STORAGE_POSITION = keccak256("rubic.library.fees");
+    bytes32 internal constant FFES_STORAGE_POSITION = keccak256("rubic.library.fees.v2");
     // Denominator for setting fees
     uint256 internal constant DENOMINATOR = 1e6;
 
@@ -49,7 +49,7 @@ library LibFees {
         uint256 RubicPlatformFee;
         // Rubic fixed fee for swap
         uint256 fixedNativeFee;
-        address feeTreasure; //TODO: add setter and init
+        address feeTreasure; //TODO: add setter and view
     }
 
     function feesStorage() internal pure returns (FeesStorage storage fs) {
