@@ -91,6 +91,7 @@ contract DiamondTest {
             address(this),
             true
         );
+        
         IAccessManagerFacet(address(diamond)).setCanExecute(
             FeesFacet.setRubicPlatformFee.selector,
             address(this),
