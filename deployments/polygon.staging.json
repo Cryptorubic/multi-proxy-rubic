@@ -10,5 +10,6 @@
   "FeesFacet": "0xfd2385f0c73Fd30ec93d8EE13b01FDd03c61d3BF",
   "MultichainFacet": "0x69eF7E0cbCf967e51874d7a89CfB2F6609170CCb",
   "SymbiosisFacet": "0x68cBf3475B7F91012c1B96C84F7067e4D9FCac52",
-  "GenericSwapFacet": "0xFd7E30d6be9Fa5A0b8f81Bf0cFFa86f2367D8cDf"
+  "GenericSwapFacet": "0xFd7E30d6be9Fa5A0b8f81Bf0cFFa86f2367D8cDf",
+  "StargateFacet": "0x44a6E740896B39ffeAE6A5A5F1C832E43adbf383"
 }
