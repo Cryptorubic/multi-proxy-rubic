@@ -217,11 +217,11 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         defaultUSDCAmount = 100 * 10**usdc.decimals();
 
         // set path for logfile (esp. interesting for fuzzing tests)
-        logFilePath = "./test/logs/";
-        vm.writeFile(
-            logFilePath,
-            string.concat("\n Logfile created at timestamp: ", string.concat(vm.toString(block.timestamp), "\n"))
-        );
+//        logFilePath = "./test/logs/";
+//        vm.writeFile(
+//            logFilePath,
+//            string.concat("\n Logfile created at timestamp: ", string.concat(vm.toString(block.timestamp), "\n"))
+//        );
 
         setDefaultBridgeData();
     }
