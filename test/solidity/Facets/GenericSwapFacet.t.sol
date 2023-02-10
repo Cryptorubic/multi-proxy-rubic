@@ -25,10 +25,8 @@ contract TestGenericSwapFacet is GenericSwapFacet {
 
 contract GenericSwapFacetTest is DSTest, TestBase {
     // These values are for Mainnet
-    address internal constant USDC_ADDRESS = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
-    address internal constant DAI_ADDRESS = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
     address internal constant USDC_HOLDER = 0xee5B5B923fFcE93A870B3104b7CA09c3db80047A;
-    address internal constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    uint256 internal defaultAmountOut;
 
     // -----
 
@@ -42,6 +40,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
 
     function setUp() public {
         initTestBase();
+
+        defaultAmountOut = 10 * 10**dai.decimals();
 
         genericSwapFacet = new TestGenericSwapFacet();
 
@@ -61,42 +61,70 @@ contract GenericSwapFacetTest is DSTest, TestBase {
     }
 
     modifier setFees(){
-        IFeesFacet(address(diamond)).setFixedNativeFee(1 ether);
-        IFeesFacet(address(diamond)).setIntegratorInfo(USDC_HOLDER, IFeesFacet.IntegratorFeeInfo({
+        IFeesFacet(address(diamond)).setIntegratorInfo(INTEGRATOR, IFeesFacet.IntegratorFeeInfo({
             isIntegrator: true,
             tokenFee: TOKEN_FEE,
             RubicTokenShare: 0,
-            RubicFixedCryptoShare: 0,
-            fixedFeeAmount: 0
+            RubicFixedCryptoShare: 1000000,
+            fixedFeeAmount: uint128(FIXED_NATIVE_FEE)
         }));
         _;
     }
 
-    function testCanSwapERC20() public {
+    modifier assertBalanceChangeGreaterThan(
+        address token,
+        address user,
+        int256 minChangeAmount
+    ) {
+        // store initial balance
+        if (token == address(0)) {
+            initialBalances[token][user] = user.balance;
+        } else {
+            initialBalances[token][user] = ERC20(token).balanceOf(user);
+        }
+
+        //execute function
+        _;
+
+        //check post-execution balances
+        uint256 currentBalance;
+        if (token == address(0)) {
+            currentBalance = user.balance;
+        } else {
+            currentBalance = ERC20(token).balanceOf(user);
+        }
+        uint256 minExpectedBalance = uint256(int256(initialBalances[token][user]) + minChangeAmount);
+        assertGe(currentBalance, minExpectedBalance);
+    }
+
+    function testCanSwapERC20()
+        public
+        assertBalanceChangeGreaterThan(ADDRESS_DAI, USDC_HOLDER, int(defaultAmountOut))
+    {
         vm.startPrank(USDC_HOLDER);
         usdc.approve(address(genericSwapFacet), 10_000 * 10**usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
-        path[0] = USDC_ADDRESS;
-        path[1] = DAI_ADDRESS;
+        path[0] = ADDRESS_USDC;
+        path[1] = ADDRESS_DAI;
 
-        uint256 amountOut = 10 * 10**dai.decimals();
+        uint initUserBalace = usdc.balanceOf(USDC_HOLDER);
 
-        // Calculate DAI amount
-        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
+        // Calculate USDC amount
+        uint256[] memory amounts = uniswap.getAmountsIn(defaultAmountOut, path);
         uint256 amountIn = amounts[0];
         LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
         swapData[0] = LibSwap.SwapData(
             address(uniswap),
             address(uniswap),
-            USDC_ADDRESS,
-            DAI_ADDRESS,
+            ADDRESS_USDC,
+            ADDRESS_DAI,
             amountIn,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForTokens.selector,
                 amountIn,
-                amountOut,
+                defaultAmountOut,
                 path,
                 address(genericSwapFacet),
                 block.timestamp + 20 minutes
@@ -104,32 +132,39 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric("", address(0), address(0), payable(USDC_HOLDER), defaultAmountOut, swapData);
+
+        uint256 expectedBalance = initUserBalace - amountIn;
+        assertEq(usdc.balanceOf(USDC_HOLDER), expectedBalance);
+
         vm.stopPrank();
     }
 
-    function testCanSwapNativeToERC20() public {
+    function testCanSwapNativeToERC20()
+        public
+        assertBalanceChangeGreaterThan(ADDRESS_DAI, USDC_HOLDER, int(defaultAmountOut))
+    {
         vm.startPrank(USDC_HOLDER);
         // Swap ETH to DAI
         address[] memory path = new address[](2);
-        path[0] = WETH_ADDRESS;
-        path[1] = DAI_ADDRESS;
+        path[0] = ADDRESS_WETH;
+        path[1] = ADDRESS_DAI;
 
-        uint256 amountOut = 10 * 10**dai.decimals();
+        uint initUserBalace = USDC_HOLDER.balance;
 
-        // Calculate DAI amount
-        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
+        // Calculate ETH amount
+        uint256[] memory amounts = uniswap.getAmountsIn(defaultAmountOut, path);
         uint256 amountIn = amounts[0];
         LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
         swapData[0] = LibSwap.SwapData(
             address(uniswap),
             address(uniswap),
             address(0),
-            DAI_ADDRESS,
+            ADDRESS_DAI,
             amountIn,
             abi.encodeWithSelector(
                 uniswap.swapExactETHForTokens.selector,
-                amountOut,
+                defaultAmountOut,
                 path,
                 address(genericSwapFacet),
                 block.timestamp + 20 minutes
@@ -137,35 +172,42 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{value: amountIn}("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric{value: amountIn}("", address(0), address(0), payable(USDC_HOLDER), defaultAmountOut, swapData);
+
+        uint256 expectedBalance = initUserBalace - amountIn;
+        assertEq(USDC_HOLDER.balance, expectedBalance);
+
         vm.stopPrank();
     }
 
-    function testCanSwapERC20ToNative() public {
+    function testCanSwapERC20ToNative()
+        public
+        assertBalanceChangeGreaterThan(address(0), USDC_HOLDER, int(defaultAmountOut))
+    {
         vm.startPrank(USDC_HOLDER);
         usdc.approve(address(genericSwapFacet), 13_000 * 10**usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
-        path[0] = USDC_ADDRESS;
-        path[1] = WETH_ADDRESS;
+        path[0] = ADDRESS_USDC;
+        path[1] = ADDRESS_WETH;
 
-        uint256 amountOut = 10 * 10**weth.decimals();
+        uint initUserBalace = usdc.balanceOf(USDC_HOLDER);
 
-        // Calculate DAI amount
-        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
+        // Calculate USDC amount
+        uint256[] memory amounts = uniswap.getAmountsIn(defaultAmountOut, path);
         uint256 amountIn = amounts[0];
         LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
         swapData[0] = LibSwap.SwapData(
             address(uniswap),
             address(uniswap),
-            USDC_ADDRESS,
+            ADDRESS_USDC,
             address(0),
             amountIn,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForETH.selector,
                 amountIn,
-                amountOut,
+                defaultAmountOut,
                 path,
                 address(genericSwapFacet),
                 block.timestamp + 20 minutes
@@ -173,11 +215,19 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric("", address(0), address(0), payable(USDC_HOLDER), defaultAmountOut, swapData);
+
+        uint256 expectedBalance = initUserBalace - amountIn;
+        assertEq(usdc.balanceOf(USDC_HOLDER), expectedBalance);
+
         vm.stopPrank();
     }
 
-    function testCanSwapERC20WithFees() public setFees {
+    function testCanSwapERC20WithFees()
+        public
+        setFees
+        assertBalanceChangeGreaterThan(ADDRESS_USDC, USDC_HOLDER, int(defaultAmountOut))
+    {
 
         vm.startPrank(USDC_HOLDER);
 
@@ -185,26 +235,24 @@ contract GenericSwapFacetTest is DSTest, TestBase {
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
-        path[0] = USDC_ADDRESS;
-        path[1] = DAI_ADDRESS;
+        path[0] = ADDRESS_USDC;
+        path[1] = ADDRESS_DAI;
 
-        uint256 amountOut = 10 * 10**dai.decimals();
-
-        // Calculate DAI amount
-        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
+        // Calculate USDC amount
+        uint256[] memory amounts = uniswap.getAmountsIn(defaultAmountOut, path);
         uint256 amountIn = amounts[0];
-        uint256 amountInWithFee = amountIn * ( DENOMINATOR + TOKEN_FEE) / DENOMINATOR;
+        uint256 amountInWithFee = amountIn * DENOMINATOR / (DENOMINATOR - TOKEN_FEE);
         LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
         swapData[0] = LibSwap.SwapData(
             address(uniswap),
             address(uniswap),
-            USDC_ADDRESS,
-            DAI_ADDRESS,
+            ADDRESS_USDC,
+            ADDRESS_DAI,
             amountInWithFee,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForTokens.selector,
                 amountIn,
-                amountOut,
+                defaultAmountOut,
                 path,
                 address(genericSwapFacet),
                 block.timestamp + 20 minutes
@@ -212,7 +260,11 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{value: 1 ether}("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric{value: FIXED_NATIVE_FEE}("", INTEGRATOR, address(0), payable(USDC_HOLDER), defaultAmountOut, swapData);
+
+        assertEq(FEE_TREASURY.balance, FIXED_NATIVE_FEE);
+        assertEq(usdc.balanceOf(INTEGRATOR), amountInWithFee - amountIn);
+
         vm.stopPrank();
     }
 
@@ -220,8 +272,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         vm.startPrank(USDC_HOLDER);
         // Swap ETH to DAI
         address[] memory path = new address[](2);
-        path[0] = WETH_ADDRESS;
-        path[1] = DAI_ADDRESS;
+        path[0] = ADDRESS_WETH;
+        path[1] = ADDRESS_DAI;
 
         uint256 amountOut = 10 * 10**dai.decimals();
 
@@ -234,7 +286,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             address(uniswap),
             address(uniswap),
             address(0),
-            DAI_ADDRESS,
+            ADDRESS_DAI,
             amountInWithFee,
             abi.encodeWithSelector(
                 uniswap.swapExactETHForTokens.selector,
@@ -246,7 +298,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{value: amountInWithFee + 1 ether}("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric{value: amountInWithFee + FIXED_NATIVE_FEE}("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
         vm.stopPrank();
     }
 
@@ -256,8 +308,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
-        path[0] = USDC_ADDRESS;
-        path[1] = WETH_ADDRESS;
+        path[0] = ADDRESS_USDC;
+        path[1] = ADDRESS_WETH;
 
         uint256 amountOut = 10 * 10**weth.decimals();
 
@@ -270,7 +322,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         swapData[0] = LibSwap.SwapData(
             address(uniswap),
             address(uniswap),
-            USDC_ADDRESS,
+            ADDRESS_USDC,
             address(0),
             amountInWithFee,
             abi.encodeWithSelector(
@@ -284,7 +336,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{value: 1 ether}("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
+        genericSwapFacet.swapTokensGeneric{value: FIXED_NATIVE_FEE}("", address(0), address(0), payable(USDC_HOLDER), amountOut, swapData);
         vm.stopPrank();
     }
 }
