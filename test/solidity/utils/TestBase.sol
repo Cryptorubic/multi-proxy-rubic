@@ -88,6 +88,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     uint256 internal customBlockNumberForForking;
     string internal customRpcUrlForForking;
     string internal logFilePath;
+    string internal facetName;
 
     // EVENTS
     event AssetSwapped(
@@ -217,19 +218,17 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         defaultUSDCAmount = 100 * 10**usdc.decimals();
 
         // set path for logfile (esp. interesting for fuzzing tests)
-//        logFilePath = "./test/logs/";
-//        vm.writeFile(
-//            logFilePath,
-//            string.concat("\n Logfile created at timestamp: ", string.concat(vm.toString(block.timestamp), "\n"))
-//        );
+        logFilePath = "./test/logs/";
 
         setDefaultBridgeData();
     }
 
-    function setFacetAddressInTestBase(address facetAddress, string memory facetName) internal {
+    function setFacetAddressInTestBase(address facetAddress, string memory _facetName) internal {
         _facetTestContractAddress = facetAddress;
         setDefaultSwapDataSingleDAItoUSDC();
-        vm.label(facetAddress, facetName);
+        vm.label(facetAddress, _facetName);
+
+        facetName = _facetName;
     }
 
     function fork() internal virtual {

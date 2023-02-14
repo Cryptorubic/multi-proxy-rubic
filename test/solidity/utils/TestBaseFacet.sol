@@ -4,6 +4,8 @@ pragma solidity >=0.8.0;
 import { TestBase, RubicMultiProxy, DSTest, LibSwap, IRubic, LibAllowList, console, InvalidAmount, ERC20, UniswapV2Router02 } from "./TestBase.sol";
 import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized, FeesGone } from "src/Errors/GenericErrors.sol";
 import { IFeesFacet } from 'rubic/Interfaces/IFeesFacet.sol';
+import { stdJson } from "forge-std/Script.sol";
+
 contract ReentrancyChecker is DSTest {
     address private _facetAddress;
     bytes private _callData;
@@ -43,6 +45,8 @@ contract ReentrancyChecker is DSTest {
 
 // contains default test cases that can and should be used by
 abstract contract TestBaseFacet is TestBase {
+    using stdJson for string;
+
     //#region defaultTests (will be executed for every contract that inherits this contract)
     //@dev in case you want to exclude any of these test cases, you must override test case in child contract with empty body:
     //@dev e.g. "function testBaseCanBridgeTokens() public override {}"
@@ -54,7 +58,8 @@ abstract contract TestBaseFacet is TestBase {
         amount = amount * 10**usdc.decimals();
 
         // logFilePath = "./test/logs/"; // works but is not really a proper file
-        logFilePath = "./test/logs/fuzz_test.txt"; // throws error "failed to write to "....../test/logs/fuzz_test.txt": No such file or directory"
+        // logFilePath = "./test/logs/fuzz_test.txt"; // throws error "failed to write to "....../test/logs/fuzz_test.txt": No such file or directory"
+        logFilePath = string.concat(logFilePath, "fuzz_test_", facetName, ".txt");
 
         vm.writeLine(logFilePath, vm.toString(amount));
         // approval
