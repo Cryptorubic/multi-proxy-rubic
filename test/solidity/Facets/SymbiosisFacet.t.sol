@@ -19,7 +19,6 @@ contract SymbiosisFacetTest is TestBaseFacet {
     address internal constant SYMBIOSIS_METAROUTER = 0xB9E13785127BFfCc3dc970A55F6c7bF0844a3C15;
     address internal constant SYMBIOSIS_GATEWAY = 0x03B7551EB0162c838a10c2437b60D1f5455b9554;
     address internal constant RELAY_RECIPIENT = 0xb80fDAA74dDA763a8A158ba85798d373A5E84d84;
-    uint256 internal constant DST_CHAIN_ID = 56;
 
     TestSymbiosisFacet internal symbiosisFacet;
     SymbiosisFacet.SymbiosisData internal symbiosisData;
