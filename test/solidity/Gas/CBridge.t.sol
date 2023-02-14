@@ -37,7 +37,7 @@ contract CBridgeGasTest is DSTest, DiamondTest {
 
     function setUp() public {
         fork();
-        diamond = createDiamond();
+        diamond = createDiamond(address(this), 1);
 
         // deploy periphery
         erc20Proxy = new ERC20Proxy(address(this));

@@ -9,7 +9,7 @@ import { LibAsset } from "../Libraries/LibAsset.sol";
 /// Implementation of EIP-2535 Diamond Standard
 /// https://eips.ethereum.org/EIPS/eip-2535
 library LibFees {
-    bytes32 internal constant FFES_STORAGE_POSITION = keccak256("rubic.library.fees");
+    bytes32 internal constant FFES_STORAGE_POSITION = keccak256("rubic.library.fees.v2");
     // Denominator for setting fees
     uint256 internal constant DENOMINATOR = 1e6;
 
@@ -39,21 +39,17 @@ library LibFees {
         address indexed integrator,
         address token
     );
-    event RubicTokenFeeCollected(uint256 amount, address token);
     event SetFixedNativeFee(uint256 fee);
     event SetRubicPlatformFee(uint256 fee);
     event SetMaxRubicPlatformFee(uint256 fee);
 
     struct FeesStorage {
         mapping(address => IFeesFacet.IntegratorFeeInfo) integratorToFeeInfo;
-        mapping(address => mapping(address => uint256)) availableIntegratorTokenFee;
-        mapping(address => uint256) availableIntegratorNativeFee;
-        mapping(address => uint256)  availableRubicTokenFee;
-        uint256 availableRubicNativeFee;
         uint256 maxRubicPlatformFee; // sets in constructor
         uint256 RubicPlatformFee;
         // Rubic fixed fee for swap
         uint256 fixedNativeFee;
+        address feeTreasure; //TODO: add setter and view
     }
 
     function feesStorage() internal pure returns (FeesStorage storage fs) {
@@ -87,16 +83,14 @@ library LibFees {
                         _info.RubicFixedCryptoShare) /
                     DENOMINATOR;
 
-                fs.availableIntegratorNativeFee[_integrator] +=
-                    _fixedNativeFee -
-                    _RubicPart;
+                if (_fixedNativeFee - _RubicPart > 0) LibAsset.transferNativeAsset(payable(_integrator), _fixedNativeFee - _RubicPart);
             }
         } else {
             _fixedNativeFee = fs.fixedNativeFee;
             _RubicPart = _fixedNativeFee;
         }
 
-        fs.availableRubicNativeFee += _RubicPart;
+        if (_RubicPart > 0) LibAsset.transferNativeAsset(payable(fs.feeTreasure), _RubicPart);
 
         emit FixedNativeFee(
             _RubicPart,
@@ -118,7 +112,7 @@ library LibFees {
         address _integrator,
         uint256 _amountWithFee,
         address _token
-    ) internal returns (uint256, uint256) {
+    ) internal returns (uint256) {
         FeesStorage storage fs = feesStorage();
         IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[_integrator];
 
@@ -129,11 +123,9 @@ library LibFees {
         );
 
         if (_integrator != address(0)) {
-            fs.availableIntegratorTokenFee[_token][_integrator] +=
-                _totalFees -
-                _RubicFee;
+            if (_totalFees - _RubicFee > 0) LibAsset.transferAsset(_token, payable(_integrator), _totalFees - _RubicFee);
         }
-        fs.availableRubicTokenFee[_token] += _RubicFee;
+        if (_RubicFee > 0) LibAsset.transferAsset(_token, payable(fs.feeTreasure), _RubicFee);
 
         emit TokenFee(
             _RubicFee,
@@ -142,79 +134,7 @@ library LibFees {
             _token
         );
 
-        return (_amountWithFee - _totalFees, _totalFees);
-    }
-
-    function collectIntegrator(
-        address _integrator,
-        address _token
-    ) internal {
-        FeesStorage storage fs = feesStorage();
-
-        uint256 _amount;
-
-        if (_token == address(0)) {
-            _amount = fs.availableIntegratorNativeFee[_integrator];
-            fs.availableIntegratorNativeFee[_integrator] = 0;
-            emit FixedNativeFeeCollected(_amount, _integrator);
-        }
-
-        _amount += fs.availableIntegratorTokenFee[_token][
-            _integrator
-        ];
-
-        if (_amount == 0) {
-            revert ZeroAmount();
-        }
-
-        fs.availableIntegratorTokenFee[_token][_integrator] = 0;
-
-        LibAsset.transferAsset(_token, payable(_integrator), _amount);
-
-        emit IntegratorTokenFeeCollected(
-            _amount,
-            _integrator,
-            _token
-        );
-    }
-
-    /**
-     * @dev Calling this function managers can collect Rubic's token fee
-     * @param _token The token to collect fees in
-     * @param _recipient The recipient
-     */
-    function collectRubicFee(
-        address _token,
-        address _recipient
-    ) internal {
-        FeesStorage storage fs = feesStorage();
-
-        uint256 _amount = fs.availableRubicTokenFee[_token];
-        if (_amount == 0) {
-            revert ZeroAmount();
-        }
-
-        fs.availableRubicTokenFee[_token] = 0;
-        LibAsset.transferAsset(_token, payable(_recipient), _amount);
-
-        emit RubicTokenFeeCollected(_amount, _token);
-    }
-
-    /**
-     * @dev Calling this function managers can collect Rubic's fixed crypto fee
-     * @param _recipient The recipient
-     */
-    function collectRubicNativeFee(
-        address _recipient
-    ) internal {
-        FeesStorage storage fs = feesStorage();
-
-        uint256 _NativeFee = fs.availableRubicNativeFee;
-        fs.availableRubicNativeFee = 0;
-
-        LibAsset.transferAsset(address(0), payable(_recipient), _NativeFee);
-
-        emit FixedNativeFeeCollected(_NativeFee, msg.sender);
+        return _amountWithFee - _totalFees;
     }
 
         /**
@@ -327,7 +247,7 @@ library LibFees {
         uint256 _amountWithFee,
         IFeesFacet.IntegratorFeeInfo memory _info
     )
-        private
+        internal
         view
         returns (uint256 _totalFee, uint256 _RubicFee)
     {

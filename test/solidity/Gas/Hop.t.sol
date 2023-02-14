@@ -28,7 +28,7 @@ contract HopGasTest is Test, DiamondTest {
     function setUp() public {
         fork();
 
-        diamond = createDiamond();
+        diamond = createDiamond(address(this), 1);
         hopFacet = new HopFacet();
         usdc = ERC20(USDC_ADDRESS);
         hop = IHopBridge(HOP_USDC_BRIDGE);

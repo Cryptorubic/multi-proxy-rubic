@@ -200,7 +200,7 @@ contract HopFacetTest is TestBaseFacet {
 
     function testRevert_RegisterBridgeWithUninitializedFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        RubicMultiProxy diamond2 = createDiamond();
+        RubicMultiProxy diamond2 = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 
         TestHopFacet hopFacet2 = new TestHopFacet();
         bytes4[] memory functionSelectors = new bytes4[](6);
@@ -220,7 +220,7 @@ contract HopFacetTest is TestBaseFacet {
 
     function test_OwnerCanInitializeFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        RubicMultiProxy diamond2 = createDiamond();
+        RubicMultiProxy diamond2 = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 
         TestHopFacet hopFacet2 = new TestHopFacet();
         bytes4[] memory functionSelectors = new bytes4[](6);
@@ -271,7 +271,7 @@ contract HopFacetTest is TestBaseFacet {
         ERC20 usdcPoly = ERC20(ADDRESS_USDC_POLYGON); // USDC on Polygon
 
         // re-deploy diamond and facet
-        diamond = createDiamond();
+        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         TestHopFacet hopFacet2 = new TestHopFacet();
         bytes4[] memory functionSelectors = new bytes4[](4);
         functionSelectors[0] = hopFacet2.startBridgeTokensViaHop.selector;

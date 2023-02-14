@@ -4,9 +4,29 @@ pragma solidity 0.8.17;
 import { IFeesFacet } from "../Interfaces/IFeesFacet.sol";
 import { LibFees} from "../Libraries/LibFees.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
+import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
+import { TokenAddressIsZero, InvalidFee } from "../Errors/GenericErrors.sol";
+
 
 contract FeesFacet is IFeesFacet, ReentrancyGuard {
+
+    /// @inheritdoc IFeesFacet
+    function initialize(address _feeTreasure, uint256 _maxRubicPlatformFee) external override {
+        LibDiamond.enforceIsContractOwner();
+        if (_feeTreasure == address(0)) {
+            revert TokenAddressIsZero();
+        }
+        if (_maxRubicPlatformFee == 0) {
+            revert InvalidFee();
+        }
+
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+
+        fs.feeTreasure = _feeTreasure;
+        fs.maxRubicPlatformFee = _maxRubicPlatformFee;
+    }
+
     /// @inheritdoc IFeesFacet
     function setMaxRubicPlatformFee(
         uint256 _maxFee
@@ -40,40 +60,17 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         LibFees.setIntegratorInfo(_integrator, _info);
     }
 
-    /// @inheritdoc IFeesFacet
-    function collectIntegratorFee(
-        address _token
-    ) external override nonReentrant {
-        LibFees.collectIntegrator(msg.sender, _token);
-    }
-
-    /// @inheritdoc IFeesFacet
-    function collectIntegratorFee(
-        address _integrator,
-        address _token
-    ) external override {
-        LibAccess.enforceAccessControl();
-        LibFees.collectIntegrator(_integrator, _token);
-    }
-
-    /// @inheritdoc IFeesFacet
-    function collectRubicFee(
-        address _token,
-        address _recipient
-    ) external override {
-        LibAccess.enforceAccessControl();
-        LibFees.collectRubicFee(_token, _recipient);
-    }
-
-    /// @inheritdoc IFeesFacet
-    function collectRubicNativeFee(
-        address _recipient
-    ) external override {
-        LibAccess.enforceAccessControl();
-        LibFees.collectRubicNativeFee(_recipient);
-    }
-
     /// VIEW FUNCTIONS ///
+
+    function calcTokenFees(
+        uint256 _amount,
+        address _integrator
+    ) external override view returns(uint256 totalFees, uint256 RubicFees, uint256 integratorFees) {
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+        IntegratorFeeInfo memory info = fs.integratorToFeeInfo[_integrator];
+        (totalFees, RubicFees) = LibFees._calculateFee(fs, _amount, info);
+        integratorFees = totalFees - RubicFees;
+    }
 
     function fixedNativeFee() external override view returns(
         uint256 _fixedNativeFee
@@ -97,38 +94,6 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _maxRubicPlatformFee = s.maxRubicPlatformFee;
-    }
-
-    function availableRubicNativeFee() external override view returns(
-        uint256 _availableRubicNativeFee
-    ) {
-        LibFees.FeesStorage storage s = LibFees.feesStorage();
-
-        _availableRubicNativeFee = s.availableRubicNativeFee;
-    }
-
-    function availableRubicTokenFee(address _token) external override view returns(
-        uint256 _availableRubicTokenFee
-    ) {
-        LibFees.FeesStorage storage s = LibFees.feesStorage();
-
-        _availableRubicTokenFee = s.availableRubicTokenFee[_token];
-    }
-
-    function availableIntegratorNativeFee(address _integrator) external override view returns(
-        uint256 _availableIntegratorNativeFee
-    ) {
-        LibFees.FeesStorage storage s = LibFees.feesStorage();
-
-        _availableIntegratorNativeFee = s.availableIntegratorNativeFee[_integrator];
-    }
-
-    function availableIntegratorTokenFee(address _token, address _integrator) external override view returns(
-        uint256 _availableIntegratorTokenFee
-    ) {
-        LibFees.FeesStorage storage s = LibFees.feesStorage();
-
-        _availableIntegratorTokenFee = s.availableIntegratorTokenFee[_token][_integrator];
     }
 
     function integratorToFeeInfo(address _integrator) external override view returns(

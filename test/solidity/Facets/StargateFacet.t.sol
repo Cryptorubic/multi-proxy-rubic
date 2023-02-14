@@ -168,7 +168,7 @@ contract StargateFacetTest is TestBaseFacet {
    }
 
    function test_revert_ConfigContainsZeroAddress() public {
-       RubicMultiProxy diamond2 = createDiamond();
+       RubicMultiProxy diamond2 = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
 
        bytes4[] memory functionSelectors = new bytes4[](8);
@@ -197,7 +197,7 @@ contract StargateFacetTest is TestBaseFacet {
    }
 
    function test_revert_InitializeAsNonOwner() public {
-       RubicMultiProxy diamond2 = createDiamond();
+       RubicMultiProxy diamond2 = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
 
        bytes4[] memory functionSelectors = new bytes4[](8);

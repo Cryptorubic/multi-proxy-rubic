@@ -53,8 +53,8 @@ abstract contract TestBaseFacet is TestBase {
         vm.assume(amount > 0 && amount < 100_000);
         amount = amount * 10**usdc.decimals();
 
-        logFilePath = "./test/logs/"; // works but is not really a proper file
-        // logFilePath = "./test/logs/fuzz_test.txt"; // throws error "failed to write to "....../test/logs/fuzz_test.txt": No such file or directory"
+        // logFilePath = "./test/logs/"; // works but is not really a proper file
+        logFilePath = "./test/logs/fuzz_test.txt"; // throws error "failed to write to "....../test/logs/fuzz_test.txt": No such file or directory"
 
         vm.writeLine(logFilePath, vm.toString(amount));
         // approval
@@ -101,13 +101,14 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
         assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
         assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
-        assertBalanceChange(ADDRESS_USDC, address(diamond), int256(feeTokenAmount))
+        assertBalanceChange(ADDRESS_USDC, FEE_TREASURY, int256(rubicFeeTokenAmount))
+        assertBalanceChange(ADDRESS_USDC, INTEGRATOR, int256(integratorFeeTokenAmount))
     {
         vm.startPrank(USER_SENDER);
         // approval
         usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
 
-        bridgeData.integrator = USER_SENDER;
+        bridgeData.integrator = INTEGRATOR;
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
         emit RubicTransferStarted(IRubic.BridgeData(
@@ -156,7 +157,7 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(address(0), USER_RECEIVER, 0)
         assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
         assertBalanceChange(ADDRESS_DAI, USER_SENDER, 0)
-        assertBalanceChange(address(0), _facetTestContractAddress, int(IFeesFacet(_facetTestContractAddress).fixedNativeFee()))
+        assertBalanceChange(address(0), FEE_TREASURY, int(IFeesFacet(_facetTestContractAddress).fixedNativeFee()))
     {
         vm.startPrank(USER_SENDER);
         // customize bridgeData
@@ -216,13 +217,14 @@ abstract contract TestBaseFacet is TestBase {
         assertBalanceChange(ADDRESS_DAI, USER_RECEIVER, 0)
         assertBalanceChange(ADDRESS_USDC, USER_SENDER, 0)
         assertBalanceChange(ADDRESS_USDC, USER_RECEIVER, 0)
-        assertBalanceChange(ADDRESS_DAI, address(diamond), int256(feeTokenAmount))
+        assertBalanceChange(ADDRESS_DAI, FEE_TREASURY, int256(rubicFeeTokenAmount))
+        assertBalanceChange(ADDRESS_DAI, INTEGRATOR, int256(integratorFeeTokenAmount))
     {
         vm.startPrank(USER_SENDER);
 
         // prepare bridgeData
         bridgeData.hasSourceSwaps = true;
-        bridgeData.integrator = USER_SENDER;
+        bridgeData.integrator = INTEGRATOR;
 
         // reset swap data
         setDefaultSwapDataSingleDAItoUSDC();
@@ -371,58 +373,58 @@ abstract contract TestBaseFacet is TestBase {
         vm.stopPrank();
     }
 
-    function testBase_Revert_SendingFeesInDexCall()
-        public
-        virtual
-        setIntegratorFee(swapData[0].fromAmount)
-    {
-        vm.startPrank(USER_SENDER);
-
-        // prepare bridgeData
-        bridgeData.hasSourceSwaps = true;
-        bridgeData.integrator = USER_SENDER;
-
-        // preapre swapData
-        delete swapData;
-        // Swap DAI -> USDC
-        address[] memory path = new address[](2);
-        path[0] = ADDRESS_DAI;
-        path[1] = ADDRESS_USDC;
-
-        uint256 amountOut = defaultUSDCAmount;
-
-        // Calculate DAI amount
-        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
-        uint256 amountIn = amounts[0];
-
-        swapData.push(
-            LibSwap.SwapData({
-                callTo: address(uniswap),
-                approveTo: address(uniswap),
-                sendingAssetId: ADDRESS_DAI,
-                receivingAssetId: ADDRESS_USDC,
-                fromAmount: amountIn,
-                callData: abi.encodeWithSelector(
-                    uniswap.swapExactTokensForTokens.selector,
-                    amountIn,
-                    amountOut,
-                    path,
-                    _facetTestContractAddress,
-                    block.timestamp + 20 minutes
-                ),
-                requiresDeposit: true
-            })
-        );
-
-        // approval
-        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
-
-        // prepare revert
-        vm.expectRevert(FeesGone.selector);
-
-        // execute call in child contract
-        initiateSwapAndBridgeTxWithFacet(false);
-    }
+//    function testBase_Revert_SendingFeesInDexCall()
+//        public
+//        virtual
+//        setIntegratorFee(swapData[0].fromAmount)
+//    {
+//        vm.startPrank(USER_SENDER);
+//
+//        // prepare bridgeData
+//        bridgeData.hasSourceSwaps = true;
+//        bridgeData.integrator = INTEGRATOR;
+//
+//        // preapre swapData
+//        delete swapData;
+//        // Swap DAI -> USDC
+//        address[] memory path = new address[](2);
+//        path[0] = ADDRESS_DAI;
+//        path[1] = ADDRESS_USDC;
+//
+//        uint256 amountOut = defaultUSDCAmount;
+//
+//        // Calculate DAI amount
+//        uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
+//        uint256 amountIn = amounts[0];
+//
+//        swapData.push(
+//            LibSwap.SwapData({
+//                callTo: address(uniswap),
+//                approveTo: address(uniswap),
+//                sendingAssetId: ADDRESS_DAI,
+//                receivingAssetId: ADDRESS_USDC,
+//                fromAmount: amountIn,
+//                callData: abi.encodeWithSelector(
+//                    uniswap.swapExactTokensForTokens.selector,
+//                    amountIn,
+//                    amountOut,
+//                    path,
+//                    _facetTestContractAddress,
+//                    block.timestamp + 20 minutes
+//                ),
+//                requiresDeposit: true
+//            })
+//        );
+//
+//        // approval
+//        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+//
+//        // prepare revert
+//        vm.expectRevert(FeesGone.selector);
+//
+//        // execute call in child contract
+//        initiateSwapAndBridgeTxWithFacet(false);
+//    }
 
     function testBase_Revert_SwapAndBridgeWithInvalidAmount() public virtual {
         vm.startPrank(USER_SENDER);

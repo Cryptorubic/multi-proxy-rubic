@@ -12,7 +12,7 @@ import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { LibAllowList } from "rubic/Libraries/LibAllowList.sol";
 import { LibUtil } from "rubic/Libraries/LibUtil.sol";
 import { LibAccess } from "rubic/Libraries/LibAccess.sol";
-import { console } from "test/solidity/utils/Console.sol"; // TODO: REMOVE
+import { console } from "forge-std/console.sol";
 import { NoSwapDataProvided, InformationMismatch, NativeAssetTransferFailed, ReentrancyError, InsufficientBalance, CannotBridgeToSameNetwork, NativeValueWithERC, InvalidReceiver, InvalidAmount, InvalidConfig, InvalidSendingToken, AlreadyInitialized, NotInitialized, UnAuthorized } from "src/Errors/GenericErrors.sol";
 
 contract TestFacet {
@@ -82,6 +82,8 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     mapping(address => mapping(address => uint256)) internal initialBalances;
     uint256 internal addToMessageValue;
     uint256 internal feeTokenAmount;
+    uint256 internal rubicFeeTokenAmount;
+    uint256 internal integratorFeeTokenAmount;
     // set these custom values in your test file to
     uint256 internal customBlockNumberForForking;
     string internal customRpcUrlForForking;
@@ -119,8 +121,12 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
 
     // Fees
     uint256 constant FIXED_NATIVE_FEE = 2 ether / 100;
+    uint256 constant MAX_TOKEN_FEE = 250000;
     uint32 constant TOKEN_FEE = 1e4;
     uint256 constant DENOMINATOR = 1e6;
+
+    address constant INTEGRATOR = address(uint160(uint256(keccak256("integrator"))));
+    address constant FEE_TREASURY = address(uint160(uint256(keccak256("fee.treasury"))));
     // MODIFIERS
 
     modifier setFixedNativeFee() {
@@ -131,14 +137,16 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     }
 
     modifier setIntegratorFee(uint256 amount) {
-        IFeesFacet(address(diamond)).setIntegratorInfo(USER_SENDER, IFeesFacet.IntegratorFeeInfo({
+        IFeesFacet(address(diamond)).setIntegratorInfo(INTEGRATOR, IFeesFacet.IntegratorFeeInfo({
             isIntegrator: true,
             tokenFee: TOKEN_FEE,
-            RubicTokenShare: 0,
+            RubicTokenShare: 500000,
             RubicFixedCryptoShare: 0,
             fixedFeeAmount: 0
         }));
-        feeTokenAmount += amount * TOKEN_FEE / DENOMINATOR;
+        (feeTokenAmount, rubicFeeTokenAmount, integratorFeeTokenAmount) = IFeesFacet(
+            address(diamond)).calcTokenFees(amount, INTEGRATOR
+        );
         _;
     }
 
@@ -194,7 +202,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         weth = ERC20(ADDRESS_WETH);
 
         // deploy & configure diamond
-        diamond = createDiamond();
+        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 
         // transfer initial DAI/USDC/WETH balance to USER_SENDER
         deal(ADDRESS_USDC, USER_SENDER, 100_000 * 10**usdc.decimals());
@@ -209,11 +217,11 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         defaultUSDCAmount = 100 * 10**usdc.decimals();
 
         // set path for logfile (esp. interesting for fuzzing tests)
-        logFilePath = "./test/logs/";
-        vm.writeFile(
-            logFilePath,
-            string.concat("\n Logfile created at timestamp: ", string.concat(vm.toString(block.timestamp), "\n"))
-        );
+//        logFilePath = "./test/logs/";
+//        vm.writeFile(
+//            logFilePath,
+//            string.concat("\n Logfile created at timestamp: ", string.concat(vm.toString(block.timestamp), "\n"))
+//        );
 
         setDefaultBridgeData();
     }

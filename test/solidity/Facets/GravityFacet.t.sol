@@ -30,7 +30,7 @@ contract GravityFacetTest is TestBaseFacet {
     function setUp() public {
         initTestBase();
 
-        diamond = createDiamond();
+        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         gravityFacet = new TestGravityFacet(IGravityRouter(GRAVITY_ROUTER));
 
         bytes4[] memory functionSelectors = new bytes4[](4);

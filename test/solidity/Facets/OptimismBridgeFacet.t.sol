@@ -57,7 +57,7 @@ contract OptimismBridgeFacetTest is DSTest, DiamondTest {
     function setUp() public {
         fork();
 
-        diamond = createDiamond();
+        diamond = createDiamond(address(this), 1);
         optimismBridgeFacet = new TestOptimismBridgeFacet();
         usdc = ERC20(USDC_ADDRESS);
         dai = ERC20(DAI_L1_ADDRESS);

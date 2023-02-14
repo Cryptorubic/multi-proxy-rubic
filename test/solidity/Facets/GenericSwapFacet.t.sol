@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
-import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
+import { TestBase, RubicMultiProxy } from "../utils/TestBase.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { GenericSwapFacet } from "rubic/Facets/GenericSwapFacet.sol";
 import { LibSwap } from "rubic/Libraries/LibSwap.sol";
@@ -22,7 +22,7 @@ contract TestGenericSwapFacet is GenericSwapFacet {
     }
 }
 
-contract GenericSwapFacetTest is DSTest, DiamondTest {
+contract GenericSwapFacetTest is DSTest, TestBase {
     // These values are for Mainnet
     address internal constant USDC_ADDRESS = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
     address internal constant DAI_ADDRESS = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
@@ -31,27 +31,18 @@ contract GenericSwapFacetTest is DSTest, DiamondTest {
 
     // -----
 
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
-    RubicMultiProxy internal diamond;
     TestGenericSwapFacet internal genericSwapFacet;
-    ERC20 internal usdc;
-    ERC20 internal dai;
-    UniswapV2Router02 internal uniswap;
 
-    function fork() internal {
+    function fork() internal override {
         string memory rpcUrl = vm.envString("ETH_NODE_URI_MAINNET");
         uint256 blockNumber = 15588208;
         vm.createSelectFork(rpcUrl, blockNumber);
     }
 
     function setUp() public {
-        fork();
+        initTestBase();
 
-        diamond = createDiamond();
         genericSwapFacet = new TestGenericSwapFacet();
-        usdc = ERC20(USDC_ADDRESS);
-        dai = ERC20(DAI_ADDRESS);
-        uniswap = UniswapV2Router02(UNISWAP_V2_ROUTER);
 
         bytes4[] memory functionSelectors = new bytes4[](3);
         functionSelectors[0] = genericSwapFacet.swapTokensGeneric.selector;
