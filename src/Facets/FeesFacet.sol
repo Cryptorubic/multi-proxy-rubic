@@ -31,7 +31,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     function setMaxRubicPlatformFee(
         uint256 _maxFee
     ) external override {
-        LibAccess.enforceAccessControl();
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
         LibFees.setMaxRubicPlatformFee(_maxFee);
     }
 
@@ -39,7 +41,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     function setRubicPlatformFee(
         uint256 _platformFee
     ) external override {
-        LibAccess.enforceAccessControl();
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
         LibFees.setRubicPlatformFee(_platformFee);
     }
 
@@ -47,7 +51,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     function setFixedNativeFee(
         uint256 _fixedNativeFee
     ) external override {
-        LibAccess.enforceAccessControl();
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
         LibFees.setFixedNativeFee(_fixedNativeFee);
     }
 
@@ -56,7 +62,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         address _integrator,
         IntegratorFeeInfo memory _info
     ) external override {
-        LibAccess.enforceAccessControl();
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
         LibFees.setIntegratorInfo(_integrator, _info);
     }
 
