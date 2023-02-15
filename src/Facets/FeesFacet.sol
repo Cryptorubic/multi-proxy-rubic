@@ -65,11 +65,11 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     function calcTokenFees(
         uint256 _amount,
         address _integrator
-    ) external override view returns(uint256 totalFees, uint256 RubicFees, uint256 integratorFees) {
+    ) external override view returns(uint256 totalFee, uint256 RubicFee, uint256 integratorFee) {
         LibFees.FeesStorage storage fs = LibFees.feesStorage();
         IntegratorFeeInfo memory info = fs.integratorToFeeInfo[_integrator];
-        (totalFees, RubicFees) = LibFees._calculateFee(fs, _amount, info);
-        integratorFees = totalFees - RubicFees;
+        (totalFee, RubicFee) = LibFees._calculateFee(fs, _amount, info);
+        integratorFee = totalFee - RubicFee;
     }
 
     function fixedNativeFee() external override view returns(

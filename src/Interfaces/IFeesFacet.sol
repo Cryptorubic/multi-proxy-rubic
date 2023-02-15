@@ -58,7 +58,7 @@ interface IFeesFacet {
     function calcTokenFees(
         uint256 _amount,
         address _integrator
-    ) external view returns(uint256 totalFees, uint256 RubicFees, uint256 integratorFees);
+    ) external view returns(uint256 totalFee, uint256 RubicFee, uint256 integratorFee);
 
     function fixedNativeFee() external view returns(
         uint256 _fixedNativeFee
