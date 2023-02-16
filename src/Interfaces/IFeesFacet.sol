@@ -16,7 +16,11 @@ interface IFeesFacet {
      * @param _feeTreasure Address to send fees to
      * @param _maxRubicPlatformFee Max value of Tubic token fees
      */
-    function initialize(address _feeTreasure, uint256 _maxRubicPlatformFee) external;
+    function initialize(
+        address _feeTreasure,
+        uint256 _maxRubicPlatformFee,
+        uint256 _maxFixedNativeFee
+    ) external;
 
      /**
      * @dev Sets fee info associated with an integrator

@@ -22,7 +22,12 @@ contract DiamondTest {
         RubicMultiProxy diamond = new RubicMultiProxy(address(this), address(diamondCut));
 
         bytes4[] memory functionSelectors;
-        bytes memory initCallData = abi.encodeWithSelector(FeesFacet.initialize.selector, treasury, maxRubicPlatformFee);
+        bytes memory initCallData = abi.encodeWithSelector(
+            FeesFacet.initialize.selector,
+            treasury,
+            maxRubicPlatformFee,
+            type(uint256).max
+        );
 
         // Diamond Loupe
 
@@ -93,7 +98,7 @@ contract DiamondTest {
             address(this),
             true
         );
-        
+
         IAccessManagerFacet(address(diamond)).setCanExecute(
             FeesFacet.setRubicPlatformFee.selector,
             address(this),

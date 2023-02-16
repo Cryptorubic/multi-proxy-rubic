@@ -8,22 +8,37 @@ import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { TokenAddressIsZero, InvalidFee } from "../Errors/GenericErrors.sol";
 
-
 contract FeesFacet is IFeesFacet, ReentrancyGuard {
 
+    event SetFixedNativeFee(uint256 fee);
+    event SetRubicPlatformFee(uint256 fee);
+    event SetMaxRubicPlatformFee(uint256 fee);
+
+    error FeeTooHigh();
+    error ShareTooHigh();
+
     /// @inheritdoc IFeesFacet
-    function initialize(address _feeTreasure, uint256 _maxRubicPlatformFee) external override {
+    function initialize(
+        address _feeTreasure,
+        uint256 _maxRubicPlatformFee,
+        uint256 _maxFixedNativeFee
+    ) external override {
         LibDiamond.enforceIsContractOwner();
+
         if (_feeTreasure == address(0)) {
             revert TokenAddressIsZero();
         }
         if (_maxRubicPlatformFee == 0) {
             revert InvalidFee();
         }
+        if (_maxFixedNativeFee == 0) {
+            revert InvalidFee();
+        }
 
         LibFees.FeesStorage storage fs = LibFees.feesStorage();
 
         fs.feeTreasure = _feeTreasure;
+        fs.maxFixedNativeFee = _maxFixedNativeFee;
         fs.maxRubicPlatformFee = _maxRubicPlatformFee;
     }
 
@@ -34,7 +49,15 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
-        LibFees.setMaxRubicPlatformFee(_maxFee);
+
+        if (_maxFee > LibFees.DENOMINATOR) {
+            revert FeeTooHigh();
+        }
+
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+        fs.maxRubicPlatformFee = _maxFee;
+
+        emit SetMaxRubicPlatformFee(_maxFee);
     }
 
     /// @inheritdoc IFeesFacet
@@ -44,7 +67,16 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
-        LibFees.setRubicPlatformFee(_platformFee);
+
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+
+        if (_platformFee > fs.maxRubicPlatformFee) {
+            revert FeeTooHigh();
+        }
+
+        fs.RubicPlatformFee = _platformFee;
+
+        emit SetRubicPlatformFee(_platformFee);
     }
 
     /// @inheritdoc IFeesFacet
@@ -54,7 +86,16 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
-        LibFees.setFixedNativeFee(_fixedNativeFee);
+
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+
+        if (_fixedNativeFee > fs.maxFixedNativeFee) {
+            revert FeeTooHigh();
+        }
+
+        fs.fixedNativeFee = _fixedNativeFee;
+
+        emit SetFixedNativeFee(_fixedNativeFee);
     }
 
     /// @inheritdoc IFeesFacet
@@ -65,7 +106,20 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
-        LibFees.setIntegratorInfo(_integrator, _info);
+
+        if (_info.tokenFee > LibFees.DENOMINATOR) {
+            revert FeeTooHigh();
+        }
+        if (
+            _info.RubicTokenShare > LibFees.DENOMINATOR ||
+            _info.RubicFixedCryptoShare > LibFees.DENOMINATOR
+        ) {
+            revert ShareTooHigh();
+        }
+
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+
+        fs.integratorToFeeInfo[_integrator] = _info;
     }
 
     /// VIEW FUNCTIONS ///

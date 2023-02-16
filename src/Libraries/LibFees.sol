@@ -13,10 +13,6 @@ library LibFees {
     // Denominator for setting fees
     uint256 internal constant DENOMINATOR = 1e6;
 
-    // Fees specific errors
-    error ZeroAmount();
-    error FeeTooHigh();
-    error ShareTooHigh();
     // ----------------
 
     event FixedNativeFee(
@@ -39,13 +35,11 @@ library LibFees {
         address indexed integrator,
         address token
     );
-    event SetFixedNativeFee(uint256 fee);
-    event SetRubicPlatformFee(uint256 fee);
-    event SetMaxRubicPlatformFee(uint256 fee);
 
     struct FeesStorage {
         mapping(address => IFeesFacet.IntegratorFeeInfo) integratorToFeeInfo;
-        uint256 maxRubicPlatformFee; // sets in constructor
+        uint256 maxRubicPlatformFee; // sets while initialize
+        uint256 maxFixedNativeFee; // sets while initialize & cannot be changed
         uint256 RubicPlatformFee;
         // Rubic fixed fee for swap
         uint256 fixedNativeFee;
@@ -135,79 +129,6 @@ library LibFees {
         );
 
         return _amountWithFee - _totalFees;
-    }
-
-        /**
-     * @dev Sets fee info associated with an integrator
-     * @param _integrator Address of the integrator
-     * @param _info Struct with fee info
-     */
-    function setIntegratorInfo(
-        address _integrator,
-        IFeesFacet.IntegratorFeeInfo memory _info
-    ) internal {
-        if (_info.tokenFee > DENOMINATOR) {
-            revert FeeTooHigh();
-        }
-        if (
-            _info.RubicTokenShare > DENOMINATOR ||
-            _info.RubicFixedCryptoShare > DENOMINATOR
-        ) {
-            revert ShareTooHigh();
-        }
-
-        FeesStorage storage fs = feesStorage();
-
-        fs.integratorToFeeInfo[_integrator] = _info;
-    }
-
-    /**
-     * @dev Sets fixed crypto fee
-     * @param _fixedNativeFee Fixed crypto fee
-     */
-    function setFixedNativeFee(
-        uint256 _fixedNativeFee
-    ) internal {
-        FeesStorage storage fs = feesStorage();
-        fs.fixedNativeFee = _fixedNativeFee;
-
-        emit SetFixedNativeFee(_fixedNativeFee);
-    }
-
-    /**
-     * @dev Sets Rubic token fee
-     * @notice Cannot be higher than limit set only by an admin
-     * @param _platformFee Fixed crypto fee
-     */
-    function setRubicPlatformFee(
-        uint256 _platformFee
-    ) internal {
-        FeesStorage storage fs = feesStorage();
-
-        if (_platformFee > fs.maxRubicPlatformFee) {
-            revert FeeTooHigh();
-        }
-
-        fs.RubicPlatformFee = _platformFee;
-
-        emit SetRubicPlatformFee(_platformFee);
-    }
-
-    /**
-     * @dev Sets the limit of Rubic token fee
-     * @param _maxFee The limit
-     */
-    function setMaxRubicPlatformFee(
-        uint256 _maxFee
-    ) internal {
-        if (_maxFee > DENOMINATOR) {
-            revert FeeTooHigh();
-        }
-
-        FeesStorage storage fs = feesStorage();
-        fs.maxRubicPlatformFee = _maxFee;
-
-        emit SetMaxRubicPlatformFee(_maxFee);
     }
 
     /// PRIVATE ///
