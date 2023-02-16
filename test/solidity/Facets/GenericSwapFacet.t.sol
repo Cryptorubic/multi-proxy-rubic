@@ -226,9 +226,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
     function testCanSwapERC20WithFees()
         public
         setFees
-        assertBalanceChangeGreaterThan(ADDRESS_USDC, USDC_HOLDER, int(defaultAmountOut))
+        assertBalanceChangeGreaterThan(ADDRESS_DAI, USDC_HOLDER, int(defaultAmountOut))
     {
-
         vm.startPrank(USDC_HOLDER);
 
         usdc.approve(address(genericSwapFacet), 10_000 * 10**usdc.decimals());
