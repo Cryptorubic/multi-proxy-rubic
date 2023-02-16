@@ -209,13 +209,13 @@ contract FeesFacetTest is Test, DiamondTest {
             )
         );
         uint256 expectedTotalFee = FullMath.mulDiv(amount, TOKEN_FEE, DENOMINATOR);
-        uint256 expectedIntegratorFee = expectedTotalFee / 2;
+        uint256 expectedRubicFee = expectedTotalFee / 2;
 
         (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet.calcTokenFees(amount, INTEGRATOR);
 
-        assertEq(integratorFee, RubicFee);
-        assertEq(expectedIntegratorFee, integratorFee);
-        assertEq(totalFee, expectedTotalFee);
+        assertApproxEqAbs(integratorFee, RubicFee, 1, "Integrator:Rubic");
+        assertEq(integratorFee, expectedTotalFee - expectedRubicFee, "ExpectedIntegrator:Integrator");
+        assertEq(totalFee, expectedTotalFee, "Total:ExpectedTotal");
     }
 
     function testCalcTokenFees_WithIntegrator_FuzzedShare(uint32 share) public {
