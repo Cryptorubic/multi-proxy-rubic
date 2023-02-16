@@ -175,7 +175,7 @@ contract ExecutorTest is DSTest {
     function testCanReceiveNativeTokensFromDestinationSwap() public {
         fork();
         address DAI_ADDRESS = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
-        address payable DAI_WHALE = payable(address(0x5D38B4e4783E34e2301A2a36c39a03c45798C4dD));
+        address payable DAI_WHALE = payable(address(0x075e72a5eDf65F0A5f44699c7654C1a76941Ddc8));
         address WETH_ADDRESS = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
         address UNISWAP_V2_ROUTER_ADDRESS = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
         ERC20 dai = ERC20(DAI_ADDRESS);
