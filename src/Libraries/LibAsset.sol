@@ -3,6 +3,7 @@ pragma solidity 0.8.17;
 import { InsufficientBalance, NullAddrIsNotAnERC20Token, NullAddrIsNotAValidSpender, NoTransferToNullAddress, InvalidAmount, NativeValueWithERC, NativeAssetTransferFailed } from "../Errors/GenericErrors.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { ERC20Proxy } from "../Periphery/ERC20Proxy.sol";
 import { LibSwap } from "./LibSwap.sol";
 import { LibFees } from "./LibFees.sol";
 
@@ -11,6 +12,7 @@ import { LibFees } from "./LibFees.sol";
 ///         of assets, including accounting for the native asset `assetId`
 ///         conventions and any noncompliant ERC20 transfers
 library LibAsset {
+    bytes32 internal constant LIB_ASSET_STORAGE_POSITION = keccak256("rubic.library.asset");
     uint256 private constant MAX_UINT = type(uint256).max;
 
     address internal constant NULL_ADDRESS = address(0);
@@ -19,6 +21,15 @@ library LibAsset {
     ///      by convention
 
     address internal constant NATIVE_ASSETID = NULL_ADDRESS; //address(0)
+
+    /// @dev Fetch local storage
+    function getERC20proxy() internal view returns (ERC20Proxy erc20proxy) {
+        bytes32 position = LIB_ASSET_STORAGE_POSITION;
+        // solhint-disable-next-line no-inline-assembly
+        assembly {
+            erc20proxy := sload(position)
+        }
+    }
 
     /// @notice Gets the balance of the inheriting contract for the given asset
     /// @param assetId The asset identifier to get the balance of
@@ -161,7 +172,7 @@ library LibAsset {
             if (amount == 0) revert InvalidAmount();
             uint256 balance = IERC20(assetId).balanceOf(msg.sender);
             if (balance < amount) revert InsufficientBalance(amount, balance);
-            transferFromERC20(assetId, msg.sender, address(this), amount);
+            getERC20proxy().transferFrom(assetId, msg.sender, address(this), amount);
         }
 
         amountWithoutFees = LibFees.accrueTokenFees(

@@ -102,7 +102,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         assertBalanceChangeGreaterThan(ADDRESS_DAI, USDC_HOLDER, int(defaultAmountOut))
     {
         vm.startPrank(USDC_HOLDER);
-        usdc.approve(address(genericSwapFacet), 10_000 * 10**usdc.decimals());
+        usdc.approve(erc20proxy, 10_000 * 10**usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -185,7 +185,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         assertBalanceChangeGreaterThan(address(0), USDC_HOLDER, int(defaultAmountOut))
     {
         vm.startPrank(USDC_HOLDER);
-        usdc.approve(address(genericSwapFacet), 13_000 * 10**usdc.decimals());
+        usdc.approve(erc20proxy, 13_000 * 10**usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -230,7 +230,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
     {
         vm.startPrank(USDC_HOLDER);
 
-        usdc.approve(address(genericSwapFacet), 10_000 * 10**usdc.decimals());
+        usdc.approve(erc20proxy, 10_000 * 10**usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -303,7 +303,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
 
     function testCanSwapERC20ToNativeWithFees() public setFees {
         vm.startPrank(USDC_HOLDER);
-        usdc.approve(address(genericSwapFacet), 30_000 * 10**usdc.decimals());
+        usdc.approve(erc20proxy, 30_000 * 10**usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);

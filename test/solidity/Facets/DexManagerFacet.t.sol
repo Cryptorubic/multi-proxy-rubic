@@ -18,7 +18,7 @@ contract DexManagerFacetTest is DSTest, DiamondTest {
     Foo internal c3;
 
     function setUp() public {
-        diamond = createDiamond(address(this), 1);
+        (diamond, ) = createDiamond(address(this), 1);
         dexMgr = new DexManagerFacet();
         c1 = new Foo();
         c2 = new Foo();

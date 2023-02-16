@@ -13,7 +13,7 @@ contract OwnershipFacetTest is DSTest, DiamondTest {
     OwnershipFacet internal ownershipFacet;
 
     function setUp() public {
-        diamond = createDiamond(address(this), 1);
+        (diamond, ) = createDiamond(address(this), 1);
         ownershipFacet = OwnershipFacet(address(diamond));
     }
 

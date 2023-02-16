@@ -63,7 +63,7 @@ abstract contract TestBaseFacet is TestBase {
 
         vm.writeLine(logFilePath, vm.toString(amount));
         // approval
-        usdc.approve(_facetTestContractAddress, amount);
+        usdc.approve(erc20proxy, amount);
 
         bridgeData.sendingAssetId = ADDRESS_USDC;
         bridgeData.minAmount = amount;
@@ -87,7 +87,7 @@ abstract contract TestBaseFacet is TestBase {
         vm.startPrank(USER_SENDER);
 
         // approval
-        usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
+        usdc.approve(erc20proxy, bridgeData.minAmount);
 
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
@@ -111,7 +111,7 @@ abstract contract TestBaseFacet is TestBase {
     {
         vm.startPrank(USER_SENDER);
         // approval
-        usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
+        usdc.approve(erc20proxy, bridgeData.minAmount);
 
         bridgeData.integrator = INTEGRATOR;
         //prepare check for events
@@ -208,7 +208,7 @@ abstract contract TestBaseFacet is TestBase {
         emit RubicTransferStarted(bridgeData);
 
         // approval
-        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+        dai.approve(erc20proxy, swapData[0].fromAmount);
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
@@ -250,7 +250,7 @@ abstract contract TestBaseFacet is TestBase {
         emit RubicTransferStarted(bridgeData);
 
         // approval
-        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+        dai.approve(erc20proxy, swapData[0].fromAmount);
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
@@ -322,7 +322,7 @@ abstract contract TestBaseFacet is TestBase {
         emit RubicTransferStarted(bridgeData);
 
         // approval
-        usdc.approve(_facetTestContractAddress, amountIn);
+        usdc.approve(erc20proxy, amountIn);
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
@@ -450,7 +450,7 @@ abstract contract TestBaseFacet is TestBase {
         // prepare bridgeData
         bridgeData.destinationChainId = 1;
 
-        usdc.approve(_facetTestContractAddress, bridgeData.minAmount);
+        usdc.approve(erc20proxy, bridgeData.minAmount);
 
         vm.expectRevert(CannotBridgeToSameNetwork.selector);
 
@@ -465,7 +465,7 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.hasSourceSwaps = true;
 
         setDefaultSwapDataSingleDAItoUSDC();
-        dai.approve(_facetTestContractAddress, swapData[0].fromAmount);
+        dai.approve(erc20proxy, swapData[0].fromAmount);
 
         vm.expectRevert(CannotBridgeToSameNetwork.selector);
 
@@ -503,7 +503,7 @@ abstract contract TestBaseFacet is TestBase {
     function testBase_Revert_CallerHasInsufficientFunds() public virtual {
         vm.startPrank(USER_SENDER);
 
-        usdc.approve(address(_facetTestContractAddress), defaultUSDCAmount);
+        usdc.approve(erc20proxy, defaultUSDCAmount);
 
         usdc.transfer(USER_RECEIVER, usdc.balanceOf(USER_SENDER));
 

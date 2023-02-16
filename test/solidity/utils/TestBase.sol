@@ -73,6 +73,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     ERC20 internal usdc;
     ERC20 internal dai;
     ERC20 internal weth;
+    address internal erc20proxy;
     RubicMultiProxy internal diamond;
     IRubic.BridgeData internal bridgeData;
     LibSwap.SwapData[] internal swapData;
@@ -203,7 +204,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         weth = ERC20(ADDRESS_WETH);
 
         // deploy & configure diamond
-        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 
         // transfer initial DAI/USDC/WETH balance to USER_SENDER
         deal(ADDRESS_USDC, USER_SENDER, 100_000 * 10**usdc.decimals());

@@ -108,7 +108,7 @@ contract MultichainFacetTest is TestBaseFacet {
         // get underlying token and approve
         vm.startPrank(USER_TESTTOKEN_WHALE);
         underlyingToken = ERC20(IMultichainToken(ADDRESS_ANYUSDC).underlying());
-        underlyingToken.approve(address(multichainFacet), bridgeData.minAmount);
+        underlyingToken.approve(erc20proxy, bridgeData.minAmount);
         vm.stopPrank();
     }
 
@@ -165,7 +165,7 @@ contract MultichainFacetTest is TestBaseFacet {
         uint256 amountToBeBridged = 10_000 * 10**testToken3.decimals();
 
         vm.startPrank(testToken3Whale);
-        testToken3.approve(address(multichainFacet), amountToBeBridged);
+        testToken3.approve(erc20proxy, amountToBeBridged);
 
         bridgeData.sendingAssetId = address(testToken3);
         bridgeData.minAmount = amountToBeBridged;
@@ -181,7 +181,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function testFailWhenUsingNotWhitelistedRouter() public {
         // re-deploy multichain facet with adjusted router whitelist
-        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         routers = [
             0x55aF5865807b196bD0197e0902746F31FBcCFa58, // TestMultichainToken
             0x7782046601e7b9B05cA55A3899780CE6EE6B8B2B // AnyswapV6Router
@@ -213,7 +213,7 @@ contract MultichainFacetTest is TestBaseFacet {
         amount = amount * 10**testToken.decimals();
 
         // approval
-        underlyingToken.approve(address(multichainFacet), amount);
+        underlyingToken.approve(erc20proxy, amount);
 
         bridgeData.minAmount = amount;
 
@@ -227,7 +227,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function testFail_revert_UsingNonWhitelistedRouter() public {
         // re-deploy multichain facet with adjusted router whitelist
-        diamond = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         routers = [
             0x55aF5865807b196bD0197e0902746F31FBcCFa58, // TestMultichainToken
             0x7782046601e7b9B05cA55A3899780CE6EE6B8B2B // AnyswapV6Router
@@ -273,7 +273,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function test_revert_RegisterRoutersWithUninitializedFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        RubicMultiProxy diamond2 = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (RubicMultiProxy diamond2, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 
         TestMultichainFacet multichainFacet2 = new TestMultichainFacet();
         bytes4[] memory functionSelectors = new bytes4[](7);
@@ -294,7 +294,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function test_OwnerCanInitializeFacet() public {
         vm.startPrank(USER_DIAMOND_OWNER);
-        RubicMultiProxy diamond2 = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (RubicMultiProxy diamond2, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
 
         TestMultichainFacet multichainFacet2 = new TestMultichainFacet();
         bytes4[] memory functionSelectors = new bytes4[](7);

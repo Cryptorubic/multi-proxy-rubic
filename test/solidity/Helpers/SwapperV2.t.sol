@@ -40,11 +40,12 @@ contract TestSwapperV2 is SwapperV2 {
 contract SwapperV2Test is DSTest, DiamondTest {
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
     RubicMultiProxy internal diamond;
+    address internal erc20proxy;
     TestAMM internal amm;
     TestSwapperV2 internal swapper;
 
     function setUp() public {
-        diamond = createDiamond(address(this), 1);
+        (diamond, erc20proxy) = createDiamond(address(this), 1);
         amm = new TestAMM();
         swapper = new TestSwapperV2();
 
@@ -89,7 +90,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
 
         // 95%
         token1.mint(address(this), 10_000 ether);
-        token1.approve(address(swapper), 10_000 ether);
+        token1.approve(erc20proxy, 10_000 ether);
 
         swapper.doSwaps(swapData);
 
@@ -128,10 +129,10 @@ contract SwapperV2Test is DSTest, DiamondTest {
         );
 
         token1.mint(address(this), 10_000 ether);
-        token1.approve(address(swapper), 10_000 ether);
+        token1.approve(erc20proxy, 10_000 ether);
 
         token2.mint(address(this), 10_000 ether);
-        token2.approve(address(swapper), 10_000 ether);
+        token2.approve(erc20proxy, 10_000 ether);
 
         swapper.doSwaps(swapData);
 
@@ -157,7 +158,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             true
         );
         token1.mint(address(this), 10_000 ether);
-        token1.approve(address(swapper), 10_000 ether);
+        token1.approve(erc20proxy, 10_000 ether);
 
         swapper.doSwaps(swapData);
 

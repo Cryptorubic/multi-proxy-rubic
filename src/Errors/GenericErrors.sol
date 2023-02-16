@@ -35,6 +35,7 @@ error InvalidFallbackAddress();
 error CumulativeSlippageTooHigh(uint256 minAmount, uint256 receivedAmount);
 error InsufficientBalance(uint256 required, uint256 balance);
 error ZeroAmount();
+error ZeroAddress();
 error InvalidFee();
 error InformationMismatch();
 error NotAContract();
