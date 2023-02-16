@@ -26,7 +26,7 @@ contract DiamondTest {
             FeesFacet.initialize.selector,
             treasury,
             maxRubicPlatformFee,
-            type(uint256).max
+            type(uint256).max / 2
         );
 
         // Diamond Loupe

@@ -9,7 +9,7 @@ import { LibAsset } from "rubic/Libraries/LibAsset.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { IRubic } from "rubic/Interfaces/IRubic.sol";
 import { FullMath } from "rubic/Libraries/FullMath.sol";
-import { FeesFacet, IFeesFacet } from "rubic/Facets/FeesFacet.sol";
+import { FeesFacet, IFeesFacet, FeeTooHigh } from "rubic/Facets/FeesFacet.sol";
 import { InvalidAmount } from "rubic/Errors/GenericErrors.sol";
 
 contract MockFacetWithFees {
@@ -145,6 +145,11 @@ contract FeesFacetTest is Test, DiamondTest {
         );
 
         vm.stopPrank();
+    }
+
+    function test_Revert_SetFixedNativeFeeGeMax() public {
+        vm.expectRevert(FeeTooHigh.selector);
+        feesFacet.setFixedNativeFee(type(uint256).max);
     }
 
     /// TOKEN FEE TESTS ///

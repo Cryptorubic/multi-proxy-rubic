@@ -8,14 +8,14 @@ import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { TokenAddressIsZero, InvalidFee } from "../Errors/GenericErrors.sol";
 
+error FeeTooHigh();
+error ShareTooHigh();
+
 contract FeesFacet is IFeesFacet, ReentrancyGuard {
 
     event SetFixedNativeFee(uint256 fee);
     event SetRubicPlatformFee(uint256 fee);
     event SetMaxRubicPlatformFee(uint256 fee);
-
-    error FeeTooHigh();
-    error ShareTooHigh();
 
     /// @inheritdoc IFeesFacet
     function initialize(
