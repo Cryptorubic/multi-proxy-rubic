@@ -20,7 +20,7 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// Types ///
 
-    struct SymbiosisData {
+    struct SymbiosisData { // TODO: clean data
         bytes firstSwapCalldata;
         bytes secondSwapCalldata;
         address intermediateToken;
