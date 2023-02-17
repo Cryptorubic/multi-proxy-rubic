@@ -2,13 +2,13 @@
 pragma solidity 0.8.17;
 
 import { Address } from "@openzeppelin/contracts/utils/Address.sol";
+import { LibMappings } from "../Libraries/LibMappings.sol";
 import { IRubic } from "../Interfaces/IRubic.sol";
-import { ISymbiosisMetaRouter } from "../Interfaces/ISymbiosisMetaRouter.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibFees } from "../Libraries/LibFees.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
-import { InformationMismatch } from "../Errors/GenericErrors.sol";
+import { UnAuthorized } from "../Errors/GenericErrors.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 
 /// @title Generic Cross-Chain Facet
@@ -24,7 +24,13 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         bytes callData;
     }
 
-    /// Constructor ///
+    /// Modifiers ///
+
+    modifier validateGenericData(GenericCrossChainData calldata _genericData) {
+        if (_genericData.router == LibAsset.getERC20proxy()) {
+            revert UnAuthorized();
+        }
+    }
 
     /// External Methods ///
 
@@ -37,6 +43,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         nonReentrant
         refundExcessNative(payable(msg.sender))
         validateBridgeData(_bridgeData)
+        validateGenericData(_genericData)
         doesNotContainSourceSwaps(_bridgeData)
         doesNotContainDestinationCalls(_bridgeData)
     {
@@ -65,6 +72,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         refundExcessNative(payable(msg.sender))
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
+        validateGenericData(_genericData)
     {
         _bridgeData.minAmount = _depositAndSwap(
             _bridgeData.transactionId,
@@ -82,7 +90,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
     /// @dev Contains the business logic for the bridge via arbitrary cross-chain provider
     /// @param _bridgeData the core information needed for bridging
     /// @param _genericData data specific to GenericCrossChainFacet
-    function _startBridge(IRubic.BridgeData memory _bridgeData, GenericCrossChainData calldata _genericData) internal {
+    function _startBridge(IRubic.BridgeData memory _bridgeData, GenericCrossChainData memory _genericData) internal {
         bool isNative = LibAsset.isNativeAsset(_bridgeData.sendingAssetId);
         uint256 nativeAssetAmount;
 
@@ -99,5 +107,9 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         );
 
         emit RubicTransferStarted(_bridgeData);
+    }
+
+    function _patchCallData(GenericCrossChainData calldata _genericData) private returns(GenericCrossChainData memory) {
+
     }
 }
