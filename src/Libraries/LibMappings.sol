@@ -12,6 +12,7 @@ library LibMappings {
     bytes32 internal constant STARGATE_NAMESPACE = keccak256("com.rubic.library.mappings.stargate");
     bytes32 internal constant WORMHOLE_NAMESPACE = keccak256("com.rubic.library.mappings.wormhole");
     bytes32 internal constant AMAROK_NAMESPACE = keccak256("com.rubic.library.mappings.amarok");
+    bytes32 internal constant GENERIC_CROSS_CHAIN_NAMESAPCE = keccak256("com.rubic.library.mappings.generic.cross.chain");
 
     /// Storage ///
     struct StargateMappings {
@@ -27,6 +28,10 @@ library LibMappings {
 
     struct AmarokMappings {
         mapping(uint256 => uint32) amarokDomain;
+    }
+
+    struct GenericCrossChainMappings {
+        mapping(address => mapping(bytes4 => uint256)) providerFunctionAmountOffset;
     }
 
     /// @dev Fetch local storage for Stargate
