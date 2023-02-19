@@ -60,4 +60,13 @@ library LibMappings {
             ms.slot := position
         }
     }
+
+    /// @dev Fetch local storage for Generic Cross Chain
+    function getGenericCrossChainMappings() internal pure returns (GenericCrossChainMappings storage ms) {
+        bytes32 position = GENERIC_CROSS_CHAIN_NAMESAPCE;
+        // solhint-disable-next-line no-inline-assembly
+        assembly {
+            ms.slot := position
+        }
+    }
 }

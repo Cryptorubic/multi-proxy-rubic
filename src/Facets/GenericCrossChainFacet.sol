@@ -26,10 +26,11 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
 
     /// Modifiers ///
 
-    modifier validateGenericData(GenericCrossChainData calldata _genericData) {
-        if (_genericData.router == LibAsset.getERC20proxy()) {
+    modifier validateGenericData(GenericCrossChainData calldata _genericData) { // TODO:test
+        if (_genericData.router == address(LibAsset.getERC20proxy())) {
             revert UnAuthorized();
         }
+        _;
     }
 
     /// External Methods ///
@@ -54,7 +55,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
             _bridgeData.integrator
         );
 
-        _startBridge(_bridgeData, _genericData);
+        _startBridge(_bridgeData, _patchGenericCrossChainData(_genericData, _bridgeData.minAmount));
     }
 
     /// @notice Bridges tokens via arbitrary cross-chain provider with swaps before bridging
@@ -82,7 +83,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
             payable(msg.sender)
         );
 
-        _startBridge(_bridgeData, _genericData);
+        _startBridge(_bridgeData, _patchGenericCrossChainData(_genericData, _bridgeData.minAmount));
     }
 
     /// Internal Methods ///
@@ -109,7 +110,13 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         emit RubicTransferStarted(_bridgeData);
     }
 
-    function _patchCallData(GenericCrossChainData calldata _genericData) private returns(GenericCrossChainData memory) {
+    function _patchGenericCrossChainData(GenericCrossChainData calldata _genericData, uint256 amount) private view returns(GenericCrossChainData memory) {
+        LibMappings.GenericCrossChainMappings storage sm = LibMappings.getGenericCrossChainMappings();
+        uint256 offset = sm.providerFunctionAmountOffset[_genericData.router][bytes4(_genericData.callData[:4])];
 
+        return GenericCrossChainData(
+            _genericData.router,
+            bytes.concat(_genericData.callData[:offset], abi.encode(amount), _genericData.callData[offset+32:])
+        );
     }
 }
