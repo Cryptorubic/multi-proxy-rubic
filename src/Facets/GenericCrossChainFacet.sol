@@ -154,9 +154,16 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         LibMappings.GenericCrossChainMappings storage sm = LibMappings.getGenericCrossChainMappings();
         uint256 offset = sm.providerFunctionAmountOffset[_genericData.router][bytes4(_genericData.callData[:4])];
 
-        return GenericCrossChainData(
-            _genericData.router,
-            bytes.concat(_genericData.callData[:offset], abi.encode(amount), _genericData.callData[offset+32:])
-        );
+        if (offset > 0) {
+            return GenericCrossChainData(
+                _genericData.router,
+                bytes.concat(_genericData.callData[:offset], abi.encode(amount), _genericData.callData[offset+32:])
+            );
+        } else {
+            return GenericCrossChainData(
+                _genericData.router,
+                _genericData.callData
+            );
+        }
     }
 }
