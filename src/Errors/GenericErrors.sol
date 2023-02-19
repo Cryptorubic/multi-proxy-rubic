@@ -38,6 +38,7 @@ error ZeroAmount();
 error ZeroAddress();
 error InvalidFee();
 error InformationMismatch();
+error LengthMissmatch();
 error NotAContract();
 error NotEnoughBalance(uint256 requested, uint256 available);
 error InsufficientMessageValue();
