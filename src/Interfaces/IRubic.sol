@@ -10,6 +10,7 @@ interface IRubic {
         address integrator;
         address referrer;
         address sendingAssetId;
+        address receivingAssetId;
         address receiver;
         uint256 minAmount;
         uint256 destinationChainId;

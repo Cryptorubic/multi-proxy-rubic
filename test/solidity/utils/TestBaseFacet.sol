@@ -122,6 +122,7 @@ abstract contract TestBaseFacet is TestBase {
             bridgeData.integrator,
             bridgeData.referrer,
             bridgeData.sendingAssetId,
+            bridgeData.receivingAssetId,
             bridgeData.receiver,
             bridgeData.minAmount - feeTokenAmount,
             bridgeData.destinationChainId,

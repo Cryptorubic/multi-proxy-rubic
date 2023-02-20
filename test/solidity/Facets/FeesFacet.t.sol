@@ -91,6 +91,7 @@ contract FeesFacetTest is Test, DiamondTest {
             integrator: address(0),
             referrer: address(0),
             sendingAssetId: address(token),
+            receivingAssetId: address(0xdeadcafebabe),
             receiver: USER_SENDER,
             minAmount: DEFAULT_TOKEN_AMOUNT,
             destinationChainId: 137,
