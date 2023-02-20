@@ -3,7 +3,7 @@ pragma solidity 0.8.17;
 
 import { LibAsset } from "./LibAsset.sol";
 import { LibUtil } from "./LibUtil.sol";
-import { InvalidContract, NoSwapFromZeroBalance, InsufficientBalance } from "../Errors/GenericErrors.sol";
+import { InvalidContract, NoSwapFromZeroBalance, InsufficientBalance, UnAuthorized } from "../Errors/GenericErrors.sol";
 import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 library LibSwap {
@@ -29,6 +29,7 @@ library LibSwap {
 
     function swap(bytes32 transactionId, SwapData memory _swap) internal {
         if (!LibAsset.isContract(_swap.callTo)) revert InvalidContract();
+        if (_swap.callTo == address(LibAsset.getERC20proxy())) revert UnAuthorized();
         uint256 fromAmount = _swap.fromAmount;
         if (fromAmount == 0) revert NoSwapFromZeroBalance();
         uint256 nativeValue = LibAsset.isNativeAsset(_swap.sendingAssetId) ? _swap.fromAmount : 0;
