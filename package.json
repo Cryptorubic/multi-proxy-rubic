@@ -1,12 +1,12 @@
 {
-  "name": "lifi-contracts",
+  "name": "rubic-multi-proxy-contracts",
   "version": "0.1.0",
-  "description": "LI.FI is a cross-chain bridge aggregation protocol",
+  "description": "Rubic is a cross-chain bridge aggregation protocol",
   "engines": {
     "node": ">= 12.18.0"
   },
-  "repository": "github:lifinance/contracts",
-  "author": "LI.FI",
+  "repository": "github:cryptorubic/multi-proxy-rubic",
+  "author": "Rubic",
   "license": "MIT",
   "keywords": [
     "ethereum",

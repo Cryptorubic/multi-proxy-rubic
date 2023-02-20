@@ -5,7 +5,6 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 
 /// @title ERC20 Proxy
-/// @author LI.FI (https://li.fi)
 /// @notice Proxy contract for safely transferring ERC20 tokens for swaps/executions
 contract ERC20Proxy is Ownable {
     /// Storage ///

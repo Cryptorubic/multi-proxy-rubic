@@ -11,7 +11,6 @@ import { InformationMismatch } from "../Errors/GenericErrors.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 
 /// @title Symbiosis Facet
-/// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through Symbiosis Protocol
 contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice The contract address of the Symbiosis router on the source chain

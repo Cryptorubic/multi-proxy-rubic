@@ -7,7 +7,6 @@ import { IAccessManagerFacet } from "../Interfaces/IAccessManagerFacet.sol";
 import { CannotAuthoriseSelf } from "../Errors/GenericErrors.sol";
 
 /// @title Access Manager Facet
-/// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for managing method level access control
 contract AccessManagerFacet is IAccessManagerFacet {
     /// @inheritdoc IAccessManagerFacet

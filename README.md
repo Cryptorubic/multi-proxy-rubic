@@ -1,11 +1,11 @@
-[![Forge](https://github.com/lifinance/contracts/actions/workflows/forge.yml/badge.svg)](https://github.com/lifinance/contracts/actions/workflows/forge.yml)
+[![Forge](https://github.com/Cryptorubic/multi-proxy-rubic/actions/workflows/forge.yml/badge.svg)](https://github.com/Cryptorubic/multi-proxy-rubic/actions/workflows/forge.yml)
 
-# LI.FI Smart Contracts
+# Rubic Smart Contracts
 
 ## Table of contents
 
 1. [General](#general)
-2. [Why LI.FI?](#why)
+2. [Why Rubic?](#why)
    1. [Our Thesis](#thesis)
    2. [Ecosystem Problems](#ecosystem-problems)
    3. [Developer Problems](#developer-problems)
@@ -21,17 +21,16 @@
    3. [TEST With Foundry/Forge](#foundry-forge)
 7. [Contract Docs](#contract-docs)
 8. [DEPLOY](#deploy)
-9. [More Information](#more-information)
 
 ## General<a name="general"></a>
 
 Our vision is to create a middle layer between DeFi infrastructure and the application layer.
-LI.FI aims to aggregate and abstract away the most important bridges and connect them to DEXs and DEX aggregators on each chain to facilitate cross-chain any-2-any swaps.
+Rubic aims to aggregate and abstract away the most important bridges and connect them to DEXs and DEX aggregators on each chain to facilitate cross-chain any-2-any swaps.
 
 To decide which bridge to use, we assess and measure the degree of decentralization, trust assumptions, fees, gas efficiency, speed, and other qualitative and quantitative factors.
 Then, we use the thresholds and preferences of our integration partners and end-users to select the right path.
 
-## Why LI.FI?<a name="why"></a>
+## Why Rubic?<a name="why"></a>
 
 ### Our Thesis<a name="thesis"></a>
 
@@ -58,17 +57,17 @@ Then, we use the thresholds and preferences of our integration partners and end-
 **Too many bridges** to educate yourself about.
 It'd be good to have access to all of them and getting good guidance from people and algorithms that are specialized.
 
-➔ LI.FI does that.
+➔ Rubic does that.
 
 **Bridges are still immature** so it's good to have not only one bridge but fallback solutions in place.
 Immaturity comes with security risks, insufficient liquidity and a lot of maintenance overhead.
 
-➔ LI.FI maintains all bridge connections, gives you access to multiple ones and handles fallbacks and decision-making programmatically.
+➔ Rubic maintains all bridge connections, gives you access to multiple ones and handles fallbacks and decision-making programmatically.
 
 **Bridges are most often not enough**.
 You also need DEXes/DEX aggregators as bridges are limited to stable-coins and native currencies.
 
-➔ LI.FI not only aggregates bridges, but also connects to sorts of DEX aggregators and if not available, the DEXs directly in order to find the best swap possible to arrive at the desired token and to allow to start the whole process with any asset.
+➔ Rubic not only aggregates bridges, but also connects to sorts of DEX aggregators and if not available, the DEXs directly in order to find the best swap possible to arrive at the desired token and to allow to start the whole process with any asset.
 
 ---
 
@@ -76,7 +75,7 @@ You also need DEXes/DEX aggregators as bridges are limited to stable-coins and n
 
 A data mesh of cross-chain liquidity sources: cross-chain liquidity networks, bridges, DEXes, bridges, and lending protocols.
 
-As a bridge and DEX aggregator, LI.FI can route any asset on any chain to the desired asset on the desired chain, thus providing a remarkable UX to their users.
+As a bridge and DEX aggregator, Rubic can route any asset on any chain to the desired asset on the desired chain, thus providing a remarkable UX to their users.
 
 All of this will be made available on an API/Contract level which comes as SDK, iFrame solution, and as a widget for other developers to plug directly into their products.
 No need for users to leave your dApps anymore.
@@ -92,7 +91,7 @@ Finally, the final amount of the requested token is sent to the user's wallet.
 
 ## Architecture<a name="architecture"></a>
 
-The LI.FI Contract is built using the EIP-2535 (Multi-facet Proxy) standard. The contract logic lives behind a single contract that in turn uses DELEGATECALL to call **facet** contracts that contain the business logic.
+The Rubic Contract is built using the EIP-2535 (Multi-facet Proxy) standard. The contract logic lives behind a single contract that in turn uses DELEGATECALL to call **facet** contracts that contain the business logic.
 
 All business logic is built using **facet** contracts which live in `src/Facets`.
 
@@ -102,32 +101,32 @@ For more information on EIP-2535 you can view the entire EIP [here](https://eips
 
 ### Contract Flow<a name="contract-flow"></a>
 
-A basic example would be a user bridging from one chain to another using Hop Protocol. The user would interact with the LI.FIDiamond contract which would pass the Hop specific call to the HopFacet which then passes required calls + parameters to Hop Protocol's contracts.
+A basic example would be a user bridging from one chain to another using Hop Protocol. The user would interact with the RubicDiamond contract which would pass the Hop specific call to the HopFacet which then passes required calls + parameters to Hop Protocol's contracts.
 
 The basic flow is illustrated below.
 
 ```mermaid
 graph TD;
-    D{LiFiDiamond}-- DELEGATECALL -->NXTPFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->HopFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->AnyswapFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->CBridgeFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->HyphenFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->StargateFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->NXTPFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->HopFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->AnyswapFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->CBridgeFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->HyphenFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->StargateFacet;
 ```
 
 ---
 
 ### Diamond Helper Contracts<a name="diamond-helper-contracts"></a>
 
-The LiFiDiamond contract is deployed along with some helper contracts that facilitate things like upgrading facet contracts, look-ups for methods on facet contracts, ownership checking and withdrawals of funds. For specific details please check out [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
+The RubicMultiProxy contract is deployed along with some helper contracts that facilitate things like upgrading facet contracts, look-ups for methods on facet contracts, ownership checking and withdrawals of funds. For specific details please check out [EIP-2535](https://eips.ethereum.org/EIPS/eip-2535).
 
 ```mermaid
 graph TD;
-    D{LiFiDiamond}-- DELEGATECALL -->DiamondCutFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->DiamondLoupeFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->OwnershipFacet;
-    D{LiFiDiamond}-- DELEGATECALL -->WithdrawFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->DiamondCutFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->DiamondLoupeFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->OwnershipFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->WithdrawFacet;
 ```
 
 ## Repository Structure<a name="repository-structure"></a>
@@ -226,11 +225,3 @@ You can deploy individual facets by running:
 DEX Manager is a special facet that manages allowed DEXs and allowed function calls. You can update these allowed DEXs/functions by updating `/config/dex.ts` and then running:
 
 `yarn deploy <network> --tags DeployDexManagerFacet`
-
-## More Information<a name="more-information"></a>
-
-- [Website](https://li.fi/)
-- [General Documentation](https://docs.li.fi/)
-- [API Documentation](https://apidocs.li.fi/)
-- [SDK Documentation](https://docs.li.fi/products/integrate-li.fi-js-sdk/install-li.fi-sdk)
-- [Transfer UI](https://transferto.xyz/)

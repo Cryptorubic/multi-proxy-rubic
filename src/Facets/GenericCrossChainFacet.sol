@@ -13,7 +13,6 @@ import { UnAuthorized, LengthMissmatch } from "../Errors/GenericErrors.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 
 /// @title Generic Cross-Chain Facet
-/// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through arbitrary cross-chain provider
 contract GenericCrossChainFacet is
     IRubic,

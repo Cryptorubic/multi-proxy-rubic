@@ -10,7 +10,6 @@ import { IERC20Proxy } from "../Interfaces/IERC20Proxy.sol";
 import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
 
 /// @title Executor
-/// @author LI.FI (https://li.fi)
 /// @notice Arbitrary execution contract used for cross-chain swaps and message passing
 contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// Storage ///

@@ -4,7 +4,6 @@ pragma solidity 0.8.17;
 import { CannotAuthoriseSelf, UnAuthorized } from "../Errors/GenericErrors.sol";
 
 /// @title Access Library
-/// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for managing method level access control
 library LibAccess {
     /// Types ///

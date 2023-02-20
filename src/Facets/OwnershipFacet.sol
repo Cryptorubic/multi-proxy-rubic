@@ -7,7 +7,6 @@ import { LibUtil } from "../Libraries/LibUtil.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 
 /// @title Ownership Facet
-/// @author LI.FI (https://li.fi)
 /// @notice Manages ownership of the Rubic Diamond contract for admin purposes
 contract OwnershipFacet is IERC173 {
     /// Storage ///

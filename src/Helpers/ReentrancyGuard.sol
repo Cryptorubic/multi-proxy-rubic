@@ -2,7 +2,6 @@
 pragma solidity 0.8.17;
 
 /// @title Reentrancy Guard
-/// @author LI.FI (https://li.fi)
 /// @notice Abstract contract to provide protection against reentrancy
 abstract contract ReentrancyGuard {
     /// Storage ///

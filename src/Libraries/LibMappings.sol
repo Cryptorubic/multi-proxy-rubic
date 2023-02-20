@@ -5,7 +5,6 @@ import { CannotAuthoriseSelf, UnAuthorized } from "../Errors/GenericErrors.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
 
 /// @title Mappings Library
-/// @author LI.FI (https://li.fi)
 /// @notice Provides mappings for all facets that may need them
 library LibMappings {
     /// Types ///

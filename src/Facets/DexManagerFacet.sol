@@ -8,7 +8,6 @@ import { LibAsset } from "../Libraries/LibAsset.sol";
 import { CannotAuthoriseSelf } from "../Errors/GenericErrors.sol";
 
 /// @title Dex Manager Facet
-/// @author LI.FI (https://li.fi)
 /// @notice Facet contract for managing approved DEXs to be used in swaps.
 contract DexManagerFacet {
     /// Events ///

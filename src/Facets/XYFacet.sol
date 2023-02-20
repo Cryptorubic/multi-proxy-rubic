@@ -10,7 +10,6 @@ import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 
 /// @title XY Facet
-/// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through XY Protocol
 contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     address private constant xyNativeAddress =

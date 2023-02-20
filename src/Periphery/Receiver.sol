@@ -11,7 +11,6 @@ import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
 import { UnAuthorized } from "../Errors/GenericErrors.sol";
 
 /// @title Executor
-/// @author LI.FI (https://li.fi)
 /// @notice Arbitrary execution contract used for cross-chain swaps and message passing
 contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
     using SafeERC20 for IERC20;

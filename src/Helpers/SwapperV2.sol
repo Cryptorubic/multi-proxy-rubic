@@ -10,7 +10,6 @@ import { LibAllowList } from "../Libraries/LibAllowList.sol";
 import { InvalidAmount, ContractCallNotAllowed, NoSwapDataProvided, CumulativeSlippageTooHigh } from "../Errors/GenericErrors.sol";
 
 /// @title Swapper
-/// @author LI.FI (https://li.fi)
 /// @notice Abstract contract to provide swap functionality
 contract SwapperV2 is IRubic {
     /// Types ///

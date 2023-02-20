@@ -4,7 +4,6 @@ pragma solidity 0.8.17;
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 
 /// @title Periphery Registry Facet
-/// @author LI.FI (https://li.fi)
 /// @notice A simple registry to track RUBIC periphery contracts
 contract PeripheryRegistryFacet {
     /// Storage ///

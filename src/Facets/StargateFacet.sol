@@ -12,7 +12,6 @@ import { LibMappings } from "../Libraries/LibMappings.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 
 /// @title Stargate Facet
-/// @author Li.Finance (https://li.finance)
 /// @notice Provides functionality for bridging through Stargate
 contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Storage ///
