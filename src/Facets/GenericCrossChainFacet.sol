@@ -31,7 +31,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
 
     /// Modifiers ///
 
-    modifier validateGenericData(GenericCrossChainData calldata _genericData) { // TODO:test
+    modifier validateGenericData(GenericCrossChainData calldata _genericData) {
         if (_genericData.router == address(LibAsset.getERC20proxy())) {
             revert UnAuthorized();
         }
