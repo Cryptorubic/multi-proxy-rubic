@@ -84,6 +84,8 @@ interface IFeesFacet {
         view
         returns (uint256 _maxFixedNativeFee);
 
+    function feeTreasure() external view returns (address feeTreasure);
+
     function integratorToFeeInfo(
         address _integrator
     ) external view returns (IFeesFacet.IntegratorFeeInfo memory _info);

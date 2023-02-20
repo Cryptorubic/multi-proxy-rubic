@@ -190,6 +190,17 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         _maxFixedNativeFee = s.maxFixedNativeFee;
     }
 
+    function feeTreasure()
+        external
+        view
+        override
+        returns (address _feeTreasure)
+    {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _feeTreasure = s.feeTreasure;
+    }
+
     function integratorToFeeInfo(
         address _integrator
     )
