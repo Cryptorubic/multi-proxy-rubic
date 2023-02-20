@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import { Address } from "@openzeppelin/contracts/utils/Address.sol";
 import { LibMappings } from "../Libraries/LibMappings.sol";
 import { IRubic } from "../Interfaces/IRubic.sol";
 import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibFees } from "../Libraries/LibFees.sol";
+import { LibUtil } from "../Libraries/LibUtil.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
@@ -16,8 +16,6 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through arbitrary cross-chain provider
 contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
-    using Address for address payable;
-
     /// Events ///
 
     event ProviderFunctionAmountOffsetUpdated(address[] _routers, bytes4[] _selectors, uint256[] _offsets);
@@ -25,7 +23,7 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
     /// Types ///
 
     struct GenericCrossChainData {
-        address payable router;
+        address router;
         bytes callData;
     }
 
@@ -141,11 +139,11 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
             LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), _genericData.router, _bridgeData.minAmount);
         }
 
-        _genericData.router.functionCallWithValue(
-            _genericData.callData,
-            nativeAssetAmount,
-            "generic cross-chain call failed"
-        );
+        (bool success, bytes memory res) = _genericData.router.call{ value: nativeAssetAmount }(_genericData.callData);
+        if (!success) {
+            string memory reason = LibUtil.getRevertMsg(res);
+            revert(reason);
+        }
 
         emit RubicTransferStarted(_bridgeData);
     }

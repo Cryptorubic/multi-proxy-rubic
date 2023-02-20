@@ -176,10 +176,7 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     ) private noLeftovers(_swapData, _leftoverReceiver) {
         uint256 numSwaps = _swapData.length;
         for (uint256 i = 0; i < numSwaps; ) {
-            if (_swapData[i].callTo == address(erc20Proxy)) {
-                revert UnAuthorized(); // Prevent calling ERC20 Proxy directly
-            }
-
+            // call to the ERC20Proxy is blocked inside LibSwap.swap
             LibSwap.SwapData calldata currentSwapData = _swapData[i];
             LibSwap.swap(_transactionId, currentSwapData);
             unchecked {
