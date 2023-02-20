@@ -41,7 +41,7 @@ library LibFees {
         uint256 RubicPlatformFee;
         // Rubic fixed fee for swap
         uint256 fixedNativeFee;
-        address feeTreasure; //TODO: add setter and view
+        address feeTreasure;
     }
 
     function feesStorage() internal pure returns (FeesStorage storage fs) {

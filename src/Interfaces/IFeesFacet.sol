@@ -33,6 +33,12 @@ interface IFeesFacet {
     ) external;
 
     /**
+     * @dev Sets address of the treasure
+     * @param _feeTreasure Address of the treasure
+     */
+    function setFeeTreasure(address _feeTreasure) external;
+
+    /**
      * @dev Sets fixed crypto fee
      * @param _fixedNativeFee Fixed crypto fee
      */
@@ -72,6 +78,11 @@ interface IFeesFacet {
         external
         view
         returns (uint256 _maxRubicPlatformFee);
+
+    function maxFixedNativeFee()
+        external
+        view
+        returns (uint256 _maxFixedNativeFee);
 
     function integratorToFeeInfo(
         address _integrator

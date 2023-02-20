@@ -6,7 +6,7 @@ import { LibFees } from "../Libraries/LibFees.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
-import { TokenAddressIsZero, InvalidFee } from "../Errors/GenericErrors.sol";
+import { TokenAddressIsZero, InvalidFee, ZeroAddress } from "../Errors/GenericErrors.sol";
 
 error FeeTooHigh();
 error ShareTooHigh();
@@ -39,6 +39,20 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         fs.feeTreasure = _feeTreasure;
         fs.maxFixedNativeFee = _maxFixedNativeFee;
         fs.maxRubicPlatformFee = _maxRubicPlatformFee;
+    }
+
+    /// @inheritdoc IFeesFacet
+    function setFeeTreasure(address _feeTreasure) external override {
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
+
+        if (_feeTreasure == address(0)) {
+            revert ZeroAddress();
+        }
+
+        LibFees.FeesStorage storage fs = LibFees.feesStorage();
+        fs.feeTreasure = _feeTreasure;
     }
 
     /// @inheritdoc IFeesFacet
@@ -163,6 +177,17 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _maxRubicPlatformFee = s.maxRubicPlatformFee;
+    }
+
+    function maxFixedNativeFee()
+        external
+        view
+        override
+        returns (uint256 _maxFixedNativeFee)
+    {
+        LibFees.FeesStorage storage s = LibFees.feesStorage();
+
+        _maxFixedNativeFee = s.maxFixedNativeFee;
     }
 
     function integratorToFeeInfo(
