@@ -11,10 +11,10 @@ require('./tasks/generateDiamondABI.ts')
 
 function getRemappings() {
   return fs
-    .readFileSync("remappings.txt", "utf8")
-    .split("\n")
+    .readFileSync('remappings.txt', 'utf8')
+    .split('\n')
     .filter(Boolean) // remove empty lines
-    .map((line) => line.trim().split("="));
+    .map((line) => line.trim().split('='))
 }
 
 const config: HardhatUserConfig = {
@@ -44,12 +44,12 @@ const config: HardhatUserConfig = {
       accounts: accounts(process.env.HARDHAT_FORK),
       forking: process.env.HARDHAT_FORK
         ? {
-          // TODO once PR merged : network: process.env.HARDHAT_FORK,
-          url: node_url(process.env.HARDHAT_FORK),
-          blockNumber: process.env.HARDHAT_FORK_NUMBER
-            ? parseInt(process.env.HARDHAT_FORK_NUMBER)
-            : undefined,
-        }
+            // TODO once PR merged : network: process.env.HARDHAT_FORK,
+            url: node_url(process.env.HARDHAT_FORK),
+            blockNumber: process.env.HARDHAT_FORK_NUMBER
+              ? parseInt(process.env.HARDHAT_FORK_NUMBER)
+              : undefined,
+          }
         : undefined,
     },
   },
@@ -58,25 +58,25 @@ const config: HardhatUserConfig = {
     target: 'ethers-v5',
   },
   preprocess: {
-  eachLine: (hre) => ({
-    transform: (line: string) => {
-      if (line.match(/^\s*import /i)) {
-        console.log(line)
-        for (const [from, to] of getRemappings()) {
-          if (line.includes(from)) {
-            line = line.replace(from, to);
-            break;
+    eachLine: (hre) => ({
+      transform: (line: string) => {
+        if (line.match(/^\s*import /i)) {
+          console.log(line)
+          for (const [from, to] of getRemappings()) {
+            if (line.includes(from)) {
+              line = line.replace(from, to)
+              break
+            }
           }
+          console.log(line)
         }
-        console.log(line)
-      }
-      return line;
-    },
-  }),
+        return line
+      },
+    }),
   },
   paths: {
-    sources: "./src",
-    cache: "./cache_hardhat",
+    sources: './src',
+    cache: './cache_hardhat',
   },
 }
 

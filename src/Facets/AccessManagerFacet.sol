@@ -20,7 +20,9 @@ contract AccessManagerFacet is IAccessManagerFacet {
             revert CannotAuthoriseSelf();
         }
         LibDiamond.enforceIsContractOwner();
-        _canExecute ? LibAccess.addAccess(_selector, _executor) : LibAccess.removeAccess(_selector, _executor);
+        _canExecute
+            ? LibAccess.addAccess(_selector, _executor)
+            : LibAccess.removeAccess(_selector, _executor);
         if (_canExecute) {
             emit ExecutionAllowed(_executor, _selector);
         } else {
@@ -29,7 +31,10 @@ contract AccessManagerFacet is IAccessManagerFacet {
     }
 
     /// @inheritdoc IAccessManagerFacet
-    function addressCanExecuteMethod(bytes4 _selector, address _executor) external override view returns (bool) {
+    function addressCanExecuteMethod(
+        bytes4 _selector,
+        address _executor
+    ) external view override returns (bool) {
         return LibAccess.accessStorage().execAccess[_selector][_executor];
     }
 }

@@ -8,36 +8,37 @@ import { IXSwapper } from "rubic/Interfaces/IXSwapper.sol";
 
 // Stub XYFacet Contract
 contract TestXYFacet is XYFacet, TestFacet {
-    constructor(
-        IXSwapper _router
-    ) XYFacet(_router) {}
+    constructor(IXSwapper _router) XYFacet(_router) {}
 }
 
 contract XYFacetTest is TestBaseFacet {
     // These values are for Mainnet
-    address internal constant XSWAPPER = 0x4315f344a905dC21a08189A117eFd6E1fcA37D57;
+    address internal constant XSWAPPER =
+        0x4315f344a905dC21a08189A117eFd6E1fcA37D57;
 
     TestXYFacet internal xyFacet;
     XYFacet.XYData internal xyData;
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
         if (isNative) {
-            xyFacet.startBridgeTokensViaXY{ value: bridgeData.minAmount + addToMessageValue }(
+            xyFacet.startBridgeTokensViaXY{
+                value: bridgeData.minAmount + addToMessageValue
+            }(bridgeData, xyData);
+        } else {
+            xyFacet.startBridgeTokensViaXY{ value: addToMessageValue }(
                 bridgeData,
                 xyData
             );
-        } else {
-            xyFacet.startBridgeTokensViaXY{ value: addToMessageValue }(bridgeData, xyData);
         }
     }
 
-    function initiateSwapAndBridgeTxWithFacet(bool isNative) internal override {
+    function initiateSwapAndBridgeTxWithFacet(
+        bool isNative
+    ) internal override {
         if (isNative) {
-            xyFacet.swapAndStartBridgeTokensViaXY{ value: swapData[0].fromAmount + addToMessageValue }(
-                bridgeData,
-                swapData,
-                xyData
-            );
+            xyFacet.swapAndStartBridgeTokensViaXY{
+                value: swapData[0].fromAmount + addToMessageValue
+            }(bridgeData, swapData, xyData);
         } else {
             xyFacet.swapAndStartBridgeTokensViaXY{ value: addToMessageValue }(
                 bridgeData,
@@ -63,10 +64,18 @@ contract XYFacetTest is TestBaseFacet {
         xyFacet = TestXYFacet(address(diamond));
 
         xyFacet.addDex(address(uniswap));
-        xyFacet.setFunctionApprovalBySignature(uniswap.swapExactTokensForTokens.selector);
-        xyFacet.setFunctionApprovalBySignature(uniswap.swapExactTokensForETH.selector);
-        xyFacet.setFunctionApprovalBySignature(uniswap.swapETHForExactTokens.selector);
-        xyFacet.setFunctionApprovalBySignature(uniswap.swapTokensForExactETH.selector);
+        xyFacet.setFunctionApprovalBySignature(
+            uniswap.swapExactTokensForTokens.selector
+        );
+        xyFacet.setFunctionApprovalBySignature(
+            uniswap.swapExactTokensForETH.selector
+        );
+        xyFacet.setFunctionApprovalBySignature(
+            uniswap.swapETHForExactTokens.selector
+        );
+        xyFacet.setFunctionApprovalBySignature(
+            uniswap.swapTokensForExactETH.selector
+        );
 
         setFacetAddressInTestBase(address(xyFacet), "XYFacet");
 

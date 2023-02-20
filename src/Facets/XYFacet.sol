@@ -13,10 +13,11 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through XY Protocol
 contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
-    address private constant xyNativeAddress = 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
+    address private constant xyNativeAddress =
+        0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE;
 
     /// @notice The contract address of the XY router on the source chain
-    IXSwapper immutable private router;
+    IXSwapper private immutable router;
 
     /// Types ///
 
@@ -39,7 +40,10 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via XY
     /// @param _bridgeData the core information needed for bridging
     /// @param _xyData data specific to XY
-    function startBridgeTokensViaXY(IRubic.BridgeData memory _bridgeData, XYData calldata _xyData)
+    function startBridgeTokensViaXY(
+        IRubic.BridgeData memory _bridgeData,
+        XYData calldata _xyData
+    )
         external
         payable
         nonReentrant
@@ -90,7 +94,10 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via XY
     /// @param _bridgeData the core information needed for bridging
     /// @param _xyData data specific to XY
-    function _startBridge(IRubic.BridgeData memory _bridgeData, XYData calldata _xyData) internal {
+    function _startBridge(
+        IRubic.BridgeData memory _bridgeData,
+        XYData calldata _xyData
+    ) internal {
         bool isNative = LibAsset.isNativeAsset(_bridgeData.sendingAssetId);
         uint256 nativeAssetAmount;
 
@@ -98,7 +105,11 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             nativeAssetAmount = _bridgeData.minAmount;
             _bridgeData.sendingAssetId = xyNativeAddress;
         } else {
-            LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), address(router), _bridgeData.minAmount);
+            LibAsset.maxApproveERC20(
+                IERC20(_bridgeData.sendingAssetId),
+                address(router),
+                _bridgeData.minAmount
+            );
         }
 
         router.swap{ value: nativeAssetAmount }(

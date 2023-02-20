@@ -108,9 +108,19 @@ contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
         uint32,
         bytes memory _callData
     ) external nonReentrant onlyAmarokRouter {
-        (LibSwap.SwapData[] memory swapData, address receiver) = abi.decode(_callData, (LibSwap.SwapData[], address));
+        (LibSwap.SwapData[] memory swapData, address receiver) = abi.decode(
+            _callData,
+            (LibSwap.SwapData[], address)
+        );
 
-        _swapAndCompleteBridgeTokens(_transferId, swapData, _asset, payable(receiver), _amount, false);
+        _swapAndCompleteBridgeTokens(
+            _transferId,
+            swapData,
+            _asset,
+            payable(receiver),
+            _amount,
+            false
+        );
     }
 
     /// @notice Completes a cross-chain transaction on the receiving chain.
@@ -129,12 +139,24 @@ contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
         uint256 _amountLD,
         bytes memory _payload
     ) external nonReentrant onlySGRouter {
-        (bytes32 transactionId, LibSwap.SwapData[] memory swapData, , address receiver) = abi.decode(
-            _payload,
-            (bytes32, LibSwap.SwapData[], address, address)
-        );
+        (
+            bytes32 transactionId,
+            LibSwap.SwapData[] memory swapData,
+            ,
+            address receiver
+        ) = abi.decode(
+                _payload,
+                (bytes32, LibSwap.SwapData[], address, address)
+            );
 
-        _swapAndCompleteBridgeTokens(transactionId, swapData, _token, payable(receiver), _amountLD, true);
+        _swapAndCompleteBridgeTokens(
+            transactionId,
+            swapData,
+            _token,
+            payable(receiver),
+            _amountLD,
+            true
+        );
     }
 
     /// @notice Performs a swap before completing a cross-chain transaction
@@ -149,11 +171,33 @@ contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
         address payable receiver
     ) external payable nonReentrant {
         if (LibAsset.isNativeAsset(assetId)) {
-            _swapAndCompleteBridgeTokens(_transactionId, _swapData, assetId, receiver, msg.value, false);
+            _swapAndCompleteBridgeTokens(
+                _transactionId,
+                _swapData,
+                assetId,
+                receiver,
+                msg.value,
+                false
+            );
         } else {
-            uint256 allowance = IERC20(assetId).allowance(msg.sender, address(this));
-            LibAsset.transferFromERC20(assetId, msg.sender, address(this), allowance);
-            _swapAndCompleteBridgeTokens(_transactionId, _swapData, assetId, receiver, allowance, false);
+            uint256 allowance = IERC20(assetId).allowance(
+                msg.sender,
+                address(this)
+            );
+            LibAsset.transferFromERC20(
+                assetId,
+                msg.sender,
+                address(this),
+                allowance
+            );
+            _swapAndCompleteBridgeTokens(
+                _transactionId,
+                _swapData,
+                assetId,
+                receiver,
+                allowance,
+                false
+            );
         }
     }
 
@@ -198,18 +242,22 @@ contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
                 // case 1a: not enough gas left to execute calls
                 receiver.call{ value: amount }("");
 
-                emit RubicTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
+                emit RubicTransferRecovered(
+                    _transactionId,
+                    assetId,
+                    receiver,
+                    amount,
+                    block.timestamp
+                );
                 return;
             }
 
             // case 1b: enough gas left to execute calls
             try
-                executor.swapAndCompleteBridgeTokens{ value: amount, gas: gasleft() - _recoverGas }(
-                    _transactionId,
-                    _swapData,
-                    assetId,
-                    receiver
-                )
+                executor.swapAndCompleteBridgeTokens{
+                    value: amount,
+                    gas: gasleft() - _recoverGas
+                }(_transactionId, _swapData, assetId, receiver)
             {} catch {
                 receiver.call{ value: amount }("");
             }
@@ -223,21 +271,30 @@ contract Receiver is IRubic, ReentrancyGuard, TransferrableOwnership {
                 // case 2a: not enough gas left to execute calls
                 token.safeTransfer(receiver, amount);
 
-                emit RubicTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
+                emit RubicTransferRecovered(
+                    _transactionId,
+                    assetId,
+                    receiver,
+                    amount,
+                    block.timestamp
+                );
                 return;
             }
 
             // case 2b: enough gas left to execute calls
             try
-                executor.swapAndCompleteBridgeTokens{ gas: gasleft() - _recoverGas }(
-                    _transactionId,
-                    _swapData,
-                    assetId,
-                    receiver
-                )
+                executor.swapAndCompleteBridgeTokens{
+                    gas: gasleft() - _recoverGas
+                }(_transactionId, _swapData, assetId, receiver)
             {} catch {
                 token.safeTransfer(receiver, amount);
-                emit RubicTransferRecovered(_transactionId, assetId, receiver, amount, block.timestamp);
+                emit RubicTransferRecovered(
+                    _transactionId,
+                    assetId,
+                    receiver,
+                    amount,
+                    block.timestamp
+                );
             }
 
             token.safeApprove(address(executor), 0);

@@ -20,7 +20,8 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// Types ///
 
-    struct SymbiosisData { // TODO: clean data
+    struct SymbiosisData {
+        // TODO: clean data
         bytes firstSwapCalldata;
         bytes secondSwapCalldata;
         address intermediateToken;
@@ -36,7 +37,10 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Initialize the contract.
     /// @param _symbiosisMetaRouter The contract address of the Symbiosis MetaRouter on the source chain.
     /// @param _symbiosisGateway The contract address of the Symbiosis Gateway on the source chain.
-    constructor(ISymbiosisMetaRouter _symbiosisMetaRouter, address _symbiosisGateway) {
+    constructor(
+        ISymbiosisMetaRouter _symbiosisMetaRouter,
+        address _symbiosisGateway
+    ) {
         symbiosisMetaRouter = _symbiosisMetaRouter;
         symbiosisGateway = _symbiosisGateway;
     }
@@ -46,7 +50,10 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via Symbiosis
     /// @param _bridgeData the core information needed for bridging
     /// @param _symbiosisData data specific to Symbiosis
-    function startBridgeTokensViaSymbiosis(IRubic.BridgeData memory _bridgeData, SymbiosisData calldata _symbiosisData)
+    function startBridgeTokensViaSymbiosis(
+        IRubic.BridgeData memory _bridgeData,
+        SymbiosisData calldata _symbiosisData
+    )
         external
         payable
         nonReentrant
@@ -97,14 +104,21 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Symbiosis
     /// @param _bridgeData the core information needed for bridging
     /// @param _symbiosisData data specific to Symbiosis
-    function _startBridge(IRubic.BridgeData memory _bridgeData, SymbiosisData calldata _symbiosisData) internal {
+    function _startBridge(
+        IRubic.BridgeData memory _bridgeData,
+        SymbiosisData calldata _symbiosisData
+    ) internal {
         bool isNative = LibAsset.isNativeAsset(_bridgeData.sendingAssetId);
         uint256 nativeAssetAmount;
 
         if (isNative) {
             nativeAssetAmount = _bridgeData.minAmount;
         } else {
-            LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), symbiosisGateway, _bridgeData.minAmount);
+            LibAsset.maxApproveERC20(
+                IERC20(_bridgeData.sendingAssetId),
+                symbiosisGateway,
+                _bridgeData.minAmount
+            );
         }
 
         address[] memory approvedTokens = new address[](3);

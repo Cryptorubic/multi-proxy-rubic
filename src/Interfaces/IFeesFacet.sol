@@ -22,7 +22,7 @@ interface IFeesFacet {
         uint256 _maxFixedNativeFee
     ) external;
 
-     /**
+    /**
      * @dev Sets fee info associated with an integrator
      * @param _integrator Address of the integrator
      * @param _info Struct with fee info
@@ -36,47 +36,44 @@ interface IFeesFacet {
      * @dev Sets fixed crypto fee
      * @param _fixedNativeFee Fixed crypto fee
      */
-    function setFixedNativeFee(
-        uint256 _fixedNativeFee
-    ) external;
+    function setFixedNativeFee(uint256 _fixedNativeFee) external;
 
     /**
      * @dev Sets Rubic token fee
      * @notice Cannot be higher than limit set only by an admin
      * @param _platformFee Fixed crypto fee
      */
-    function setRubicPlatformFee(
-        uint256 _platformFee
-    ) external;
+    function setRubicPlatformFee(uint256 _platformFee) external;
 
     /**
      * @dev Sets the limit of Rubic token fee
      * @param _maxFee The limit
      */
-    function setMaxRubicPlatformFee(
-        uint256 _maxFee
-    ) external;
+    function setMaxRubicPlatformFee(uint256 _maxFee) external;
 
     /// VIEW FUNCTIONS ///
 
     function calcTokenFees(
         uint256 _amount,
         address _integrator
-    ) external view returns(uint256 totalFee, uint256 RubicFee, uint256 integratorFee);
+    )
+        external
+        view
+        returns (uint256 totalFee, uint256 RubicFee, uint256 integratorFee);
 
-    function fixedNativeFee() external view returns(
-        uint256 _fixedNativeFee
-    );
+    function fixedNativeFee() external view returns (uint256 _fixedNativeFee);
 
-    function RubicPlatformFee() external view returns(
-        uint256 _RubicPlatformFee
-    );
+    function RubicPlatformFee()
+        external
+        view
+        returns (uint256 _RubicPlatformFee);
 
-    function maxRubicPlatformFee() external view returns(
-        uint256 _maxRubicPlatformFee
-    );
+    function maxRubicPlatformFee()
+        external
+        view
+        returns (uint256 _maxRubicPlatformFee);
 
-    function integratorToFeeInfo(address _integrator) external view returns(
-        IFeesFacet.IntegratorFeeInfo memory _info
-    );
+    function integratorToFeeInfo(
+        address _integrator
+    ) external view returns (IFeesFacet.IntegratorFeeInfo memory _info);
 }

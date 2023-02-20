@@ -28,7 +28,10 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// Modifiers ///
 
     /// @dev Sends any leftover balances back to the user
-    modifier noLeftovers(LibSwap.SwapData[] calldata _swaps, address payable _leftoverReceiver) {
+    modifier noLeftovers(
+        LibSwap.SwapData[] calldata _swaps,
+        address payable _leftoverReceiver
+    ) {
         uint256 numSwaps = _swaps.length;
         if (numSwaps != 1) {
             uint256[] memory initialBalances = _fetchBalances(_swaps);
@@ -43,7 +46,11 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
                 if (curAsset != finalAsset) {
                     curBalance = LibAsset.getOwnBalance(curAsset);
                     if (curBalance > initialBalances[i]) {
-                        LibAsset.transferAsset(curAsset, _leftoverReceiver, curBalance - initialBalances[i]);
+                        LibAsset.transferAsset(
+                            curAsset,
+                            _leftoverReceiver,
+                            curBalance - initialBalances[i]
+                        );
                     }
                 }
                 unchecked {
@@ -59,7 +66,10 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// @notice Initialize local variables for the Executor
     /// @param _owner The address of owner
     /// @param _erc20Proxy The address of the ERC20Proxy contract
-    constructor(address _owner, address _erc20Proxy) TransferrableOwnership(_owner) {
+    constructor(
+        address _owner,
+        address _erc20Proxy
+    ) TransferrableOwnership(_owner) {
         owner = _owner;
         erc20Proxy = IERC20Proxy(_erc20Proxy);
 
@@ -86,7 +96,14 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
         address _transferredAssetId,
         address payable _receiver
     ) external payable nonReentrant {
-        _processSwaps(_transactionId, _swapData, _transferredAssetId, _receiver, 0, true);
+        _processSwaps(
+            _transactionId,
+            _swapData,
+            _transferredAssetId,
+            _receiver,
+            0,
+            true
+        );
     }
 
     /// @notice Performs a series of swaps or arbitrary executions
@@ -102,7 +119,14 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
         address payable _receiver,
         uint256 _amount
     ) external payable nonReentrant {
-        _processSwaps(_transactionId, _swapData, _transferredAssetId, _receiver, _amount, false);
+        _processSwaps(
+            _transactionId,
+            _swapData,
+            _transferredAssetId,
+            _receiver,
+            _amount,
+            false
+        );
     }
 
     /// Private Methods ///
@@ -124,36 +148,64 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     ) private {
         uint256 startingBalance;
         uint256 finalAssetStartingBalance;
-        address finalAssetId = _swapData[_swapData.length - 1].receivingAssetId;
+        address finalAssetId = _swapData[_swapData.length - 1]
+            .receivingAssetId;
         if (!LibAsset.isNativeAsset(finalAssetId)) {
             finalAssetStartingBalance = LibAsset.getOwnBalance(finalAssetId);
         } else {
-            finalAssetStartingBalance = LibAsset.getOwnBalance(finalAssetId) - msg.value;
+            finalAssetStartingBalance =
+                LibAsset.getOwnBalance(finalAssetId) -
+                msg.value;
         }
 
         if (!LibAsset.isNativeAsset(_transferredAssetId)) {
             startingBalance = LibAsset.getOwnBalance(_transferredAssetId);
             if (_depositAllowance) {
-                uint256 allowance = IERC20(_transferredAssetId).allowance(msg.sender, address(this));
-                LibAsset.transferFromERC20(_transferredAssetId, msg.sender, address(this), allowance);
+                uint256 allowance = IERC20(_transferredAssetId).allowance(
+                    msg.sender,
+                    address(this)
+                );
+                LibAsset.transferFromERC20(
+                    _transferredAssetId,
+                    msg.sender,
+                    address(this),
+                    allowance
+                );
             } else {
-                erc20Proxy.transferFrom(_transferredAssetId, msg.sender, address(this), _amount);
+                erc20Proxy.transferFrom(
+                    _transferredAssetId,
+                    msg.sender,
+                    address(this),
+                    _amount
+                );
             }
         } else {
-            startingBalance = LibAsset.getOwnBalance(_transferredAssetId) - msg.value;
+            startingBalance =
+                LibAsset.getOwnBalance(_transferredAssetId) -
+                msg.value;
         }
 
         _executeSwaps(_transactionId, _swapData, _receiver);
 
         uint256 postSwapBalance = LibAsset.getOwnBalance(_transferredAssetId);
         if (postSwapBalance > startingBalance) {
-            LibAsset.transferAsset(_transferredAssetId, _receiver, postSwapBalance - startingBalance);
+            LibAsset.transferAsset(
+                _transferredAssetId,
+                _receiver,
+                postSwapBalance - startingBalance
+            );
         }
 
-        uint256 finalAssetPostSwapBalance = LibAsset.getOwnBalance(finalAssetId);
+        uint256 finalAssetPostSwapBalance = LibAsset.getOwnBalance(
+            finalAssetId
+        );
 
         if (finalAssetPostSwapBalance > finalAssetStartingBalance) {
-            LibAsset.transferAsset(finalAssetId, _receiver, finalAssetPostSwapBalance - finalAssetStartingBalance);
+            LibAsset.transferAsset(
+                finalAssetId,
+                _receiver,
+                finalAssetPostSwapBalance - finalAssetStartingBalance
+            );
         }
 
         emit RubicTransferCompleted(
@@ -188,7 +240,9 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// @dev Fetches balances of tokens to be swapped before swapping.
     /// @param _swapData Array of data used to execute swaps
     /// @return uint256[] Array of token balances.
-    function _fetchBalances(LibSwap.SwapData[] calldata _swapData) private view returns (uint256[] memory) {
+    function _fetchBalances(
+        LibSwap.SwapData[] calldata _swapData
+    ) private view returns (uint256[] memory) {
         uint256 numSwaps = _swapData.length;
         uint256[] memory balances = new uint256[](numSwaps);
         address asset;

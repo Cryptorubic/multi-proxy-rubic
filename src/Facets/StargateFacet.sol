@@ -57,9 +57,15 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// Events ///
 
-    event StargateInitialized(PoolIdConfig[] poolIdConfigs, ChainIdConfig[] chainIdConfigs);
+    event StargateInitialized(
+        PoolIdConfig[] poolIdConfigs,
+        ChainIdConfig[] chainIdConfigs
+    );
     event StargatePoolIdSet(address indexed token, uint256 poolId);
-    event LayerZeroChainIdSet(uint256 indexed chainId, uint16 layerZeroChainId);
+    event LayerZeroChainIdSet(
+        uint256 indexed chainId,
+        uint16 layerZeroChainId
+    );
 
     /// Constructor ///
 
@@ -74,10 +80,14 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Initialize local variables for the Stargate Facet
     /// @param poolIdConfigs Pool Id configuration data
     /// @param chainIdConfigs Chain Id configuration data
-    function initStargate(PoolIdConfig[] calldata poolIdConfigs, ChainIdConfig[] calldata chainIdConfigs) external {
+    function initStargate(
+        PoolIdConfig[] calldata poolIdConfigs,
+        ChainIdConfig[] calldata chainIdConfigs
+    ) external {
         LibDiamond.enforceIsContractOwner();
 
-        LibMappings.StargateMappings storage sm = LibMappings.getStargateMappings();
+        LibMappings.StargateMappings storage sm = LibMappings
+            .getStargateMappings();
 
         if (sm.initialized) {
             revert AlreadyInitialized();
@@ -87,11 +97,13 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             if (poolIdConfigs[i].token == address(0)) {
                 revert InvalidConfig();
             }
-            sm.stargatePoolId[poolIdConfigs[i].token] = poolIdConfigs[i].poolId;
+            sm.stargatePoolId[poolIdConfigs[i].token] = poolIdConfigs[i]
+                .poolId;
         }
 
         for (uint256 i = 0; i < chainIdConfigs.length; i++) {
-            sm.layerZeroChainId[chainIdConfigs[i].chainId] = chainIdConfigs[i].layerZeroChainId;
+            sm.layerZeroChainId[chainIdConfigs[i].chainId] = chainIdConfigs[i]
+                .layerZeroChainId;
         }
 
         sm.initialized = true;
@@ -104,7 +116,10 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Bridges tokens via Stargate Bridge
     /// @param _bridgeData Data used purely for tracking and analytics
     /// @param _stargateData Data specific to Stargate Bridge
-    function startBridgeTokensViaStargate(IRubic.BridgeData memory _bridgeData, StargateData calldata _stargateData)
+    function startBridgeTokensViaStargate(
+        IRubic.BridgeData memory _bridgeData,
+        StargateData calldata _stargateData
+    )
         external
         payable
         nonReentrant
@@ -153,18 +168,21 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         _startBridge(_bridgeData, _stargateData);
     }
 
-    function quoteLayerZeroFee(uint256 _destinationChainId, StargateData calldata _stargateData)
-        external
-        view
-        returns (uint256, uint256)
-    {
+    function quoteLayerZeroFee(
+        uint256 _destinationChainId,
+        StargateData calldata _stargateData
+    ) external view returns (uint256, uint256) {
         return
             router.quoteLayerZeroFee(
                 getLayerZeroChainId(_destinationChainId),
                 1, // TYPE_SWAP_REMOTE on Bridge
                 _stargateData.callTo,
                 _stargateData.callData,
-                IStargateRouter.lzTxObj(_stargateData.dstGasForCall, 0, toBytes(msg.sender))
+                IStargateRouter.lzTxObj(
+                    _stargateData.dstGasForCall,
+                    0,
+                    toBytes(msg.sender)
+                )
             );
     }
 
@@ -173,11 +191,15 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via Stargate Bridge
     /// @param _bridgeData Data used purely for tracking and analytics
     /// @param _stargateData Data specific to Stargate Bridge
-    function _startBridge(IRubic.BridgeData memory _bridgeData, StargateData calldata _stargateData)
-        private
-        noNativeAsset(_bridgeData)
-    {
-        LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), address(router), _bridgeData.minAmount);
+    function _startBridge(
+        IRubic.BridgeData memory _bridgeData,
+        StargateData calldata _stargateData
+    ) private noNativeAsset(_bridgeData) {
+        LibAsset.maxApproveERC20(
+            IERC20(_bridgeData.sendingAssetId),
+            address(router),
+            _bridgeData.minAmount
+        );
 
         router.swap{ value: _stargateData.lzFee }(
             getLayerZeroChainId(_bridgeData.destinationChainId),
@@ -186,7 +208,11 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _stargateData.refundAddress,
             _bridgeData.minAmount,
             _stargateData.minAmountLD,
-            IStargateRouter.lzTxObj(_stargateData.dstGasForCall, 0, toBytes(_bridgeData.receiver)),
+            IStargateRouter.lzTxObj(
+                _stargateData.dstGasForCall,
+                0,
+                toBytes(_bridgeData.receiver)
+            ),
             _stargateData.callTo,
             _stargateData.callData
         );
@@ -194,11 +220,14 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         emit RubicTransferStarted(_bridgeData);
     }
 
-    function validateDestinationCallFlag(IRubic.BridgeData memory _bridgeData, StargateData calldata _stargateData)
-        private
-        pure
-    {
-        if ((_stargateData.callData.length > 0) != _bridgeData.hasDestinationCall) {
+    function validateDestinationCallFlag(
+        IRubic.BridgeData memory _bridgeData,
+        StargateData calldata _stargateData
+    ) private pure {
+        if (
+            (_stargateData.callData.length > 0) !=
+            _bridgeData.hasDestinationCall
+        ) {
             revert InformationMismatch();
         }
     }
@@ -210,7 +239,8 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _poolId uint16 of the Stargate pool ID
     function setStargatePoolId(address _token, uint16 _poolId) external {
         LibDiamond.enforceIsContractOwner();
-        LibMappings.StargateMappings storage sm = LibMappings.getStargateMappings();
+        LibMappings.StargateMappings storage sm = LibMappings
+            .getStargateMappings();
 
         if (!sm.initialized) {
             revert NotInitialized();
@@ -224,9 +254,13 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _chainId uint16 of the chain ID
     /// @param _layerZeroChainId uint16 of the Layer 0 chain ID
     /// @dev This is used to map a chain ID to its Layer 0 chain ID
-    function setLayerZeroChainId(uint256 _chainId, uint16 _layerZeroChainId) external {
+    function setLayerZeroChainId(
+        uint256 _chainId,
+        uint16 _layerZeroChainId
+    ) external {
         LibDiamond.enforceIsContractOwner();
-        LibMappings.StargateMappings storage sm = LibMappings.getStargateMappings();
+        LibMappings.StargateMappings storage sm = LibMappings
+            .getStargateMappings();
 
         if (!sm.initialized) {
             revert NotInitialized();
@@ -240,7 +274,8 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @param _token address of the token
     /// @return uint256 of the Stargate pool ID
     function getStargatePoolId(address _token) private view returns (uint16) {
-        LibMappings.StargateMappings storage sm = LibMappings.getStargateMappings();
+        LibMappings.StargateMappings storage sm = LibMappings
+            .getStargateMappings();
         uint16 poolId = sm.stargatePoolId[_token];
         if (poolId == 0) revert UnknownStargatePool();
         return poolId;
@@ -249,8 +284,11 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Gets the Layer 0 chain ID for a given chain ID
     /// @param _chainId uint256 of the chain ID
     /// @return uint16 of the Layer 0 chain ID
-    function getLayerZeroChainId(uint256 _chainId) private view returns (uint16) {
-        LibMappings.StargateMappings storage sm = LibMappings.getStargateMappings();
+    function getLayerZeroChainId(
+        uint256 _chainId
+    ) private view returns (uint16) {
+        LibMappings.StargateMappings storage sm = LibMappings
+            .getStargateMappings();
         uint16 chainId = sm.layerZeroChainId[_chainId];
         if (chainId == 0) revert UnknownLayerZeroChain();
         return chainId;
@@ -261,8 +299,14 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
         assembly {
             let m := mload(0x40)
-            _address := and(_address, 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF)
-            mstore(add(m, 20), xor(0x140000000000000000000000000000000000000000, _address))
+            _address := and(
+                _address,
+                0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            )
+            mstore(
+                add(m, 20),
+                xor(0x140000000000000000000000000000000000000000, _address)
+            )
             mstore(0x40, add(m, 52))
             tempBytes := m
         }

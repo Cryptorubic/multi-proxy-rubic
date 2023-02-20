@@ -9,7 +9,11 @@ import { LibAsset } from "./Libraries/LibAsset.sol";
 import { ZeroAddress } from "./Errors/GenericErrors.sol";
 
 contract RubicMultiProxy {
-    constructor(address _contractOwner, address _diamondCutFacet, address _erc20proxy) payable {
+    constructor(
+        address _contractOwner,
+        address _diamondCutFacet,
+        address _erc20proxy
+    ) payable {
         if (_contractOwner == address(0)) {
             revert ZeroAddress();
         }
@@ -31,6 +35,7 @@ contract RubicMultiProxy {
 
         bytes32 position = LibAsset.LIB_ASSET_STORAGE_POSITION;
 
+        // solhint-disable-next-line no-inline-assembly
         assembly {
             sstore(position, _erc20proxy)
         }

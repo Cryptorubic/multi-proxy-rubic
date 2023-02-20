@@ -9,10 +9,14 @@ import { LibAccess } from "../Libraries/LibAccess.sol";
 /// @notice Provides mappings for all facets that may need them
 library LibMappings {
     /// Types ///
-    bytes32 internal constant STARGATE_NAMESPACE = keccak256("com.rubic.library.mappings.stargate");
-    bytes32 internal constant WORMHOLE_NAMESPACE = keccak256("com.rubic.library.mappings.wormhole");
-    bytes32 internal constant AMAROK_NAMESPACE = keccak256("com.rubic.library.mappings.amarok");
-    bytes32 internal constant GENERIC_CROSS_CHAIN_NAMESAPCE = keccak256("com.rubic.library.mappings.generic.cross.chain");
+    bytes32 internal constant STARGATE_NAMESPACE =
+        keccak256("com.rubic.library.mappings.stargate");
+    bytes32 internal constant WORMHOLE_NAMESPACE =
+        keccak256("com.rubic.library.mappings.wormhole");
+    bytes32 internal constant AMAROK_NAMESPACE =
+        keccak256("com.rubic.library.mappings.amarok");
+    bytes32 internal constant GENERIC_CROSS_CHAIN_NAMESAPCE =
+        keccak256("com.rubic.library.mappings.generic.cross.chain");
 
     /// Storage ///
     struct StargateMappings {
@@ -35,7 +39,11 @@ library LibMappings {
     }
 
     /// @dev Fetch local storage for Stargate
-    function getStargateMappings() internal pure returns (StargateMappings storage ms) {
+    function getStargateMappings()
+        internal
+        pure
+        returns (StargateMappings storage ms)
+    {
         bytes32 position = STARGATE_NAMESPACE;
         // solhint-disable-next-line no-inline-assembly
         assembly {
@@ -44,7 +52,11 @@ library LibMappings {
     }
 
     /// @dev Fetch local storage for Wormhole
-    function getWormholeMappings() internal pure returns (WormholeMappings storage ms) {
+    function getWormholeMappings()
+        internal
+        pure
+        returns (WormholeMappings storage ms)
+    {
         bytes32 position = WORMHOLE_NAMESPACE;
         // solhint-disable-next-line no-inline-assembly
         assembly {
@@ -53,7 +65,11 @@ library LibMappings {
     }
 
     /// @dev Fetch local storage for Amarok
-    function getAmarokMappings() internal pure returns (AmarokMappings storage ms) {
+    function getAmarokMappings()
+        internal
+        pure
+        returns (AmarokMappings storage ms)
+    {
         bytes32 position = AMAROK_NAMESPACE;
         // solhint-disable-next-line no-inline-assembly
         assembly {
@@ -62,7 +78,11 @@ library LibMappings {
     }
 
     /// @dev Fetch local storage for Generic Cross Chain
-    function getGenericCrossChainMappings() internal pure returns (GenericCrossChainMappings storage ms) {
+    function getGenericCrossChainMappings()
+        internal
+        pure
+        returns (GenericCrossChainMappings storage ms)
+    {
         bytes32 position = GENERIC_CROSS_CHAIN_NAMESAPCE;
         // solhint-disable-next-line no-inline-assembly
         assembly {

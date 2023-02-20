@@ -3,13 +3,14 @@ pragma solidity 0.8.17;
 
 import { IFeesFacet } from "../Interfaces/IFeesFacet.sol";
 import { LibUtil } from "../Libraries/LibUtil.sol";
-import { FullMath} from "../Libraries/FullMath.sol";
+import { FullMath } from "../Libraries/FullMath.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 
 /// Implementation of EIP-2535 Diamond Standard
 /// https://eips.ethereum.org/EIPS/eip-2535
 library LibFees {
-    bytes32 internal constant FFES_STORAGE_POSITION = keccak256("rubic.library.fees.v2");
+    bytes32 internal constant FFES_STORAGE_POSITION =
+        keccak256("rubic.library.fees.v2");
     // Denominator for setting fees
     uint256 internal constant DENOMINATOR = 1e6;
 
@@ -20,10 +21,7 @@ library LibFees {
         uint256 integratorPart,
         address indexed integrator
     );
-    event FixedNativeFeeCollected(
-        uint256 amount,
-        address collector
-    );
+    event FixedNativeFeeCollected(uint256 amount, address collector);
     event TokenFee(
         uint256 RubicPart,
         uint256 integratorPart,
@@ -66,25 +64,31 @@ library LibFees {
         uint256 _RubicPart;
 
         FeesStorage storage fs = feesStorage();
-        IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[_integrator];
+        IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[
+            _integrator
+        ];
 
         if (_info.isIntegrator) {
             _fixedNativeFee = uint256(_info.fixedFeeAmount);
 
             if (_fixedNativeFee > 0) {
                 _RubicPart =
-                    (_fixedNativeFee *
-                        _info.RubicFixedCryptoShare) /
+                    (_fixedNativeFee * _info.RubicFixedCryptoShare) /
                     DENOMINATOR;
 
-                if (_fixedNativeFee - _RubicPart > 0) LibAsset.transferNativeAsset(payable(_integrator), _fixedNativeFee - _RubicPart);
+                if (_fixedNativeFee - _RubicPart > 0)
+                    LibAsset.transferNativeAsset(
+                        payable(_integrator),
+                        _fixedNativeFee - _RubicPart
+                    );
             }
         } else {
             _fixedNativeFee = fs.fixedNativeFee;
             _RubicPart = _fixedNativeFee;
         }
 
-        if (_RubicPart > 0) LibAsset.transferNativeAsset(payable(fs.feeTreasure), _RubicPart);
+        if (_RubicPart > 0)
+            LibAsset.transferNativeAsset(payable(fs.feeTreasure), _RubicPart);
 
         emit FixedNativeFee(
             _RubicPart,
@@ -95,7 +99,7 @@ library LibFees {
         return _fixedNativeFee;
     }
 
-     /**
+    /**
      * @dev Calculates token fees and accrues them
      * @param _integrator Integrator's address if there is one
      * @param _amountWithFee Total amount passed by the user
@@ -108,7 +112,9 @@ library LibFees {
         address _token
     ) internal returns (uint256) {
         FeesStorage storage fs = feesStorage();
-        IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[_integrator];
+        IFeesFacet.IntegratorFeeInfo memory _info = fs.integratorToFeeInfo[
+            _integrator
+        ];
 
         (uint256 _totalFees, uint256 _RubicFee) = _calculateFee(
             fs,
@@ -117,16 +123,17 @@ library LibFees {
         );
 
         if (_integrator != address(0)) {
-            if (_totalFees - _RubicFee > 0) LibAsset.transferAsset(_token, payable(_integrator), _totalFees - _RubicFee);
+            if (_totalFees - _RubicFee > 0)
+                LibAsset.transferAsset(
+                    _token,
+                    payable(_integrator),
+                    _totalFees - _RubicFee
+                );
         }
-        if (_RubicFee > 0) LibAsset.transferAsset(_token, payable(fs.feeTreasure), _RubicFee);
+        if (_RubicFee > 0)
+            LibAsset.transferAsset(_token, payable(fs.feeTreasure), _RubicFee);
 
-        emit TokenFee(
-            _RubicFee,
-            _totalFees - _RubicFee,
-            _integrator,
-            _token
-        );
+        emit TokenFee(_RubicFee, _totalFees - _RubicFee, _integrator, _token);
 
         return _amountWithFee - _totalFees;
     }
@@ -143,11 +150,7 @@ library LibFees {
     function _calculateFeeWithIntegrator(
         uint256 _amountWithFee,
         IFeesFacet.IntegratorFeeInfo memory _info
-    )
-        private
-        pure
-        returns (uint256 _totalFee, uint256 _RubicFee)
-    {
+    ) private pure returns (uint256 _totalFee, uint256 _RubicFee) {
         if (_info.tokenFee > 0) {
             _totalFee = FullMath.mulDiv(
                 _amountWithFee,
@@ -167,16 +170,9 @@ library LibFees {
         FeesStorage storage _fs,
         uint256 _amountWithFee,
         IFeesFacet.IntegratorFeeInfo memory _info
-    )
-        internal
-        view
-        returns (uint256 _totalFee, uint256 _RubicFee)
-    {
+    ) internal view returns (uint256 _totalFee, uint256 _RubicFee) {
         if (_info.isIntegrator) {
-            (
-                _totalFee,
-                _RubicFee
-            ) = _calculateFeeWithIntegrator(
+            (_totalFee, _RubicFee) = _calculateFeeWithIntegrator(
                 _amountWithFee,
                 _info
             );

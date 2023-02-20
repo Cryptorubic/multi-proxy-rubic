@@ -28,9 +28,9 @@ contract AccessManagerFacetTest is DSTest, DiamondTest {
         restricted = new RestrictedContract();
 
         // Already added in DiamondTest.sol
-//        bytes4[] memory functionSelectors = new bytes4[](1);
-//        functionSelectors[0] = accessMgr.setCanExecute.selector;
-//        addFacet(diamond, address(accessMgr), functionSelectors);
+        //        bytes4[] memory functionSelectors = new bytes4[](1);
+        //        functionSelectors[0] = accessMgr.setCanExecute.selector;
+        //        addFacet(diamond, address(accessMgr), functionSelectors);
 
         bytes4[] memory functionSelectors = new bytes4[](1);
         functionSelectors[0] = restricted.restrictedMethod.selector;
@@ -47,14 +47,26 @@ contract AccessManagerFacetTest is DSTest, DiamondTest {
     }
 
     function testCanGrantAccess() public {
-        accessMgr.setCanExecute(RestrictedContract.restrictedMethod.selector, address(0xb33f), true);
+        accessMgr.setCanExecute(
+            RestrictedContract.restrictedMethod.selector,
+            address(0xb33f),
+            true
+        );
         vm.prank(address(0xb33f));
         restricted.restrictedMethod();
     }
 
     function testCanRemoveAccess() public {
-        accessMgr.setCanExecute(RestrictedContract.restrictedMethod.selector, address(0xb33f), true);
-        accessMgr.setCanExecute(RestrictedContract.restrictedMethod.selector, address(0xb33f), false);
+        accessMgr.setCanExecute(
+            RestrictedContract.restrictedMethod.selector,
+            address(0xb33f),
+            true
+        );
+        accessMgr.setCanExecute(
+            RestrictedContract.restrictedMethod.selector,
+            address(0xb33f),
+            false
+        );
         vm.expectRevert(UnAuthorized.selector);
         vm.prank(address(0xb33f));
         restricted.restrictedMethod();

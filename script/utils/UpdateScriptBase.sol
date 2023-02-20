@@ -25,17 +25,24 @@ contract UpdateScriptBase is Script {
         network = vm.envString("NETWORK");
         fileSuffix = vm.envString("FILE_SUFFIX");
 
-        string memory path = string.concat(root, "/deployments/", network, ".", fileSuffix, "json");
+        string memory path = string.concat(
+            root,
+            "/deployments/",
+            network,
+            ".",
+            fileSuffix,
+            "json"
+        );
         string memory json = vm.readFile(path);
         diamond = json.readAddress(".RubicMultiProxy");
         cutter = DiamondCutFacet(diamond);
         loupe = DiamondLoupeFacet(diamond);
     }
 
-    function getSelectors(string memory _facetName, bytes4[] memory _exclude)
-        internal
-        returns (bytes4[] memory selectors)
-    {
+    function getSelectors(
+        string memory _facetName,
+        bytes4[] memory _exclude
+    ) internal returns (bytes4[] memory selectors) {
         string[] memory cmd = new string[](3);
         cmd[0] = "scripts/contract-selectors.sh";
         cmd[1] = _facetName;

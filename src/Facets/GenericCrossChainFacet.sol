@@ -15,10 +15,19 @@ import { Validatable } from "../Helpers/Validatable.sol";
 /// @title Generic Cross-Chain Facet
 /// @author LI.FI (https://li.fi)
 /// @notice Provides functionality for bridging through arbitrary cross-chain provider
-contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
+contract GenericCrossChainFacet is
+    IRubic,
+    ReentrancyGuard,
+    SwapperV2,
+    Validatable
+{
     /// Events ///
 
-    event ProviderFunctionAmountOffsetUpdated(address[] _routers, bytes4[] _selectors, uint256[] _offsets);
+    event ProviderFunctionAmountOffsetUpdated(
+        address[] _routers,
+        bytes4[] _selectors,
+        uint256[] _offsets
+    );
 
     /// Types ///
 
@@ -42,29 +51,46 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
     /// @param _routers Array of provider's routers
     /// @param _selectors Array of function selectors
     /// @param _offsets Array of amount offsets
-    function updateProviderFunctionAmountOffset(address[] calldata _routers, bytes4[] calldata _selectors, uint256[] calldata _offsets) external {
+    function updateProviderFunctionAmountOffset(
+        address[] calldata _routers,
+        bytes4[] calldata _selectors,
+        uint256[] calldata _offsets
+    ) external {
         LibDiamond.enforceIsContractOwner();
 
-        LibMappings.GenericCrossChainMappings storage sm = LibMappings.getGenericCrossChainMappings();
+        LibMappings.GenericCrossChainMappings storage sm = LibMappings
+            .getGenericCrossChainMappings();
 
-        if (_routers.length != _selectors.length || _selectors.length != _offsets.length) {
+        if (
+            _routers.length != _selectors.length ||
+            _selectors.length != _offsets.length
+        ) {
             revert LengthMissmatch();
         }
 
         for (uint64 i; i < _routers.length; ) {
-            sm.providerFunctionAmountOffset[_routers[i]][_selectors[i]] = _offsets[i];
+            sm.providerFunctionAmountOffset[_routers[i]][
+                _selectors[i]
+            ] = _offsets[i];
             unchecked {
                 ++i;
             }
         }
 
-        emit ProviderFunctionAmountOffsetUpdated(_routers, _selectors, _offsets);
+        emit ProviderFunctionAmountOffsetUpdated(
+            _routers,
+            _selectors,
+            _offsets
+        );
     }
 
     /// @notice Bridges tokens via arbitrary cross-chain provider
     /// @param _bridgeData the core information needed for bridging
     /// @param _genericData data specific to GenericCrossChainFacet
-    function startBridgeTokensViaGenericCrossChain(IRubic.BridgeData memory _bridgeData, GenericCrossChainData calldata _genericData)
+    function startBridgeTokensViaGenericCrossChain(
+        IRubic.BridgeData memory _bridgeData,
+        GenericCrossChainData calldata _genericData
+    )
         external
         payable
         nonReentrant
@@ -81,7 +107,10 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
             _bridgeData.integrator
         );
 
-        _startBridge(_bridgeData, _patchGenericCrossChainData(_genericData, _bridgeData.minAmount));
+        _startBridge(
+            _bridgeData,
+            _patchGenericCrossChainData(_genericData, _bridgeData.minAmount)
+        );
     }
 
     /// @notice Bridges tokens via arbitrary cross-chain provider with swaps before bridging
@@ -109,7 +138,10 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
             payable(msg.sender)
         );
 
-        _startBridge(_bridgeData, _patchGenericCrossChainData(_genericData, _bridgeData.minAmount));
+        _startBridge(
+            _bridgeData,
+            _patchGenericCrossChainData(_genericData, _bridgeData.minAmount)
+        );
     }
 
     /// View Methods ///
@@ -118,8 +150,12 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
     /// @param _router Address of provider's router
     /// @param _selector Selector of the function
     /// @return Amount offset
-    function getProviderFunctionAmountOffset(address _router, bytes4 _selector) external view returns(uint256){
-        LibMappings.GenericCrossChainMappings storage sm = LibMappings.getGenericCrossChainMappings();
+    function getProviderFunctionAmountOffset(
+        address _router,
+        bytes4 _selector
+    ) external view returns (uint256) {
+        LibMappings.GenericCrossChainMappings storage sm = LibMappings
+            .getGenericCrossChainMappings();
 
         return sm.providerFunctionAmountOffset[_router][_selector];
     }
@@ -129,17 +165,26 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
     /// @dev Contains the business logic for the bridge via arbitrary cross-chain provider
     /// @param _bridgeData the core information needed for bridging
     /// @param _genericData data specific to GenericCrossChainFacet
-    function _startBridge(IRubic.BridgeData memory _bridgeData, GenericCrossChainData memory _genericData) internal {
+    function _startBridge(
+        IRubic.BridgeData memory _bridgeData,
+        GenericCrossChainData memory _genericData
+    ) internal {
         bool isNative = LibAsset.isNativeAsset(_bridgeData.sendingAssetId);
         uint256 nativeAssetAmount;
 
         if (isNative) {
             nativeAssetAmount = _bridgeData.minAmount;
         } else {
-            LibAsset.maxApproveERC20(IERC20(_bridgeData.sendingAssetId), _genericData.router, _bridgeData.minAmount);
+            LibAsset.maxApproveERC20(
+                IERC20(_bridgeData.sendingAssetId),
+                _genericData.router,
+                _bridgeData.minAmount
+            );
         }
 
-        (bool success, bytes memory res) = _genericData.router.call{ value: nativeAssetAmount }(_genericData.callData);
+        (bool success, bytes memory res) = _genericData.router.call{
+            value: nativeAssetAmount
+        }(_genericData.callData);
         if (!success) {
             string memory reason = LibUtil.getRevertMsg(res);
             revert(reason);
@@ -148,20 +193,32 @@ contract GenericCrossChainFacet is IRubic, ReentrancyGuard, SwapperV2, Validatab
         emit RubicTransferStarted(_bridgeData);
     }
 
-    function _patchGenericCrossChainData(GenericCrossChainData calldata _genericData, uint256 amount) private view returns(GenericCrossChainData memory) {
-        LibMappings.GenericCrossChainMappings storage sm = LibMappings.getGenericCrossChainMappings();
-        uint256 offset = sm.providerFunctionAmountOffset[_genericData.router][bytes4(_genericData.callData[:4])];
+    function _patchGenericCrossChainData(
+        GenericCrossChainData calldata _genericData,
+        uint256 amount
+    ) private view returns (GenericCrossChainData memory) {
+        LibMappings.GenericCrossChainMappings storage sm = LibMappings
+            .getGenericCrossChainMappings();
+        uint256 offset = sm.providerFunctionAmountOffset[_genericData.router][
+            bytes4(_genericData.callData[:4])
+        ];
 
         if (offset > 0) {
-            return GenericCrossChainData(
-                _genericData.router,
-                bytes.concat(_genericData.callData[:offset], abi.encode(amount), _genericData.callData[offset+32:])
-            );
+            return
+                GenericCrossChainData(
+                    _genericData.router,
+                    bytes.concat(
+                        _genericData.callData[:offset],
+                        abi.encode(amount),
+                        _genericData.callData[offset + 32:]
+                    )
+                );
         } else {
-            return GenericCrossChainData(
-                _genericData.router,
-                _genericData.callData
-            );
+            return
+                GenericCrossChainData(
+                    _genericData.router,
+                    _genericData.callData
+                );
         }
     }
 }

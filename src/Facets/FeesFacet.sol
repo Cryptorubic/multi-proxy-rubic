@@ -2,7 +2,7 @@
 pragma solidity 0.8.17;
 
 import { IFeesFacet } from "../Interfaces/IFeesFacet.sol";
-import { LibFees} from "../Libraries/LibFees.sol";
+import { LibFees } from "../Libraries/LibFees.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
@@ -12,7 +12,6 @@ error FeeTooHigh();
 error ShareTooHigh();
 
 contract FeesFacet is IFeesFacet, ReentrancyGuard {
-
     event SetFixedNativeFee(uint256 fee);
     event SetRubicPlatformFee(uint256 fee);
     event SetMaxRubicPlatformFee(uint256 fee);
@@ -43,9 +42,7 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setMaxRubicPlatformFee(
-        uint256 _maxFee
-    ) external override {
+    function setMaxRubicPlatformFee(uint256 _maxFee) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -61,9 +58,7 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setRubicPlatformFee(
-        uint256 _platformFee
-    ) external override {
+    function setRubicPlatformFee(uint256 _platformFee) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -80,9 +75,7 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setFixedNativeFee(
-        uint256 _fixedNativeFee
-    ) external override {
+    function setFixedNativeFee(uint256 _fixedNativeFee) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -127,40 +120,59 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     function calcTokenFees(
         uint256 _amount,
         address _integrator
-    ) external override view returns(uint256 totalFee, uint256 RubicFee, uint256 integratorFee) {
+    )
+        external
+        view
+        override
+        returns (uint256 totalFee, uint256 RubicFee, uint256 integratorFee)
+    {
         LibFees.FeesStorage storage fs = LibFees.feesStorage();
         IntegratorFeeInfo memory info = fs.integratorToFeeInfo[_integrator];
         (totalFee, RubicFee) = LibFees._calculateFee(fs, _amount, info);
         integratorFee = totalFee - RubicFee;
     }
 
-    function fixedNativeFee() external override view returns(
-        uint256 _fixedNativeFee
-    ) {
+    function fixedNativeFee()
+        external
+        view
+        override
+        returns (uint256 _fixedNativeFee)
+    {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _fixedNativeFee = s.fixedNativeFee;
     }
 
-    function RubicPlatformFee() external override view returns(
-        uint256 _RubicPlatformFee
-    ) {
+    function RubicPlatformFee()
+        external
+        view
+        override
+        returns (uint256 _RubicPlatformFee)
+    {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _RubicPlatformFee = s.RubicPlatformFee;
     }
 
-    function maxRubicPlatformFee() external override view returns(
-        uint256 _maxRubicPlatformFee
-    ) {
+    function maxRubicPlatformFee()
+        external
+        view
+        override
+        returns (uint256 _maxRubicPlatformFee)
+    {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _maxRubicPlatformFee = s.maxRubicPlatformFee;
     }
 
-    function integratorToFeeInfo(address _integrator) external override view returns(
-        IFeesFacet.IntegratorFeeInfo memory _info
-    ) {
+    function integratorToFeeInfo(
+        address _integrator
+    )
+        external
+        view
+        override
+        returns (IFeesFacet.IntegratorFeeInfo memory _info)
+    {
         LibFees.FeesStorage storage s = LibFees.feesStorage();
 
         _info = s.integratorToFeeInfo[_integrator];

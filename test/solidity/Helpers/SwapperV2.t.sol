@@ -24,8 +24,13 @@ contract TestSwapperV2 is SwapperV2 {
         );
 
         // Fake send to bridge
-        ERC20 finalAsset = ERC20(_swapData[_swapData.length - 1].receivingAssetId);
-        finalAsset.transfer(address(1337), finalAsset.balanceOf(address(this)));
+        ERC20 finalAsset = ERC20(
+            _swapData[_swapData.length - 1].receivingAssetId
+        );
+        finalAsset.transfer(
+            address(1337),
+            finalAsset.balanceOf(address(this))
+        );
     }
 
     function addDex(address _dex) external {
@@ -52,7 +57,9 @@ contract SwapperV2Test is DSTest, DiamondTest {
         bytes4[] memory functionSelectors = new bytes4[](3);
         functionSelectors[0] = TestSwapperV2.doSwaps.selector;
         functionSelectors[1] = TestSwapperV2.addDex.selector;
-        functionSelectors[2] = TestSwapperV2.setFunctionApprovalBySignature.selector;
+        functionSelectors[2] = TestSwapperV2
+            .setFunctionApprovalBySignature
+            .selector;
 
         addFacet(diamond, address(swapper), functionSelectors);
 
@@ -74,7 +81,13 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token1),
             address(token2),
             10_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, token1, 10_000 ether, token2, 10_100 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                token1,
+                10_000 ether,
+                token2,
+                10_100 ether
+            ),
             true
         );
 
@@ -84,7 +97,13 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token2),
             address(token3),
             10_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, token2, 10_000 ether, token3, 10_200 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                token2,
+                10_000 ether,
+                token3,
+                10_200 ether
+            ),
             false
         );
 
@@ -114,7 +133,13 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token1),
             address(token3),
             10_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, token1, 10_000 ether, token3, 10_100 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                token1,
+                10_000 ether,
+                token3,
+                10_100 ether
+            ),
             true
         );
 
@@ -124,7 +149,13 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token2),
             address(token3),
             10_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, token2, 10_000 ether, token3, 10_200 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                token2,
+                10_000 ether,
+                token3,
+                10_200 ether
+            ),
             true
         );
 
@@ -154,7 +185,13 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token1),
             address(token2),
             10_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, token1, 10_000 ether, token2, 10_100 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                token1,
+                10_000 ether,
+                token2,
+                10_100 ether
+            ),
             true
         );
         token1.mint(address(this), 10_000 ether);

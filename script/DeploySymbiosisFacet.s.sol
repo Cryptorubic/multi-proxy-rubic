@@ -10,11 +10,21 @@ contract DeployScript is DeployScriptBase {
 
     constructor() DeployScriptBase("SymbiosisFacet") {}
 
-    function run() public returns (SymbiosisFacet deployed, bytes memory constructorArgs) {
-        string memory path = string.concat(vm.projectRoot(), "/config/symbiosis.json");
+    function run()
+        public
+        returns (SymbiosisFacet deployed, bytes memory constructorArgs)
+    {
+        string memory path = string.concat(
+            vm.projectRoot(),
+            "/config/symbiosis.json"
+        );
         string memory json = vm.readFile(path);
-        address metaRouter = json.readAddress(string.concat(".config.", network, ".metaRouter"));
-        address gateway = json.readAddress(string.concat(".config.", network, ".gateway"));
+        address metaRouter = json.readAddress(
+            string.concat(".config.", network, ".metaRouter")
+        );
+        address gateway = json.readAddress(
+            string.concat(".config.", network, ".gateway")
+        );
 
         constructorArgs = abi.encode(metaRouter, gateway);
 
@@ -25,7 +35,15 @@ contract DeployScript is DeployScriptBase {
         }
 
         deployed = SymbiosisFacet(
-            payable(factory.deploy(salt, bytes.concat(type(SymbiosisFacet).creationCode, constructorArgs)))
+            payable(
+                factory.deploy(
+                    salt,
+                    bytes.concat(
+                        type(SymbiosisFacet).creationCode,
+                        constructorArgs
+                    )
+                )
+            )
         );
 
         vm.stopBroadcast();

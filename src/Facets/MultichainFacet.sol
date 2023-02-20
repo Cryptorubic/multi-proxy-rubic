@@ -21,7 +21,8 @@ interface IMultichainERC20 {
 contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
     /// Storage ///
 
-    bytes32 internal constant NAMESPACE = keccak256("com.rubic.facets.multichain");
+    bytes32 internal constant NAMESPACE =
+        keccak256("com.rubic.facets.multichain");
 
     struct Storage {
         mapping(address => bool) allowedRouters;
@@ -55,7 +56,10 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
     /// @notice Initialize local variables for the Multichain Facet
     /// @param routers Allowed Multichain Routers
     /// @param anyNative The address of the anyNative (e.g. anyETH) token
-    function initMultichain(address anyNative, address[] calldata routers) external {
+    function initMultichain(
+        address anyNative,
+        address[] calldata routers
+    ) external {
         LibDiamond.enforceIsContractOwner();
 
         Storage storage s = getStorage();
@@ -97,7 +101,8 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
         }
 
         for (uint64 i; i < mappings.length; ) {
-            s.anyTokenAddresses[mappings[i].tokenAddress] = mappings[i].anyTokenAddress;
+            s.anyTokenAddresses[mappings[i].tokenAddress] = mappings[i]
+                .anyTokenAddress;
             unchecked {
                 ++i;
             }
@@ -109,7 +114,10 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
     /// @notice (Batch) register routers
     /// @param routers Router addresses
     /// @param allowed Array of whether the addresses are allowed or not
-    function registerRouters(address[] calldata routers, bool[] calldata allowed) external {
+    function registerRouters(
+        address[] calldata routers,
+        bool[] calldata allowed
+    ) external {
         LibDiamond.enforceIsContractOwner();
 
         Storage storage s = getStorage();
@@ -196,15 +204,23 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
     /// @dev Contains the business logic for the bridge via Multichain
     /// @param _bridgeData the core information needed for bridging
     /// @param _multichainData data specific to Multichain
-    function _startBridge(IRubic.BridgeData memory _bridgeData, MultichainData memory _multichainData) private {
+    function _startBridge(
+        IRubic.BridgeData memory _bridgeData,
+        MultichainData memory _multichainData
+    ) private {
         // check if sendingAsset is a Multichain token that needs to be called directly in order to bridge it
         if (_multichainData.router == _bridgeData.sendingAssetId) {
-            IMultichainERC20(_bridgeData.sendingAssetId).Swapout(_bridgeData.minAmount, _bridgeData.receiver);
+            IMultichainERC20(_bridgeData.sendingAssetId).Swapout(
+                _bridgeData.minAmount,
+                _bridgeData.receiver
+            );
         } else {
             Storage storage s = getStorage();
             if (LibAsset.isNativeAsset(_bridgeData.sendingAssetId)) {
                 // call native asset bridge function
-                IMultichainRouter(_multichainData.router).anySwapOutNative{ value: _bridgeData.minAmount }(
+                IMultichainRouter(_multichainData.router).anySwapOutNative{
+                    value: _bridgeData.minAmount
+                }(
                     s.anyNative,
                     _bridgeData.receiver,
                     _bridgeData.destinationChainId
@@ -218,7 +234,8 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
                 );
                 // replace tokenAddress with anyTokenAddress (if mapping found) and call ERC20 asset bridge function
                 IMultichainRouter(_multichainData.router).anySwapOutUnderlying(
-                    s.anyTokenAddresses[_bridgeData.sendingAssetId] != address(0)
+                    s.anyTokenAddresses[_bridgeData.sendingAssetId] !=
+                        address(0)
                         ? s.anyTokenAddresses[_bridgeData.sendingAssetId]
                         : _bridgeData.sendingAssetId,
                     _bridgeData.receiver,

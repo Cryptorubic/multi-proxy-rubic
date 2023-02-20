@@ -15,7 +15,14 @@ contract DeployScript is UpdateScriptBase {
     using stdJson for string;
 
     function run() public returns (address[] memory facets) {
-        string memory path = string.concat(root, "/deployments/", network, ".", fileSuffix, "json");
+        string memory path = string.concat(
+            root,
+            "/deployments/",
+            network,
+            ".",
+            fileSuffix,
+            "json"
+        );
         string memory json = vm.readFile(path);
         address diamondLoupe = json.readAddress(".DiamondLoupeFacet");
         address ownership = json.readAddress(".OwnershipFacet");
@@ -33,7 +40,10 @@ contract DeployScript is UpdateScriptBase {
             IDiamondCut.FacetCut({
                 facetAddress: address(diamondLoupe),
                 action: IDiamondCut.FacetCutAction.Add,
-                functionSelectors: getSelectors("DiamondLoupeFacet", emptyExclude)
+                functionSelectors: getSelectors(
+                    "DiamondLoupeFacet",
+                    emptyExclude
+                )
             })
         );
 
@@ -60,7 +70,10 @@ contract DeployScript is UpdateScriptBase {
             IDiamondCut.FacetCut({
                 facetAddress: dexMgr,
                 action: IDiamondCut.FacetCutAction.Add,
-                functionSelectors: getSelectors("DexManagerFacet", emptyExclude)
+                functionSelectors: getSelectors(
+                    "DexManagerFacet",
+                    emptyExclude
+                )
             })
         );
 
@@ -69,20 +82,23 @@ contract DeployScript is UpdateScriptBase {
             IDiamondCut.FacetCut({
                 facetAddress: accessMgr,
                 action: IDiamondCut.FacetCutAction.Add,
-                functionSelectors: getSelectors("AccessManagerFacet", emptyExclude)
+                functionSelectors: getSelectors(
+                    "AccessManagerFacet",
+                    emptyExclude
+                )
             })
         );
 
-//        bytes4[] memory toExclude = new bytes4[](9);
-//        toExclude[0] = (bytes4(hex'07598f62'));
-//        toExclude[1] = (bytes4(hex'162dfb0d'));
-//        toExclude[2] = (bytes4(hex'8ac2e981'));
-//        toExclude[3] = (bytes4(hex'1135acdb'));
-//        toExclude[4] = (bytes4(hex'bf01fb1c'));
-//        toExclude[5] = (bytes4(hex'6d0f18c4'));
-//        toExclude[6] = (bytes4(hex'825dc415'));
-//        toExclude[7] = (bytes4(hex'bcd97c25'));
-//        toExclude[8] = (bytes4(hex'95c54f5a'));
+        //        bytes4[] memory toExclude = new bytes4[](9);
+        //        toExclude[0] = (bytes4(hex'07598f62'));
+        //        toExclude[1] = (bytes4(hex'162dfb0d'));
+        //        toExclude[2] = (bytes4(hex'8ac2e981'));
+        //        toExclude[3] = (bytes4(hex'1135acdb'));
+        //        toExclude[4] = (bytes4(hex'bf01fb1c'));
+        //        toExclude[5] = (bytes4(hex'6d0f18c4'));
+        //        toExclude[6] = (bytes4(hex'825dc415'));
+        //        toExclude[7] = (bytes4(hex'bcd97c25'));
+        //        toExclude[8] = (bytes4(hex'95c54f5a'));
 
         // Fees Facet
         cut.push(

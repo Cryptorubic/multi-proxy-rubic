@@ -14,7 +14,9 @@ contract DeployScript is DeployScriptBase {
             return FeesFacet(predicted);
         }
 
-        deployed = FeesFacet(factory.deploy(salt, type(FeesFacet).creationCode));
+        deployed = FeesFacet(
+            factory.deploy(salt, type(FeesFacet).creationCode)
+        );
 
         vm.stopBroadcast();
     }

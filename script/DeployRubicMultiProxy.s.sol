@@ -10,8 +10,18 @@ contract DeployScript is DeployScriptBase {
 
     constructor() DeployScriptBase("RubicMultiProxy") {}
 
-    function run() public returns (RubicMultiProxy deployed, bytes memory constructorArgs) {
-        string memory path = string.concat(root, "/deployments/", network, ".", fileSuffix, "json");
+    function run()
+        public
+        returns (RubicMultiProxy deployed, bytes memory constructorArgs)
+    {
+        string memory path = string.concat(
+            root,
+            "/deployments/",
+            network,
+            ".",
+            fileSuffix,
+            "json"
+        );
         string memory json = vm.readFile(path);
         address diamondCut = json.readAddress(".DiamondCutFacet");
 
@@ -24,7 +34,15 @@ contract DeployScript is DeployScriptBase {
         }
 
         deployed = RubicMultiProxy(
-            payable(factory.deploy(salt, bytes.concat(type(RubicMultiProxy).creationCode, constructorArgs)))
+            payable(
+                factory.deploy(
+                    salt,
+                    bytes.concat(
+                        type(RubicMultiProxy).creationCode,
+                        constructorArgs
+                    )
+                )
+            )
         );
 
         vm.stopBroadcast();

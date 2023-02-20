@@ -50,7 +50,10 @@ contract MockGateway {
         return true;
     }
 
-    function setTokenAddress(string memory _symbol, address _tokenAddress) external {
+    function setTokenAddress(
+        string memory _symbol,
+        address _tokenAddress
+    ) external {
         tokenAddresses[_symbol] = _tokenAddress;
     }
 }
@@ -96,7 +99,13 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenB),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 1_000 ether, tokenB, 101 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                1_000 ether,
+                tokenB,
+                101 ether
+            ),
             true
         );
 
@@ -107,7 +116,13 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenC),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 1_000 ether, tokenC, 102 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                1_000 ether,
+                tokenC,
+                102 ether
+            ),
             false
         );
 
@@ -118,7 +133,13 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenD),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 1_000 ether, tokenD, 103 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                1_000 ether,
+                tokenD,
+                103 ether
+            ),
             false
         );
 
@@ -129,7 +150,11 @@ contract ExecutorTest is DSTest {
             address(tokenB),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenB), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenB),
+                100 ether
+            ),
             true
         );
 
@@ -140,7 +165,11 @@ contract ExecutorTest is DSTest {
             address(tokenC),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenC), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenC),
+                100 ether
+            ),
             true
         );
 
@@ -151,14 +180,23 @@ contract ExecutorTest is DSTest {
             address(tokenD),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenD), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenD),
+                100 ether
+            ),
             true
         );
 
         tokenA.mint(address(this), 4_000 ether);
         tokenA.mint(address(executor), 10 ether); // Add some accidental tokens to contract
         tokenA.approve(address(executor), 4_000 ether);
-        executor.swapAndCompleteBridgeTokens("", swapData, address(tokenA), payable(address(0xb33f)));
+        executor.swapAndCompleteBridgeTokens(
+            "",
+            swapData,
+            address(tokenA),
+            payable(address(0xb33f))
+        );
 
         assertEq(tokenA.balanceOf(address(executor)), 10 ether); // Pre execution balance
         assertEq(tokenA.balanceOf(address(0xb33f)), 1_000 ether);
@@ -175,12 +213,16 @@ contract ExecutorTest is DSTest {
     function testCanReceiveNativeTokensFromDestinationSwap() public {
         fork();
         address DAI_ADDRESS = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
-        address payable DAI_WHALE = payable(address(0x075e72a5eDf65F0A5f44699c7654C1a76941Ddc8));
+        address payable DAI_WHALE = payable(
+            address(0x075e72a5eDf65F0A5f44699c7654C1a76941Ddc8)
+        );
         address WETH_ADDRESS = 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
         address UNISWAP_V2_ROUTER_ADDRESS = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
         ERC20 dai = ERC20(DAI_ADDRESS);
         ERC20 weth = ERC20(WETH_ADDRESS);
-        UniswapV2Router02 uniswap = UniswapV2Router02(UNISWAP_V2_ROUTER_ADDRESS);
+        UniswapV2Router02 uniswap = UniswapV2Router02(
+            UNISWAP_V2_ROUTER_ADDRESS
+        );
 
         vm.startPrank(DAI_WHALE);
         // Swap DAI -> WETH
@@ -188,7 +230,7 @@ contract ExecutorTest is DSTest {
         path[0] = DAI_ADDRESS;
         path[1] = WETH_ADDRESS;
 
-        uint256 amountOut = 1_000 * 10**weth.decimals();
+        uint256 amountOut = 1_000 * 10 ** weth.decimals();
 
         // Calculate DAI amount
         uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
@@ -215,7 +257,12 @@ contract ExecutorTest is DSTest {
         // Approve DAI
         dai.approve(address(executor), amountIn);
 
-        executor.swapAndCompleteBridgeTokens("txId", swapData, DAI_ADDRESS, DAI_WHALE);
+        executor.swapAndCompleteBridgeTokens(
+            "txId",
+            swapData,
+            DAI_ADDRESS,
+            DAI_WHALE
+        );
         vm.stopPrank();
     }
 
@@ -233,7 +280,13 @@ contract ExecutorTest is DSTest {
             address(0),
             address(tokenB),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, address(0), 1_000 ether, tokenB, 101 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                address(0),
+                1_000 ether,
+                tokenB,
+                101 ether
+            ),
             true
         );
 
@@ -244,7 +297,13 @@ contract ExecutorTest is DSTest {
             address(0),
             address(tokenC),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, address(0), 1_000 ether, tokenC, 102 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                address(0),
+                1_000 ether,
+                tokenC,
+                102 ether
+            ),
             false
         );
 
@@ -255,7 +314,13 @@ contract ExecutorTest is DSTest {
             address(0),
             address(tokenD),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, address(0), 1_000 ether, tokenD, 103 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                address(0),
+                1_000 ether,
+                tokenD,
+                103 ether
+            ),
             false
         );
 
@@ -266,7 +331,11 @@ contract ExecutorTest is DSTest {
             address(tokenB),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenB), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenB),
+                100 ether
+            ),
             true
         );
 
@@ -277,7 +346,11 @@ contract ExecutorTest is DSTest {
             address(tokenC),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenC), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenC),
+                100 ether
+            ),
             true
         );
 
@@ -288,13 +361,22 @@ contract ExecutorTest is DSTest {
             address(tokenD),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenD), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenD),
+                100 ether
+            ),
             true
         );
 
         vm.deal(address(executor), 10 ether);
 
-        executor.swapAndCompleteBridgeTokens{ value: 4_000 ether }("", swapData, address(0), payable(address(0xb33f)));
+        executor.swapAndCompleteBridgeTokens{ value: 4_000 ether }(
+            "",
+            swapData,
+            address(0),
+            payable(address(0xb33f))
+        );
 
         assertEq(address(executor).balance, 10 ether); // Pre execution balance
         assertEq(address(0xb33f).balance, 1_000 ether);
@@ -321,14 +403,25 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenB),
             0.2 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 0.2 ether, tokenB, 0.2 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                0.2 ether,
+                tokenB,
+                0.2 ether
+            ),
             true
         );
 
         tokenA.mint(address(this), 1 ether);
         tokenA.approve(address(executor), 1 ether);
 
-        executor.swapAndCompleteBridgeTokens("", swapData, address(tokenA), payable(address(0xb33f)));
+        executor.swapAndCompleteBridgeTokens(
+            "",
+            swapData,
+            address(tokenA),
+            payable(address(0xb33f))
+        );
         assertEq(tokenB.balanceOf(address(0xb33f)), 0.2 ether);
         assertEq(tokenA.balanceOf(address(0xb33f)), 0.8 ether);
 
@@ -350,7 +443,13 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenB),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 1_000 ether, tokenB, 101 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                1_000 ether,
+                tokenB,
+                101 ether
+            ),
             true
         );
 
@@ -361,7 +460,13 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenC),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 1_000 ether, tokenC, 102 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                1_000 ether,
+                tokenC,
+                102 ether
+            ),
             false
         );
 
@@ -372,7 +477,13 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenD),
             1_000 ether,
-            abi.encodeWithSelector(amm.swap.selector, tokenA, 1_000 ether, tokenD, 103 ether),
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                tokenA,
+                1_000 ether,
+                tokenD,
+                103 ether
+            ),
             false
         );
 
@@ -383,7 +494,11 @@ contract ExecutorTest is DSTest {
             address(tokenB),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenB), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenB),
+                100 ether
+            ),
             true
         );
 
@@ -394,7 +509,11 @@ contract ExecutorTest is DSTest {
             address(tokenC),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenC), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenC),
+                100 ether
+            ),
             true
         );
 
@@ -405,7 +524,11 @@ contract ExecutorTest is DSTest {
             address(tokenD),
             address(0),
             100 ether,
-            abi.encodeWithSelector(vault.deposit.selector, address(tokenD), 100 ether),
+            abi.encodeWithSelector(
+                vault.deposit.selector,
+                address(tokenD),
+                100 ether
+            ),
             true
         );
 
@@ -413,7 +536,13 @@ contract ExecutorTest is DSTest {
         tokenA.mint(address(executor), 10 ether); // Add some accidental tokens to contract
         tokenA.approve(address(erc20Proxy), 4_000 ether);
 
-        executor.swapAndExecute("", swapData, address(tokenA), payable(address(0xb33f)), 4_000 ether);
+        executor.swapAndExecute(
+            "",
+            swapData,
+            address(tokenA),
+            payable(address(0xb33f)),
+            4_000 ether
+        );
 
         assertEq(tokenA.balanceOf(address(executor)), 10 ether); // Pre execution balance
         assertEq(tokenA.balanceOf(address(0xb33f)), 1_000 ether);
@@ -450,7 +579,13 @@ contract ExecutorTest is DSTest {
         tokenA.mint(address(this), 1 ether);
         tokenA.approve(address(erc20Proxy), 1 ether);
 
-        executor.swapAndExecute("", swapData, address(tokenA), payable(address(0xb33f)), 0.2 ether);
+        executor.swapAndExecute(
+            "",
+            swapData,
+            address(tokenA),
+            payable(address(0xb33f)),
+            0.2 ether
+        );
     }
 
     function testOwnerCanTransferOwnership() public {

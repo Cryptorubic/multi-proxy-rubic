@@ -7,7 +7,8 @@ pragma solidity 0.8.17;
 abstract contract ReentrancyGuard {
     /// Storage ///
 
-    bytes32 private constant NAMESPACE = keccak256("com.rubic.reentrancyguard");
+    bytes32 private constant NAMESPACE =
+        keccak256("com.rubic.reentrancyguard");
 
     /// Types ///
 
@@ -37,7 +38,11 @@ abstract contract ReentrancyGuard {
     /// Private Methods ///
 
     /// @dev fetch local storage
-    function reentrancyStorage() private pure returns (ReentrancyStorage storage data) {
+    function reentrancyStorage()
+        private
+        pure
+        returns (ReentrancyStorage storage data)
+    {
         bytes32 position = NAMESPACE;
         // solhint-disable-next-line no-inline-assembly
         assembly {

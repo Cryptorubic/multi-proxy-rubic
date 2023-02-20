@@ -24,7 +24,11 @@ contract DiamondTest {
         AccessManagerFacet access = new AccessManagerFacet();
         FeesFacet fees = new FeesFacet();
         ERC20Proxy erc20proxy = new ERC20Proxy(address(this));
-        RubicMultiProxy diamond = new RubicMultiProxy(address(this), address(diamondCut), address(erc20proxy));
+        RubicMultiProxy diamond = new RubicMultiProxy(
+            address(this),
+            address(diamondCut),
+            address(erc20proxy)
+        );
 
         erc20proxy.setAuthorizedCaller(address(diamond), true);
 
@@ -39,7 +43,9 @@ contract DiamondTest {
         // Diamond Loupe
 
         functionSelectors = new bytes4[](5);
-        functionSelectors[0] = DiamondLoupeFacet.facetFunctionSelectors.selector;
+        functionSelectors[0] = DiamondLoupeFacet
+            .facetFunctionSelectors
+            .selector;
         functionSelectors[1] = DiamondLoupeFacet.facets.selector;
         functionSelectors[2] = DiamondLoupeFacet.facetAddress.selector;
         functionSelectors[3] = DiamondLoupeFacet.facetAddresses.selector;
@@ -57,7 +63,9 @@ contract DiamondTest {
         functionSelectors = new bytes4[](4);
         functionSelectors[0] = OwnershipFacet.transferOwnership.selector;
         functionSelectors[1] = OwnershipFacet.cancelOwnershipTransfer.selector;
-        functionSelectors[2] = OwnershipFacet.confirmOwnershipTransfer.selector;
+        functionSelectors[2] = OwnershipFacet
+            .confirmOwnershipTransfer
+            .selector;
         functionSelectors[3] = OwnershipFacet.owner.selector;
 
         cut.push(
@@ -98,7 +106,11 @@ contract DiamondTest {
             })
         );
 
-        DiamondCutFacet(address(diamond)).diamondCut(cut, address(fees), initCallData);
+        DiamondCutFacet(address(diamond)).diamondCut(
+            cut,
+            address(fees),
+            initCallData
+        );
 
         IAccessManagerFacet(address(diamond)).setCanExecute(
             FeesFacet.setFixedNativeFee.selector,

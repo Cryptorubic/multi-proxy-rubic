@@ -10,10 +10,18 @@ contract DeployScript is DeployScriptBase {
 
     constructor() DeployScriptBase("XYFacet") {}
 
-    function run() public returns (XYFacet deployed, bytes memory constructorArgs) {
-        string memory path = string.concat(vm.projectRoot(), "/config/xy.json");
+    function run()
+        public
+        returns (XYFacet deployed, bytes memory constructorArgs)
+    {
+        string memory path = string.concat(
+            vm.projectRoot(),
+            "/config/xy.json"
+        );
         string memory json = vm.readFile(path);
-        address xswapper = json.readAddress(string.concat(".config.", network, ".XSwapper"));
+        address xswapper = json.readAddress(
+            string.concat(".config.", network, ".XSwapper")
+        );
 
         constructorArgs = abi.encode(xswapper);
 
@@ -24,7 +32,12 @@ contract DeployScript is DeployScriptBase {
         }
 
         deployed = XYFacet(
-            payable(factory.deploy(salt, bytes.concat(type(XYFacet).creationCode, constructorArgs)))
+            payable(
+                factory.deploy(
+                    salt,
+                    bytes.concat(type(XYFacet).creationCode, constructorArgs)
+                )
+            )
         );
 
         vm.stopBroadcast();

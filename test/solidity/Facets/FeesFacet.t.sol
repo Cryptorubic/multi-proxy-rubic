@@ -13,10 +13,9 @@ import { FeesFacet, IFeesFacet, FeeTooHigh } from "rubic/Facets/FeesFacet.sol";
 import { InvalidAmount } from "rubic/Errors/GenericErrors.sol";
 
 contract MockFacetWithFees {
-    function bridgeTokensViaMock(IRubic.BridgeData memory _bridgeData)
-        external
-        payable
-    {
+    function bridgeTokensViaMock(
+        IRubic.BridgeData memory _bridgeData
+    ) external payable {
         LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
@@ -25,10 +24,10 @@ contract MockFacetWithFees {
         );
     }
 
-    function bridgeTokensViaMockWithNativeReserve(IRubic.BridgeData memory _bridgeData, uint256 _nativeReserve)
-        external
-        payable
-    {
+    function bridgeTokensViaMockWithNativeReserve(
+        IRubic.BridgeData memory _bridgeData,
+        uint256 _nativeReserve
+    ) external payable {
         LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
@@ -55,8 +54,10 @@ contract FeesFacetTest is Test, DiamondTest {
     uint32 constant TOKEN_FEE = 1e4;
     uint256 constant DENOMINATOR = 1e6;
 
-    address constant INTEGRATOR = address(uint160(uint256(keccak256("integrator"))));
-    address constant FEE_TREASURY = address(uint160(uint256(keccak256("fee.treasury"))));
+    address constant INTEGRATOR =
+        address(uint160(uint256(keccak256("integrator"))));
+    address constant FEE_TREASURY =
+        address(uint160(uint256(keccak256("fee.treasury"))));
 
     function setUp() public {
         (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
@@ -73,7 +74,9 @@ contract FeesFacetTest is Test, DiamondTest {
 
         functionSelectors = new bytes4[](2);
         functionSelectors[0] = MockFacetWithFees.bridgeTokensViaMock.selector;
-        functionSelectors[1] = MockFacetWithFees.bridgeTokensViaMockWithNativeReserve.selector;
+        functionSelectors[1] = MockFacetWithFees
+            .bridgeTokensViaMockWithNativeReserve
+            .selector;
 
         addFacet(diamond, address(mockFacet), functionSelectors);
 
@@ -112,39 +115,49 @@ contract FeesFacetTest is Test, DiamondTest {
 
     /// FIXED FEE TESTS ///
 
-    function testFixedNativeFeeCollecting_SendingTokens() public setFixedNativeFee {
+    function testFixedNativeFeeCollecting_SendingTokens()
+        public
+        setFixedNativeFee
+    {
         vm.startPrank(USER_SENDER);
         token.approve(erc20proxy, type(uint256).max);
 
-        mockFacet.bridgeTokensViaMock{value: FIXED_NATIVE_FEE}(defaultData);
+        mockFacet.bridgeTokensViaMock{ value: FIXED_NATIVE_FEE }(defaultData);
 
         assertEq(FEE_TREASURY.balance, FIXED_NATIVE_FEE);
         assertEq(address(diamond).balance, 0);
         vm.stopPrank();
     }
 
-    function testFixedNativeFeeCollecting_SendingNative() public setFixedNativeFee {
+    function testFixedNativeFeeCollecting_SendingNative()
+        public
+        setFixedNativeFee
+    {
         vm.startPrank(USER_SENDER);
 
         defaultData.sendingAssetId = address(0);
         defaultData.minAmount = 1 ether;
 
-        mockFacet.bridgeTokensViaMock{value: 1 ether + FIXED_NATIVE_FEE}(defaultData);
+        mockFacet.bridgeTokensViaMock{ value: 1 ether + FIXED_NATIVE_FEE }(
+            defaultData
+        );
 
         assertEq(FEE_TREASURY.balance, FIXED_NATIVE_FEE);
         assertEq(address(diamond).balance, 1 ether);
         vm.stopPrank();
     }
 
-    function test_Revert_SendingNotEnoughForNativeReserve() public setFixedNativeFee {
+    function test_Revert_SendingNotEnoughForNativeReserve()
+        public
+        setFixedNativeFee
+    {
         vm.startPrank(USER_SENDER);
         token.approve(erc20proxy, type(uint256).max);
 
         vm.expectRevert(InvalidAmount.selector);
-        mockFacet.bridgeTokensViaMockWithNativeReserve{value: FIXED_NATIVE_FEE + 1 ether}(
-            defaultData,
-            2 ether
-        );
+        mockFacet.bridgeTokensViaMockWithNativeReserve{
+            value: FIXED_NATIVE_FEE + 1 ether
+        }(defaultData, 2 ether);
 
         vm.stopPrank();
     }
@@ -161,9 +174,12 @@ contract FeesFacetTest is Test, DiamondTest {
 
         feesFacet.setMaxRubicPlatformFee(DENOMINATOR);
         feesFacet.setRubicPlatformFee(bips);
-        uint256 expectedFee = DEFAULT_TOKEN_AMOUNT * bips / DENOMINATOR;
+        uint256 expectedFee = (DEFAULT_TOKEN_AMOUNT * bips) / DENOMINATOR;
 
-        (uint256 resultFee, uint256 RubicFee,) = feesFacet.calcTokenFees(DEFAULT_TOKEN_AMOUNT, address(0));
+        (uint256 resultFee, uint256 RubicFee, ) = feesFacet.calcTokenFees(
+            DEFAULT_TOKEN_AMOUNT,
+            address(0)
+        );
 
         assertEq(resultFee, RubicFee);
         assertEq(resultFee, expectedFee);
@@ -173,76 +189,79 @@ contract FeesFacetTest is Test, DiamondTest {
         feesFacet.setRubicPlatformFee(TOKEN_FEE);
         uint256 expectedFee = FullMath.mulDiv(amount, TOKEN_FEE, DENOMINATOR);
 
-        (uint256 totalFee, uint256 RubicFee,) = feesFacet.calcTokenFees(amount, address(0));
+        (uint256 totalFee, uint256 RubicFee, ) = feesFacet.calcTokenFees(
+            amount,
+            address(0)
+        );
 
         assertEq(totalFee, RubicFee);
         assertEq(totalFee, expectedFee);
     }
 
-    function testCalcTokenFees_WithIntegrator_FuzzedPercent(uint32 bips) public {
+    function testCalcTokenFees_WithIntegrator_FuzzedPercent(
+        uint32 bips
+    ) public {
         vm.assume(bips > 10 && bips <= DENOMINATOR);
 
         feesFacet.setMaxRubicPlatformFee(DENOMINATOR);
         feesFacet.setIntegratorInfo(
             INTEGRATOR,
-            IFeesFacet.IntegratorFeeInfo(
-                true,
-                bips,
-                500000,
-                0,
-                0
-            )
+            IFeesFacet.IntegratorFeeInfo(true, bips, 500000, 0, 0)
         );
-        uint256 expectedTotalFee = DEFAULT_TOKEN_AMOUNT * bips / DENOMINATOR;
+        uint256 expectedTotalFee = (DEFAULT_TOKEN_AMOUNT * bips) / DENOMINATOR;
         uint256 expectedIntegratorFee = expectedTotalFee / 2;
 
-        (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet.calcTokenFees(DEFAULT_TOKEN_AMOUNT, INTEGRATOR);
+        (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet
+            .calcTokenFees(DEFAULT_TOKEN_AMOUNT, INTEGRATOR);
 
         assertEq(integratorFee, RubicFee);
         assertEq(expectedIntegratorFee, integratorFee);
         assertEq(totalFee, expectedTotalFee);
     }
 
-    function testCalcTokenFees_WithIntegrator_FuzzedAmount(uint256 amount) public {
+    function testCalcTokenFees_WithIntegrator_FuzzedAmount(
+        uint256 amount
+    ) public {
         feesFacet.setMaxRubicPlatformFee(DENOMINATOR);
         feesFacet.setIntegratorInfo(
             INTEGRATOR,
-            IFeesFacet.IntegratorFeeInfo(
-                true,
-                TOKEN_FEE,
-                500000,
-                0,
-                0
-            )
+            IFeesFacet.IntegratorFeeInfo(true, TOKEN_FEE, 500000, 0, 0)
         );
-        uint256 expectedTotalFee = FullMath.mulDiv(amount, TOKEN_FEE, DENOMINATOR);
+        uint256 expectedTotalFee = FullMath.mulDiv(
+            amount,
+            TOKEN_FEE,
+            DENOMINATOR
+        );
         uint256 expectedRubicFee = expectedTotalFee / 2;
 
-        (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet.calcTokenFees(amount, INTEGRATOR);
+        (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet
+            .calcTokenFees(amount, INTEGRATOR);
 
         assertApproxEqAbs(integratorFee, RubicFee, 1, "Integrator:Rubic");
-        assertEq(integratorFee, expectedTotalFee - expectedRubicFee, "ExpectedIntegrator:Integrator");
+        assertEq(
+            integratorFee,
+            expectedTotalFee - expectedRubicFee,
+            "ExpectedIntegrator:Integrator"
+        );
         assertEq(totalFee, expectedTotalFee, "Total:ExpectedTotal");
     }
 
-    function testCalcTokenFees_WithIntegrator_FuzzedShare(uint32 share) public {
+    function testCalcTokenFees_WithIntegrator_FuzzedShare(
+        uint32 share
+    ) public {
         vm.assume(share > 10 && share <= DENOMINATOR);
 
         feesFacet.setMaxRubicPlatformFee(DENOMINATOR);
         feesFacet.setIntegratorInfo(
             INTEGRATOR,
-            IFeesFacet.IntegratorFeeInfo(
-                true,
-                TOKEN_FEE,
-                share,
-                0,
-                0
-            )
+            IFeesFacet.IntegratorFeeInfo(true, TOKEN_FEE, share, 0, 0)
         );
-        uint256 expectedTotalFee = DEFAULT_TOKEN_AMOUNT * TOKEN_FEE / DENOMINATOR;
-        uint256 expectedRubicFee = expectedTotalFee * share /  DENOMINATOR;
+        uint256 expectedTotalFee = (DEFAULT_TOKEN_AMOUNT * TOKEN_FEE) /
+            DENOMINATOR;
+        uint256 expectedRubicFee = (expectedTotalFee * share) / DENOMINATOR;
 
-        (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet.calcTokenFees(DEFAULT_TOKEN_AMOUNT, INTEGRATOR);
+        (uint256 totalFee, uint256 RubicFee, uint256 integratorFee) = feesFacet
+            .calcTokenFees(DEFAULT_TOKEN_AMOUNT, INTEGRATOR);
 
         assertEq(integratorFee + RubicFee, totalFee);
         assertEq(RubicFee, expectedRubicFee);
@@ -255,10 +274,16 @@ contract FeesFacetTest is Test, DiamondTest {
 
         mockFacet.bridgeTokensViaMock(defaultData);
 
-        (uint256 expectedFee, , ) = feesFacet.calcTokenFees(DEFAULT_TOKEN_AMOUNT, address(0));
+        (uint256 expectedFee, , ) = feesFacet.calcTokenFees(
+            DEFAULT_TOKEN_AMOUNT,
+            address(0)
+        );
 
         assertEq(token.balanceOf(FEE_TREASURY), expectedFee);
-        assertEq(token.balanceOf(address(diamond)), DEFAULT_TOKEN_AMOUNT - expectedFee);
+        assertEq(
+            token.balanceOf(address(diamond)),
+            DEFAULT_TOKEN_AMOUNT - expectedFee
+        );
         vm.stopPrank();
     }
 }
