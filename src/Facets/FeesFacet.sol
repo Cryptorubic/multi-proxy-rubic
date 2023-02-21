@@ -16,6 +16,13 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     event SetRubicPlatformFee(uint256 fee);
     event SetMaxRubicPlatformFee(uint256 fee);
 
+    modifier onlyAuthorized() {
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
+        _;
+    }
+
     /// @inheritdoc IFeesFacet
     function initialize(
         address _feeTreasure,
@@ -47,11 +54,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setFeeTreasure(address _feeTreasure) external override {
-        if (msg.sender != LibDiamond.contractOwner()) {
-            LibAccess.enforceAccessControl();
-        }
-
+    function setFeeTreasure(
+        address _feeTreasure
+    ) external override onlyAuthorized {
         if (_feeTreasure == address(0)) {
             revert ZeroAddress();
         }
@@ -61,11 +66,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setMaxRubicPlatformFee(uint256 _maxFee) external override {
-        if (msg.sender != LibDiamond.contractOwner()) {
-            LibAccess.enforceAccessControl();
-        }
-
+    function setMaxRubicPlatformFee(
+        uint256 _maxFee
+    ) external override onlyAuthorized {
         if (_maxFee > LibFees.DENOMINATOR) {
             revert FeeTooHigh();
         }
@@ -77,11 +80,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setRubicPlatformFee(uint256 _platformFee) external override {
-        if (msg.sender != LibDiamond.contractOwner()) {
-            LibAccess.enforceAccessControl();
-        }
-
+    function setRubicPlatformFee(
+        uint256 _platformFee
+    ) external override onlyAuthorized {
         LibFees.FeesStorage storage fs = LibFees.feesStorage();
 
         if (_platformFee > fs.maxRubicPlatformFee) {
@@ -94,11 +95,9 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     }
 
     /// @inheritdoc IFeesFacet
-    function setFixedNativeFee(uint256 _fixedNativeFee) external override {
-        if (msg.sender != LibDiamond.contractOwner()) {
-            LibAccess.enforceAccessControl();
-        }
-
+    function setFixedNativeFee(
+        uint256 _fixedNativeFee
+    ) external override onlyAuthorized {
         LibFees.FeesStorage storage fs = LibFees.feesStorage();
 
         if (_fixedNativeFee > fs.maxFixedNativeFee) {
@@ -114,11 +113,7 @@ contract FeesFacet is IFeesFacet, ReentrancyGuard {
     function setIntegratorInfo(
         address _integrator,
         IntegratorFeeInfo memory _info
-    ) external override {
-        if (msg.sender != LibDiamond.contractOwner()) {
-            LibAccess.enforceAccessControl();
-        }
-
+    ) external override onlyAuthorized {
         if (_info.tokenFee > LibFees.DENOMINATOR) {
             revert FeeTooHigh();
         }

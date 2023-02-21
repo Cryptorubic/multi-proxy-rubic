@@ -9,7 +9,7 @@ import { LibUtil } from "../Libraries/LibUtil.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
-import { UnAuthorized, LengthMissmatch } from "../Errors/GenericErrors.sol";
+import { UnAuthorized, LengthMissmatch, InvalidContract } from "../Errors/GenericErrors.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 
 /// @title Generic Cross-Chain Facet
@@ -38,9 +38,10 @@ contract GenericCrossChainFacet is
     /// Modifiers ///
 
     modifier validateGenericData(GenericCrossChainData calldata _genericData) {
-        if (_genericData.router == address(LibAsset.getERC20proxy())) {
+        if (!LibAsset.isContract(_genericData.router))
+            revert InvalidContract();
+        if (_genericData.router == address(LibAsset.getERC20proxy()))
             revert UnAuthorized();
-        }
         _;
     }
 
