@@ -7,7 +7,7 @@ import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { LibUtil } from "../Libraries/LibUtil.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
-import { NotAContract } from "../Errors/GenericErrors.sol";
+import { NotAContract, UnAuthorized } from "../Errors/GenericErrors.sol";
 
 /// @title Withdraw Facet
 /// @notice Allows admin to withdraw funds that are kept in the contract by accident
@@ -40,6 +40,10 @@ contract WithdrawFacet {
     ) external {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
+        }
+
+        if (_callTo == address(LibAsset.getERC20proxy())) {
+            revert UnAuthorized();
         }
 
         // Check if the _callTo is a contract
