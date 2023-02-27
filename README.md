@@ -20,7 +20,10 @@
    2. [TEST](#test)
    3. [TEST With Foundry/Forge](#foundry-forge)
 7. [Contract Docs](#contract-docs)
-8. [DEPLOY](#deploy)
+8. [Configuration](#configuration)
+   1. [Before deployment](#configuration_before)
+   2. [After deployment](#configuration_after)
+9. [DEPLOY](#deploy)
 
 ## General<a name="general"></a>
 
@@ -211,6 +214,41 @@ OR
 ```
 yarn test:forge
 ```
+
+## Configuration<a name="configuration"></a>
+
+### Before deployment<a name="configuration_before"></a>
+
+For the complete deployment of the project some configuration must be performed.
+
+1) There are some config files placed in [config](./config) directory:
+   1) [dexs.json](./config/dexs.json) - addresses of DEXs that should be whitelisted on corresponding blockchain
+   2) [sigs.json](./config/sigs.json) - function's signatures that should be whitelisted on corresponding blockchain
+   3) Configs related to a specific cross-chain provider:
+      1) [multichain.json](./config/multichain.json) - For each blockchain: **anyNative** - address of AnyToken which underlying is WNative, **routers** - address allowed to be called within MultichainFacet
+      2) [symbiosis.json](./config/symbiosis.json) - For each blockchain: **metaRouter** - address of Symbiosis metaRouter, **gateway** - address of Symbiosis gateway
+      3) [stargate.json](./config/stargate.json) - **routers** - address of the Stargate router for each blockchain; For each blockchain: **chainId** - blockchain ID, **lzChainId** - Stargate's original blockchain ID
+      4) [xy.json](./config/xy.json) - For each blockchain: **XSwapper** - address of the XSwapper
+   4) [genericCrossChainOffsets.json](./config/genericCrossChainOffsets.json) - **NOT READY YET**. Probably going to contain offsets of specific function related to certain providers
+   5) [fees.json](./config/fees.json) - **NOT READY YET**. Probably going to contain maxFixedNativeFee value (or it will be calculated), address of fee treasury and maybe something else
+2) RPC urls have to be inserted in `.env` file
+
+### After deployment<a name="configuration_after"></a>
+
+After the deployment some settings can be altered.
+
+1) Fees:
+   1) `setMaxRubicPlatformFee` - set max token fee in percents
+   2) `setRubicPlatformFee` - set current token fee in percents
+   3) `setFixedNativeFee` - set current fixed native fee
+   4) `setIntegratorInfo` - set updates fee info related to specific integrator: tokenFee, Rubic share of token fee, fixed native fee, Rubic share of fixed native fee
+   5) `setFeeTreasure` - set address of fee treasury
+2) Dexes:
+   1) `addDex`, `batchAddDex` - add DEX's address in whitelist
+   2) `removeDex`, `batchRemoveDex` - remove DEX's address from whitelist
+   3) `setFunctionApprovalBySignature`, batchSetFunctionApprovalBySignature - add or remove signature from whitelist
+3) Diamond:
+   1) `diamondCut` - add, remove or alter a Facet
 
 ### DEPLOY<a name="deploy"></a>
 
