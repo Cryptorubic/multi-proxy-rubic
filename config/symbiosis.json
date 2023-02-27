@@ -10,7 +10,8 @@
     },
     "bsc": {
       "chainId": 56,
-      "deBridgeGate": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "metaRouter": "0x81aB74A9f9d7457fF47dfD102e78A340cF72EC39",
+      "gateway": "0x79d930aBe53dd56B66Ed43f8f6a7C6a1b84655cA"
     },
     "heco": {
       "chainId": 128,
