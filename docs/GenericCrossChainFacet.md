@@ -9,7 +9,7 @@ for specific function of the specific router.
 ```mermaid
 graph LR;
     D{RubicMultiProGenericCrossChain}-- DELEGATECALL -->A[GenericCrossChainFacet]
-    A -- CALL --> Some Cross-Chain router
+    A -- CALL --> id1[Some Cross-Chain router]
 ```
 
 ## Public Methods
