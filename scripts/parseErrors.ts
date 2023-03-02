@@ -2,7 +2,7 @@ import ABI from "../diamondABI/diamond.json";
 import {keccak256} from "@ethersproject/solidity";
 import fs from "fs";
 
-let parsedErrors: {text: string, hash: string}[] = []
+const parsedErrors: {text: string, hash: string}[] = []
 
 const errors = ABI.filter(entry => {
   return entry.type === "error"
