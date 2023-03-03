@@ -3,48 +3,61 @@ pragma solidity 0.8.17;
 
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
+import { LibUtil } from "../Libraries/LibUtil.sol";
+import { ZeroAddress, LengthMissmatch, NotInitialized } from "../Errors/GenericErrors.sol";
 
 /// @title ERC20 Proxy
 /// @notice Proxy contract for safely transferring ERC20 tokens for swaps/executions
 contract ERC20Proxy is Ownable {
     /// Storage ///
-    mapping(address => bool) public authorizedCallers;
-
-    /// Errors ///
-    error UnAuthorized();
+    address public diamond;
 
     /// Events ///
-    event AuthorizationChanged(address indexed caller, bool authorized);
+    event DiamondSet(address diamond);
 
     /// Constructor
     constructor(address _owner) {
+
         transferOwnership(_owner);
     }
 
-    /// @notice Sets whether or not a specified caller is authorized to call this contract
-    /// @param caller the caller to change authorization for
-    /// @param authorized specifies whether the caller is authorized (true/false)
-    function setAuthorizedCaller(
-        address caller,
-        bool authorized
-    ) external onlyOwner {
-        authorizedCallers[caller] = authorized;
-        emit AuthorizationChanged(caller, authorized);
+    function setDiamond(address _diamond) external onlyOwner {
+        if (_diamond == address(0)) revert ZeroAddress();
+        diamond = _diamond;
+
+        emit DiamondSet(_diamond);
     }
 
-    /// @notice Transfers tokens from one address to another specified address
-    /// @param tokenAddress the ERC20 contract address of the token to send
-    /// @param from the address to transfer from
-    /// @param to the address to transfer to
-    /// @param amount the amount of tokens to send
-    function transferFrom(
-        address tokenAddress,
-        address from,
-        address to,
-        uint256 amount
-    ) external {
-        if (!authorizedCallers[msg.sender]) revert UnAuthorized();
+    /// @dev Transfers tokens from user to the diamond and calls it
+    /// @param tokens Addresses of tokens that should be sent to the diamond
+    /// @param amounts Corresponding amounts of tokens
+    /// @param facetCallData Calldata that should be passed to the diamond
+    /// Should contain any cross-chain related function
+    function startCrossChain(
+        address[] memory tokens,
+        uint256[] memory amounts,
+        bytes memory facetCallData
+    ) external payable {
+        if (diamond == address(0)) revert NotInitialized();
 
-        LibAsset.transferFromERC20(tokenAddress, from, to, amount);
+        uint256 tokensLength = tokens.length;
+        if (tokensLength != amounts.length) revert LengthMissmatch();
+
+        for (uint256 i = 0; i < tokensLength; ) {
+            LibAsset.transferFromERC20(tokens[i], msg.sender, diamond, amounts[i]);
+
+            unchecked {
+                ++i;
+            }
+        }
+
+        // solhint-disable-next-line avoid-low-level-calls
+        (bool success, bytes memory res) = diamond.call{
+            value: msg.value
+        }(facetCallData);
+        if (!success) {
+            string memory reason = LibUtil.getRevertMsg(res);
+            revert(reason);
+        }
     }
 }

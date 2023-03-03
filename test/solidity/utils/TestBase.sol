@@ -8,6 +8,7 @@ import { IFeesFacet } from "rubic/Interfaces/IFeesFacet.sol";
 import { LibSwap } from "rubic/Libraries/LibSwap.sol";
 import { UniswapV2Router02 } from "../utils/Interfaces.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
 import { LibAllowList } from "rubic/Libraries/LibAllowList.sol";
 import { LibUtil } from "rubic/Libraries/LibUtil.sol";
@@ -89,7 +90,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     ERC20 internal usdc;
     ERC20 internal dai;
     ERC20 internal weth;
-    address internal erc20proxy;
+    ERC20Proxy internal erc20proxy;
     RubicMultiProxy internal diamond;
     IRubic.BridgeData internal bridgeData;
     LibSwap.SwapData[] internal swapData;

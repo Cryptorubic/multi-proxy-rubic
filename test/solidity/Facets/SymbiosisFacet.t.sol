@@ -27,28 +27,59 @@ contract SymbiosisFacetTest is TestBaseFacet {
     SymbiosisFacet.SymbiosisData internal symbiosisData;
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            symbiosisFacet.startBridgeTokensViaSymbiosis.selector,
+            bridgeData,
+            symbiosisData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            symbiosisFacet.startBridgeTokensViaSymbiosis{
+            erc20proxy.startCrossChain{
                 value: bridgeData.minAmount + addToMessageValue
-            }(bridgeData, symbiosisData);
+            }(tokens, amounts, facetCallData);
         } else {
-            symbiosisFacet.startBridgeTokensViaSymbiosis{
+            tokens = new address[](1);
+            amounts = new uint256[](1);
+
+            tokens[0] = bridgeData.sendingAssetId;
+            amounts[0] = bridgeData.minAmount;
+
+            erc20proxy.startCrossChain{
                 value: addToMessageValue
-            }(bridgeData, symbiosisData);
+            }(tokens, amounts, facetCallData);
         }
     }
 
     function initiateSwapAndBridgeTxWithFacet(
         bool isNative
     ) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            symbiosisFacet.swapAndStartBridgeTokensViaSymbiosis.selector,
+            bridgeData,
+            swapData,
+            symbiosisData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            symbiosisFacet.swapAndStartBridgeTokensViaSymbiosis{
+            erc20proxy.startCrossChain{
                 value: swapData[0].fromAmount + addToMessageValue
-            }(bridgeData, swapData, symbiosisData);
+            }(tokens, amounts, facetCallData);
         } else {
-            symbiosisFacet.swapAndStartBridgeTokensViaSymbiosis{
+            tokens = new address[](1);
+            amounts = new uint256[](1);
+
+            tokens[0] = swapData[0].sendingAssetId;
+            amounts[0] = swapData[0].fromAmount;
+
+            erc20proxy.startCrossChain{
                 value: addToMessageValue
-            }(bridgeData, swapData, symbiosisData);
+            }(tokens, amounts, facetCallData);
         }
     }
 
