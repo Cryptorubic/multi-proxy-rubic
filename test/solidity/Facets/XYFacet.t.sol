@@ -20,14 +20,30 @@ contract XYFacetTest is TestBaseFacet {
     XYFacet.XYData internal xyData;
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            xyFacet.startBridgeTokensViaXY.selector,
+            bridgeData,
+            xyData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            xyFacet.startBridgeTokensViaXY{
+            erc20proxy.startCrossChain{
                 value: bridgeData.minAmount + addToMessageValue
-            }(bridgeData, xyData);
+            }(tokens, amounts, facetCallData);
         } else {
-            xyFacet.startBridgeTokensViaXY{ value: addToMessageValue }(
-                bridgeData,
-                xyData
+            tokens = new address[](1);
+            amounts = new uint256[](1);
+
+            tokens[0] = bridgeData.sendingAssetId;
+            amounts[0] = bridgeData.minAmount;
+
+            erc20proxy.startCrossChain{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
             );
         }
     }
@@ -35,15 +51,32 @@ contract XYFacetTest is TestBaseFacet {
     function initiateSwapAndBridgeTxWithFacet(
         bool isNative
     ) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            xyFacet.swapAndStartBridgeTokensViaXY.selector,
+            bridgeData,
+            swapData,
+            xyData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            xyFacet.swapAndStartBridgeTokensViaXY{
+            erc20proxy.startCrossChain{
                 value: swapData[0].fromAmount + addToMessageValue
-            }(bridgeData, swapData, xyData);
+            }(tokens, amounts, facetCallData);
         } else {
-            xyFacet.swapAndStartBridgeTokensViaXY{ value: addToMessageValue }(
-                bridgeData,
-                swapData,
-                xyData
+            if (swapData.length > 0) {
+                tokens = new address[](1);
+                amounts = new uint256[](1);
+                tokens[0] = swapData[0].sendingAssetId;
+                amounts[0] = swapData[0].fromAmount;
+            }
+
+            erc20proxy.startCrossChain{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
             );
         }
     }

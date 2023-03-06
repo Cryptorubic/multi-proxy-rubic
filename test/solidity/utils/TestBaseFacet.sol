@@ -409,6 +409,7 @@ abstract contract TestBaseFacet is TestBase {
         vm.startPrank(USER_SENDER);
         // prepare bridgeData
         bridgeData.hasDestinationCall = true;
+        usdc.approve(address(erc20proxy), bridgeData.minAmount);
 
         vm.expectRevert(InformationMismatch.selector);
 
@@ -423,6 +424,8 @@ abstract contract TestBaseFacet is TestBase {
         vm.startPrank(USER_SENDER);
         // prepare bridgeData
         bridgeData.receiver = address(0);
+
+        usdc.approve(address(erc20proxy), bridgeData.minAmount);
 
         vm.expectRevert(InvalidReceiver.selector);
 
@@ -440,6 +443,8 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.hasSourceSwaps = true;
 
         setDefaultSwapDataSingleDAItoUSDC();
+
+        dai.approve(address(erc20proxy), swapData[0].fromAmount);
 
         vm.expectRevert(InvalidReceiver.selector);
 
@@ -582,6 +587,8 @@ abstract contract TestBaseFacet is TestBase {
         // prepare bridgeData
         bridgeData.hasSourceSwaps = true;
 
+        usdc.approve(address(erc20proxy), bridgeData.minAmount);
+
         vm.expectRevert(InformationMismatch.selector);
 
         // execute call in child contract
@@ -595,13 +602,7 @@ abstract contract TestBaseFacet is TestBase {
 
         usdc.transfer(USER_RECEIVER, usdc.balanceOf(USER_SENDER));
 
-        vm.expectRevert(
-            abi.encodeWithSelector(
-                InsufficientBalance.selector,
-                bridgeData.minAmount,
-                0
-            )
-        );
+        vm.expectRevert("ERC20: transfer amount exceeds balance");
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
     }
@@ -622,6 +623,10 @@ abstract contract TestBaseFacet is TestBase {
         vm.expectRevert(ReentrancyError.selector);
         attacker.callFacet(callData);
     }
+
+    //#endregion
+
+    //#region internal functions
 
     //#endregion
 

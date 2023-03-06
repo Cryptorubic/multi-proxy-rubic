@@ -47,9 +47,11 @@ contract SymbiosisFacetTest is TestBaseFacet {
             tokens[0] = bridgeData.sendingAssetId;
             amounts[0] = bridgeData.minAmount;
 
-            erc20proxy.startCrossChain{
-                value: addToMessageValue
-            }(tokens, amounts, facetCallData);
+            erc20proxy.startCrossChain{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
+            );
         }
     }
 
@@ -71,15 +73,18 @@ contract SymbiosisFacetTest is TestBaseFacet {
                 value: swapData[0].fromAmount + addToMessageValue
             }(tokens, amounts, facetCallData);
         } else {
-            tokens = new address[](1);
-            amounts = new uint256[](1);
+            if (swapData.length > 0) {
+                tokens = new address[](1);
+                amounts = new uint256[](1);
+                tokens[0] = swapData[0].sendingAssetId;
+                amounts[0] = swapData[0].fromAmount;
+            }
 
-            tokens[0] = swapData[0].sendingAssetId;
-            amounts[0] = swapData[0].fromAmount;
-
-            erc20proxy.startCrossChain{
-                value: addToMessageValue
-            }(tokens, amounts, facetCallData);
+            erc20proxy.startCrossChain{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
+            );
         }
     }
 
