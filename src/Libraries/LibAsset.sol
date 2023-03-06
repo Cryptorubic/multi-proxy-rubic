@@ -193,12 +193,12 @@ library LibAsset {
             if (amount == 0) revert InvalidAmount();
             uint256 balance = IERC20(assetId).balanceOf(address(this));
             if (balance < amount) revert InsufficientBalance(amount, balance);
-//            getERC20proxy().transferFrom(
-//                assetId,
-//                msg.sender,
-//                address(this),
-//                amount
-//            );
+            //            getERC20proxy().transferFrom(
+            //                assetId,
+            //                msg.sender,
+            //                address(this),
+            //                amount
+            //            );
         }
 
         amountWithoutFees = LibFees.accrueTokenFees(

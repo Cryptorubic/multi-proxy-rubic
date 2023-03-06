@@ -17,7 +17,6 @@ contract ERC20Proxy is Ownable {
 
     /// Constructor
     constructor(address _owner) {
-
         transferOwnership(_owner);
     }
 
@@ -44,7 +43,12 @@ contract ERC20Proxy is Ownable {
         if (tokensLength != amounts.length) revert LengthMissmatch();
 
         for (uint256 i = 0; i < tokensLength; ) {
-            LibAsset.transferFromERC20(tokens[i], msg.sender, diamond, amounts[i]);
+            LibAsset.transferFromERC20(
+                tokens[i],
+                msg.sender,
+                diamond,
+                amounts[i]
+            );
 
             unchecked {
                 ++i;
@@ -52,9 +56,9 @@ contract ERC20Proxy is Ownable {
         }
 
         // solhint-disable-next-line avoid-low-level-calls
-        (bool success, bytes memory res) = diamond.call{
-            value: msg.value
-        }(facetCallData);
+        (bool success, bytes memory res) = diamond.call{ value: msg.value }(
+            facetCallData
+        );
         if (!success) {
             string memory reason = LibUtil.getRevertMsg(res);
             revert(reason);
