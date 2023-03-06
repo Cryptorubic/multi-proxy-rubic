@@ -9,7 +9,10 @@ contract DeployScript is UpdateScriptBase {
     using stdJson for string;
 
     function run() public {
-        string memory path = string.concat(root, "/config/multichainTokens.json");
+        string memory path = string.concat(
+            root,
+            "/config/multichainTokens.json"
+        );
         string memory json = vm.readFile(path);
         bytes memory anyMappingsRaw = json.parseRaw(
             string.concat(".", network)
