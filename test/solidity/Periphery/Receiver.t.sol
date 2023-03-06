@@ -6,7 +6,6 @@ import { OnlyContractOwner } from "src/Errors/GenericErrors.sol";
 
 import { Receiver } from "rubic/Periphery/Receiver.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
 import { Executor } from "rubic/Periphery/Executor.sol";
 
 contract ReceiverTest is TestBase {
@@ -22,7 +21,6 @@ contract ReceiverTest is TestBase {
     address amarokRouter;
     bytes32 internal transferId;
     Executor executor;
-    ERC20Proxy erc20Proxy;
 
     event StargateRouterSet(address indexed router);
     event AmarokRouterSet(address indexed router);
@@ -43,8 +41,7 @@ contract ReceiverTest is TestBase {
             string.concat(".mainnet.connextHandler")
         );
 
-        erc20Proxy = new ERC20Proxy(address(this));
-        executor = new Executor(address(this), address(erc20Proxy));
+        executor = new Executor(address(this));
         receiver = new Receiver(
             address(this),
             stargateRouter,
@@ -54,7 +51,6 @@ contract ReceiverTest is TestBase {
         );
         vm.label(address(receiver), "Receiver");
         vm.label(address(executor), "Executor");
-        vm.label(address(erc20Proxy), "ERC20Proxy");
         vm.label(stargateRouter, "StargateRouter");
         vm.label(amarokRouter, "AmarokRouter");
 
