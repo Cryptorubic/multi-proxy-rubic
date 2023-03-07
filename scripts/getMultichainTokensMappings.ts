@@ -49,8 +49,8 @@ async function main(): Promise<void> {
             'anySwapOutUnderlying(fromanytoken,toAddress,amount,toChainID)'
           ) {
             fetchedTokens.push({
-              tokenAddress: jsonData[key].address,
-              anyTokenAddress: chainPaths[chainPathKey].fromanytoken.address,
+              tokenAddress: chainPaths[chainPathKey].fromanytoken.address,
+              anyTokenAddress: jsonData[key].address
             })
             found = true
             break
