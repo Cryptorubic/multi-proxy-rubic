@@ -15,7 +15,7 @@ contract DeployScript is UpdateScriptBase {
         );
         string memory json = vm.readFile(path);
         bytes memory anyMappingsRaw = json.parseRaw(
-            string.concat(".", network)
+            string.concat(".", network, ".mappings")
         );
         MultichainFacet.AnyMapping[] memory anyMappings = abi.decode(
             anyMappingsRaw,
