@@ -50,7 +50,7 @@ async function main(): Promise<void> {
           ) {
             fetchedTokens.push({
               tokenAddress: chainPaths[chainPathKey].fromanytoken.address,
-              anyTokenAddress: jsonData[key].address
+              anyTokenAddress: jsonData[key].address,
             })
             found = true
             break
