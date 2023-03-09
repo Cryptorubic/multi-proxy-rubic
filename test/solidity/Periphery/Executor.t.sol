@@ -59,6 +59,8 @@ contract MockGateway {
 }
 
 contract ExecutorTest is DSTest {
+    error UnAuthorized();
+
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
     Executor internal executor;
     TestAMM internal amm;
@@ -554,7 +556,7 @@ contract ExecutorTest is DSTest {
         assertEq(tokenD.balanceOf(address(vault)), 100 ether);
     }
 
-    function testFailWhenCallingERC20ProxyDirectly() public {
+    function test_Revert_WhenCallingERC20ProxyDirectly() public {
         ERC20 tokenA = new ERC20("Token A", "TOKA", 18);
         ERC20 tokenB = new ERC20("Token B", "TOKB", 18);
 
@@ -562,8 +564,8 @@ contract ExecutorTest is DSTest {
 
         // Get some Token B
         swapData[0] = LibSwap.SwapData(
-            address(amm),
-            address(amm),
+            address(erc20Proxy),
+            address(erc20Proxy),
             address(tokenA),
             address(tokenB),
             0.2 ether,
@@ -578,6 +580,8 @@ contract ExecutorTest is DSTest {
         );
         tokenA.mint(address(this), 1 ether);
         tokenA.approve(address(erc20Proxy), 1 ether);
+
+        vm.expectRevert(UnAuthorized.selector);
 
         executor.swapAndExecute(
             "",
