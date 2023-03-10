@@ -131,7 +131,7 @@ contract DeployScript is UpdateScriptBase {
             maxFixedNativeFee
         );
 
-        cutter.diamondCut(cut, address(0), "");
+        cutter.diamondCut(cut, fees, initCallData);
 
         facets = loupe.facetAddresses();
 
