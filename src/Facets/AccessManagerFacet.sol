@@ -3,6 +3,7 @@ pragma solidity 0.8.17;
 
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
+import { LibAsset } from "../Libraries/LibAsset.sol";
 import { IAccessManagerFacet } from "../Interfaces/IAccessManagerFacet.sol";
 import { CannotAuthoriseSelf } from "../Errors/GenericErrors.sol";
 
@@ -35,5 +36,9 @@ contract AccessManagerFacet is IAccessManagerFacet {
         address _executor
     ) external view override returns (bool) {
         return LibAccess.accessStorage().execAccess[_selector][_executor];
+    }
+
+    function ERC20ProxyAddress() external view override returns (address) {
+        return address(LibAsset.getERC20proxy());
     }
 }
