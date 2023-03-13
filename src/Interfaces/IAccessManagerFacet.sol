@@ -22,4 +22,7 @@ interface IAccessManagerFacet {
         bytes4 _selector,
         address _executor
     ) external view returns (bool);
+
+    /// @return ERC20Proxy address
+    function ERC20ProxyAddress() external view returns (address);
 }

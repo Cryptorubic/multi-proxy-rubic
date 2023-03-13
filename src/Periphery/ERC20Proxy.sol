@@ -7,30 +7,8 @@ import { LibAsset } from "../Libraries/LibAsset.sol";
 /// @title ERC20 Proxy
 /// @notice Proxy contract for safely transferring ERC20 tokens for swaps/executions
 contract ERC20Proxy is Ownable {
-    /// Storage ///
-    mapping(address => bool) public authorizedCallers;
-
-    /// Errors ///
-    error UnAuthorized();
-
-    /// Events ///
-    event AuthorizationChanged(address indexed caller, bool authorized);
-
     /// Constructor
-    constructor(address _owner) {
-        transferOwnership(_owner);
-    }
-
-    /// @notice Sets whether or not a specified caller is authorized to call this contract
-    /// @param caller the caller to change authorization for
-    /// @param authorized specifies whether the caller is authorized (true/false)
-    function setAuthorizedCaller(
-        address caller,
-        bool authorized
-    ) external onlyOwner {
-        authorizedCallers[caller] = authorized;
-        emit AuthorizationChanged(caller, authorized);
-    }
+    constructor() {}
 
     /// @notice Transfers tokens from one address to another specified address
     /// @param tokenAddress the ERC20 contract address of the token to send
@@ -42,9 +20,7 @@ contract ERC20Proxy is Ownable {
         address from,
         address to,
         uint256 amount
-    ) external {
-        if (!authorizedCallers[msg.sender]) revert UnAuthorized();
-
+    ) external onlyOwner {
         LibAsset.transferFromERC20(tokenAddress, from, to, amount);
     }
 }

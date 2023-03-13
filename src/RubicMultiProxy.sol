@@ -7,17 +7,11 @@ import { IDiamondCut } from "./Interfaces/IDiamondCut.sol";
 import { LibUtil } from "./Libraries/LibUtil.sol";
 import { LibAsset } from "./Libraries/LibAsset.sol";
 import { ZeroAddress } from "./Errors/GenericErrors.sol";
+import { ERC20Proxy } from "./Periphery/ERC20Proxy.sol";
 
 contract RubicMultiProxy {
-    constructor(
-        address _contractOwner,
-        address _diamondCutFacet,
-        address _erc20proxy
-    ) payable {
+    constructor(address _contractOwner, address _diamondCutFacet) payable {
         if (_contractOwner == address(0)) {
-            revert ZeroAddress();
-        }
-        if (_erc20proxy == address(0)) {
             revert ZeroAddress();
         }
         LibDiamond.setContractOwner(_contractOwner);
@@ -34,6 +28,8 @@ contract RubicMultiProxy {
         LibDiamond.diamondCut(cut, address(0), "");
 
         bytes32 position = LibAsset.LIB_ASSET_STORAGE_POSITION;
+
+        address _erc20proxy = address(new ERC20Proxy());
 
         // solhint-disable-next-line no-inline-assembly
         assembly {

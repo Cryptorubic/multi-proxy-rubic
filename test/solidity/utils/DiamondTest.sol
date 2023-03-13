@@ -23,14 +23,10 @@ contract DiamondTest {
         OwnershipFacet ownership = new OwnershipFacet();
         AccessManagerFacet access = new AccessManagerFacet();
         FeesFacet fees = new FeesFacet();
-        ERC20Proxy erc20proxy = new ERC20Proxy(address(this));
         RubicMultiProxy diamond = new RubicMultiProxy(
             address(this),
-            address(diamondCut),
-            address(erc20proxy)
+            address(diamondCut)
         );
-
-        erc20proxy.setAuthorizedCaller(address(diamond), true);
 
         bytes4[] memory functionSelectors;
         bytes memory initCallData = abi.encodeWithSelector(
@@ -95,8 +91,9 @@ contract DiamondTest {
 
         // Access Facet
 
-        functionSelectors = new bytes4[](1);
+        functionSelectors = new bytes4[](2);
         functionSelectors[0] = AccessManagerFacet.setCanExecute.selector;
+        functionSelectors[1] = AccessManagerFacet.ERC20ProxyAddress.selector;
 
         cut.push(
             IDiamondCut.FacetCut({
@@ -131,7 +128,10 @@ contract DiamondTest {
 
         delete cut;
 
-        return (diamond, address(erc20proxy));
+        return (
+            diamond,
+            IAccessManagerFacet(address(diamond)).ERC20ProxyAddress()
+        );
     }
 
     function addFacet(

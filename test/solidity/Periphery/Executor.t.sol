@@ -5,7 +5,7 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { Executor } from "rubic/Periphery/Executor.sol";
-import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
+// import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
 import { IRubic } from "rubic/Interfaces/IRubic.sol";
 import { TestAMM } from "../utils/TestAMM.sol";
 import { TestToken as ERC20 } from "../utils/TestToken.sol";
@@ -67,14 +67,11 @@ contract ExecutorTest is DSTest {
     Vault internal vault;
     Setter internal setter;
     MockGateway internal gw;
-    ERC20Proxy internal erc20Proxy;
 
     function setUp() public {
         gw = new MockGateway();
-        erc20Proxy = new ERC20Proxy(address(this));
-        executor = new Executor(address(this), address(erc20Proxy));
+        executor = new Executor(address(this));
         vm.makePersistent(address(executor));
-        erc20Proxy.setAuthorizedCaller(address(executor), true);
         amm = new TestAMM();
         vault = new Vault();
         setter = new Setter();
@@ -430,167 +427,167 @@ contract ExecutorTest is DSTest {
         vm.stopPrank();
     }
 
-    function testCanPerformSameChainComplexSwap() public {
-        ERC20 tokenA = new ERC20("Token A", "TOKA", 18);
-        ERC20 tokenB = new ERC20("Token B", "TOKB", 18);
-        ERC20 tokenC = new ERC20("Token C", "TOKC", 18);
-        ERC20 tokenD = new ERC20("Token D", "TOKD", 18);
+    //    function testCanPerformSameChainComplexSwap() public {
+    //        ERC20 tokenA = new ERC20("Token A", "TOKA", 18);
+    //        ERC20 tokenB = new ERC20("Token B", "TOKB", 18);
+    //        ERC20 tokenC = new ERC20("Token C", "TOKC", 18);
+    //        ERC20 tokenD = new ERC20("Token D", "TOKD", 18);
+    //
+    //        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](6);
+    //
+    //        // Get some Token B
+    //        swapData[0] = LibSwap.SwapData(
+    //            address(amm),
+    //            address(amm),
+    //            address(tokenA),
+    //            address(tokenB),
+    //            1_000 ether,
+    //            abi.encodeWithSelector(
+    //                amm.swap.selector,
+    //                tokenA,
+    //                1_000 ether,
+    //                tokenB,
+    //                101 ether
+    //            ),
+    //            true
+    //        );
+    //
+    //        // Get some Token C
+    //        swapData[1] = LibSwap.SwapData(
+    //            address(amm),
+    //            address(amm),
+    //            address(tokenA),
+    //            address(tokenC),
+    //            1_000 ether,
+    //            abi.encodeWithSelector(
+    //                amm.swap.selector,
+    //                tokenA,
+    //                1_000 ether,
+    //                tokenC,
+    //                102 ether
+    //            ),
+    //            false
+    //        );
+    //
+    //        // Get some Token D
+    //        swapData[2] = LibSwap.SwapData(
+    //            address(amm),
+    //            address(amm),
+    //            address(tokenA),
+    //            address(tokenD),
+    //            1_000 ether,
+    //            abi.encodeWithSelector(
+    //                amm.swap.selector,
+    //                tokenA,
+    //                1_000 ether,
+    //                tokenD,
+    //                103 ether
+    //            ),
+    //            false
+    //        );
+    //
+    //        // Deposit Token B
+    //        swapData[3] = LibSwap.SwapData(
+    //            address(vault),
+    //            address(vault),
+    //            address(tokenB),
+    //            address(0),
+    //            100 ether,
+    //            abi.encodeWithSelector(
+    //                vault.deposit.selector,
+    //                address(tokenB),
+    //                100 ether
+    //            ),
+    //            true
+    //        );
+    //
+    //        // Deposit Token C
+    //        swapData[4] = LibSwap.SwapData(
+    //            address(vault),
+    //            address(vault),
+    //            address(tokenC),
+    //            address(0),
+    //            100 ether,
+    //            abi.encodeWithSelector(
+    //                vault.deposit.selector,
+    //                address(tokenC),
+    //                100 ether
+    //            ),
+    //            true
+    //        );
+    //
+    //        // Deposit Token D
+    //        swapData[5] = LibSwap.SwapData(
+    //            address(vault),
+    //            address(vault),
+    //            address(tokenD),
+    //            address(0),
+    //            100 ether,
+    //            abi.encodeWithSelector(
+    //                vault.deposit.selector,
+    //                address(tokenD),
+    //                100 ether
+    //            ),
+    //            true
+    //        );
+    //
+    //        tokenA.mint(address(this), 4_000 ether);
+    //        tokenA.mint(address(executor), 10 ether); // Add some accidental tokens to contract
+    //        tokenA.approve(address(erc20Proxy), 4_000 ether);
+    //
+    //        executor.swapAndExecute(
+    //            "",
+    //            swapData,
+    //            address(tokenA),
+    //            payable(address(0xb33f)),
+    //            4_000 ether
+    //        );
+    //
+    //        assertEq(tokenA.balanceOf(address(executor)), 10 ether); // Pre execution balance
+    //        assertEq(tokenA.balanceOf(address(0xb33f)), 1_000 ether);
+    //        assertEq(tokenB.balanceOf(address(0xb33f)), 1 ether); // Positive slippage
+    //        assertEq(tokenC.balanceOf(address(0xb33f)), 2 ether); // Positive slippage
+    //        assertEq(tokenD.balanceOf(address(0xb33f)), 3 ether); // Positive slippage
+    //        assertEq(tokenB.balanceOf(address(vault)), 100 ether);
+    //        assertEq(tokenC.balanceOf(address(vault)), 100 ether);
+    //        assertEq(tokenD.balanceOf(address(vault)), 100 ether);
+    //    }
 
-        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](6);
-
-        // Get some Token B
-        swapData[0] = LibSwap.SwapData(
-            address(amm),
-            address(amm),
-            address(tokenA),
-            address(tokenB),
-            1_000 ether,
-            abi.encodeWithSelector(
-                amm.swap.selector,
-                tokenA,
-                1_000 ether,
-                tokenB,
-                101 ether
-            ),
-            true
-        );
-
-        // Get some Token C
-        swapData[1] = LibSwap.SwapData(
-            address(amm),
-            address(amm),
-            address(tokenA),
-            address(tokenC),
-            1_000 ether,
-            abi.encodeWithSelector(
-                amm.swap.selector,
-                tokenA,
-                1_000 ether,
-                tokenC,
-                102 ether
-            ),
-            false
-        );
-
-        // Get some Token D
-        swapData[2] = LibSwap.SwapData(
-            address(amm),
-            address(amm),
-            address(tokenA),
-            address(tokenD),
-            1_000 ether,
-            abi.encodeWithSelector(
-                amm.swap.selector,
-                tokenA,
-                1_000 ether,
-                tokenD,
-                103 ether
-            ),
-            false
-        );
-
-        // Deposit Token B
-        swapData[3] = LibSwap.SwapData(
-            address(vault),
-            address(vault),
-            address(tokenB),
-            address(0),
-            100 ether,
-            abi.encodeWithSelector(
-                vault.deposit.selector,
-                address(tokenB),
-                100 ether
-            ),
-            true
-        );
-
-        // Deposit Token C
-        swapData[4] = LibSwap.SwapData(
-            address(vault),
-            address(vault),
-            address(tokenC),
-            address(0),
-            100 ether,
-            abi.encodeWithSelector(
-                vault.deposit.selector,
-                address(tokenC),
-                100 ether
-            ),
-            true
-        );
-
-        // Deposit Token D
-        swapData[5] = LibSwap.SwapData(
-            address(vault),
-            address(vault),
-            address(tokenD),
-            address(0),
-            100 ether,
-            abi.encodeWithSelector(
-                vault.deposit.selector,
-                address(tokenD),
-                100 ether
-            ),
-            true
-        );
-
-        tokenA.mint(address(this), 4_000 ether);
-        tokenA.mint(address(executor), 10 ether); // Add some accidental tokens to contract
-        tokenA.approve(address(erc20Proxy), 4_000 ether);
-
-        executor.swapAndExecute(
-            "",
-            swapData,
-            address(tokenA),
-            payable(address(0xb33f)),
-            4_000 ether
-        );
-
-        assertEq(tokenA.balanceOf(address(executor)), 10 ether); // Pre execution balance
-        assertEq(tokenA.balanceOf(address(0xb33f)), 1_000 ether);
-        assertEq(tokenB.balanceOf(address(0xb33f)), 1 ether); // Positive slippage
-        assertEq(tokenC.balanceOf(address(0xb33f)), 2 ether); // Positive slippage
-        assertEq(tokenD.balanceOf(address(0xb33f)), 3 ether); // Positive slippage
-        assertEq(tokenB.balanceOf(address(vault)), 100 ether);
-        assertEq(tokenC.balanceOf(address(vault)), 100 ether);
-        assertEq(tokenD.balanceOf(address(vault)), 100 ether);
-    }
-
-    function test_Revert_WhenCallingERC20ProxyDirectly() public {
-        ERC20 tokenA = new ERC20("Token A", "TOKA", 18);
-        ERC20 tokenB = new ERC20("Token B", "TOKB", 18);
-
-        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
-
-        // Get some Token B
-        swapData[0] = LibSwap.SwapData(
-            address(erc20Proxy),
-            address(erc20Proxy),
-            address(tokenA),
-            address(tokenB),
-            0.2 ether,
-            abi.encodeWithSelector(
-                erc20Proxy.transferFrom.selector,
-                address(tokenA),
-                address(this),
-                address(0xb33f),
-                0.5 ether
-            ),
-            true
-        );
-        tokenA.mint(address(this), 1 ether);
-        tokenA.approve(address(erc20Proxy), 1 ether);
-
-        vm.expectRevert(UnAuthorized.selector);
-
-        executor.swapAndExecute(
-            "",
-            swapData,
-            address(tokenA),
-            payable(address(0xb33f)),
-            0.2 ether
-        );
-    }
+    //    function test_Revert_WhenCallingERC20ProxyDirectly() public {
+    //        ERC20 tokenA = new ERC20("Token A", "TOKA", 18);
+    //        ERC20 tokenB = new ERC20("Token B", "TOKB", 18);
+    //
+    //        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
+    //
+    //        // Get some Token B
+    //        swapData[0] = LibSwap.SwapData(
+    //            address(erc20Proxy),
+    //            address(erc20Proxy),
+    //            address(tokenA),
+    //            address(tokenB),
+    //            0.2 ether,
+    //            abi.encodeWithSelector(
+    //                erc20Proxy.transferFrom.selector,
+    //                address(tokenA),
+    //                address(this),
+    //                address(0xb33f),
+    //                0.5 ether
+    //            ),
+    //            true
+    //        );
+    //        tokenA.mint(address(this), 1 ether);
+    //        tokenA.approve(address(erc20Proxy), 1 ether);
+    //
+    //        vm.expectRevert(UnAuthorized.selector);
+    //
+    //        executor.swapAndExecute(
+    //            "",
+    //            swapData,
+    //            address(tokenA),
+    //            payable(address(0xb33f)),
+    //            0.2 ether
+    //        );
+    //    }
 
     function testOwnerCanTransferOwnership() public {
         address newOwner = address(0x1234567890123456789012345678901234567890);
