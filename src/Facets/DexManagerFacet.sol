@@ -5,11 +5,12 @@ import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { LibAccess } from "../Libraries/LibAccess.sol";
 import { LibAllowList } from "../Libraries/LibAllowList.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
+import { IDexManagerFacet } from "../Interfaces/IDexManagerFacet.sol";
 import { CannotAuthoriseSelf } from "../Errors/GenericErrors.sol";
 
 /// @title Dex Manager Facet
 /// @notice Facet contract for managing approved DEXs to be used in swaps.
-contract DexManagerFacet {
+contract DexManagerFacet is IDexManagerFacet {
     /// Events ///
 
     event DexAdded(address indexed dexAddress);
@@ -19,11 +20,11 @@ contract DexManagerFacet {
         bool indexed approved
     );
 
-    /// External Methods ///
+    /// external  Methods ///
 
     /// @notice Register the address of a DEX contract to be approved for swapping.
     /// @param _dex The address of the DEX contract to be approved.
-    function addDex(address _dex) external {
+    function addDex(address _dex) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -39,7 +40,7 @@ contract DexManagerFacet {
 
     /// @notice Batch register the address of DEX contracts to be approved for swapping.
     /// @param _dexs The addresses of the DEX contracts to be approved.
-    function batchAddDex(address[] calldata _dexs) external {
+    function batchAddDex(address[] calldata _dexs) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -61,7 +62,7 @@ contract DexManagerFacet {
 
     /// @notice Unregister the address of a DEX contract approved for swapping.
     /// @param _dex The address of the DEX contract to be unregistered.
-    function removeDex(address _dex) external {
+    function removeDex(address _dex) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -71,7 +72,7 @@ contract DexManagerFacet {
 
     /// @notice Batch unregister the addresses of DEX contracts approved for swapping.
     /// @param _dexs The addresses of the DEX contracts to be unregistered.
-    function batchRemoveDex(address[] calldata _dexs) external {
+    function batchRemoveDex(address[] calldata _dexs) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -91,7 +92,7 @@ contract DexManagerFacet {
     function setFunctionApprovalBySignature(
         bytes4 _signature,
         bool _approval
-    ) external {
+    ) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -111,7 +112,7 @@ contract DexManagerFacet {
     function batchSetFunctionApprovalBySignature(
         bytes4[] calldata _signatures,
         bool _approval
-    ) external {
+    ) external override {
         if (msg.sender != LibDiamond.contractOwner()) {
             LibAccess.enforceAccessControl();
         }
@@ -135,7 +136,7 @@ contract DexManagerFacet {
     /// @return approved Approved or not
     function isFunctionApproved(
         bytes4 _signature
-    ) public view returns (bool approved) {
+    ) public view override returns (bool approved) {
         return LibAllowList.selectorIsAllowed(_signature);
     }
 
@@ -144,8 +145,17 @@ contract DexManagerFacet {
     function approvedDexs()
         external
         view
+        override
         returns (address[] memory addresses)
     {
         return LibAllowList.getAllowedContracts();
+    }
+
+    /// @dev Checks whether a contract address has been added to the allow list
+    /// @param _contract the contract address to check
+    function isContractApproved(
+        address _contract
+    ) external view override returns (bool) {
+        return LibAllowList.contractIsAllowed(_contract);
     }
 }
