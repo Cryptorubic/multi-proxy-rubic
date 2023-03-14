@@ -1,36 +1,28 @@
 {
   "config": {
     "hardhat": {
-      "chainId": 1,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": ""
     },
     "mainnet": {
-      "chainId": 1,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": ""
     },
     "bsc": {
-      "chainId": 56,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": "0x7D26F09d4e2d032Efa0729fC31a4c2Db8a2394b1"
     },
     "heco": {
-      "chainId": 128,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": ""
     },
     "polygon": {
-      "chainId": 137,
       "XSwapper": "0x0c988b66EdEf267D04f100A879db86cdb7B9A34F"
     },
     "arbitrum": {
-      "chainId": 42161,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": ""
     },
     "avalanche": {
-      "chainId": 43114,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": "0x2C86f0FF75673D489b7D72D9986929a2b0Ed596C"
     },
     "fantom": {
-      "chainId": 250,
-      "XSwapper": "0x43dE2d77BF8027e25dBD179B491e8d64f38398aA"
+      "XSwapper": ""
     }
   }
 }

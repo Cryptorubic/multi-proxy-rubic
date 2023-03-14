@@ -111,6 +111,10 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             );
         }
 
+        address toChainToken = _xyData.toChainToken;
+        if (LibAsset.isNativeAsset(toChainToken))
+            toChainToken = xyNativeAddress;
+
         router.swap{ value: nativeAssetAmount }(
             address(0),
             IXSwapper.SwapDescription(
@@ -123,7 +127,7 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             "",
             IXSwapper.ToChainDescription(
                 uint32(_bridgeData.destinationChainId),
-                _xyData.toChainToken,
+                toChainToken,
                 _xyData.expectedToChainTokenAmount,
                 _xyData.slippage
             )

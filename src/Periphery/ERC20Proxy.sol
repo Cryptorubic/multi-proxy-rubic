@@ -32,7 +32,7 @@ contract ERC20Proxy is Ownable {
     /// @param amounts Corresponding amounts of tokens
     /// @param facetCallData Calldata that should be passed to the diamond
     /// Should contain any cross-chain related function
-    function startCrossChain(
+    function startViaRubic(
         address[] memory tokens,
         uint256[] memory amounts,
         bytes memory facetCallData

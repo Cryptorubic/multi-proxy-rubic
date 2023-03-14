@@ -30,7 +30,7 @@ contract XYFacetTest is TestBaseFacet {
         uint256[] memory amounts;
 
         if (isNative) {
-            erc20proxy.startCrossChain{
+            erc20proxy.startViaRubic{
                 value: bridgeData.minAmount + addToMessageValue
             }(tokens, amounts, facetCallData);
         } else {
@@ -40,7 +40,7 @@ contract XYFacetTest is TestBaseFacet {
             tokens[0] = bridgeData.sendingAssetId;
             amounts[0] = bridgeData.minAmount;
 
-            erc20proxy.startCrossChain{ value: addToMessageValue }(
+            erc20proxy.startViaRubic{ value: addToMessageValue }(
                 tokens,
                 amounts,
                 facetCallData
@@ -62,7 +62,7 @@ contract XYFacetTest is TestBaseFacet {
         uint256[] memory amounts;
 
         if (isNative) {
-            erc20proxy.startCrossChain{
+            erc20proxy.startViaRubic{
                 value: swapData[0].fromAmount + addToMessageValue
             }(tokens, amounts, facetCallData);
         } else {
@@ -73,7 +73,7 @@ contract XYFacetTest is TestBaseFacet {
                 amounts[0] = swapData[0].fromAmount;
             }
 
-            erc20proxy.startCrossChain{ value: addToMessageValue }(
+            erc20proxy.startViaRubic{ value: addToMessageValue }(
                 tokens,
                 amounts,
                 facetCallData

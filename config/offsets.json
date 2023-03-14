@@ -6,7 +6,13 @@
       "offset": 68
     }
   ],
-  "bsc": [],
+  "bsc": [
+    {
+      "router": "0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF",
+      "selector": "0xa5977fbb",
+      "offset": 68
+    }
+  ],
   "mainnet": [],
   "avalanche": [],
   "fantom": [],

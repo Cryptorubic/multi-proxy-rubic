@@ -30,6 +30,8 @@ contract GenericCrossChainFacet is
 
     /// Types ///
 
+    /// @param router Address of the router that has to be called
+    /// @param callData Calldata that has to be passed to the router
     struct GenericCrossChainData {
         address router;
         bytes callData;

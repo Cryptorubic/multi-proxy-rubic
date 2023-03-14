@@ -123,7 +123,7 @@ contract FeesFacetTest is Test, DiamondTest {
         setFixedNativeFee
     {
         vm.startPrank(USER_SENDER);
-        token.approve(erc20proxy, type(uint256).max);
+        token.transfer(address(mockFacet), DEFAULT_TOKEN_AMOUNT);
 
         mockFacet.bridgeTokensViaMock{ value: FIXED_NATIVE_FEE }(defaultData);
 
@@ -155,7 +155,7 @@ contract FeesFacetTest is Test, DiamondTest {
         setFixedNativeFee
     {
         vm.startPrank(USER_SENDER);
-        token.approve(erc20proxy, type(uint256).max);
+        token.transfer(address(mockFacet), DEFAULT_TOKEN_AMOUNT);
 
         vm.expectRevert(InvalidAmount.selector);
         mockFacet.bridgeTokensViaMockWithNativeReserve{
@@ -273,7 +273,7 @@ contract FeesFacetTest is Test, DiamondTest {
 
     function testTokenFeeCollecting_SendingTokens() public setTokenFee {
         vm.startPrank(USER_SENDER);
-        token.approve(erc20proxy, type(uint256).max);
+        token.transfer(address(mockFacet), DEFAULT_TOKEN_AMOUNT);
 
         mockFacet.bridgeTokensViaMock(defaultData);
 
