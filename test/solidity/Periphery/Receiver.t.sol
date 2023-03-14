@@ -6,6 +6,10 @@ import { OnlyContractOwner } from "src/Errors/GenericErrors.sol";
 
 import { Receiver } from "rubic/Periphery/Receiver.sol";
 import { stdJson } from "forge-std/Script.sol";
+import { RubicMultiProxy } from "rubic/RubicMultiProxy.sol";
+import { DiamondCutFacet } from "rubic/Facets/DiamondCutFacet.sol";
+import { DexManagerFacet } from "rubic/Facets/DexManagerFacet.sol";
+import { IDiamondCut } from "rubic/Interfaces/IDiamondCut.sol";
 import { Executor } from "rubic/Periphery/Executor.sol";
 
 contract ReceiverTest is TestBase {
@@ -21,6 +25,7 @@ contract ReceiverTest is TestBase {
     address amarokRouter;
     bytes32 internal transferId;
     Executor executor;
+    DexManagerFacet internal dexMgr;
 
     event StargateRouterSet(address indexed router);
     event AmarokRouterSet(address indexed router);
@@ -41,7 +46,21 @@ contract ReceiverTest is TestBase {
             string.concat(".mainnet.connextHandler")
         );
 
-        executor = new Executor(address(this));
+        dexMgr = new DexManagerFacet();
+
+        bytes4[] memory functionSelectors = new bytes4[](4);
+        functionSelectors[0] = DexManagerFacet.addDex.selector;
+        functionSelectors[1] = DexManagerFacet.isContractApproved.selector;
+        functionSelectors[2] = DexManagerFacet.isFunctionApproved.selector;
+        functionSelectors[3] = DexManagerFacet
+            .setFunctionApprovalBySignature
+            .selector;
+
+        addFacet(diamond, address(dexMgr), functionSelectors);
+
+        dexMgr = DexManagerFacet(address(diamond));
+
+        executor = new Executor(address(this), address(dexMgr));
         receiver = new Receiver(
             address(this),
             stargateRouter,
@@ -49,6 +68,13 @@ contract ReceiverTest is TestBase {
             address(executor),
             100000
         );
+
+        dexMgr.addDex(address(uniswap));
+        dexMgr.setFunctionApprovalBySignature(
+            uniswap.swapExactTokensForTokens.selector,
+            true
+        );
+
         vm.label(address(receiver), "Receiver");
         vm.label(address(executor), "Executor");
         vm.label(stargateRouter, "StargateRouter");

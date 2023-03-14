@@ -3,14 +3,22 @@ pragma solidity 0.8.17;
 
 import { IERC20 } from "@axelar-network/axelar-cgp-solidity/contracts/interfaces/IERC20.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
+import { IDexManagerFacet } from "../Interfaces/IDexManagerFacet.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
+import { LibBytes } from "../Libraries/LibBytes.sol";
 import { IRubic } from "../Interfaces/IRubic.sol";
 import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
+import { ZeroAddress, ContractCallNotAllowed } from "../Errors/GenericErrors.sol";
 
 /// @title Executor
 /// @notice Arbitrary execution contract used for cross-chain swaps and message passing
 contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
+    /// Storage ///
+
+    /// @dev used to fetch a whitelist
+    IDexManagerFacet public diamond;
+
     /// Errors ///
     error ExecutionFailed();
     error InvalidCaller();
@@ -55,8 +63,14 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// Constructor
     /// @notice Initialize local variables for the Executor
     /// @param _owner The address of owner
-    constructor(address _owner) TransferrableOwnership(_owner) {
+    constructor(
+        address _owner,
+        address _diamond
+    ) TransferrableOwnership(_owner) {
+        if (_diamond == address(0)) revert ZeroAddress();
+
         owner = _owner;
+        diamond = IDexManagerFacet(_diamond);
     }
 
     /// @notice Performs a swap before completing a cross-chain transaction
@@ -168,6 +182,16 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
         uint256 numSwaps = _swapData.length;
         for (uint256 i = 0; i < numSwaps; ) {
             LibSwap.SwapData calldata currentSwapData = _swapData[i];
+
+            if (
+                !((LibAsset.isNativeAsset(currentSwapData.sendingAssetId) ||
+                    diamond.isContractApproved(currentSwapData.approveTo)) &&
+                    diamond.isContractApproved(currentSwapData.callTo) &&
+                    diamond.isFunctionApproved(
+                        LibBytes.getFirst4Bytes(currentSwapData.callData)
+                    ))
+            ) revert ContractCallNotAllowed();
+
             LibSwap.swap(_transactionId, currentSwapData);
             unchecked {
                 ++i;

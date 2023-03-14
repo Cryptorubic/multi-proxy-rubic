@@ -5,7 +5,11 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { Executor } from "rubic/Periphery/Executor.sol";
+import { RubicMultiProxy } from "rubic/RubicMultiProxy.sol";
+import { DiamondCutFacet } from "rubic/Facets/DiamondCutFacet.sol";
+import { DexManagerFacet } from "rubic/Facets/DexManagerFacet.sol";
 import { IRubic } from "rubic/Interfaces/IRubic.sol";
+import { IDiamondCut } from "rubic/Interfaces/IDiamondCut.sol";
 import { TestAMM } from "../utils/TestAMM.sol";
 import { TestToken as ERC20 } from "../utils/TestToken.sol";
 import { LibSwap } from "rubic/Libraries/LibSwap.sol";
@@ -58,20 +62,58 @@ contract MockGateway {
 }
 
 contract ExecutorTest is DSTest {
+    error UnAuthorized();
+
     Vm internal immutable vm = Vm(HEVM_ADDRESS);
     Executor internal executor;
     TestAMM internal amm;
     Vault internal vault;
     Setter internal setter;
     MockGateway internal gw;
+    DexManagerFacet internal dexMgr;
 
     function setUp() public {
+        fork();
+
+        DiamondCutFacet diamondCut = new DiamondCutFacet();
+        RubicMultiProxy diamond = new RubicMultiProxy(
+            address(this),
+            address(diamondCut)
+        );
+
+        dexMgr = new DexManagerFacet();
+
+        bytes4[] memory functionSelectors = new bytes4[](4);
+        functionSelectors[0] = DexManagerFacet.addDex.selector;
+        functionSelectors[1] = DexManagerFacet.isContractApproved.selector;
+        functionSelectors[2] = DexManagerFacet.isFunctionApproved.selector;
+        functionSelectors[3] = DexManagerFacet
+            .setFunctionApprovalBySignature
+            .selector;
+
+        IDiamondCut.FacetCut[] memory cut = new IDiamondCut.FacetCut[](1);
+
+        cut[0] = IDiamondCut.FacetCut({
+            facetAddress: address(dexMgr),
+            action: IDiamondCut.FacetCutAction.Add,
+            functionSelectors: functionSelectors
+        });
+
+        DiamondCutFacet(address(diamond)).diamondCut(cut, address(0), "");
+
+        dexMgr = DexManagerFacet(address(diamond));
+
         gw = new MockGateway();
-        executor = new Executor(address(this));
+        executor = new Executor(address(this), address(dexMgr));
         vm.makePersistent(address(executor));
         amm = new TestAMM();
         vault = new Vault();
         setter = new Setter();
+
+        dexMgr.addDex(address(amm));
+        dexMgr.setFunctionApprovalBySignature(amm.swap.selector, true);
+        dexMgr.addDex(address(vault));
+        dexMgr.setFunctionApprovalBySignature(vault.deposit.selector, true);
     }
 
     function fork() internal {
@@ -207,7 +249,6 @@ contract ExecutorTest is DSTest {
     }
 
     function testCanReceiveNativeTokensFromDestinationSwap() public {
-        fork();
         address DAI_ADDRESS = 0x6B175474E89094C44Da98b954EedeAC495271d0F;
         address payable DAI_WHALE = payable(
             address(0x075e72a5eDf65F0A5f44699c7654C1a76941Ddc8)
@@ -218,6 +259,12 @@ contract ExecutorTest is DSTest {
         ERC20 weth = ERC20(WETH_ADDRESS);
         UniswapV2Router02 uniswap = UniswapV2Router02(
             UNISWAP_V2_ROUTER_ADDRESS
+        );
+
+        dexMgr.addDex(UNISWAP_V2_ROUTER_ADDRESS);
+        dexMgr.setFunctionApprovalBySignature(
+            UniswapV2Router02.swapExactTokensForETH.selector,
+            true
         );
 
         vm.startPrank(DAI_WHALE);
@@ -550,7 +597,7 @@ contract ExecutorTest is DSTest {
     //        assertEq(tokenD.balanceOf(address(vault)), 100 ether);
     //    }
 
-    //    function testFailWhenCallingERC20ProxyDirectly() public {
+    //    function test_Revert_WhenCallingERC20ProxyDirectly() public {
     //        ERC20 tokenA = new ERC20("Token A", "TOKA", 18);
     //        ERC20 tokenB = new ERC20("Token B", "TOKB", 18);
     //
@@ -558,8 +605,8 @@ contract ExecutorTest is DSTest {
     //
     //        // Get some Token B
     //        swapData[0] = LibSwap.SwapData(
-    //            address(amm),
-    //            address(amm),
+    //            address(erc20Proxy),
+    //            address(erc20Proxy),
     //            address(tokenA),
     //            address(tokenB),
     //            0.2 ether,
@@ -575,7 +622,9 @@ contract ExecutorTest is DSTest {
     //        tokenA.mint(address(this), 1 ether);
     //        tokenA.approve(address(erc20Proxy), 1 ether);
     //
-    //        executor.swapAndCompleteBridgeTokens(
+    //        vm.expectRevert(UnAuthorized.selector);
+    //
+    //        executor.swapAndExecute(
     //            "",
     //            swapData,
     //            address(tokenA),
