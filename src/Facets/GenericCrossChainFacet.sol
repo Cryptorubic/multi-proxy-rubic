@@ -42,8 +42,6 @@ contract GenericCrossChainFacet is
     modifier validateGenericData(GenericCrossChainData calldata _genericData) {
         if (!LibAsset.isContract(_genericData.router))
             revert InvalidContract();
-        if (_genericData.router == address(LibAsset.getERC20proxy()))
-            revert UnAuthorized();
         _;
     }
 

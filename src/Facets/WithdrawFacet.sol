@@ -42,10 +42,6 @@ contract WithdrawFacet {
             LibAccess.enforceAccessControl();
         }
 
-        if (_callTo == address(LibAsset.getERC20proxy())) {
-            revert UnAuthorized();
-        }
-
         // Check if the _callTo is a contract
         bool success;
         bool isContract = LibAsset.isContract(_callTo);

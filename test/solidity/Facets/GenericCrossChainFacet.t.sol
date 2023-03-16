@@ -200,37 +200,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         );
     }
 
-    function test_Revert_CannotCallERC20Proxy() public {
-        vm.startPrank(USER_SENDER);
-
-        genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
-            payable(address(erc20proxy)),
-            abi.encodeWithSelector(
-                IXSwapper.swap.selector,
-                address(0),
-                IXSwapper.SwapDescription(
-                    ADDRESS_USDC,
-                    ADDRESS_USDC,
-                    USER_SENDER,
-                    228,
-                    228
-                ),
-                "",
-                IXSwapper.ToChainDescription(
-                    56,
-                    0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56, // BUSD
-                    1000,
-                    100
-                )
-            )
-        );
-
-        vm.expectRevert(UnAuthorized.selector);
-        initiateBridgeTxWithFacet(false);
-
-        vm.stopPrank();
-    }
-
     function testBase_CanBridgeTokens_fuzzed(uint256 amount) public override {
         // amount should be greater than xy fee
         vm.assume(amount > 15);

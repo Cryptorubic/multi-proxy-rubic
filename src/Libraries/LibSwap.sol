@@ -29,8 +29,6 @@ library LibSwap {
 
     function swap(bytes32 transactionId, SwapData memory _swap) internal {
         if (!LibAsset.isContract(_swap.callTo)) revert InvalidContract();
-        if (_swap.callTo == address(LibAsset.getERC20proxy()))
-            revert UnAuthorized();
         uint256 fromAmount = _swap.fromAmount;
         if (fromAmount == 0) revert NoSwapFromZeroBalance();
         uint256 nativeValue = LibAsset.isNativeAsset(_swap.sendingAssetId)

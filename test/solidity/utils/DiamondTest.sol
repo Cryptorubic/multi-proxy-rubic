@@ -26,8 +26,7 @@ contract DiamondTest {
         ERC20Proxy erc20proxy = new ERC20Proxy(address(this));
         RubicMultiProxy diamond = new RubicMultiProxy(
             address(this),
-            address(diamondCut),
-            address(erc20proxy)
+            address(diamondCut)
         );
 
         erc20proxy.setDiamond(address(diamond));
