@@ -27,7 +27,9 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
         bytes memory facetCallData = abi.encodeWithSelector(
-            genericCrossChainFacet.swapAndStartBridgeTokensViaGenericCrossChain.selector,
+            genericCrossChainFacet
+                .startBridgeTokensViaGenericCrossChain
+                .selector,
             bridgeData,
             genericCrossChainData
         );
@@ -58,7 +60,9 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         bool isNative
     ) internal override {
         bytes memory facetCallData = abi.encodeWithSelector(
-            genericCrossChainFacet.swapAndStartBridgeTokensViaGenericCrossChain.selector,
+            genericCrossChainFacet
+                .swapAndStartBridgeTokensViaGenericCrossChain
+                .selector,
             bridgeData,
             swapData,
             genericCrossChainData

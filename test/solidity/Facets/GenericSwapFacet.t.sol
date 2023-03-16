@@ -165,13 +165,9 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         address[] memory tokens = new address[](1);
         uint256[] memory tokenAmounts = new uint256[](1);
         tokens[0] = ADDRESS_USDC;
-        amounts[0] = amountIn;
+        tokenAmounts[0] = amountIn;
 
-        erc20proxy.startViaRubic(
-            tokens,
-            tokenAmounts,
-            callData
-        );
+        erc20proxy.startViaRubic(tokens, tokenAmounts, callData);
 
         uint256 expectedBalance = initUserBalace - amountIn;
         assertEq(usdc.balanceOf(USDC_HOLDER), expectedBalance);
@@ -228,10 +224,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             swapData
         );
 
-        address[] memory tokens = new address[](1);
-        uint256[] memory tokenAmounts = new uint256[](1);
-        tokens[0] = address(0);
-        amounts[0] = amountIn;
+        address[] memory tokens;
+        uint256[] memory tokenAmounts;
 
         erc20proxy.startViaRubic{ value: amountIn }(
             tokens,
@@ -300,13 +294,9 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         address[] memory tokens = new address[](1);
         uint256[] memory tokenAmounts = new uint256[](1);
         tokens[0] = ADDRESS_USDC;
-        amounts[0] = amountIn;
+        tokenAmounts[0] = amountIn;
 
-        erc20proxy.startViaRubic(
-            tokens,
-            tokenAmounts,
-            callData
-        );
+        erc20proxy.startViaRubic(tokens, tokenAmounts, callData);
 
         uint256 expectedBalance = initUserBalace - amountIn;
         assertEq(usdc.balanceOf(USDC_HOLDER), expectedBalance);
@@ -371,7 +361,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         address[] memory tokens = new address[](1);
         uint256[] memory tokenAmounts = new uint256[](1);
         tokens[0] = ADDRESS_USDC;
-        amounts[0] = amountInWithFee;
+        tokenAmounts[0] = amountInWithFee;
 
         erc20proxy.startViaRubic{ value: FIXED_NATIVE_FEE }(
             tokens,
@@ -419,21 +409,17 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         bytes memory callData = abi.encodeWithSelector(
             genericSwapFacet.swapTokensGeneric.selector,
             "",
-            address(0),
+            INTEGRATOR,
             address(0),
             payable(USDC_HOLDER),
             defaultAmountOut,
             swapData
         );
 
-        address[] memory tokens = new address[](1);
-        uint256[] memory tokenAmounts = new uint256[](1);
-        tokens[0] = address(0);
-        amounts[0] = amountInWithFee;
+        address[] memory tokens;
+        uint256[] memory tokenAmounts;
 
-        erc20proxy.startViaRubic{
-            value: amountInWithFee + FIXED_NATIVE_FEE
-        }(
+        erc20proxy.startViaRubic{ value: amountInWithFee + FIXED_NATIVE_FEE }(
             tokens,
             tokenAmounts,
             callData
@@ -493,7 +479,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         address[] memory tokens = new address[](1);
         uint256[] memory tokenAmounts = new uint256[](1);
         tokens[0] = ADDRESS_USDC;
-        amounts[0] = amountInWithFee;
+        tokenAmounts[0] = amountInWithFee;
 
         erc20proxy.startViaRubic{ value: FIXED_NATIVE_FEE }(
             tokens,

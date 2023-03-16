@@ -146,7 +146,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
         bytes memory facetCallData = abi.encodeWithSelector(
-            multichainFacet.swapAndStartBridgeTokensViaMultichain.selector,
+            multichainFacet.startBridgeTokensViaMultichain.selector,
             bridgeData,
             multichainData
         );
@@ -250,16 +250,25 @@ contract MultichainFacetTest is TestBaseFacet {
             bridgeData.minAmount
         );
 
-        multichainFacet.startBridgeTokensViaMultichain(
+        bytes memory facetCallData = abi.encodeWithSelector(
+            multichainFacet.startBridgeTokensViaMultichain.selector,
             bridgeData,
             multichainData
         );
+
+        address[] memory tokens = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        tokens[0] = bridgeData.sendingAssetId;
+        amounts[0] = bridgeData.minAmount;
+
+        erc20proxy.startViaRubic(tokens, amounts, facetCallData);
         vm.stopPrank();
     }
 
     function testFailWhenUsingNotWhitelistedRouter() public {
         // re-deploy multichain facet with adjusted router whitelist
-        (diamond, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         routers = [
             0x55aF5865807b196bD0197e0902746F31FBcCFa58, // TestMultichainToken
             0x7782046601e7b9B05cA55A3899780CE6EE6B8B2B // AnyswapV6Router
@@ -313,7 +322,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function testFail_revert_UsingNonWhitelistedRouter() public {
         // re-deploy multichain facet with adjusted router whitelist
-        (diamond, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         routers = [
             0x55aF5865807b196bD0197e0902746F31FBcCFa58, // TestMultichainToken
             0x7782046601e7b9B05cA55A3899780CE6EE6B8B2B // AnyswapV6Router
