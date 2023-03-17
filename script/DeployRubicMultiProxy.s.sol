@@ -24,9 +24,8 @@ contract DeployScript is DeployScriptBase {
         );
         string memory json = vm.readFile(path);
         address diamondCut = json.readAddress(".DiamondCutFacet");
-        address erc20proxy = json.readAddress(".ERC20Proxy");
 
-        constructorArgs = abi.encode(deployerAddress, diamondCut, erc20proxy);
+        constructorArgs = abi.encode(deployerAddress, diamondCut);
 
         vm.startBroadcast(deployerPrivateKey);
 
