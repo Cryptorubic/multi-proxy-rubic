@@ -23,13 +23,12 @@ contract DiamondTest {
         OwnershipFacet ownership = new OwnershipFacet();
         AccessManagerFacet access = new AccessManagerFacet();
         FeesFacet fees = new FeesFacet();
-        ERC20Proxy erc20proxy = new ERC20Proxy(address(this));
         RubicMultiProxy diamond = new RubicMultiProxy(
             address(this),
             address(diamondCut)
         );
 
-        erc20proxy.setDiamond(address(diamond));
+        ERC20Proxy erc20proxy = new ERC20Proxy(address(this), address(diamond));
 
         bytes4[] memory functionSelectors;
         bytes memory initCallData = abi.encodeWithSelector(

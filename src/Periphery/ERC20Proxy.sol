@@ -16,8 +16,9 @@ contract ERC20Proxy is Ownable {
     event DiamondSet(address diamond);
 
     /// Constructor
-    constructor(address _owner) {
+    constructor(address _owner, address _diamond) {
         transferOwnership(_owner);
+        diamond = _diamond;
     }
 
     function setDiamond(address _diamond) external onlyOwner {
