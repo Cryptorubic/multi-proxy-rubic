@@ -31,10 +31,10 @@
       "maxFixedNativeFee": 0
     },
     "polygon": {
-      "maxFixedNativeFee": 0
+      "maxFixedNativeFee": 200000000000000000000
     },
     "bsc": {
-      "maxFixedNativeFee": 0
+      "maxFixedNativeFee": 1000000000000000000
     },
     "arbitru": {
       "maxFixedNativeFee": 0
