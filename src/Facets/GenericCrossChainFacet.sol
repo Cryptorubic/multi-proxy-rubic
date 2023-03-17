@@ -94,7 +94,7 @@ contract GenericCrossChainFacet is
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         validateBridgeData(_bridgeData)
         validateGenericData(_genericData)
         doesNotContainSourceSwaps(_bridgeData)
@@ -125,7 +125,7 @@ contract GenericCrossChainFacet is
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
         validateGenericData(_genericData)
@@ -135,7 +135,7 @@ contract GenericCrossChainFacet is
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(msg.sender)
+            payable(_bridgeData.refundee)
         );
 
         _startBridge(

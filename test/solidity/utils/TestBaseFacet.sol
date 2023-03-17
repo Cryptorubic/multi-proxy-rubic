@@ -162,6 +162,7 @@ abstract contract TestBaseFacet is TestBase {
                 bridgeData.sendingAssetId,
                 bridgeData.receivingAssetId,
                 bridgeData.receiver,
+                bridgeData.refundee,
                 bridgeData.minAmount - feeTokenAmount,
                 bridgeData.destinationChainId,
                 bridgeData.hasSourceSwaps,

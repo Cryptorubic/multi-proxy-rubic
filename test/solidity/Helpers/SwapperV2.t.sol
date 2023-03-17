@@ -14,7 +14,9 @@ import { LibAsset } from "rubic/Libraries/LibAsset.sol";
 
 // Stub SwapperV2 Contract
 contract TestSwapperV2 is SwapperV2 {
-    function doSwaps(LibSwap.SwapData[] calldata _swapData) public {
+    function doSwaps(
+        LibSwap.SwapData[] calldata _swapData
+    ) public payable refundExcessNative(payable(address(0xb33f))) {
         _depositAndSwap(
             "",
             (_swapData[_swapData.length - 1].fromAmount * 95) / 100,
@@ -200,6 +202,33 @@ contract SwapperV2Test is DSTest, DiamondTest {
 
         assertEq(token1.balanceOf(address(this)), 0);
         assertEq(token1.balanceOf(address(amm)), 0);
+        assertEq(token2.balanceOf(address(1337)), 10_100 ether);
+    }
+
+    function testExcessNativeRefund() public {
+        ERC20 token2 = new ERC20("Token 2", "T2", 18);
+
+        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
+
+        swapData[0] = LibSwap.SwapData(
+            address(amm),
+            address(amm),
+            address(0),
+            address(token2),
+            1 ether,
+            abi.encodeWithSelector(
+                amm.swap.selector,
+                address(0),
+                1 ether,
+                token2,
+                10_100 ether
+            ),
+            true
+        );
+
+        swapper.doSwaps{ value: 2 ether }(swapData);
+
+        assertEq(address(0xb33f).balance, 1 ether);
         assertEq(token2.balanceOf(address(1337)), 10_100 ether);
     }
 }

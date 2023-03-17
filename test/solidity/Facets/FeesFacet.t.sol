@@ -99,6 +99,7 @@ contract FeesFacetTest is Test, DiamondTest {
             sendingAssetId: address(token),
             receivingAssetId: address(0xdeadcafebabe),
             receiver: USER_SENDER,
+            refundee: USER_SENDER,
             minAmount: DEFAULT_TOKEN_AMOUNT,
             destinationChainId: 137,
             hasSourceSwaps: false,

@@ -292,6 +292,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
             sendingAssetId: ADDRESS_USDC,
             receivingAssetId: address(0xdeadcafebabe),
             receiver: USER_RECEIVER,
+            refundee: USER_SENDER,
             minAmount: defaultUSDCAmount,
             destinationChainId: 137,
             hasSourceSwaps: false,
