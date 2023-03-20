@@ -109,7 +109,29 @@ contract DeployScript is UpdateScriptBase {
             })
         );
 
-        cutter.diamondCut(cut, address(0), "");
+        string memory feesConfigPath = string.concat(
+            vm.projectRoot(),
+            "/config/fees.json"
+        );
+        string memory feesConfigJson = vm.readFile(feesConfigPath);
+        address feeTreasury = feesConfigJson.readAddress(
+            string.concat(".config.", "feeTreasury.", network)
+        );
+        uint256 maxFixedNativeFee = feesConfigJson.readUint(
+            string.concat(".config.", network, ".maxFixedNativeFee")
+        );
+        uint256 maxRubicTokenFee = feesConfigJson.readUint(
+            string.concat(".config", ".maxRubicTokenFee")
+        );
+
+        bytes memory initCallData = abi.encodeWithSelector(
+            FeesFacet.initialize.selector,
+            feeTreasury,
+            maxRubicTokenFee,
+            maxFixedNativeFee
+        );
+
+        cutter.diamondCut(cut, fees, initCallData);
 
         facets = loupe.facetAddresses();
 

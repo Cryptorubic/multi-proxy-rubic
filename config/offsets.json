@@ -1,0 +1,24 @@
+{
+  "polygon": [
+    {
+      "router": "0x88dcdc47d2f83a99cf0000fdf667a468bb958a78",
+      "selector": "0xa5977fbb",
+      "offset": 68
+    }
+  ],
+  "bsc": [
+    {
+      "router": "0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF",
+      "selector": "0xa5977fbb",
+      "offset": 68
+    }
+  ],
+  "mainnet": [],
+  "avalanche": [],
+  "fantom": [],
+  "arbitrum": [],
+  "optimism": [],
+  "moonriver": [],
+  "cronos": [],
+  "telos": []
+}

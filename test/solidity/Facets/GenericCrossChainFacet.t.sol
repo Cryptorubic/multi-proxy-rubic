@@ -26,30 +26,68 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         internal genericCrossChainData;
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            genericCrossChainFacet
+                .startBridgeTokensViaGenericCrossChain
+                .selector,
+            bridgeData,
+            genericCrossChainData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            genericCrossChainFacet.startBridgeTokensViaGenericCrossChain{
+            erc20proxy.startViaRubic{
                 value: bridgeData.minAmount + addToMessageValue
-            }(bridgeData, genericCrossChainData);
+            }(tokens, amounts, facetCallData);
         } else {
-            genericCrossChainFacet.startBridgeTokensViaGenericCrossChain{
-                value: addToMessageValue
-            }(bridgeData, genericCrossChainData);
+            tokens = new address[](1);
+            amounts = new uint256[](1);
+
+            tokens[0] = bridgeData.sendingAssetId;
+            amounts[0] = bridgeData.minAmount;
+
+            erc20proxy.startViaRubic{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
+            );
         }
     }
 
     function initiateSwapAndBridgeTxWithFacet(
         bool isNative
     ) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            genericCrossChainFacet
+                .swapAndStartBridgeTokensViaGenericCrossChain
+                .selector,
+            bridgeData,
+            swapData,
+            genericCrossChainData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            genericCrossChainFacet
-                .swapAndStartBridgeTokensViaGenericCrossChain{
+            erc20proxy.startViaRubic{
                 value: swapData[0].fromAmount + addToMessageValue
-            }(bridgeData, swapData, genericCrossChainData);
+            }(tokens, amounts, facetCallData);
         } else {
-            genericCrossChainFacet
-                .swapAndStartBridgeTokensViaGenericCrossChain{
-                value: addToMessageValue
-            }(bridgeData, swapData, genericCrossChainData);
+            if (swapData.length > 0) {
+                tokens = new address[](1);
+                amounts = new uint256[](1);
+                tokens[0] = swapData[0].sendingAssetId;
+                amounts[0] = swapData[0].fromAmount;
+            }
+
+            erc20proxy.startViaRubic{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
+            );
         }
     }
 
@@ -164,37 +202,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
             ),
             32 * 4 + 4
         );
-    }
-
-    function test_Revert_CannotCallERC20Proxy() public {
-        vm.startPrank(USER_SENDER);
-
-        genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
-            payable(erc20proxy),
-            abi.encodeWithSelector(
-                IXSwapper.swap.selector,
-                address(0),
-                IXSwapper.SwapDescription(
-                    ADDRESS_USDC,
-                    ADDRESS_USDC,
-                    USER_SENDER,
-                    228,
-                    228
-                ),
-                "",
-                IXSwapper.ToChainDescription(
-                    56,
-                    0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56, // BUSD
-                    1000,
-                    100
-                )
-            )
-        );
-
-        vm.expectRevert(UnAuthorized.selector);
-        initiateBridgeTxWithFacet(false);
-
-        vm.stopPrank();
     }
 
     function testBase_CanBridgeTokens_fuzzed(uint256 amount) public override {

@@ -30,6 +30,8 @@ contract GenericCrossChainFacet is
 
     /// Types ///
 
+    /// @param router Address of the router that has to be called
+    /// @param callData Calldata that has to be passed to the router
     struct GenericCrossChainData {
         address router;
         bytes callData;
@@ -40,8 +42,6 @@ contract GenericCrossChainFacet is
     modifier validateGenericData(GenericCrossChainData calldata _genericData) {
         if (!LibAsset.isContract(_genericData.router))
             revert InvalidContract();
-        if (_genericData.router == address(LibAsset.getERC20proxy()))
-            revert UnAuthorized();
         _;
     }
 
@@ -94,7 +94,7 @@ contract GenericCrossChainFacet is
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         validateBridgeData(_bridgeData)
         validateGenericData(_genericData)
         doesNotContainSourceSwaps(_bridgeData)
@@ -125,7 +125,7 @@ contract GenericCrossChainFacet is
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
         validateGenericData(_genericData)
@@ -135,7 +135,7 @@ contract GenericCrossChainFacet is
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(msg.sender)
+            payable(_bridgeData.refundee)
         );
 
         _startBridge(

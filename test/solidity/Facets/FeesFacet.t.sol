@@ -6,6 +6,7 @@ import { TestToken } from "../utils/TestToken.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { LibAsset } from "rubic/Libraries/LibAsset.sol";
+import { ERC20Proxy } from "rubic/Periphery/ERC20Proxy.sol";
 import { Vm } from "forge-std/Vm.sol";
 import { IRubic } from "rubic/Interfaces/IRubic.sol";
 import { FullMath } from "rubic/Libraries/FullMath.sol";
@@ -60,7 +61,9 @@ contract FeesFacetTest is Test, DiamondTest {
         address(uint160(uint256(keccak256("fee.treasury"))));
 
     function setUp() public {
-        (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        ERC20Proxy _erc20proxy;
+        (diamond, _erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        erc20proxy = address(_erc20proxy);
         feesFacet = new FeesFacet();
         mockFacet = new MockFacetWithFees();
 
@@ -96,6 +99,7 @@ contract FeesFacetTest is Test, DiamondTest {
             sendingAssetId: address(token),
             receivingAssetId: address(0xdeadcafebabe),
             receiver: USER_SENDER,
+            refundee: USER_SENDER,
             minAmount: DEFAULT_TOKEN_AMOUNT,
             destinationChainId: 137,
             hasSourceSwaps: false,
@@ -120,7 +124,7 @@ contract FeesFacetTest is Test, DiamondTest {
         setFixedNativeFee
     {
         vm.startPrank(USER_SENDER);
-        token.approve(erc20proxy, type(uint256).max);
+        token.transfer(address(mockFacet), DEFAULT_TOKEN_AMOUNT);
 
         mockFacet.bridgeTokensViaMock{ value: FIXED_NATIVE_FEE }(defaultData);
 
@@ -152,7 +156,7 @@ contract FeesFacetTest is Test, DiamondTest {
         setFixedNativeFee
     {
         vm.startPrank(USER_SENDER);
-        token.approve(erc20proxy, type(uint256).max);
+        token.transfer(address(mockFacet), DEFAULT_TOKEN_AMOUNT);
 
         vm.expectRevert(InvalidAmount.selector);
         mockFacet.bridgeTokensViaMockWithNativeReserve{
@@ -270,7 +274,7 @@ contract FeesFacetTest is Test, DiamondTest {
 
     function testTokenFeeCollecting_SendingTokens() public setTokenFee {
         vm.startPrank(USER_SENDER);
-        token.approve(erc20proxy, type(uint256).max);
+        token.transfer(address(mockFacet), DEFAULT_TOKEN_AMOUNT);
 
         mockFacet.bridgeTokensViaMock(defaultData);
 

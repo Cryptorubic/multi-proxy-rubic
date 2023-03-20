@@ -1,0 +1,82 @@
+{
+  "config": {
+    "maxRubicTokenFee": 250000,
+    "feeTreasury": {
+      "goerli": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "mainnet": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "bsc": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "polygon": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "arbitrum": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "optimism": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "fantom": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "avalanche": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "mumbai": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "gnosis": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "moonbeam": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "moonriver": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "fuse": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "cronos": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "harmony": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "evmos": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "boba": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9",
+      "nova": "0xE19474aC8136349b568bbB7C0e9FFd90EC09Eeb9"
+    },
+    "hardhat": {
+      "maxFixedNativeFee": 0
+    },
+    "mainnet": {
+      "maxFixedNativeFee": 0
+    },
+    "gnosis": {
+      "maxFixedNativeFee": 0
+    },
+    "polygon": {
+      "maxFixedNativeFee": 200000000000000000000
+    },
+    "bsc": {
+      "maxFixedNativeFee": 1000000000000000000
+    },
+    "arbitru": {
+      "maxFixedNativeFee": 0
+    },
+    "optimis": {
+      "maxFixedNativeFee": 0
+    },
+    "fantom": {
+      "maxFixedNativeFee": 0
+    },
+    "avalanc": {
+      "maxFixedNativeFee": 0
+    },
+    "moonriv": {
+      "maxFixedNativeFee": 0
+    },
+    "moonbea": {
+      "maxFixedNativeFee": 0
+    },
+    "celo": {
+      "maxFixedNativeFee": 0
+    },
+    "fuse": {
+      "maxFixedNativeFee": 0
+    },
+    "cronos": {
+      "maxFixedNativeFee": 0
+    },
+    "okx": {
+      "maxFixedNativeFee": 0
+    },
+    "harmony": {
+      "maxFixedNativeFee": 0
+    },
+    "evmos": {
+      "maxFixedNativeFee": 0
+    },
+    "boba": {
+      "maxFixedNativeFee": 0
+    },
+    "nova": {
+      "maxFixedNativeFee": 0
+    }
+  }
+}

@@ -3,26 +3,25 @@ pragma solidity 0.8.17;
 
 import { IERC20 } from "@axelar-network/axelar-cgp-solidity/contracts/interfaces/IERC20.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
+import { IDexManagerFacet } from "../Interfaces/IDexManagerFacet.sol";
 import { LibSwap } from "../Libraries/LibSwap.sol";
 import { LibAsset } from "../Libraries/LibAsset.sol";
+import { LibBytes } from "../Libraries/LibBytes.sol";
 import { IRubic } from "../Interfaces/IRubic.sol";
-import { IERC20Proxy } from "../Interfaces/IERC20Proxy.sol";
 import { TransferrableOwnership } from "../Helpers/TransferrableOwnership.sol";
+import { ZeroAddress, ContractCallNotAllowed } from "../Errors/GenericErrors.sol";
 
 /// @title Executor
 /// @notice Arbitrary execution contract used for cross-chain swaps and message passing
 contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// Storage ///
 
-    /// @notice The address of the ERC20Proxy contract
-    IERC20Proxy public erc20Proxy;
+    /// @dev used to fetch a whitelist
+    IDexManagerFacet public diamond;
 
     /// Errors ///
     error ExecutionFailed();
     error InvalidCaller();
-
-    /// Events ///
-    event ERC20ProxySet(address indexed proxy);
 
     /// Modifiers ///
 
@@ -64,24 +63,14 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// Constructor
     /// @notice Initialize local variables for the Executor
     /// @param _owner The address of owner
-    /// @param _erc20Proxy The address of the ERC20Proxy contract
     constructor(
         address _owner,
-        address _erc20Proxy
+        address _diamond
     ) TransferrableOwnership(_owner) {
+        if (_diamond == address(0)) revert ZeroAddress();
+
         owner = _owner;
-        erc20Proxy = IERC20Proxy(_erc20Proxy);
-
-        emit ERC20ProxySet(_erc20Proxy);
-    }
-
-    /// External Methods ///
-
-    /// @notice set ERC20 Proxy
-    /// @param _erc20Proxy The address of the ERC20Proxy contract
-    function setERC20Proxy(address _erc20Proxy) external onlyOwner {
-        erc20Proxy = IERC20Proxy(_erc20Proxy);
-        emit ERC20ProxySet(_erc20Proxy);
+        diamond = IDexManagerFacet(_diamond);
     }
 
     /// @notice Performs a swap before completing a cross-chain transaction
@@ -100,31 +89,7 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
             _swapData,
             _transferredAssetId,
             _receiver,
-            0,
-            true
-        );
-    }
-
-    /// @notice Performs a series of swaps or arbitrary executions
-    /// @param _transactionId the transaction id for the swap
-    /// @param _swapData array of data needed for swaps
-    /// @param _transferredAssetId token received from the other chain
-    /// @param _receiver address that will receive tokens in the end
-    /// @param _amount amount of token for swaps or arbitrary executions
-    function swapAndExecute(
-        bytes32 _transactionId,
-        LibSwap.SwapData[] calldata _swapData,
-        address _transferredAssetId,
-        address payable _receiver,
-        uint256 _amount
-    ) external payable nonReentrant {
-        _processSwaps(
-            _transactionId,
-            _swapData,
-            _transferredAssetId,
-            _receiver,
-            _amount,
-            false
+            0
         );
     }
 
@@ -136,14 +101,12 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     /// @param _transferredAssetId token received from the other chain
     /// @param _receiver address that will receive tokens in the end
     /// @param _amount amount of token for swaps or arbitrary executions
-    /// @param _depositAllowance If deposit approved amount of token
     function _processSwaps(
         bytes32 _transactionId,
         LibSwap.SwapData[] calldata _swapData,
         address _transferredAssetId,
         address payable _receiver,
-        uint256 _amount,
-        bool _depositAllowance
+        uint256 _amount
     ) private {
         uint256 startingBalance;
         uint256 finalAssetStartingBalance;
@@ -159,25 +122,16 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
 
         if (!LibAsset.isNativeAsset(_transferredAssetId)) {
             startingBalance = LibAsset.getOwnBalance(_transferredAssetId);
-            if (_depositAllowance) {
-                uint256 allowance = IERC20(_transferredAssetId).allowance(
-                    msg.sender,
-                    address(this)
-                );
-                LibAsset.transferFromERC20(
-                    _transferredAssetId,
-                    msg.sender,
-                    address(this),
-                    allowance
-                );
-            } else {
-                erc20Proxy.transferFrom(
-                    _transferredAssetId,
-                    msg.sender,
-                    address(this),
-                    _amount
-                );
-            }
+            uint256 allowance = IERC20(_transferredAssetId).allowance(
+                msg.sender,
+                address(this)
+            );
+            LibAsset.transferFromERC20(
+                _transferredAssetId,
+                msg.sender,
+                address(this),
+                allowance
+            );
         } else {
             startingBalance =
                 LibAsset.getOwnBalance(_transferredAssetId) -
@@ -227,8 +181,17 @@ contract Executor is IRubic, ReentrancyGuard, TransferrableOwnership {
     ) private noLeftovers(_swapData, _leftoverReceiver) {
         uint256 numSwaps = _swapData.length;
         for (uint256 i = 0; i < numSwaps; ) {
-            // call to the ERC20Proxy is blocked inside LibSwap.swap
             LibSwap.SwapData calldata currentSwapData = _swapData[i];
+
+            if (
+                !((LibAsset.isNativeAsset(currentSwapData.sendingAssetId) ||
+                    diamond.isContractApproved(currentSwapData.approveTo)) &&
+                    diamond.isContractApproved(currentSwapData.callTo) &&
+                    diamond.isFunctionApproved(
+                        LibBytes.getFirst4Bytes(currentSwapData.callData)
+                    ))
+            ) revert ContractCallNotAllowed();
+
             LibSwap.swap(_transactionId, currentSwapData);
             unchecked {
                 ++i;

@@ -140,33 +140,69 @@ contract MultichainFacetTest is TestBaseFacet {
         underlyingToken = ERC20(
             IMultichainToken(ADDRESS_ANYUSDC).underlying()
         );
-        underlyingToken.approve(erc20proxy, bridgeData.minAmount);
+        underlyingToken.approve(address(erc20proxy), bridgeData.minAmount);
         vm.stopPrank();
     }
 
     function initiateBridgeTxWithFacet(bool isNative) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            multichainFacet.startBridgeTokensViaMultichain.selector,
+            bridgeData,
+            multichainData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            multichainFacet.startBridgeTokensViaMultichain{
+            erc20proxy.startViaRubic{
                 value: bridgeData.minAmount + addToMessageValue
-            }(bridgeData, multichainData);
+            }(tokens, amounts, facetCallData);
         } else {
-            multichainFacet.startBridgeTokensViaMultichain{
-                value: addToMessageValue
-            }(bridgeData, multichainData);
+            tokens = new address[](1);
+            amounts = new uint256[](1);
+
+            tokens[0] = bridgeData.sendingAssetId;
+            amounts[0] = bridgeData.minAmount;
+
+            erc20proxy.startViaRubic{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
+            );
         }
     }
 
     function initiateSwapAndBridgeTxWithFacet(
         bool isNative
     ) internal override {
+        bytes memory facetCallData = abi.encodeWithSelector(
+            multichainFacet.swapAndStartBridgeTokensViaMultichain.selector,
+            bridgeData,
+            swapData,
+            multichainData
+        );
+
+        address[] memory tokens;
+        uint256[] memory amounts;
+
         if (isNative) {
-            multichainFacet.swapAndStartBridgeTokensViaMultichain{
+            erc20proxy.startViaRubic{
                 value: swapData[0].fromAmount + addToMessageValue
-            }(bridgeData, swapData, multichainData);
+            }(tokens, amounts, facetCallData);
         } else {
-            multichainFacet.swapAndStartBridgeTokensViaMultichain{
-                value: addToMessageValue
-            }(bridgeData, swapData, multichainData);
+            if (swapData.length > 0) {
+                tokens = new address[](1);
+                amounts = new uint256[](1);
+                tokens[0] = swapData[0].sendingAssetId;
+                amounts[0] = swapData[0].fromAmount;
+            }
+
+            erc20proxy.startViaRubic{ value: addToMessageValue }(
+                tokens,
+                amounts,
+                facetCallData
+            );
         }
     }
 
@@ -200,7 +236,7 @@ contract MultichainFacetTest is TestBaseFacet {
         uint256 amountToBeBridged = 10_000 * 10 ** testToken3.decimals();
 
         vm.startPrank(testToken3Whale);
-        testToken3.approve(erc20proxy, amountToBeBridged);
+        testToken3.approve(address(erc20proxy), amountToBeBridged);
 
         bridgeData.sendingAssetId = address(testToken3);
         bridgeData.minAmount = amountToBeBridged;
@@ -214,16 +250,25 @@ contract MultichainFacetTest is TestBaseFacet {
             bridgeData.minAmount
         );
 
-        multichainFacet.startBridgeTokensViaMultichain(
+        bytes memory facetCallData = abi.encodeWithSelector(
+            multichainFacet.startBridgeTokensViaMultichain.selector,
             bridgeData,
             multichainData
         );
+
+        address[] memory tokens = new address[](1);
+        uint256[] memory amounts = new uint256[](1);
+
+        tokens[0] = bridgeData.sendingAssetId;
+        amounts[0] = bridgeData.minAmount;
+
+        erc20proxy.startViaRubic(tokens, amounts, facetCallData);
         vm.stopPrank();
     }
 
     function testFailWhenUsingNotWhitelistedRouter() public {
         // re-deploy multichain facet with adjusted router whitelist
-        (diamond, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         routers = [
             0x55aF5865807b196bD0197e0902746F31FBcCFa58, // TestMultichainToken
             0x7782046601e7b9B05cA55A3899780CE6EE6B8B2B // AnyswapV6Router
@@ -263,7 +308,7 @@ contract MultichainFacetTest is TestBaseFacet {
         amount = amount * 10 ** testToken.decimals();
 
         // approval
-        underlyingToken.approve(erc20proxy, amount);
+        underlyingToken.approve(address(erc20proxy), amount);
 
         bridgeData.minAmount = amount;
 
@@ -277,7 +322,7 @@ contract MultichainFacetTest is TestBaseFacet {
 
     function testFail_revert_UsingNonWhitelistedRouter() public {
         // re-deploy multichain facet with adjusted router whitelist
-        (diamond, ) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
+        (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
         routers = [
             0x55aF5865807b196bD0197e0902746F31FBcCFa58, // TestMultichainToken
             0x7782046601e7b9B05cA55A3899780CE6EE6B8B2B // AnyswapV6Router

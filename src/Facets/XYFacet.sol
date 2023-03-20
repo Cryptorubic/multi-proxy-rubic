@@ -46,7 +46,7 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         validateBridgeData(_bridgeData)
         doesNotContainSourceSwaps(_bridgeData)
         doesNotContainDestinationCalls(_bridgeData)
@@ -73,7 +73,7 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
     {
@@ -82,7 +82,7 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(msg.sender)
+            payable(_bridgeData.refundee)
         );
 
         _startBridge(_bridgeData, _xyData);
@@ -111,6 +111,10 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             );
         }
 
+        address toChainToken = _xyData.toChainToken;
+        if (LibAsset.isNativeAsset(toChainToken))
+            toChainToken = xyNativeAddress;
+
         router.swap{ value: nativeAssetAmount }(
             address(0),
             IXSwapper.SwapDescription(
@@ -123,7 +127,7 @@ contract XYFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             "",
             IXSwapper.ToChainDescription(
                 uint32(_bridgeData.destinationChainId),
-                _xyData.toChainToken,
+                toChainToken,
                 _xyData.expectedToChainTokenAmount,
                 _xyData.slippage
             )

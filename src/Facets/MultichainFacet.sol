@@ -149,7 +149,7 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         doesNotContainSourceSwaps(_bridgeData)
         doesNotContainDestinationCalls(_bridgeData)
         validateBridgeData(_bridgeData)
@@ -179,7 +179,7 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         containsSourceSwaps(_bridgeData)
         doesNotContainDestinationCalls(_bridgeData)
         validateBridgeData(_bridgeData)
@@ -193,7 +193,7 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(msg.sender)
+            payable(_bridgeData.refundee)
         );
         _startBridge(_bridgeData, _multichainData);
     }

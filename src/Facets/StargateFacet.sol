@@ -122,7 +122,7 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         doesNotContainSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
         noNativeAsset(_bridgeData)
@@ -149,7 +149,7 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
         noNativeAsset(_bridgeData)
@@ -160,7 +160,7 @@ contract StargateFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(msg.sender),
+            payable(_bridgeData.refundee),
             _stargateData.lzFee
         );
 

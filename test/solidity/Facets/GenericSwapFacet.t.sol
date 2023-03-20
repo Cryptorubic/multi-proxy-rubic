@@ -119,7 +119,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         )
     {
         vm.startPrank(USDC_HOLDER);
-        usdc.approve(erc20proxy, 10_000 * 10 ** usdc.decimals());
+        usdc.approve(address(erc20proxy), 10_000 * 10 ** usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -152,7 +152,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric(
+        bytes memory callData = abi.encodeWithSelector(
+            genericSwapFacet.swapTokensGeneric.selector,
             "",
             address(0),
             address(0),
@@ -160,6 +161,13 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             defaultAmountOut,
             swapData
         );
+
+        address[] memory tokens = new address[](1);
+        uint256[] memory tokenAmounts = new uint256[](1);
+        tokens[0] = ADDRESS_USDC;
+        tokenAmounts[0] = amountIn;
+
+        erc20proxy.startViaRubic(tokens, tokenAmounts, callData);
 
         uint256 expectedBalance = initUserBalace - amountIn;
         assertEq(usdc.balanceOf(USDC_HOLDER), expectedBalance);
@@ -206,13 +214,23 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{ value: amountIn }(
+        bytes memory callData = abi.encodeWithSelector(
+            genericSwapFacet.swapTokensGeneric.selector,
             "",
             address(0),
             address(0),
             payable(USDC_HOLDER),
             defaultAmountOut,
             swapData
+        );
+
+        address[] memory tokens;
+        uint256[] memory tokenAmounts;
+
+        erc20proxy.startViaRubic{ value: amountIn }(
+            tokens,
+            tokenAmounts,
+            callData
         );
 
         uint256 expectedBalance = initUserBalace - amountIn;
@@ -230,7 +248,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         )
     {
         vm.startPrank(USDC_HOLDER);
-        usdc.approve(erc20proxy, 13_000 * 10 ** usdc.decimals());
+        usdc.approve(address(erc20proxy), 13_000 * 10 ** usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -263,7 +281,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric(
+        bytes memory callData = abi.encodeWithSelector(
+            genericSwapFacet.swapTokensGeneric.selector,
             "",
             address(0),
             address(0),
@@ -271,6 +290,13 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             defaultAmountOut,
             swapData
         );
+
+        address[] memory tokens = new address[](1);
+        uint256[] memory tokenAmounts = new uint256[](1);
+        tokens[0] = ADDRESS_USDC;
+        tokenAmounts[0] = amountIn;
+
+        erc20proxy.startViaRubic(tokens, tokenAmounts, callData);
 
         uint256 expectedBalance = initUserBalace - amountIn;
         assertEq(usdc.balanceOf(USDC_HOLDER), expectedBalance);
@@ -289,7 +315,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
     {
         vm.startPrank(USDC_HOLDER);
 
-        usdc.approve(erc20proxy, 10_000 * 10 ** usdc.decimals());
+        usdc.approve(address(erc20proxy), 10_000 * 10 ** usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -322,13 +348,25 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{ value: FIXED_NATIVE_FEE }(
+        bytes memory callData = abi.encodeWithSelector(
+            genericSwapFacet.swapTokensGeneric.selector,
             "",
             INTEGRATOR,
             address(0),
             payable(USDC_HOLDER),
             defaultAmountOut,
             swapData
+        );
+
+        address[] memory tokens = new address[](1);
+        uint256[] memory tokenAmounts = new uint256[](1);
+        tokens[0] = ADDRESS_USDC;
+        tokenAmounts[0] = amountInWithFee;
+
+        erc20proxy.startViaRubic{ value: FIXED_NATIVE_FEE }(
+            tokens,
+            tokenAmounts,
+            callData
         );
 
         assertEq(FEE_TREASURY.balance, FIXED_NATIVE_FEE);
@@ -349,8 +387,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         // Calculate DAI amount
         uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
         uint256 amountIn = amounts[0];
-        uint256 amountInWithFee = (amountIn * (DENOMINATOR + TOKEN_FEE)) /
-            DENOMINATOR;
+        uint256 amountInWithFee = (amountIn * DENOMINATOR) /
+            (DENOMINATOR - TOKEN_FEE);
         LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
         swapData[0] = LibSwap.SwapData(
             address(uniswap),
@@ -368,22 +406,34 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{
-            value: amountInWithFee + FIXED_NATIVE_FEE
-        }(
+        bytes memory callData = abi.encodeWithSelector(
+            genericSwapFacet.swapTokensGeneric.selector,
             "",
-            address(0),
+            INTEGRATOR,
             address(0),
             payable(USDC_HOLDER),
-            amountOut,
+            defaultAmountOut,
             swapData
         );
+
+        address[] memory tokens;
+        uint256[] memory tokenAmounts;
+
+        erc20proxy.startViaRubic{ value: amountInWithFee + FIXED_NATIVE_FEE }(
+            tokens,
+            tokenAmounts,
+            callData
+        );
+
+        assertEq(FEE_TREASURY.balance, FIXED_NATIVE_FEE);
+        assertEq(INTEGRATOR.balance, amountInWithFee - amountIn);
+
         vm.stopPrank();
     }
 
     function testCanSwapERC20ToNativeWithFees() public setFees {
         vm.startPrank(USDC_HOLDER);
-        usdc.approve(erc20proxy, 30_000 * 10 ** usdc.decimals());
+        usdc.approve(address(erc20proxy), 30_000 * 10 ** usdc.decimals());
 
         // Swap USDC to DAI
         address[] memory path = new address[](2);
@@ -395,8 +445,8 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         // Calculate DAI amount
         uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
         uint256 amountIn = amounts[0];
-        uint256 amountInWithFee = (amountIn * (DENOMINATOR + TOKEN_FEE)) /
-            DENOMINATOR;
+        uint256 amountInWithFee = (amountIn * DENOMINATOR) /
+            (DENOMINATOR - TOKEN_FEE);
 
         LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
         swapData[0] = LibSwap.SwapData(
@@ -416,14 +466,30 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             true
         );
 
-        genericSwapFacet.swapTokensGeneric{ value: FIXED_NATIVE_FEE }(
+        bytes memory callData = abi.encodeWithSelector(
+            genericSwapFacet.swapTokensGeneric.selector,
             "",
-            address(0),
+            INTEGRATOR,
             address(0),
             payable(USDC_HOLDER),
-            amountOut,
+            defaultAmountOut,
             swapData
         );
+
+        address[] memory tokens = new address[](1);
+        uint256[] memory tokenAmounts = new uint256[](1);
+        tokens[0] = ADDRESS_USDC;
+        tokenAmounts[0] = amountInWithFee;
+
+        erc20proxy.startViaRubic{ value: FIXED_NATIVE_FEE }(
+            tokens,
+            tokenAmounts,
+            callData
+        );
+
+        assertEq(FEE_TREASURY.balance, FIXED_NATIVE_FEE);
+        assertEq(usdc.balanceOf(INTEGRATOR), amountInWithFee - amountIn);
+
         vm.stopPrank();
     }
 }

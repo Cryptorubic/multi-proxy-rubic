@@ -12,6 +12,7 @@ interface IRubic {
         address sendingAssetId;
         address receivingAssetId;
         address receiver;
+        address refundee;
         uint256 minAmount;
         uint256 destinationChainId;
         bool hasSourceSwaps;

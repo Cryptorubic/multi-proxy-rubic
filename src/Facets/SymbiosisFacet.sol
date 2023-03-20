@@ -56,7 +56,7 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         validateBridgeData(_bridgeData)
         doesNotContainSourceSwaps(_bridgeData)
         doesNotContainDestinationCalls(_bridgeData)
@@ -83,7 +83,7 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         external
         payable
         nonReentrant
-        refundExcessNative(payable(msg.sender))
+        refundExcessNative(payable(_bridgeData.refundee))
         containsSourceSwaps(_bridgeData)
         validateBridgeData(_bridgeData)
     {
@@ -92,7 +92,7 @@ contract SymbiosisFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(msg.sender)
+            payable(_bridgeData.refundee)
         );
 
         _startBridge(_bridgeData, _symbiosisData);

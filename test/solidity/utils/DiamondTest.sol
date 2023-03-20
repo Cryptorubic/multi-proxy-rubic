@@ -17,20 +17,18 @@ contract DiamondTest {
     function createDiamond(
         address treasury,
         uint256 maxRubicPlatformFee
-    ) internal returns (RubicMultiProxy, address) {
+    ) internal returns (RubicMultiProxy, ERC20Proxy) {
         DiamondCutFacet diamondCut = new DiamondCutFacet();
         DiamondLoupeFacet diamondLoupe = new DiamondLoupeFacet();
         OwnershipFacet ownership = new OwnershipFacet();
         AccessManagerFacet access = new AccessManagerFacet();
         FeesFacet fees = new FeesFacet();
-        ERC20Proxy erc20proxy = new ERC20Proxy(address(this));
         RubicMultiProxy diamond = new RubicMultiProxy(
             address(this),
-            address(diamondCut),
-            address(erc20proxy)
+            address(diamondCut)
         );
 
-        erc20proxy.setAuthorizedCaller(address(diamond), true);
+        ERC20Proxy erc20proxy = new ERC20Proxy(address(this), address(diamond));
 
         bytes4[] memory functionSelectors;
         bytes memory initCallData = abi.encodeWithSelector(
@@ -131,7 +129,7 @@ contract DiamondTest {
 
         delete cut;
 
-        return (diamond, address(erc20proxy));
+        return (diamond, erc20proxy);
     }
 
     function addFacet(
