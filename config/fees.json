@@ -46,7 +46,7 @@
       "maxFixedNativeFee": 0
     },
     "avalanche": {
-      "maxFixedNativeFee": 0
+      "maxFixedNativeFee": 10000000000000000000
     },
     "moonriver": {
       "maxFixedNativeFee": 0
