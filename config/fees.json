@@ -36,22 +36,22 @@
     "bsc": {
       "maxFixedNativeFee": 1000000000000000000
     },
-    "arbitru": {
+    "arbitrum": {
       "maxFixedNativeFee": 0
     },
-    "optimis": {
+    "optimism": {
       "maxFixedNativeFee": 0
     },
     "fantom": {
       "maxFixedNativeFee": 0
     },
-    "avalanc": {
+    "avalanche": {
       "maxFixedNativeFee": 0
     },
-    "moonriv": {
+    "moonriver": {
       "maxFixedNativeFee": 0
     },
-    "moonbea": {
+    "moonbeam": {
       "maxFixedNativeFee": 0
     },
     "celo": {
