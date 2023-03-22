@@ -33,8 +33,13 @@ library LibMappings {
         mapping(uint256 => uint32) amarokDomain;
     }
 
+    struct ProviderFunctionInfo {
+        bool isAvailable;
+        uint256 offset;
+    }
+
     struct GenericCrossChainMappings {
-        mapping(address => mapping(bytes4 => uint256)) providerFunctionAmountOffset;
+        mapping(address => mapping(bytes4 => ProviderFunctionInfo)) selectorToInfo;
     }
 
     /// @dev Fetch local storage for Stargate

@@ -22,10 +22,10 @@ contract GenericCrossChainFacet is
 {
     /// Events ///
 
-    event ProviderFunctionAmountOffsetUpdated(
+    event SelectorToInfoUpdated(
         address[] _routers,
         bytes4[] _selectors,
-        uint256[] _offsets
+        LibMappings.ProviderFunctionInfo[] _infos
     );
 
     /// Types ///
@@ -50,11 +50,11 @@ contract GenericCrossChainFacet is
     /// @notice Updates the amount offset of the specific function of the specific provider's router
     /// @param _routers Array of provider's routers
     /// @param _selectors Array of function selectors
-    /// @param _offsets Array of amount offsets
-    function updateProviderFunctionAmountOffset(
+    /// @param _infos Array of params associated with specified function
+    function updateSelectorInfo(
         address[] calldata _routers,
         bytes4[] calldata _selectors,
-        uint256[] calldata _offsets
+        LibMappings.ProviderFunctionInfo[] calldata _infos
     ) external {
         LibDiamond.enforceIsContractOwner();
 
@@ -63,25 +63,19 @@ contract GenericCrossChainFacet is
 
         if (
             _routers.length != _selectors.length ||
-            _selectors.length != _offsets.length
+            _selectors.length != _infos.length
         ) {
             revert LengthMissmatch();
         }
 
         for (uint64 i; i < _routers.length; ) {
-            sm.providerFunctionAmountOffset[_routers[i]][
-                _selectors[i]
-            ] = _offsets[i];
+            sm.selectorToInfo[_routers[i]][_selectors[i]] = _infos[i];
             unchecked {
                 ++i;
             }
         }
 
-        emit ProviderFunctionAmountOffsetUpdated(
-            _routers,
-            _selectors,
-            _offsets
-        );
+        emit SelectorToInfoUpdated(_routers, _selectors, _infos);
     }
 
     /// @notice Bridges tokens via arbitrary cross-chain provider
@@ -150,14 +144,14 @@ contract GenericCrossChainFacet is
     /// @param _router Address of provider's router
     /// @param _selector Selector of the function
     /// @return Amount offset
-    function getProviderFunctionAmountOffset(
+    function getSelectorInfo(
         address _router,
         bytes4 _selector
-    ) external view returns (uint256) {
+    ) external view returns (LibMappings.ProviderFunctionInfo memory) {
         LibMappings.GenericCrossChainMappings storage sm = LibMappings
             .getGenericCrossChainMappings();
 
-        return sm.providerFunctionAmountOffset[_router][_selector];
+        return sm.selectorToInfo[_router][_selector];
     }
 
     /// Internal Methods ///
@@ -199,26 +193,30 @@ contract GenericCrossChainFacet is
     ) private view returns (GenericCrossChainData memory) {
         LibMappings.GenericCrossChainMappings storage sm = LibMappings
             .getGenericCrossChainMappings();
-        uint256 offset = sm.providerFunctionAmountOffset[_genericData.router][
-            bytes4(_genericData.callData[:4])
-        ];
+        LibMappings.ProviderFunctionInfo memory info = sm.selectorToInfo[
+            _genericData.router
+        ][bytes4(_genericData.callData[:4])];
 
-        if (offset > 0) {
-            return
-                GenericCrossChainData(
-                    _genericData.router,
-                    bytes.concat(
-                        _genericData.callData[:offset],
-                        abi.encode(amount),
-                        _genericData.callData[offset + 32:]
-                    )
-                );
+        if (info.isAvailable) {
+            if (info.offset > 0) {
+                return
+                    GenericCrossChainData(
+                        _genericData.router,
+                        bytes.concat(
+                            _genericData.callData[:info.offset],
+                            abi.encode(amount),
+                            _genericData.callData[info.offset + 32:]
+                        )
+                    );
+            } else {
+                return
+                    GenericCrossChainData(
+                        _genericData.router,
+                        _genericData.callData
+                    );
+            }
         } else {
-            return
-                GenericCrossChainData(
-                    _genericData.router,
-                    _genericData.callData
-                );
+            revert UnAuthorized();
         }
     }
 }
