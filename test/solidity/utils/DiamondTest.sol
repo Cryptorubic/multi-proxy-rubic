@@ -28,7 +28,10 @@ contract DiamondTest {
             address(diamondCut)
         );
 
-        ERC20Proxy erc20proxy = new ERC20Proxy(address(this), address(diamond));
+        ERC20Proxy erc20proxy = new ERC20Proxy(
+            address(this),
+            address(diamond)
+        );
 
         bytes4[] memory functionSelectors;
         bytes memory initCallData = abi.encodeWithSelector(
