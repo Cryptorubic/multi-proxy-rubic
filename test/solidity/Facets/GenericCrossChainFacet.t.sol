@@ -5,6 +5,7 @@ import { LibAllowList, TestBaseFacet } from "../utils/TestBaseFacet.sol";
 import { TestToken } from "../utils/TestToken.sol";
 import { TestFacet } from "../utils/TestBase.sol";
 import { IXSwapper } from "rubic/Interfaces/IXSwapper.sol";
+import { LibMappings } from "rubic/Libraries/LibMappings.sol";
 import { GenericCrossChainFacet } from "rubic/Facets/GenericCrossChainFacet.sol";
 import { UnAuthorized } from "src/Errors/GenericErrors.sol";
 
@@ -110,11 +111,9 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
             .setFunctionApprovalBySignature
             .selector;
         functionSelectors[4] = genericCrossChainFacet
-            .updateProviderFunctionAmountOffset
+            .updateSelectorInfo
             .selector;
-        functionSelectors[5] = genericCrossChainFacet
-            .getProviderFunctionAmountOffset
-            .selector;
+        functionSelectors[5] = genericCrossChainFacet.getSelectorInfo.selector;
 
         addFacet(diamond, address(genericCrossChainFacet), functionSelectors);
 
@@ -166,7 +165,8 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
 
         address[] memory _routers = new address[](1);
         bytes4[] memory _selectors = new bytes4[](1);
-        uint256[] memory _offsets = new uint256[](1);
+        LibMappings.ProviderFunctionInfo[]
+            memory _infos = new LibMappings.ProviderFunctionInfo[](1);
 
         //        0x4039c8d0 // 4
         //        0000000000000000000000000000000000000000000000000000000000000000 // 32
@@ -184,23 +184,20 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
 
         _routers[0] = XSWAPPER;
         _selectors[0] = IXSwapper.swap.selector;
-        _offsets[0] = 32 * 4 + 4;
+        _infos[0] = LibMappings.ProviderFunctionInfo(true, 32 * 4 + 4);
 
-        genericCrossChainFacet.updateProviderFunctionAmountOffset(
+        genericCrossChainFacet.updateSelectorInfo(
             _routers,
             _selectors,
-            _offsets
+            _infos
         );
     }
 
-    function testGetProviderFunctionAmountOffset() public {
-        assertEq(
-            genericCrossChainFacet.getProviderFunctionAmountOffset(
-                XSWAPPER,
-                IXSwapper.swap.selector
-            ),
-            32 * 4 + 4
-        );
+    function testGetSelectorInfo() public {
+        LibMappings.ProviderFunctionInfo memory info = genericCrossChainFacet
+            .getSelectorInfo(XSWAPPER, IXSwapper.swap.selector);
+
+        assertEq(info.offset, 32 * 4 + 4);
     }
 
     function testBase_CanBridgeTokens_fuzzed(uint256 amount) public override {
