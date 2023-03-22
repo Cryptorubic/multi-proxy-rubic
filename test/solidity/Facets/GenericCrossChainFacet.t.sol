@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import { LibAllowList, TestBaseFacet, console } from "../utils/TestBaseFacet.sol";
+import { LibAllowList, TestBaseFacet } from "../utils/TestBaseFacet.sol";
 import { TestToken } from "../utils/TestToken.sol";
 import { TestFacet } from "../utils/TestBase.sol";
 import { IXSwapper } from "rubic/Interfaces/IXSwapper.sol";
-import { console } from "forge-std/console.sol";
 import { GenericCrossChainFacet } from "rubic/Facets/GenericCrossChainFacet.sol";
 import { UnAuthorized } from "src/Errors/GenericErrors.sol";
 
