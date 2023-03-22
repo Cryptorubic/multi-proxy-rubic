@@ -200,6 +200,37 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         assertEq(info.offset, 32 * 4 + 4);
     }
 
+    function test_Revert_CannotUseNotAvailableProvider() public {
+        genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
+            payable(address(this)),
+            abi.encodeWithSelector(
+                IXSwapper.swap.selector,
+                address(0),
+                IXSwapper.SwapDescription(
+                    xyNativeAddress,
+                    xyNativeAddress,
+                    USER_SENDER,
+                    228,
+                    228
+                ),
+                "",
+                IXSwapper.ToChainDescription(
+                    56,
+                    0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56, // BUSD
+                    1000,
+                    100
+                )
+            )
+        );
+
+        bridgeData.sendingAssetId = address(0);
+        bridgeData.minAmount = 1 ether;
+
+        vm.expectRevert(UnAuthorized.selector);
+
+        initiateBridgeTxWithFacet(true);
+    }
+
     function testBase_CanBridgeTokens_fuzzed(uint256 amount) public override {
         // amount should be greater than xy fee
         vm.assume(amount > 15);
