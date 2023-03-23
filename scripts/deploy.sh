@@ -61,9 +61,9 @@ verifyContract() {
 	ARGS=$4
 	API_KEY="$(tr '[:lower:]' '[:upper:]' <<< $NETWORK)_ETHERSCAN_API_KEY"
 	if [ "$ARGS" = "0x" ]; then
-		forge verify-contract --watch --chain-id 40 --verifier sourcify $ADDRESS $CONTRACT
+		forge verify-contract --watch --etherscan-api-key "${!API_KEY}" --chain $NETWORK $ADDRESS $CONTRACT
 	else
-		forge verify-contract --watch --chain-id 40 --verifier sourcify $ADDRESS $CONTRACT --constructor-args $ARGS
+		forge verify-contract --watch --etherscan-api-key "${!API_KEY}" --chain $NETWORK $ADDRESS $CONTRACT --constructor-args $ARGS
 	fi
 }
 
