@@ -15,7 +15,7 @@ deploy() {
 
 	echo $SCRIPT
 
-	RAW_RETURN_DATA=$(SALT=$SALT NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK -vvvv --json --broadcast --skip-simulation --silent --legacy)
+	RAW_RETURN_DATA=$(SALT=$SALT NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK -vvvv --json --broadcast --skip-simulation --silent --legacy --verify)
   echo $RAW_RETURN_DATA
 	CLEAN_RETURN_DATA=$(echo $RAW_RETURN_DATA | sed 's/^.*{\"logs/{\"logs/')
 	echo $CLEAN__RETURN_DATA | jq 2> /dev/null
@@ -61,9 +61,9 @@ verifyContract() {
 	ARGS=$4
 	API_KEY="$(tr '[:lower:]' '[:upper:]' <<< $NETWORK)_ETHERSCAN_API_KEY"
 	if [ "$ARGS" = "0x" ]; then
-		forge verify-contract --watch --etherscan-api-key "${!API_KEY}" --chain $NETWORK $ADDRESS $CONTRACT
+		forge verify-contract --watch --chain-id 40 --verifier sourcify $ADDRESS $CONTRACT
 	else
-		forge verify-contract --watch --etherscan-api-key "${!API_KEY}" --chain $NETWORK $ADDRESS $CONTRACT --constructor-args $ARGS
+		forge verify-contract --watch --chain-id 40 --verifier sourcify $ADDRESS $CONTRACT --constructor-args $ARGS
 	fi
 }
 
