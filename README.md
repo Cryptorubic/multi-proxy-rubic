@@ -226,13 +226,14 @@ For the complete deployment of the project some configuration must be performed.
    2) [sigs.json](./config/sigs.json) - function's signatures that should be whitelisted on corresponding blockchain
    3) Configs related to a specific cross-chain provider:
       1) [multichain.json](./config/multichain.json) - For each blockchain: **anyNative** - address of AnyToken which underlying is WNative, **routers** - address allowed to be called within MultichainFacet
+      2) [multichainTokens.json](config/multichainTokens.json) - For each blockcahin: **chainID**, **mappings** - array of **tokenAddress** address of ANY token and **anyTokenAddress** address of original token
       2) [symbiosis.json](./config/symbiosis.json) - For each blockchain: **metaRouter** - address of Symbiosis metaRouter, **gateway** - address of Symbiosis gateway
       3) [stargate.json](./config/stargate.json) - **routers** - address of the Stargate router for each blockchain;
       For each blockchain: **chainId** - blockchain ID, **lzChainId** - Stargate's original blockchain ID;
       **pools**: For each blockchain: **address** - address of target token, **id** - corresponding Stargate's target pool ID
       4) [xy.json](./config/xy.json) - For each blockchain: **XSwapper** - address of the XSwapper
-   4) [genericCrossChainOffsets.json](./config/genericCrossChainOffsets.json) - **NOT READY YET**. Probably going to contain offsets of specific function related to certain providers
-   5) [fees.json](./config/fees.json) - **NOT READY YET**. Probably going to contain maxFixedNativeFee value (or it will be calculated), address of fee treasury and maybe something else
+   4) [offests.json](./config/offsets.json) - For each blockchain: an array of structs (**router** - address of provider's router, **selector** - selector of function being configured, **offset** - position in calldata to patch)
+   5) [fees.json](./config/fees.json) - Contains **maxRubicFee** spread for all blockchains; For each blockchain: **feeTreasury** address, **maxFixedNativeFee**
 2) RPC urls have to be inserted in `.env` file
 
 ### After deployment<a name="configuration_after"></a>

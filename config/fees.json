@@ -25,10 +25,7 @@
       "maxFixedNativeFee": 0
     },
     "mainnet": {
-      "maxFixedNativeFee": 0
-    },
-    "gnosis": {
-      "maxFixedNativeFee": 0
+      "maxFixedNativeFee": 100000000000000000
     },
     "polygon": {
       "maxFixedNativeFee": 200000000000000000000
@@ -36,47 +33,29 @@
     "bsc": {
       "maxFixedNativeFee": 1000000000000000000
     },
-    "arbitru": {
-      "maxFixedNativeFee": 0
+    "arbitrum": {
+      "maxFixedNativeFee": 100000000000000000
     },
-    "optimis": {
-      "maxFixedNativeFee": 0
+    "optimism": {
+      "maxFixedNativeFee": 100000000000000000
     },
     "fantom": {
-      "maxFixedNativeFee": 0
+      "maxFixedNativeFee": 400000000000000000000
     },
-    "avalanc": {
-      "maxFixedNativeFee": 0
+    "avalanche": {
+      "maxFixedNativeFee": 10000000000000000000
     },
-    "moonriv": {
-      "maxFixedNativeFee": 0
+    "moonriver": {
+      "maxFixedNativeFee": 20000000000000000000
     },
-    "moonbea": {
-      "maxFixedNativeFee": 0
-    },
-    "celo": {
-      "maxFixedNativeFee": 0
-    },
-    "fuse": {
-      "maxFixedNativeFee": 0
+    "moonbeam": {
+      "maxFixedNativeFee": 100000000000000000000
     },
     "cronos": {
-      "maxFixedNativeFee": 0
+      "maxFixedNativeFee": 5000000000000000000000
     },
-    "okx": {
-      "maxFixedNativeFee": 0
-    },
-    "harmony": {
-      "maxFixedNativeFee": 0
-    },
-    "evmos": {
-      "maxFixedNativeFee": 0
-    },
-    "boba": {
-      "maxFixedNativeFee": 0
-    },
-    "nova": {
-      "maxFixedNativeFee": 0
+    "telos": {
+      "maxFixedNativeFee": 1000000000000000000000
     }
   }
 }
