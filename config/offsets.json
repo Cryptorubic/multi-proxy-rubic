@@ -3,21 +3,58 @@
     {
       "router": "0x88dcdc47d2f83a99cf0000fdf667a468bb958a78",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     }
   ],
   "bsc": [
     {
       "router": "0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     }
   ],
-  "mainnet": [],
-  "avalanche": [],
-  "fantom": [],
-  "arbitrum": [],
-  "optimism": [],
+  "mainnet": [
+    {
+      "router": "0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    }
+  ],
+  "avalanche": [
+    {
+      "router": "0xef3c714c9425a8F3697A9C969Dc1af30ba82e5d4",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    }
+  ],
+  "fantom": [
+    {
+      "router": "0x374B8a9f3eC5eB2D97ECA84Ea27aCa45aa1C57EF",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    }
+  ],
+  "arbitrum": [
+    {
+      "router": "0x1619DE6B6B20eD217a58d00f37B9d47C7663feca",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    }
+  ],
+  "optimism": [
+    {
+      "router": "0x9D39Fc627A6d9d9F8C831c16995b209548cc3401",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    }
+  ],
   "moonriver": [],
   "cronos": [],
   "telos": []
