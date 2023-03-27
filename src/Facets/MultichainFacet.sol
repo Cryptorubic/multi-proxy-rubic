@@ -233,14 +233,14 @@ contract MultichainFacet is IRubic, SwapperV2, ReentrancyGuard, Validatable {
                 );
                 // replace tokenAddress with anyTokenAddress (if mapping found) and call ERC20 asset bridge function
                 IMultichainRouter(_multichainData.router).anySwapOutUnderlying(
-                    s.anyTokenAddresses[_bridgeData.sendingAssetId] !=
-                        address(0)
-                        ? s.anyTokenAddresses[_bridgeData.sendingAssetId]
-                        : _bridgeData.sendingAssetId,
-                    _bridgeData.receiver,
-                    _bridgeData.minAmount,
-                    _bridgeData.destinationChainId
-                );
+                        s.anyTokenAddresses[_bridgeData.sendingAssetId] !=
+                            address(0)
+                            ? s.anyTokenAddresses[_bridgeData.sendingAssetId]
+                            : _bridgeData.sendingAssetId,
+                        _bridgeData.receiver,
+                        _bridgeData.minAmount,
+                        _bridgeData.destinationChainId
+                    );
             }
         }
 

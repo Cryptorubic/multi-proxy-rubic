@@ -28,7 +28,9 @@ contract DeployScriptBase is Script {
         fileSuffix = vm.envString("FILE_SUFFIX");
         salt = keccak256(abi.encodePacked(contractName, saltPrefix));
         address factoryAddress;
-        try vm.envAddress(string.concat("CREATE3_FACTORY_ADDRESS_", network)) returns (address _factoryAddress) {
+        try
+            vm.envAddress(string.concat("CREATE3_FACTORY_ADDRESS_", network))
+        returns (address _factoryAddress) {
             factoryAddress = _factoryAddress;
         } catch {
             factoryAddress = vm.envAddress("CREATE3_FACTORY_ADDRESS");
