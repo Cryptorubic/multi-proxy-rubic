@@ -131,7 +131,7 @@
     ]
   },
   "mainnet": {
-    "anyNative": "",
+    "anyNative": "0x0615Dbba33Fe61a31c7eD131BDA6655Ed76748B1",
     "routers": [
       "0x55af5865807b196bd0197e0902746f31fbccfa58",
       "0x5cbe98480a790554403694b98bff71a525907f5d",
@@ -690,7 +690,7 @@
     ]
   },
   "arbitrum": {
-    "anyNative": "",
+    "anyNative": "0x1Dd9e9e142f3f84d90aF1a9F2cb617C7e08420a4",
     "routers": [
       "0x173fd7434b8b50df08e3298f173487ebdb35fd14",
       "0xb0731d50c681c45856bfc3f7539d5f61d4be81d8",
@@ -711,7 +711,7 @@
     ]
   },
   "optimism": {
-    "anyNative": "",
+    "anyNative": "0x965f84d915a9efa2dd81b653e3ae736555d945f4",
     "routers": [
       "0xc1be9a4d5d45beeacae296a7bd5fadbfc14602c4",
       "0xdc42728b0ea910349ed3c6e1c9dc06b5fb591f98",
@@ -720,7 +720,7 @@
     ]
   },
   "fantom": {
-    "anyNative": "",
+    "anyNative": "0x6362496Bef53458b20548a35A2101214Ee2BE3e0",
     "routers": [
       "0x1B27A9dE6a775F98aaA5B90B62a4e2A0B84DbDd9",
       "0xab41861399eb56896b24fbaabaa8bce45e4a626b",
@@ -975,7 +975,7 @@
     ]
   },
   "moonriver": {
-    "anyNative": "",
+    "anyNative": "0x0000000000000000000000000000000000000001",
     "routers": [
       "0xf27ee99622c3c9b264583dacb2cce056e194494f",
       "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
@@ -1059,7 +1059,7 @@
     ]
   },
   "cronos": {
-    "anyNative": "",
+    "anyNative": "0x82f0B8B456c1A451378467398982d4834b6829c1",
     "routers": [
       "0x634398cb81b76bfc75ebb434cf7c82036f9e7d78",
       "0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c",
@@ -1133,6 +1133,15 @@
     "anyNative": "",
     "routers": [
       "0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b"
+    ]
+  },
+  "telos": {
+    "anyNative": "0xfea7a6a0b346362bf88a9e4a88416b77a57d6c2a",
+    "routers": [
+      "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
+      "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
+      "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
+      "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327"
     ]
   }
 }
