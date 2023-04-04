@@ -28,13 +28,13 @@ The specific to GenericCrossChain Facet and is represented as the following stru
 ```solidity
 /// @param destination Address where to send tokens
 struct TransferData {
-    address destination;
+    address payable destination;
 }
 
 ```
 ## Fees
 
-There are **three** fees included in the GenericCrossChain interaction:
+There are **three** fees included in the transfer proccess:
 1) [fixed native fee](./LibFees.md)
 2) [token fee](./LibFees.md)
 
