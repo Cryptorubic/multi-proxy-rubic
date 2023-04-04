@@ -43,8 +43,9 @@ async function main(): Promise<void> {
           if (
             chainPaths[chainPathKey].routerABI === 'Swapout(amount,toAddress)'
           ) {
-            fetchedTokenRouters.indexOf(chainPaths[chainPathKey].router) === -1 ? fetchedTokenRouters.push(chainPaths[chainPathKey].router) :
-            found = true
+            fetchedTokenRouters.indexOf(chainPaths[chainPathKey].router) === -1
+              ? fetchedTokenRouters.push(chainPaths[chainPathKey].router)
+              : (found = true)
             break
           }
         }
@@ -61,18 +62,22 @@ async function main(): Promise<void> {
         const chainPaths = destChains[chainKey] as any[]
         for (const chainPathKey in chainPaths) {
           if (
-            chainPaths[chainPathKey].routerABI === 'anySwapOut(fromanytoken,toAddress,amount,toChainID)' ||
-            chainPaths[chainPathKey].routerABI === 'anySwapOutUnderlying(fromanytoken,toAddress,amount,toChainID)'
+            chainPaths[chainPathKey].routerABI ===
+              'anySwapOut(fromanytoken,toAddress,amount,toChainID)' ||
+            chainPaths[chainPathKey].routerABI ===
+              'anySwapOutUnderlying(fromanytoken,toAddress,amount,toChainID)'
           ) {
-            fetchedAnyRouters.indexOf(chainPaths[chainPathKey].router) === -1 ? fetchedAnyRouters.push(chainPaths[chainPathKey].router) :
-            found = true
+            fetchedAnyRouters.indexOf(chainPaths[chainPathKey].router) === -1
+              ? fetchedAnyRouters.push(chainPaths[chainPathKey].router)
+              : (found = true)
             break
           }
         }
       }
     }
 
-    blockchains[blockchainName].routers = fetchedTokenRouters.concat(fetchedAnyRouters)
+    blockchains[blockchainName].routers =
+      fetchedTokenRouters.concat(fetchedAnyRouters)
 
     console.log(blockchains[blockchainName].routers.length)
     fs.writeFileSync(
