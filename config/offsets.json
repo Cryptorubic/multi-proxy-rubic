@@ -1,6 +1,11 @@
 {
   "polygon": [
     {
+      "router": "0x4f3aff3a747fcade12598081e80c6605a8be192f",
+      "selector": "0xedbdf5e2",
+      "offset": 0
+    },
+    {
       "router": "0x88dcdc47d2f83a99cf0000fdf667a468bb958a78",
       "selector": "0xa5977fbb",
       "offset": 68
@@ -1041,5 +1046,6 @@
       "selector": "0x55206216",
       "offset": 0
     }
-  ]
+  ],
+  "telos": []
 }
