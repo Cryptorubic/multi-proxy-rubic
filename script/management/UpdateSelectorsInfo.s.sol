@@ -8,10 +8,9 @@ import { LibMappings } from "rubic/Libraries/LibMappings.sol";
 
 contract DeployScript is UpdateScriptBase {
     using stdJson for string;
-    address[] memory routers;
-    bytes4[] memory selectors;
-    LibMappings.ProviderFunctionInfo[]
-            memory selectorsInfo;
+    address[] routers;
+    bytes4[] selectors;
+    LibMappings.ProviderFunctionInfo[] selectorsInfo;
 
     struct SelectorInfo {
         uint256 offset;
@@ -39,20 +38,13 @@ contract DeployScript is UpdateScriptBase {
             (SelectorInfo[])
         );
 
-//        address[] memory routers = new address[](selectorInfosParsed.length);
-//        bytes4[] memory selectors = new bytes4[](selectorInfosParsed.length);
-//        LibMappings.ProviderFunctionInfo[]
-//            memory selectorsInfo = new LibMappings.ProviderFunctionInfo[](
-//                selectorInfosParsed.length
-//            );
-
         for (uint i; i < selectorInfosParsed.length; i++) {
             bytes4 selector = convertBytesToBytes4(
                 selectorInfosParsed[i].selector
             );
 
             LibMappings.ProviderFunctionInfo memory setInfo = GenericCrossChainFacet(diamond).getSelectorInfo(selectorInfosParsed[i].router, selector);
-            if (setInfo.isAvailable == false) {
+            if (setInfo.isAvailable == false || setInfo.offset != selectorInfosParsed[i].offset) {
                 number++;
 
                 routers.push(selectorInfosParsed[i].router);
