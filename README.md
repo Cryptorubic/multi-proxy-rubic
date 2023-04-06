@@ -191,8 +191,6 @@ After the deployment some settings can be altered.
 3) Diamond:
    1) `diamondCut` - add, remove or alter a Facet
 
-Authorisation for these functions is described in [this table](https://docs.google.com/spreadsheets/d/1PPT1XLdLAZt__ZsQodsXe7ZTunx6AmWGVasflpR-brM/edit#gid=0)
-
 ### DEPLOY<a name="deploy"></a>
 
 You can deploy the entire project by running:
