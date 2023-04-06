@@ -979,6 +979,76 @@
   ],
   "fantom": [
     {
+      "router": "0xb576c9403f39829565bd6051695e2ac7ecf850e2",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xb576c9403f39829565bd6051695e2ac7ecf850e2",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xf3ce95ec61114a4b1bfc615c16e6726015913ccc",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xf3ce95ec61114a4b1bfc615c16e6726015913ccc",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xf3ce95ec61114a4b1bfc615c16e6726015913ccc",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x0b23341fa1da0171f52aa8ef85f3946b44d35ac0",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x0b23341fa1da0171f52aa8ef85f3946b44d35ac0",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x0b23341fa1da0171f52aa8ef85f3946b44d35ac0",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x8CE95561ec220dF4178899dd3c500daae2B5F5Bd",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x8CE95561ec220dF4178899dd3c500daae2B5F5Bd",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x8CE95561ec220dF4178899dd3c500daae2B5F5Bd",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
       "router": "0x374B8a9f3eC5eB2D97ECA84Ea27aCa45aa1C57EF",
       "selector": "0xa5977fbb",
       "offset": 68
