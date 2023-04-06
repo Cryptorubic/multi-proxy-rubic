@@ -2,6 +2,12 @@
 
 # Rubic Smart Contracts
 
+## Audit
+
+Rubic contracts were audited by [MixBytes](https://mixbytes.io/)
+
+[REPORT](https://github.com/mixbytes/audits_public/blob/master/Rubic/Rubic%20Security%20Audit%20Report.pdf)
+
 ## Table of contents
 
 1. [How It Works](#how-it-works)
@@ -79,6 +85,7 @@ contracts
 │
 ├─── config                   // service configuration files
 ├─── constants                // general constants
+├─── deployments              // Rubic contract's addresses can be found here
 ├─── deploy                   // deployment scripts
 ├─── diamondABI               // Diamond ABI definition
 ├─── export                   // deployed results
