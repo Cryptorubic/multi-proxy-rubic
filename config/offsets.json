@@ -1136,6 +1136,96 @@
   ],
   "arbitrum": [
     {
+      "router": "0x0cae51e1032e8461f4806e26332c030e34de3adb",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x0cae51e1032e8461f4806e26332c030e34de3adb",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x0cae51e1032e8461f4806e26332c030e34de3adb",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x39fde572a18448f8139b7788099f0a0740f51205",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x39fde572a18448f8139b7788099f0a0740f51205",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x39fde572a18448f8139b7788099f0a0740f51205",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x650Af55D5877F289837c30b94af91538a7504b76",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x650Af55D5877F289837c30b94af91538a7504b76",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x650Af55D5877F289837c30b94af91538a7504b76",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xa71353bb71dda105d383b02fc2dd172c4d39ef8b",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xa71353bb71dda105d383b02fc2dd172c4d39ef8b",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xa71353bb71dda105d383b02fc2dd172c4d39ef8b",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xbB29D2A58d880Af8AA5859e30470134dEAf84F2B",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xbB29D2A58d880Af8AA5859e30470134dEAf84F2B",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xbB29D2A58d880Af8AA5859e30470134dEAf84F2B",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
       "router": "0x1619DE6B6B20eD217a58d00f37B9d47C7663feca",
       "selector": "0xa5977fbb",
       "offset": 68
