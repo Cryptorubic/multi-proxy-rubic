@@ -62,7 +62,8 @@ async function main(): Promise<void> {
         for (const chainPathKey in chainPaths) {
           if (
             chainPaths[chainPathKey].routerABI === 'anySwapOut(fromanytoken,toAddress,amount,toChainID)' ||
-            chainPaths[chainPathKey].routerABI === 'anySwapOutUnderlying(fromanytoken,toAddress,amount,toChainID)'
+            chainPaths[chainPathKey].routerABI === 'anySwapOutUnderlying(fromanytoken,toAddress,amount,toChainID)' ||
+            chainPaths[chainPathKey].routerABI === 'anySwapOutNative(fromanytoken,toAddress,toChainID,{value: amount})'
           ) {
             fetchedAnyRouters.indexOf(chainPaths[chainPathKey].router) === -1 ? fetchedAnyRouters.push(chainPaths[chainPathKey].router) :
             found = true
