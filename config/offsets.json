@@ -1565,6 +1565,66 @@
   ],
   "moonriver": [
     {
+      "router": "0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xF8aCF86194443DCde55fc5B9e448e183c290D8Cb",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xF8aCF86194443DCde55fc5B9e448e183c290D8Cb",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xF8aCF86194443DCde55fc5B9e448e183c290D8Cb",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
       "offset": 0
