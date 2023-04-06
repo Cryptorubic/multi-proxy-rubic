@@ -1792,5 +1792,66 @@
       "offset": 0
     }
   ],
-  "telos": []
+  "telos": [
+    {
+      "router": "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
+      "selector": "0xa5e56571",
+      "offset": 0
+    },
+    {
+      "router": "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
+      "selector": "0x241dc2df",
+      "offset": 68
+    },
+    {
+      "router": "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
+      "selector": "0xedbdf5e2",
+      "offset": 68
+    },
+    {
+      "router": "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
+      "selector": "0xa5e56571",
+      "offset": 0
+    }
+  ]
 }
