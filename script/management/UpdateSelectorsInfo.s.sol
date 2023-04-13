@@ -26,7 +26,7 @@ contract DeployScript is UpdateScriptBase {
         }
     }
 
-    function run() public returns(uint256 number) {
+    function run() public returns (uint256 number) {
         string memory path = string.concat(root, "/config/offsets.json");
         string memory json = vm.readFile(path);
         bytes memory selectorInfosRaw = json.parseRaw(
@@ -43,13 +43,19 @@ contract DeployScript is UpdateScriptBase {
                 selectorInfosParsed[i].selector
             );
 
-            LibMappings.ProviderFunctionInfo memory setInfo = GenericCrossChainFacet(diamond).getSelectorInfo(selectorInfosParsed[i].router, selector);
-            if (setInfo.isAvailable == false || setInfo.offset != selectorInfosParsed[i].offset) {
+            LibMappings.ProviderFunctionInfo
+                memory setInfo = GenericCrossChainFacet(diamond)
+                    .getSelectorInfo(selectorInfosParsed[i].router, selector);
+            if (
+                setInfo.isAvailable == false ||
+                setInfo.offset != selectorInfosParsed[i].offset
+            ) {
                 number++;
 
                 routers.push(selectorInfosParsed[i].router);
                 selectors.push(selector);
-                selectorsInfo.push(LibMappings.ProviderFunctionInfo(
+                selectorsInfo.push(
+                    LibMappings.ProviderFunctionInfo(
                         true,
                         selectorInfosParsed[i].offset
                     )
