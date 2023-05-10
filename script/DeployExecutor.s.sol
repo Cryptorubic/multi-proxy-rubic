@@ -33,19 +33,23 @@ contract DeployScript is DeployScriptBase {
             return (Executor(payable(address(predicted))), constructorArgs);
         }
 
-        deployed = Executor(
-            payable(
-                address(
-                    factory.deploy(
-                        salt,
-                        bytes.concat(
-                            type(Executor).creationCode,
-                            constructorArgs
+        if (networkSupportsCreate3(network)) {
+            deployed = Executor(
+                payable(
+                    address(
+                        factory.deploy(
+                            salt,
+                            bytes.concat(
+                                type(Executor).creationCode,
+                                constructorArgs
+                            )
                         )
                     )
                 )
-            )
-        );
+            );
+        } else {
+            deployed = new Executor(deployerAddress, diamond);
+        }
 
         vm.stopBroadcast();
     }

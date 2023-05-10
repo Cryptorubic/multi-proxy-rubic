@@ -33,17 +33,21 @@ contract DeployScript is DeployScriptBase {
             return (RubicMultiProxy(payable(predicted)), constructorArgs);
         }
 
-        deployed = RubicMultiProxy(
-            payable(
-                factory.deploy(
-                    salt,
-                    bytes.concat(
-                        type(RubicMultiProxy).creationCode,
-                        constructorArgs
+        if (networkSupportsCreate3(network)) {
+            deployed = RubicMultiProxy(
+                payable(
+                    factory.deploy(
+                        salt,
+                        bytes.concat(
+                            type(RubicMultiProxy).creationCode,
+                            constructorArgs
+                        )
                     )
                 )
-            )
-        );
+            );
+        } else {
+            deployed = new RubicMultiProxy(deployerAddress, diamondCut);
+        }
 
         vm.stopBroadcast();
     }

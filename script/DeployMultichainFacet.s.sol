@@ -14,9 +14,13 @@ contract DeployScript is DeployScriptBase {
             return MultichainFacet(predicted);
         }
 
-        deployed = MultichainFacet(
-            factory.deploy(salt, type(MultichainFacet).creationCode)
-        );
+        if (networkSupportsCreate3(network)) {
+            deployed = MultichainFacet(
+                factory.deploy(salt, type(MultichainFacet).creationCode)
+            );
+        } else {
+            deployed = new MultichainFacet();
+        }
 
         vm.stopBroadcast();
     }

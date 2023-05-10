@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { StargateFacet } from "rubic/Facets/StargateFacet.sol";
+import { StargateFacet, IStargateRouter } from "rubic/Facets/StargateFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;
@@ -31,17 +31,21 @@ contract DeployScript is DeployScriptBase {
             return (StargateFacet(payable(predicted)), constructorArgs);
         }
 
-        deployed = StargateFacet(
-            payable(
-                factory.deploy(
-                    salt,
-                    bytes.concat(
-                        type(StargateFacet).creationCode,
-                        constructorArgs
+        if (networkSupportsCreate3(network)) {
+            deployed = StargateFacet(
+                payable(
+                    factory.deploy(
+                        salt,
+                        bytes.concat(
+                            type(StargateFacet).creationCode,
+                            constructorArgs
+                        )
                     )
                 )
-            )
-        );
+            );
+        } else {
+            deployed = new StargateFacet(IStargateRouter(stargateRouter));
+        }
 
         vm.stopBroadcast();
     }

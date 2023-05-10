@@ -14,9 +14,13 @@ contract DeployScript is DeployScriptBase {
             return AccessManagerFacet(predicted);
         }
 
-        deployed = AccessManagerFacet(
-            factory.deploy(salt, type(AccessManagerFacet).creationCode)
-        );
+        if (networkSupportsCreate3(network)) {
+            deployed = AccessManagerFacet(
+                factory.deploy(salt, type(AccessManagerFacet).creationCode)
+            );
+        } else {
+            deployed = new AccessManagerFacet();
+        }
 
         vm.stopBroadcast();
     }

@@ -18,6 +18,14 @@ contract DeployScript is DeployScriptBase {
             factory.deploy(salt, type(WithdrawFacet).creationCode)
         );
 
+        if (networkSupportsCreate3(network)) {
+            deployed = WithdrawFacet(
+                factory.deploy(salt, type(WithdrawFacet).creationCode)
+            );
+        } else {
+            deployed = new WithdrawFacet();
+        }
+
         vm.stopBroadcast();
     }
 }
