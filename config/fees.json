@@ -11,7 +11,8 @@
       "avalanche": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "moonriver": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "cronos": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "telos": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "telos": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -48,6 +49,9 @@
     },
     "telos": {
       "maxFixedNativeFee": 1000000000000000000000
+    },
+    "zkSyncTestnet": {
+      "maxFixedNativeFee": 100000000000000000
     }
   }
 }

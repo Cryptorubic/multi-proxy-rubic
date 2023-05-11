@@ -3,6 +3,8 @@ artifacts/
 out/
 broadcast/
 cache_hardhat/
+artifacts-zk
+cache_hardhat-zk
 
 coverage*
 typechain/

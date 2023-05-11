@@ -17,6 +17,9 @@
     "solidity"
   ],
   "devDependencies": {
+    "@matterlabs/hardhat-zksync-deploy": "^0.6.3",
+    "@matterlabs/hardhat-zksync-solc": "^0.3.17",
+    "@matterlabs/hardhat-zksync-verify": "^0.1.6",
     "@nomiclabs/hardhat-ethers": "^2.2.1",
     "@nomiclabs/hardhat-etherscan": "^3.0.3",
     "@openzeppelin/contracts": "4.8.0",
@@ -48,7 +51,8 @@
     "ts-generator": "^0.1.1",
     "ts-node": "^10.7.0",
     "typechain": "^8.0.0",
-    "typescript": "4.8.4"
+    "typescript": "4.8.4",
+    "zksync-web3": "^0.14.3"
   },
   "resolutions": {
     "hardhat/**/@ethereumjs/tx": "3.5.0"

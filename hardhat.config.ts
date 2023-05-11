@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import '@nomiclabs/hardhat-ethers'
 import fs from 'fs'
 import { HardhatUserConfig } from 'hardhat/types'
@@ -6,6 +5,15 @@ import '@typechain/hardhat'
 import 'hardhat-preprocessor'
 import { node_url, accounts } from './utils/network'
 import '@nomiclabs/hardhat-etherscan'
+import "@matterlabs/hardhat-zksync-deploy";
+import "@matterlabs/hardhat-zksync-solc";
+import "@matterlabs/hardhat-zksync-verify";
+import * as dotenv from 'dotenv';
+dotenv.config();
+
+export const DEFAULT_PRIVATE_KEY =
+    process.env.MNEMONIC || '1000000000000000000000000000000000000000000000000000000000000000';
+export const FILE_SUFFIX = process.env.PRODUCTION ? '' : 'staging.'
 
 require('./tasks/generateDiamondABI.ts')
 
@@ -18,6 +26,11 @@ function getRemappings() {
 }
 
 const config: HardhatUserConfig = {
+  zksolc: {
+    version: "1.3.10",
+    compilerSource: "binary",
+    settings: {},
+  },
   solidity: {
     compilers: [
       {
@@ -47,8 +60,21 @@ const config: HardhatUserConfig = {
               : undefined,
           }
         : undefined,
+      zksync: false
     },
+    goerli:{
+      url: 'https://eth-goerli.public.blastapi.io',
+      zksync: false,
+    },
+    zkSyncTestnet:{
+      url: "https://testnet.era.zksync.dev",
+      ethNetwork: "goerli",  // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
+      zksync: true,
+      verifyURL: 'https://zksync2-testnet-explorer.zksync.dev/contract_verification',
+      accounts: [`0x${DEFAULT_PRIVATE_KEY}`]
+    }
   },
+  defaultNetwork: "zkSyncTestnet",
   typechain: {
     outDir: 'typechain',
     target: 'ethers-v5',
@@ -57,14 +83,12 @@ const config: HardhatUserConfig = {
     eachLine: (hre) => ({
       transform: (line: string) => {
         if (line.match(/^\s*import /i)) {
-          console.log(line)
           for (const [from, to] of getRemappings()) {
             if (line.includes(from)) {
               line = line.replace(from, to)
               break
             }
           }
-          console.log(line)
         }
         return line
       },
