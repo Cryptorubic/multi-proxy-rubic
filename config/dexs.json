@@ -276,6 +276,11 @@
     "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506",
     "0xb9239af0697c8efb42cba3568424b06753c6da71"
   ],
+  "zkSync": [
+    "0x8B791913eB07C32779a16750e3868aA8495F5964",
+    "0x2da10A1e27bF85cEdD8FFb1AbBe97e53391C0295",
+    "0x6e2B76966cbD9cF4cC2Fa0D76d24d5241E0ABC2F"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []

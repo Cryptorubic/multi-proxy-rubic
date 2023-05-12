@@ -36,7 +36,8 @@ aurora = "${ETH_NODE_URI_AURORA}"
 boba = "${ETH_NODE_URI_BOBA}"
 nova = "${ETH_NODE_URI_NOVA}"
 telos = "${ETH_NODE_URI_TELOS}"
-zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC}"
+zkSync = "${ETH_NODE_URI_ZKSYNC}"
+zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"

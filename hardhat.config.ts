@@ -5,14 +5,15 @@ import '@typechain/hardhat'
 import 'hardhat-preprocessor'
 import { node_url, accounts } from './utils/network'
 import '@nomiclabs/hardhat-etherscan'
-import "@matterlabs/hardhat-zksync-deploy";
-import "@matterlabs/hardhat-zksync-solc";
-import "@matterlabs/hardhat-zksync-verify";
-import * as dotenv from 'dotenv';
-dotenv.config();
+import '@matterlabs/hardhat-zksync-deploy'
+import '@matterlabs/hardhat-zksync-solc'
+import '@matterlabs/hardhat-zksync-verify'
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 export const DEFAULT_PRIVATE_KEY =
-    process.env.MNEMONIC || '1000000000000000000000000000000000000000000000000000000000000000';
+  process.env.MNEMONIC ||
+  '1000000000000000000000000000000000000000000000000000000000000000'
 export const FILE_SUFFIX = process.env.PRODUCTION ? '' : 'staging.'
 
 require('./tasks/generateDiamondABI.ts')
@@ -27,8 +28,8 @@ function getRemappings() {
 
 const config: HardhatUserConfig = {
   zksolc: {
-    version: "1.3.10",
-    compilerSource: "binary",
+    version: '1.3.10',
+    compilerSource: 'binary',
     settings: {},
   },
   solidity: {
@@ -60,21 +61,36 @@ const config: HardhatUserConfig = {
               : undefined,
           }
         : undefined,
-      zksync: false
+      zksync: false,
     },
-    goerli:{
+    goerli: {
       url: 'https://eth-goerli.public.blastapi.io',
       zksync: false,
     },
-    zkSyncTestnet:{
-      url: "https://testnet.era.zksync.dev",
-      ethNetwork: "goerli",  // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
+    zkSyncTestnet: {
+      url: `${process.env.ETH_NODE_URI_ZKSYNC_TESTNET}`,
+      ethNetwork: 'goerli', // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
       zksync: true,
-      verifyURL: 'https://zksync2-testnet-explorer.zksync.dev/contract_verification',
-      accounts: [`0x${DEFAULT_PRIVATE_KEY}`]
-    }
+      verifyURL:
+        'https://zksync2-testnet-explorer.zksync.dev/contract_verification',
+      accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
+    },
+    ethereum: {
+      url: `${process.env.ETH_NODE_URI_MAINNET}`,
+      chainId: 1,
+      zksync: false,
+      accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
+    },
+    zkSync: {
+      url: `${process.env.ETH_NODE_URI_ZKSYNC}`,
+      ethNetwork: 'ethereum', // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
+      zksync: true,
+      verifyURL:
+        'https://zksync2-mainnet-explorer.zksync.io/contract_verification',
+      accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
+    },
   },
-  defaultNetwork: "zkSyncTestnet",
+  defaultNetwork: 'zkSync',
   typechain: {
     outDir: 'typechain',
     target: 'ethers-v5',
