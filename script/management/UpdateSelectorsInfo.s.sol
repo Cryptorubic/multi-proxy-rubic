@@ -26,7 +26,7 @@ contract DeployScript is UpdateScriptBase {
         }
     }
 
-    function run() public returns (uint256 number) {
+    function run() public returns (uint256 number, bytes memory data) {
         string memory path = string.concat(root, "/config/offsets.json");
         string memory json = vm.readFile(path);
         bytes memory selectorInfosRaw = json.parseRaw(
@@ -63,16 +63,11 @@ contract DeployScript is UpdateScriptBase {
             }
         }
 
-        vm.startBroadcast(deployerPrivateKey);
-
-        GenericCrossChainFacet(diamond).updateSelectorInfo(
+        data = abi.encode(
+            GenericCrossChainFacet(diamond).updateSelectorInfo.selector,
             routers,
             selectors,
             selectorsInfo
         );
-
-        vm.stopBroadcast();
-
-        return number;
     }
 }
