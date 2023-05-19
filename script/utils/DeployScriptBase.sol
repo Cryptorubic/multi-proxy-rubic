@@ -26,7 +26,7 @@ contract DeployScriptBase is Script {
         root = vm.projectRoot();
         network = vm.envString("NETWORK");
         fileSuffix = vm.envString("FILE_SUFFIX");
-        salt = keccak256(abi.encodePacked(contractName, saltPrefix));
+        salt = keccak256(abi.encodePacked(contractName, saltPrefix, fileSuffix));
         address factoryAddress;
         try
             vm.envAddress(string.concat("CREATE3_FACTORY_ADDRESS_", network))

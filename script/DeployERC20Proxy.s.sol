@@ -27,12 +27,34 @@ contract DeployScript is DeployScriptBase {
 
         constructorArgs = abi.encode(deployerAddress, diamond);
 
-        deployerPrivateKey = uint256(vm.envBytes32("PRIVATE_KEY_ERC20PROXY"));
+        if (keccak256(abi.encodePacked(fileSuffix)) == keccak256("staging.")) {
+            vm.startBroadcast(deployerPrivateKey);
 
-        vm.startBroadcast(deployerPrivateKey);
+            if (isDeployed()) {
+                return (ERC20Proxy(payable(predicted)), constructorArgs);
+            }
 
-        deployed = new ERC20Proxy(deployerAddress, diamond);
+            deployed = ERC20Proxy(
+                payable(
+                    factory.deploy(
+                        salt,
+                        bytes.concat(
+                            type(ERC20Proxy).creationCode,
+                            constructorArgs
+                        )
+                    )
+                )
+            );
 
-        vm.stopBroadcast();
+            vm.stopBroadcast();
+        } else {
+            deployerPrivateKey = uint256(vm.envBytes32("PRIVATE_KEY_ERC20PROXY"));
+
+            vm.startBroadcast(deployerPrivateKey);
+
+            deployed = new ERC20Proxy(deployerAddress, diamond);
+
+            vm.stopBroadcast();
+        }
     }
 }
