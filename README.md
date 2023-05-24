@@ -2,95 +2,29 @@
 
 # Rubic Smart Contracts
 
+## Audit
+
+Rubic contracts were audited by [MixBytes](https://mixbytes.io/)
+
+[REPORT](https://github.com/mixbytes/audits_public/blob/master/Rubic/Rubic%20Security%20Audit%20Report.pdf)
+
 ## Table of contents
 
-1. [General](#general)
-2. [Why Rubic?](#why)
-   1. [Our Thesis](#thesis)
-   2. [Ecosystem Problems](#ecosystem-problems)
-   3. [Developer Problems](#developer-problems)
-   4. [Solution](#solution)
-3. [How It Works](#how-it-works)
-4. [Architecture](#architecture)
+1. [How It Works](#how-it-works)
+2. [Architecture](#architecture)
    1. [Contract Flow](#contract-flow)
    2. [Diamond Helper Contracts](#diamond-helper-contracts)
-5. [Repository Structure](#repository-structure)
-6. [Getting Started](#getting-started)
+3. [Repository Structure](#repository-structure)
+4. [Getting Started](#getting-started)
    1. [INSTALL](#install)
    2. [TEST](#test)
    3. [TEST With Foundry/Forge](#foundry-forge)
-7. [Contract Docs](#contract-docs)
-8. [Configuration](#configuration)
+5. [Contract Docs](#contract-docs)
+6. [Configuration](#configuration)
    1. [Before deployment](#configuration_before)
    2. [After deployment](#configuration_after)
-9. [DEPLOY](#deploy)
+7. [Deploy](#deploy)
 
-## General<a name="general"></a>
-
-Our vision is to create a middle layer between DeFi infrastructure and the application layer.
-Rubic aims to aggregate and abstract away the most important bridges and connect them to DEXs and DEX aggregators on each chain to facilitate cross-chain any-2-any swaps.
-
-To decide which bridge to use, we assess and measure the degree of decentralization, trust assumptions, fees, gas efficiency, speed, and other qualitative and quantitative factors.
-Then, we use the thresholds and preferences of our integration partners and end-users to select the right path.
-
-## Why Rubic?<a name="why"></a>
-
-### Our Thesis<a name="thesis"></a>
-
-- The future is multi-chain
-- Cross-chain bridging solutions will play a major role on infrastructure level
-- Aggregation will pave the way for mass adoption
-
----
-
-### Ecosystem Problems<a name="ecosystem-problems"></a>
-
-**dApps**: Many users come across a new interesting dApp on a chain they don't have funds in and struggle to get their funds there. This is significant friction in user onboarding as they have to research and find bridges to that chain to start using the dApp.
-
-**Yield Aggregators**: There are definitely protocols with better yield on new L2/side-chains but there isn't a secure, reliable way to transfer your funds.
-
-**Wallets**: Multichain wallets want to compete with CEXes, but they don't have a way to allow easy swap between assets like CEXes.
-
-**DeFi Protocols**: DeFi Dashboards, lending protocols, yield farms, etc., that are present on new chains create a need to do cross-chain swaps, but their users have to wander the ecosystem to quench this need.
-
----
-
-### Developer Problems<a name="developer-problems"></a>
-
-**Too many bridges** to educate yourself about.
-It'd be good to have access to all of them and getting good guidance from people and algorithms that are specialized.
-
-➔ Rubic does that.
-
-**Bridges are still immature** so it's good to have not only one bridge but fallback solutions in place.
-Immaturity comes with security risks, insufficient liquidity and a lot of maintenance overhead.
-
-➔ Rubic maintains all bridge connections, gives you access to multiple ones and handles fallbacks and decision-making programmatically.
-
-**Bridges are most often not enough**.
-You also need DEXes/DEX aggregators as bridges are limited to stable-coins and native currencies.
-
-➔ Rubic not only aggregates bridges, but also connects to sorts of DEX aggregators and if not available, the DEXs directly in order to find the best swap possible to arrive at the desired token and to allow to start the whole process with any asset.
-
----
-
-### Solution<a name="solution"></a>
-
-A data mesh of cross-chain liquidity sources: cross-chain liquidity networks, bridges, DEXes, bridges, and lending protocols.
-
-As a bridge and DEX aggregator, Rubic can route any asset on any chain to the desired asset on the desired chain, thus providing a remarkable UX to their users.
-
-All of this will be made available on an API/Contract level which comes as SDK, iFrame solution, and as a widget for other developers to plug directly into their products.
-No need for users to leave your dApps anymore.
-
-## How It Works<a name="how-it-works"></a>
-
-Our [API](https://apidocs.li.fi/) and [SDK](https://docs.li.fi/products/integrate-li.fi-js-sdk/install-li.fi-sdk) allow dApps and dApp developers to request the best routes for a desired cross-chain swap.
-Our backend will calculate the best possible routes based on the transaction fees, gas costs and execution duration.
-
-The then returned routes contain already populated transactions which can directly be sent via the user's wallet to our contracts.
-A single transaction can contain multiple steps (e.g. AAVE on Polygon -> DAI on Polygon using Paraswap -> DAI on Avalanche using NXTP -> SPELL on Avalanche using Paraswap) which will be executed by our contract.
-Finally, the final amount of the requested token is sent to the user's wallet.
 
 ## Architecture<a name="architecture"></a>
 
@@ -98,24 +32,31 @@ The Rubic Contract is built using the EIP-2535 (Multi-facet Proxy) standard. The
 
 All business logic is built using **facet** contracts which live in `src/Facets`.
 
+Since all tokens have to be approved to our contracts. And because it is not safe to approve them to Upgradeable contracts.
+Rubic has another contract being a single non-upgradeable entrypoint. This contract transfers tokens from user to the main contract and nothing more.
+So all the user's tokens are approved to it and this is safe.
+
 For more information on EIP-2535 you can view the entire EIP [here](https://eips.ethereum.org/EIPS/eip-2535).
 
 ---
 
 ### Contract Flow<a name="contract-flow"></a>
 
-A basic example would be a user bridging from one chain to another using Hop Protocol. The user would interact with the RubicDiamond contract which would pass the Hop specific call to the HopFacet which then passes required calls + parameters to Hop Protocol's contracts.
+A basic example would be a user bridging from one chain to another using Symbiosis.
+The user would interact with the ERC20Proxy contract which will transfer assets (native or ERC20) from user to the RubicMultiProxy.
+Then the main contract will delegate to the SymbiosisFacet and call this way a Symbiosis MetaRouter with specified parameters.
 
 The basic flow is illustrated below.
 
 ```mermaid
 graph TD;
-    D{RubicMultiProxy}-- DELEGATECALL -->NXTPFacet;
-    D{RubicMultiProxy}-- DELEGATECALL -->HopFacet;
-    D{RubicMultiProxy}-- DELEGATECALL -->AnyswapFacet;
-    D{RubicMultiProxy}-- DELEGATECALL -->CBridgeFacet;
-    D{RubicMultiProxy}-- DELEGATECALL -->HyphenFacet;
+    ERC20Proxy--> D{RubicMultiProxy};
+    D{RubicMultiProxy}-- DELEGATECALL -->GenericCrossChainFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->GenericSwapFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->MultichainFacet;
     D{RubicMultiProxy}-- DELEGATECALL -->StargateFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->SymbiosisFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->XYFacet;
 ```
 
 ---
@@ -130,6 +71,9 @@ graph TD;
     D{RubicMultiProxy}-- DELEGATECALL -->DiamondLoupeFacet;
     D{RubicMultiProxy}-- DELEGATECALL -->OwnershipFacet;
     D{RubicMultiProxy}-- DELEGATECALL -->WithdrawFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->FeesFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->AccessManagerFacet;
+    D{RubicMultiProxy}-- DELEGATECALL -->DexManagerFacet;
 ```
 
 ## Repository Structure<a name="repository-structure"></a>
@@ -141,6 +85,7 @@ contracts
 │
 ├─── config                   // service configuration files
 ├─── constants                // general constants
+├─── deployments              // Rubic contract's addresses can be found here
 ├─── deploy                   // deployment scripts
 ├─── diamondABI               // Diamond ABI definition
 ├─── export                   // deployed results
@@ -252,8 +197,6 @@ After the deployment some settings can be altered.
    3) `setFunctionApprovalBySignature`, batchSetFunctionApprovalBySignature - add or remove signature from whitelist
 3) Diamond:
    1) `diamondCut` - add, remove or alter a Facet
-
-Authorisation for these functions is described in [this table](https://docs.google.com/spreadsheets/d/1PPT1XLdLAZt__ZsQodsXe7ZTunx6AmWGVasflpR-brM/edit#gid=0)
 
 ### DEPLOY<a name="deploy"></a>
 

@@ -8,6 +8,9 @@ import { LibMappings } from "rubic/Libraries/LibMappings.sol";
 
 contract DeployScript is UpdateScriptBase {
     using stdJson for string;
+    address[] routers;
+    bytes4[] selectors;
+    LibMappings.ProviderFunctionInfo[] selectorsInfo;
 
     struct SelectorInfo {
         uint256 offset;
@@ -23,7 +26,7 @@ contract DeployScript is UpdateScriptBase {
         }
     }
 
-    function run() public {
+    function run() public returns (uint256 number) {
         string memory path = string.concat(root, "/config/offsets.json");
         string memory json = vm.readFile(path);
         bytes memory selectorInfosRaw = json.parseRaw(
@@ -35,22 +38,29 @@ contract DeployScript is UpdateScriptBase {
             (SelectorInfo[])
         );
 
-        address[] memory routers = new address[](selectorInfosParsed.length);
-        bytes4[] memory selectors = new bytes4[](selectorInfosParsed.length);
-        LibMappings.ProviderFunctionInfo[]
-            memory selectorsInfo = new LibMappings.ProviderFunctionInfo[](
-                selectorInfosParsed.length
-            );
-
         for (uint i; i < selectorInfosParsed.length; i++) {
-            routers[i] = selectorInfosParsed[i].router;
-            selectors[i] = convertBytesToBytes4(
+            bytes4 selector = convertBytesToBytes4(
                 selectorInfosParsed[i].selector
             );
-            selectorsInfo[i] = LibMappings.ProviderFunctionInfo(
-                true,
-                selectorInfosParsed[i].offset
-            );
+
+            LibMappings.ProviderFunctionInfo
+                memory setInfo = GenericCrossChainFacet(diamond)
+                    .getSelectorInfo(selectorInfosParsed[i].router, selector);
+            if (
+                setInfo.isAvailable == false ||
+                setInfo.offset != selectorInfosParsed[i].offset
+            ) {
+                number++;
+
+                routers.push(selectorInfosParsed[i].router);
+                selectors.push(selector);
+                selectorsInfo.push(
+                    LibMappings.ProviderFunctionInfo(
+                        true,
+                        selectorInfosParsed[i].offset
+                    )
+                );
+            }
         }
 
         vm.startBroadcast(deployerPrivateKey);
@@ -62,5 +72,7 @@ contract DeployScript is UpdateScriptBase {
         );
 
         vm.stopBroadcast();
+
+        return number;
     }
 }
