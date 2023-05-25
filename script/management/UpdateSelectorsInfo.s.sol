@@ -13,6 +13,7 @@ contract DeployScript is UpdateScriptBase {
     LibMappings.ProviderFunctionInfo[] selectorsInfo;
 
     struct SelectorInfo {
+        bool isAvailable;
         uint256 offset;
         address router;
         bytes selector;
@@ -47,7 +48,7 @@ contract DeployScript is UpdateScriptBase {
                 memory setInfo = GenericCrossChainFacet(diamond)
                     .getSelectorInfo(selectorInfosParsed[i].router, selector);
             if (
-                setInfo.isAvailable == false ||
+                setInfo.isAvailable != selectorInfosParsed[i].isAvailable ||
                 setInfo.offset != selectorInfosParsed[i].offset
             ) {
                 number++;
@@ -56,7 +57,7 @@ contract DeployScript is UpdateScriptBase {
                 selectors.push(selector);
                 selectorsInfo.push(
                     LibMappings.ProviderFunctionInfo(
-                        true,
+                        selectorInfosParsed[i].isAvailable,
                         selectorInfosParsed[i].offset
                     )
                 );

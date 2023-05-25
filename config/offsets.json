@@ -3,1855 +3,2222 @@
     {
       "router": "0x6ff0609046a38d76bd40c5863b4d1a2dce687f73",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x6ff0609046a38d76bd40c5863b4d1a2dce687f73",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x4f3aff3a747fcade12598081e80c6605a8be192f",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x4f3aff3a747fcade12598081e80c6605a8be192f",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xafaace7138ab3c2bcb2db4264f8312e1bbb80653",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xafaace7138ab3c2bcb2db4264f8312e1bbb80653",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xafaace7138ab3c2bcb2db4264f8312e1bbb80653",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x84cebca6bd17fe11f7864f7003a1a30f2852b1dc",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x84cebca6bd17fe11f7864f7003a1a30f2852b1dc",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x84cebca6bd17fe11f7864f7003a1a30f2852b1dc",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xd50380e953603b37a74dc67c92fc5e19e0b65469",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xd50380e953603b37a74dc67c92fc5e19e0b65469",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xd50380e953603b37a74dc67c92fc5e19e0b65469",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x72C290f3f13664B024ee611983Aa2d5621Ebe917",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x72C290f3f13664B024ee611983Aa2d5621Ebe917",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x72C290f3f13664B024ee611983Aa2d5621Ebe917",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x2eF4A574b72E1f555185AfA8A09c6d1A8AC4025C",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x2eF4A574b72E1f555185AfA8A09c6d1A8AC4025C",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x2eF4A574b72E1f555185AfA8A09c6d1A8AC4025C",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x88dcdc47d2f83a99cf0000fdf667a468bb958a78",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xba66bd9a",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4eefe3a5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xaeb116de",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x13045b0f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9a5ccd89",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd360eda0",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfa904c12",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe55f8110",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef27dc6f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x64a74ee2",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x2b53e8f3",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4db91a00",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe6253416",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x787f2d0e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6721556d",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x82614997",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x00d2aed6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xdf55e126",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "bsc": [
     {
       "router": "0xabd380327fe66724ffda91a87c772fb8d00be488",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xabd380327fe66724ffda91a87c772fb8d00be488",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x58892974758A4013377A45fad698D2FF1F08d98E",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x58892974758A4013377A45fad698D2FF1F08d98E",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x58892974758A4013377A45fad698D2FF1F08d98E",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xe1d592c3322f1f714ca11f05b6bc0efef1907859",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe1d592c3322f1f714ca11f05b6bc0efef1907859",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe1d592c3322f1f714ca11f05b6bc0efef1907859",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xf9736ec3926703e85c843fc972bd89a7f8e827c0",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf9736ec3926703e85c843fc972bd89a7f8e827c0",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf9736ec3926703e85c843fc972bd89a7f8e827c0",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xd1c5966f9f5ee6881ff6b261bbeda45972b1b5f3",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xd1c5966f9f5ee6881ff6b261bbeda45972b1b5f3",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x56a6c850cebe23f0c7891a004bef57265cda4d13",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x56a6c850cebe23f0c7891a004bef57265cda4d13",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x56a6c850cebe23f0c7891a004bef57265cda4d13",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x92C079d3155C2722dBf7E65017a5baf9CD15561c",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x92C079d3155C2722dBf7E65017a5baf9CD15561c",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x92C079d3155C2722dBf7E65017a5baf9CD15561c",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xdd90E5E87A2081Dcf0391920868eBc2FFB81a1aF",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xaeb116de",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x13045b0f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9a5ccd89",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd360eda0",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef27dc6f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x64a74ee2",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "mainnet": [
     {
       "router": "0xe95fd76cf16008c12ff3b3a937cb16cd9cc20284",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe95fd76cf16008c12ff3b3a937cb16cd9cc20284",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe95fd76cf16008c12ff3b3a937cb16cd9cc20284",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x765277eebeca2e31912c9946eae1021199b39c61",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x765277eebeca2e31912c9946eae1021199b39c61",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x6b7a87899490ece95443e979ca9485cbe7e71522",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x6b7a87899490ece95443e979ca9485cbe7e71522",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xba8da9dcf11b50b03fd5284f164ef5cdef910705",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xba8da9dcf11b50b03fd5284f164ef5cdef910705",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xba8da9dcf11b50b03fd5284f164ef5cdef910705",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x7782046601e7b9b05ca55a3899780ce6ee6b8b2b",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x7782046601e7b9b05ca55a3899780ce6ee6b8b2b",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x7782046601e7b9b05ca55a3899780ce6ee6b8b2b",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xF0457c4c99732b716e40d456aCB3Fc83c699b8ba",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xF0457c4c99732b716e40d456aCB3Fc83c699b8ba",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xF0457c4c99732b716e40d456aCB3Fc83c699b8ba",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xe8231f65733DD9e1BA8898bd1C31e7254e393486",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe8231f65733DD9e1BA8898bd1C31e7254e393486",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe8231f65733DD9e1BA8898bd1C31e7254e393486",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x7e78d327b15f2a36a22c5955d3a23d99dbccd8e0",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x7e78d327b15f2a36a22c5955d3a23d99dbccd8e0",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x7e78d327b15f2a36a22c5955d3a23d99dbccd8e0",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xba66bd9a",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4eefe3a5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xaeb116de",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x13045b0f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x02cba4a3",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa9d0550f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9851d0b",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3cc9517b",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x782621d8",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x95726782",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xce8a97a5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x5bb5d448",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xaf62c7d6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xb4f37581",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfa904c12",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe55f8110",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef27dc6f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x64a74ee2",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x2b53e8f3",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4db91a00",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe6253416",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x787f2d0e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6721556d",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x82614997",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x00d2aed6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xdf55e126",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "avalanche": [
     {
       "router": "0xe5cf1558a1470cb5c166c2e8651ed0f3c5fb8f42",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xe5cf1558a1470cb5c166c2e8651ed0f3c5fb8f42",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x833f307ac507d47309fd8cdd1f835bef8d702a93",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x833f307ac507d47309fd8cdd1f835bef8d702a93",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x833f307ac507d47309fd8cdd1f835bef8d702a93",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xb0731d50c681c45856bfc3f7539d5f61d4be81d8",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xb0731d50c681c45856bfc3f7539d5f61d4be81d8",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x9b17baadf0f21f03e35249e0e59723f34994f806",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x9b17baadf0f21f03e35249e0e59723f34994f806",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x9b17baadf0f21f03e35249e0e59723f34994f806",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x05f024c6f5a94990d32191d6f36211e3ee33504e",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x05f024c6f5a94990d32191d6f36211e3ee33504e",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x05f024c6f5a94990d32191d6f36211e3ee33504e",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x34324e1598bf02ccd3dea93f4e332b5507097473",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x34324e1598bf02ccd3dea93f4e332b5507097473",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x34324e1598bf02ccd3dea93f4e332b5507097473",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x9366790d807f1fb7dd08c36ec0e8b8acbbc1354d",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x9366790d807f1fb7dd08c36ec0e8b8acbbc1354d",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x9366790d807f1fb7dd08c36ec0e8b8acbbc1354d",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xd86eEE98E7D6726A1701f004f747e5Ce3E48e87c",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xd86eEE98E7D6726A1701f004f747e5Ce3E48e87c",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xd86eEE98E7D6726A1701f004f747e5Ce3E48e87c",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xef3c714c9425a8F3697A9C969Dc1af30ba82e5d4",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xaeb116de",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x13045b0f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "fantom": [
     {
       "router": "0xb576c9403f39829565bd6051695e2ac7ecf850e2",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xb576c9403f39829565bd6051695e2ac7ecf850e2",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf3ce95ec61114a4b1bfc615c16e6726015913ccc",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf3ce95ec61114a4b1bfc615c16e6726015913ccc",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf3ce95ec61114a4b1bfc615c16e6726015913ccc",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x1ccca1ce62c62f7be95d4a67722a8fdbed6eecb4",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x0b23341fa1da0171f52aa8ef85f3946b44d35ac0",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x0b23341fa1da0171f52aa8ef85f3946b44d35ac0",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x0b23341fa1da0171f52aa8ef85f3946b44d35ac0",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x8CE95561ec220dF4178899dd3c500daae2B5F5Bd",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x8CE95561ec220dF4178899dd3c500daae2B5F5Bd",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x8CE95561ec220dF4178899dd3c500daae2B5F5Bd",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x374B8a9f3eC5eB2D97ECA84Ea27aCa45aa1C57EF",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xaeb116de",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x13045b0f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "arbitrum": [
     {
       "router": "0x0cae51e1032e8461f4806e26332c030e34de3adb",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x0cae51e1032e8461f4806e26332c030e34de3adb",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x0cae51e1032e8461f4806e26332c030e34de3adb",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xc931f61b1534eb21d8c11b24f3f5ab2471d4ab50",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x39fde572a18448f8139b7788099f0a0740f51205",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x39fde572a18448f8139b7788099f0a0740f51205",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x39fde572a18448f8139b7788099f0a0740f51205",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x650Af55D5877F289837c30b94af91538a7504b76",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x650Af55D5877F289837c30b94af91538a7504b76",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x650Af55D5877F289837c30b94af91538a7504b76",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xa71353bb71dda105d383b02fc2dd172c4d39ef8b",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xa71353bb71dda105d383b02fc2dd172c4d39ef8b",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xa71353bb71dda105d383b02fc2dd172c4d39ef8b",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xbB29D2A58d880Af8AA5859e30470134dEAf84F2B",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xbB29D2A58d880Af8AA5859e30470134dEAf84F2B",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xbB29D2A58d880Af8AA5859e30470134dEAf84F2B",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x1619DE6B6B20eD217a58d00f37B9d47C7663feca",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xba66bd9a",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4eefe3a5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfa904c12",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe55f8110",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef27dc6f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x64a74ee2",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x2b53e8f3",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4db91a00",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe6253416",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x787f2d0e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6721556d",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x82614997",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x00d2aed6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xdf55e126",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "optimism": [
     {
       "router": "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x80a16016cc4a2e6a2caca8a4a498b1699ff0f844",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xdc42728b0ea910349ed3c6e1c9dc06b5fb591f98",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xdc42728b0ea910349ed3c6e1c9dc06b5fb591f98",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xdc42728b0ea910349ed3c6e1c9dc06b5fb591f98",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xf480f38c366daac4305dc484b2ad7a496ff00cea",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf480f38c366daac4305dc484b2ad7a496ff00cea",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf480f38c366daac4305dc484b2ad7a496ff00cea",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x9D39Fc627A6d9d9F8C831c16995b209548cc3401",
       "selector": "0xa5977fbb",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xba66bd9a",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4eefe3a5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x8bf6ef99",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9feb6731",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3b00e807",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xd7556c1e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfa904c12",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe55f8110",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef27dc6f",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x64a74ee2",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x2b53e8f3",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4db91a00",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe6253416",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x787f2d0e",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6721556d",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x82614997",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x00d2aed6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xdf55e126",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "moonriver": [
     {
       "router": "0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x7ae97042a4a0eb4d1eb370c34bfec71042a056b7",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xbbc4a8d076f4b1888fec42581b6fc58d242cf2d5",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x53098a3656de0c1ee8dcf004e6a0e886b2968a2f",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xF8aCF86194443DCde55fc5B9e448e183c290D8Cb",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xF8aCF86194443DCde55fc5B9e448e183c290D8Cb",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xF8aCF86194443DCde55fc5B9e448e183c290D8Cb",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xae0b91e5",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x482c6a85",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "cronos": [
     {
       "router": "0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x639a647fbe20b6c8ac19e48e2de44ea792c62c5c",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xc8a45dd787a301c38ad33f692f0d41c18590ef94",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xc8a45dd787a301c38ad33f692f0d41c18590ef94",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xc8a45dd787a301c38ad33f692f0d41c18590ef94",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xf27ee99622c3c9b264583dacb2cce056e194494f",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf27ee99622c3c9b264583dacb2cce056e194494f",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xf27ee99622c3c9b264583dacb2cce056e194494f",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x634398cb81b76bfc75ebb434cf7c82036f9e7d78",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x634398cb81b76bfc75ebb434cf7c82036f9e7d78",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x634398cb81b76bfc75ebb434cf7c82036f9e7d78",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x1e31E3Ba5e246E2f2390D29C778E33A59F6aA6C6",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x1e31E3Ba5e246E2f2390D29C778E33A59F6aA6C6",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x1e31E3Ba5e246E2f2390D29C778E33A59F6aA6C6",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xef55f6dd",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa342d3ff",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xc9fb76b1",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c70d7e6",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xfd750f84",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3461c144",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9b6ee8e4",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "telos": [
     {
       "router": "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xc19281f22a075e0f10351cd5d6ea9f0ac63d4327",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xb2c22a9fb4fc02eb9d1d337655ce079a04a526c7",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0x5d9ab5522c64e1f6ef5e3627eccc093f56167818",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     },
     {
       "router": "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
       "selector": "0x241dc2df",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
       "selector": "0xedbdf5e2",
-      "offset": 68
+      "offset": 68,
+      "isAvailable": false
     },
     {
       "router": "0xC931f61B1534EB21D8c11B24f3f5Ab2471d4aB50",
       "selector": "0xa5e56571",
-      "offset": 0
+      "offset": 0,
+      "isAvailable": false
     }
   ]
 }
