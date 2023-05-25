@@ -244,8 +244,6 @@ contract ExecutorTest is DSTest {
         assertEq(tokenB.balanceOf(address(vault)), 100 ether);
         assertEq(tokenC.balanceOf(address(vault)), 100 ether);
         assertEq(tokenD.balanceOf(address(vault)), 100 ether);
-
-        vm.stopPrank();
     }
 
     function testCanReceiveNativeTokensFromDestinationSwap() public {
@@ -429,8 +427,6 @@ contract ExecutorTest is DSTest {
         assertEq(tokenB.balanceOf(address(vault)), 100 ether);
         assertEq(tokenC.balanceOf(address(vault)), 100 ether);
         assertEq(tokenD.balanceOf(address(vault)), 100 ether);
-
-        vm.stopPrank();
     }
 
     function testCanPerformSwapWithCleanup() public {
@@ -467,8 +463,6 @@ contract ExecutorTest is DSTest {
         );
         assertEq(tokenB.balanceOf(address(0xb33f)), 0.2 ether);
         assertEq(tokenA.balanceOf(address(0xb33f)), 0.8 ether);
-
-        vm.stopPrank();
     }
 
     //    function testCanPerformSameChainComplexSwap() public {
