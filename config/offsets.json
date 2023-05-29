@@ -315,6 +315,16 @@
   ],
   "bsc": [
     {
+      "router": "0x7D26F09d4e2d032Efa0729fC31a4c2Db8a2394b1",
+      "selector": "0x2aac3cac",
+      "offset": 132
+    },
+    {
+      "router": "0x81aB74A9f9d7457fF47dfD102e78A340cF72EC39",
+      "selector": "0xa11b1198",
+      "offset": 0
+    },
+    {
       "router": "0xabd380327fe66724ffda91a87c772fb8d00be488",
       "selector": "0x241dc2df",
       "offset": 68,
