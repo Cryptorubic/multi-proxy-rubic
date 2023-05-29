@@ -56,14 +56,27 @@ contract DeployScript is DeployScriptBase {
             return (Receiver(payable(predicted)), constructorArgs);
         }
 
-        deployed = Receiver(
-            payable(
-                factory.deploy(
-                    salt,
-                    bytes.concat(type(Receiver).creationCode, constructorArgs)
+        if (networkSupportsCreate3(network)) {
+            deployed = Receiver(
+                payable(
+                    factory.deploy(
+                        salt,
+                        bytes.concat(
+                            type(Receiver).creationCode,
+                            constructorArgs
+                        )
+                    )
                 )
-            )
-        );
+            );
+        } else {
+            deployed = new Receiver(
+                deployerAddress,
+                stargateRouter,
+                amarokRouter,
+                executor,
+                100000
+            );
+        }
 
         vm.stopBroadcast();
     }

@@ -14,9 +14,13 @@ contract DeployScript is DeployScriptBase {
             return GenericCrossChainFacet(predicted);
         }
 
-        deployed = GenericCrossChainFacet(
-            factory.deploy(salt, type(GenericCrossChainFacet).creationCode)
-        );
+        if (networkSupportsCreate3(network)) {
+            deployed = GenericCrossChainFacet(
+                factory.deploy(salt, type(GenericCrossChainFacet).creationCode)
+            );
+        } else {
+            deployed = new GenericCrossChainFacet();
+        }
 
         vm.stopBroadcast();
     }

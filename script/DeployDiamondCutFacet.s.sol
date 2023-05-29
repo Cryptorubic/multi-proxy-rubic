@@ -14,9 +14,13 @@ contract DeployScript is DeployScriptBase {
             return DiamondCutFacet(predicted);
         }
 
-        deployed = DiamondCutFacet(
-            factory.deploy(salt, type(DiamondCutFacet).creationCode)
-        );
+        if (networkSupportsCreate3(network)) {
+            deployed = DiamondCutFacet(
+                factory.deploy(salt, type(DiamondCutFacet).creationCode)
+            );
+        } else {
+            deployed = new DiamondCutFacet();
+        }
 
         vm.stopBroadcast();
     }

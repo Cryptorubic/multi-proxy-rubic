@@ -18,9 +18,13 @@ contract DeployScript is DeployScriptBase {
             return DiamondLoupeFacet(predicted);
         }
 
-        deployed = DiamondLoupeFacet(
-            factory.deploy(salt, type(DiamondLoupeFacet).creationCode)
-        );
+        if (networkSupportsCreate3(network)) {
+            deployed = DiamondLoupeFacet(
+                factory.deploy(salt, type(DiamondLoupeFacet).creationCode)
+            );
+        } else {
+            deployed = new DiamondLoupeFacet();
+        }
 
         vm.stopBroadcast();
     }

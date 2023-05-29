@@ -51,4 +51,16 @@ contract DeployScriptBase is Script {
     function isDeployed() internal view returns (bool) {
         return isContract(predicted);
     }
+
+    function networkSupportsCreate3(
+        string memory _network
+    ) internal pure returns (bool) {
+        bytes32 networkHash = keccak256(abi.encodePacked(_network));
+
+        if (networkHash == keccak256(abi.encodePacked("zksync"))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

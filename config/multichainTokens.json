@@ -4444,5 +4444,9 @@
         "anyTokenAddress": "0xa84df7afbcbcc1106834a5fed9453bd1219b1fb5"
       }
     ]
+  },
+  "zkSync": {
+    "chainID": 324,
+    "mappings": []
   }
 }

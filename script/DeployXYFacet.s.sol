@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { DeployScriptBase } from "./utils/DeployScriptBase.sol";
 import { stdJson } from "forge-std/Script.sol";
-import { XYFacet } from "rubic/Facets/XYFacet.sol";
+import { XYFacet, IXSwapper } from "rubic/Facets/XYFacet.sol";
 
 contract DeployScript is DeployScriptBase {
     using stdJson for string;
@@ -31,14 +31,21 @@ contract DeployScript is DeployScriptBase {
             return (XYFacet(payable(predicted)), constructorArgs);
         }
 
-        deployed = XYFacet(
-            payable(
-                factory.deploy(
-                    salt,
-                    bytes.concat(type(XYFacet).creationCode, constructorArgs)
+        if (networkSupportsCreate3(network)) {
+            deployed = XYFacet(
+                payable(
+                    factory.deploy(
+                        salt,
+                        bytes.concat(
+                            type(XYFacet).creationCode,
+                            constructorArgs
+                        )
+                    )
                 )
-            )
-        );
+            );
+        } else {
+            deployed = new XYFacet(IXSwapper(xswapper));
+        }
 
         vm.stopBroadcast();
     }
