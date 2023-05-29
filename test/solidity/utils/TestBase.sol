@@ -121,8 +121,6 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     event Transfer(address from, address to, uint256 amount);
 
     // CONSTANTS
-    // Forking
-    uint256 internal constant DEFAULT_BLOCK_NUMBER_MAINNET = 15588208;
 
     // Contract addresses (ETH only)
     address internal constant ADDRESS_UNISWAP =

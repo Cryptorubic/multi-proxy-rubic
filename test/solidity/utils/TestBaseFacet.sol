@@ -250,6 +250,9 @@ abstract contract TestBaseFacet is TestBase {
         // reset swap data
         setDefaultSwapDataSingleDAItoUSDC();
 
+        // approval
+        dai.approve(address(erc20proxy), swapData[0].fromAmount);
+
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
         emit AssetSwapped(
@@ -263,9 +266,6 @@ abstract contract TestBaseFacet is TestBase {
         );
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
         emit RubicTransferStarted(bridgeData);
-
-        // approval
-        dai.approve(address(erc20proxy), swapData[0].fromAmount);
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
@@ -303,6 +303,9 @@ abstract contract TestBaseFacet is TestBase {
         // reset swap data
         setDefaultSwapDataSingleDAItoUSDC();
 
+        // approval
+        dai.approve(address(erc20proxy), swapData[0].fromAmount);
+
         //prepare check for events
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
         emit AssetSwapped(
@@ -317,9 +320,6 @@ abstract contract TestBaseFacet is TestBase {
 
         vm.expectEmit(true, true, true, true, _facetTestContractAddress);
         emit RubicTransferStarted(bridgeData);
-
-        // approval
-        dai.approve(address(erc20proxy), swapData[0].fromAmount);
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
@@ -351,6 +351,9 @@ abstract contract TestBaseFacet is TestBase {
         uint256 amountIn = amounts[0];
 
         bridgeData.minAmount = amountOut;
+
+        // approval
+        usdc.approve(address(erc20proxy), amountIn);
 
         delete swapData;
         swapData.push(
@@ -389,9 +392,6 @@ abstract contract TestBaseFacet is TestBase {
         //     therefore the test is designed to only check if an event was emitted but not match the parameters
         vm.expectEmit(false, false, false, false, _facetTestContractAddress);
         emit RubicTransferStarted(bridgeData);
-
-        // approval
-        usdc.approve(address(erc20proxy), amountIn);
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);

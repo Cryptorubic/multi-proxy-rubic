@@ -27,6 +27,10 @@
     "zkSync": {
       "metaRouter": "0x4f30036b5858f77F98d8D35c3b21BEb18916Ba9a",
       "gateway": "0x2F7c5901DeBFb7faD804Db800F226de3dd0cffd5"
+    },
+    "optimism": {
+      "metaRouter": "0xcE8f24A58D85eD5c5A6824f7be1F8d4711A0eb4C",
+      "gateway": "0xAdB2d3b711Bb8d8Ea92ff70292c466140432c278"
     }
   }
 }
