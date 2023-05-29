@@ -29,9 +29,11 @@ The specific to GenericCrossChain Facet and is represented as the following stru
 
 ```solidity
 /// @param router Address of the router that has to be called
+/// @param approveTo Address of the gateway to approve to
 /// @param callData Calldata that has to be passed to the router
 struct GenericCrossChainData {
     address router;
+    address approveTo;
     bytes callData;
 }
 

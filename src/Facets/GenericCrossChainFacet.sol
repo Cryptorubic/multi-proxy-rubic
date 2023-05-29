@@ -31,9 +31,11 @@ contract GenericCrossChainFacet is
     /// Types ///
 
     /// @param router Address of the router that has to be called
+    /// @param approveTo Address of the gateway to approve to
     /// @param callData Calldata that has to be passed to the router
     struct GenericCrossChainData {
         address router;
+        address approveTo;
         bytes callData;
     }
 
@@ -171,7 +173,7 @@ contract GenericCrossChainFacet is
         } else {
             LibAsset.maxApproveERC20(
                 IERC20(_bridgeData.sendingAssetId),
-                _genericData.router,
+                _genericData.approveTo,
                 _bridgeData.minAmount
             );
         }
@@ -202,6 +204,7 @@ contract GenericCrossChainFacet is
                 return
                     GenericCrossChainData(
                         _genericData.router,
+                        _genericData.approveTo,
                         bytes.concat(
                             _genericData.callData[:info.offset],
                             abi.encode(amount),
@@ -212,6 +215,7 @@ contract GenericCrossChainFacet is
                 return
                     GenericCrossChainData(
                         _genericData.router,
+                        _genericData.approveTo,
                         _genericData.callData
                     );
             }
