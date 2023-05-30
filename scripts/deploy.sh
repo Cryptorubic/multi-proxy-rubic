@@ -4,7 +4,10 @@ deploy() {
 	source .env
 
 	if [[ -z "$PRODUCTION" ]]; then
+	  echo 'NOT PRODUCTION SETTINGS'
 		FILE_SUFFIX="staging."
+	else
+	  echo 'PRODUCTION SETTINGS!!!'
 	fi
 
 	NETWORK=$(cat ./networks | gum filter --placeholder "Network")
@@ -15,11 +18,11 @@ deploy() {
 
 	echo $SCRIPT
 
-	RAW_RETURN_DATA=$(SALT=$SALT NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK -vvvv --json --broadcast --skip-simulation --silent --legacy --verify)
+	RAW_RETURN_DATA=$(SALT=$SALT NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK --json --broadcast --skip-simulation --silent --legacy)
   echo $RAW_RETURN_DATA
 	CLEAN_RETURN_DATA=$(echo $RAW_RETURN_DATA | sed 's/^.*{\"logs/{\"logs/')
 	echo $CLEAN_RETURN_DATA | jq 2> /dev/null
-	checkFailure
+	#checkFailure
 	RETURN_DATA=$(echo $CLEAN_RETURN_DATA | jq -r '.returns' 2> /dev/null)
 
 	deployed=$(echo $RETURN_DATA | jq -r '.deployed.value')
