@@ -5,7 +5,10 @@ update() {
 	source .env
 
 	if [[ -z "$PRODUCTION" ]]; then
+	  echo 'NOT PRODUCTION SETTINGS'
 		FILE_SUFFIX="staging."
+	else
+	  echo 'PRODUCTION SETTINGS!!!'
 	fi
 
 	NETWORK=$(cat ./networks | gum filter --placeholder "Network...")
