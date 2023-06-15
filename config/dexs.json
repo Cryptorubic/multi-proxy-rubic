@@ -284,6 +284,9 @@
     "0x2da10A1e27bF85cEdD8FFb1AbBe97e53391C0295",
     "0x6e2B76966cbD9cF4cC2Fa0D76d24d5241E0ABC2F"
   ],
+  "astar": [
+    "0xE915D2393a08a00c5A463053edD31bAe2199b9e7"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []
