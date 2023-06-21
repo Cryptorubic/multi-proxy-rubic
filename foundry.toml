@@ -39,6 +39,7 @@ telos = "${ETH_NODE_URI_TELOS}"
 zkSync = "${ETH_NODE_URI_ZKSYNC}"
 zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 astar = "${ETH_NODE_URI_ASTAR}"
+pulse = "${ETH_NODE_URI_PULSE}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
@@ -62,6 +63,7 @@ aurora = { key = "${AURORA_ETHERSCAN_API_KEY}", url = "https://api.aurorascan.de
 boba = { key = "${BOBA_ETHERSCAN_API_KEY}", url = "https://api.bobascan.com/api" }
 nova = { key = "${NOVA_ETHERSCAN_API_KEY}", url = "https://nova.arbiscan.io/api" }
 astar = {key = "${ASTAR_ETHERSCAN_API_KEY}", url = "https://blockscout.com/astar/api"}
+pulse = {key = "${PULSE_ETHERSCAN_API_KEY}", url = "https://scan.pulsechain.com/api"}
 
 #testnets
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
