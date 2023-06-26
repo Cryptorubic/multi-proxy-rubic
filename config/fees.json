@@ -15,6 +15,7 @@
       "astar": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "pulse": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkSync": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "aurora": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
@@ -64,6 +65,9 @@
     },
     "pulse": {
       "maxFixedNativeFee": 2084636000000000000000000
+    },
+    "aurora": {
+      "maxFixedNativeFee": 100000000000000000
     }
   }
 }
