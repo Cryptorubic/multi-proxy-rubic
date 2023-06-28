@@ -90,7 +90,7 @@ const config: HardhatUserConfig = {
       accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
     },
   },
-  defaultNetwork: 'zkSync',
+  defaultNetwork: 'ethereum',
   typechain: {
     outDir: 'typechain',
     target: 'ethers-v5',
