@@ -143,7 +143,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
 
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
-            XSWAPPER,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -204,7 +203,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
     function test_Revert_CannotUseNotAvailableProvider() public {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(address(this)),
-            XSWAPPER,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -242,7 +240,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
     function testBase_CanBridgeNativeTokens() public override {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
-            XSWAPPER,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -269,7 +266,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
     function testBase_CanBridgeNativeTokensWithFees() public override {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
-            XSWAPPER,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -296,7 +292,6 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
     function testBase_CanSwapAndBridgeNativeTokens() public override {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
-            XSWAPPER,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
