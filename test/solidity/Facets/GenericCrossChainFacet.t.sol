@@ -144,6 +144,7 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
             XSWAPPER,
+            0,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -205,6 +206,7 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(address(this)),
             XSWAPPER,
+            0,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -243,6 +245,7 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
             XSWAPPER,
+            0,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -270,6 +273,7 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
             XSWAPPER,
+            0,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
@@ -297,6 +301,7 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
             XSWAPPER,
+            0,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,
                 address(0),
