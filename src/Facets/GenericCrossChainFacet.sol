@@ -31,9 +31,13 @@ contract GenericCrossChainFacet is
     /// Types ///
 
     /// @param router Address of the router that has to be called
+    /// @param approveTo Address of the gateway to approve to
+    /// @param extraNative Amount of native to send to a router
     /// @param callData Calldata that has to be passed to the router
     struct GenericCrossChainData {
         address router;
+        address approveTo;
+        uint256 extraNative;
         bytes callData;
     }
 
@@ -97,7 +101,7 @@ contract GenericCrossChainFacet is
         _bridgeData.minAmount = LibAsset.depositAssetAndAccrueFees(
             _bridgeData.sendingAssetId,
             _bridgeData.minAmount,
-            0,
+            _genericData.extraNative,
             _bridgeData.integrator
         );
 
@@ -129,7 +133,8 @@ contract GenericCrossChainFacet is
             _bridgeData.minAmount,
             _swapData,
             _bridgeData.integrator,
-            payable(_bridgeData.refundee)
+            payable(_bridgeData.refundee),
+            _genericData.extraNative
         );
 
         _startBridge(
@@ -171,13 +176,13 @@ contract GenericCrossChainFacet is
         } else {
             LibAsset.maxApproveERC20(
                 IERC20(_bridgeData.sendingAssetId),
-                _genericData.router,
+                _genericData.approveTo,
                 _bridgeData.minAmount
             );
         }
 
         (bool success, bytes memory res) = _genericData.router.call{
-            value: nativeAssetAmount
+            value: nativeAssetAmount + _genericData.extraNative
         }(_genericData.callData);
         if (!success) {
             string memory reason = LibUtil.getRevertMsg(res);
@@ -202,6 +207,8 @@ contract GenericCrossChainFacet is
                 return
                     GenericCrossChainData(
                         _genericData.router,
+                        _genericData.approveTo,
+                        _genericData.extraNative,
                         bytes.concat(
                             _genericData.callData[:info.offset],
                             abi.encode(amount),
@@ -212,6 +219,8 @@ contract GenericCrossChainFacet is
                 return
                     GenericCrossChainData(
                         _genericData.router,
+                        _genericData.approveTo,
+                        _genericData.extraNative,
                         _genericData.callData
                     );
             }
