@@ -40,6 +40,7 @@ zkSync = "${ETH_NODE_URI_ZKSYNC}"
 zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 astar = "${ETH_NODE_URI_ASTAR}"
 pulse = "${ETH_NODE_URI_PULSE}"
+zkEvm = "${ETH_NODE_URI_ZKEVM}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
@@ -64,6 +65,7 @@ boba = { key = "${BOBA_ETHERSCAN_API_KEY}", url = "https://api.bobascan.com/api"
 nova = { key = "${NOVA_ETHERSCAN_API_KEY}", url = "https://nova.arbiscan.io/api" }
 astar = {key = "${ASTAR_ETHERSCAN_API_KEY}", url = "https://blockscout.com/astar/api"}
 pulse = {key = "${PULSE_ETHERSCAN_API_KEY}", url = "https://scan.pulsechain.com/api"}
+polygon-zkevm = {key = "${ZKEVM_ETHERSCAN_API_KEY}", url = "https://api-zkevm.polygonscan.com/api"}
 
 #testnets
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
