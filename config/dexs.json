@@ -297,6 +297,9 @@
     "0x1111111254fb6c44bac0bed2854e76f90643097d",
     "0x1111111254eeb25477b68fb85ed929f73a960582"
   ],
+  "zkEvm": [
+    "0xf6ad3ccf71abb3e12becf6b3d2a74c963859adcd"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []

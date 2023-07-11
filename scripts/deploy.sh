@@ -63,6 +63,11 @@ verifyContract() {
 	ADDRESS=$3
 	ARGS=$4
 	API_KEY="$(tr '[:lower:]' '[:upper:]' <<< $NETWORK)_ETHERSCAN_API_KEY"
+
+	if [ "$NETWORK" = "zkEvm" ]; then
+	  NETWORK=polygon-zkevm
+  fi
+
 	if [ "$ARGS" = "0x" ]; then
 		forge verify-contract --watch --chain $NETWORK $ADDRESS $CONTRACT
 	else
