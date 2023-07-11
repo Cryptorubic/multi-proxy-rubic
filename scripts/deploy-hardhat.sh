@@ -13,7 +13,7 @@ deploy() {
 
 	echo $SCRIPT
 
-	RAW_RETURN_DATA=$(yarn hardhat deploy-zksync --script deploy/$SCRIPT.ts)
+	RAW_RETURN_DATA=$(yarn hardhat --network ${NETWORK} deploy-zksync --script deploy/$SCRIPT.ts)
   #echo $RAW_RETURN_DATA
 	CLEAN_RETURN_DATA=$(echo $RAW_RETURN_DATA | sed 's/^.*{"address/{"address/')
 	CLEAN_RETURN_DATA=$(echo $CLEAN_RETURN_DATA | sed 's/}.*$/}/')
