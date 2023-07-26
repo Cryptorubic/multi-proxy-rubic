@@ -44,8 +44,8 @@ contract GenericCrossChainFacet is
     /// Modifiers ///
 
     modifier validateGenericData(GenericCrossChainData calldata _genericData) {
-        if (!LibAsset.isContract(_genericData.router))
-            revert InvalidContract();
+        //        if (!LibAsset.isContract(_genericData.router))
+        //            revert InvalidContract();
         _;
     }
 
