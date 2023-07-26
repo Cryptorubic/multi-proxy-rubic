@@ -2622,5 +2622,45 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "goerli": [
+    {
+      "router": "0x5302358dCFbF2881e5b5E537316786d8Ea242008",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x6d79Aa2e4Fbf80CF8543Ad97e294861853fb0649",
+      "selector": "0xc7cdea37",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x358234B325EF9eA8115291A8b81b7d33A2Fa762D",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    },
+    {
+      "router": "0x358234B325EF9eA8115291A8b81b7d33A2Fa762D",
+      "selector": "0x3f2e5fc3",
+      "offset": 36,
+      "isAvailable": true
+    }
+  ],
+  "bsc-testnet": [
+    {
+      "router": "0x3689D3B912d4D73FfcAad3a80861e7caF2d4F049",
+      "selector": "0x2aac3cac",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xd3F98c243374D79Bfd9a8ac03964623221D53F0f",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }

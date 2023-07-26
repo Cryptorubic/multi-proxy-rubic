@@ -303,6 +303,9 @@
     "0xf6ad3ccf71abb3e12becf6b3d2a74c963859adcd",
     "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86"
   ],
+  "goerli": [
+    "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []
