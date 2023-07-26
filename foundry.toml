@@ -37,7 +37,6 @@ boba = "${ETH_NODE_URI_BOBA}"
 nova = "${ETH_NODE_URI_NOVA}"
 telos = "${ETH_NODE_URI_TELOS}"
 zkSync = "${ETH_NODE_URI_ZKSYNC}"
-zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 astar = "${ETH_NODE_URI_ASTAR}"
 pulse = "${ETH_NODE_URI_PULSE}"
 zkEvm = "${ETH_NODE_URI_ZKEVM}"
@@ -45,6 +44,8 @@ zkEvm = "${ETH_NODE_URI_ZKEVM}"
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
 mumbai = "${ETH_NODE_URI_MUMBAI}"
+bsc-testnet = "${ETH_NODE_URI_BSCTEST}"
+zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 
 [etherscan]
 mainnet = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
@@ -69,4 +70,5 @@ polygon-zkevm = {key = "${ZKEVM_ETHERSCAN_API_KEY}", url = "https://api-zkevm.po
 
 #testnets
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
-mumbai = { key = "${MUMBAI_ETHERSCAN_API_KEY}", url = "https://api-testnet.polygonscan.com/api" }
+mumbai = { key = "${POLYGON_ETHERSCAN_API_KEY}", url = "https://api-testnet.polygonscan.com/api" }
+bsc-testnet = { key = "${BSC_ETHERSCAN_API_KEY}", url = "https://api-testnet.bscscan.com/api" }

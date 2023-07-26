@@ -17,7 +17,10 @@
       "zkSync": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "aurora": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkEvm": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "goerli": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "bsc-testnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "mumbai":  "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -72,6 +75,15 @@
     },
     "zkEvm": {
       "maxFixedNativeFee": 100000000000000000
+    },
+    "goerli": {
+      "maxFixedNativeFee": 100000000000000000
+    },
+    "bsc-testnet": {
+      "maxFixedNativeFee": 1000000000000000000
+    },
+    "mumbai":  {
+      "maxFixedNativeFee": 200000000000000000000
     }
   }
 }
