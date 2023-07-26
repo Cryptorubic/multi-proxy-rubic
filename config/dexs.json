@@ -303,8 +303,9 @@
     "0xf6ad3ccf71abb3e12becf6b3d2a74c963859adcd",
     "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86"
   ],
-  "goerli": [
-    "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+  "scrollAlphaTestnet": [
+    "0x0cfd11ac90992872d62a439bF0ED01EFA583d8Dc",
+    "0xD9880690bd717189cC3Fbe7B9020F27fae7Ac76F"
   ],
   "mumbai": [],
   "optimisticKovan": [],

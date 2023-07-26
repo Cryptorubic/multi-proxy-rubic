@@ -45,6 +45,7 @@ zkEvm = "${ETH_NODE_URI_ZKEVM}"
 goerli = "${ETH_NODE_URI_GOERLI}"
 mumbai = "${ETH_NODE_URI_MUMBAI}"
 bsc-testnet = "${ETH_NODE_URI_BSCTEST}"
+scrollAlphaTestnet = "${ETH_NODE_URI_SCROLLALPHATESTNET}"
 zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 
 [etherscan]
@@ -72,3 +73,4 @@ polygon-zkevm = {key = "${ZKEVM_ETHERSCAN_API_KEY}", url = "https://api-zkevm.po
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
 mumbai = { key = "${POLYGON_ETHERSCAN_API_KEY}", url = "https://api-testnet.polygonscan.com/api" }
 bsc-testnet = { key = "${BSC_ETHERSCAN_API_KEY}", url = "https://api-testnet.bscscan.com/api" }
+scrollAlphaTestnet = { key = "${SCROLLALPHA_ETHERSCAN_API_KEY}", url = "https://blockscout.scroll.io/api" }

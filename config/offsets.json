@@ -2662,5 +2662,31 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "scrollAlphaTestnet": [
+    {
+      "router": "0x9B36f165baB9ebe611d491180418d8De4b8f3a1f",
+      "selector": "0xa5977fbb",
+      "offset": 68,
+      "isAvailable": true
+    },
+    {
+      "router": "0x9B36f165baB9ebe611d491180418d8De4b8f3a1f",
+      "selector": "0x3f2e5fc3",
+      "offset": 36,
+      "isAvailable": true
+    },
+    {
+      "router": "0xAED47A51AeFa6f95A388aDA3c459d94FF46fC4BB",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xe5E30E7c24e4dFcb281A682562E53154C15D3332",
+      "selector": "0x9f8420b3",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
