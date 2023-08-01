@@ -16,6 +16,7 @@
       "pulse": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkSync": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "aurora": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "linea": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkEvm": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
@@ -68,6 +69,9 @@
       "maxFixedNativeFee": 2084636000000000000000000
     },
     "aurora": {
+      "maxFixedNativeFee": 100000000000000000
+    },
+    "linea": {
       "maxFixedNativeFee": 100000000000000000
     },
     "zkEvm": {

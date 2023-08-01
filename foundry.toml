@@ -33,6 +33,7 @@ velas = "${ETH_NODE_URI_VELAS}"
 harmony = "${ETH_NODE_URI_HARMONY}"
 evmos = "${ETH_NODE_URI_EVMOS}"
 aurora = "${ETH_NODE_URI_AURORA}"
+linea = "${ETH_NODE_URI_LINEA}"
 boba = "${ETH_NODE_URI_BOBA}"
 nova = "${ETH_NODE_URI_NOVA}"
 telos = "${ETH_NODE_URI_TELOS}"
@@ -66,6 +67,7 @@ nova = { key = "${NOVA_ETHERSCAN_API_KEY}", url = "https://nova.arbiscan.io/api"
 astar = {key = "${ASTAR_ETHERSCAN_API_KEY}", url = "https://blockscout.com/astar/api"}
 pulse = {key = "${PULSE_ETHERSCAN_API_KEY}", url = "https://scan.pulsechain.com/api"}
 polygon-zkevm = {key = "${ZKEVM_ETHERSCAN_API_KEY}", url = "https://api-zkevm.polygonscan.com/api"}
+linea = {key = "${LINEA_ETHERSCAN_API_KEY}", url = "https://api.lineascan.build/api"}
 
 #testnets
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
