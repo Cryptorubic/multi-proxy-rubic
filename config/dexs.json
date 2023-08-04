@@ -312,7 +312,8 @@
   ],
   "zkEvm": [
     "0xf6ad3ccf71abb3e12becf6b3d2a74c963859adcd",
-    "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86"
+    "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86",
+    "0x6dd434082EAB5Cd134B33719ec1FF05fE985B97b"
   ],
   "mumbai": [],
   "optimisticKovan": [],
