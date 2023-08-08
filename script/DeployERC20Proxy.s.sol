@@ -48,7 +48,9 @@ contract DeployScript is DeployScriptBase {
 
             vm.stopBroadcast();
         } else {
-            deployerPrivateKey = uint256(vm.envBytes32("PRIVATE_KEY_ERC20PROXY"));
+            deployerPrivateKey = uint256(
+                vm.envBytes32("PRIVATE_KEY_ERC20PROXY")
+            );
 
             vm.startBroadcast(deployerPrivateKey);
 
