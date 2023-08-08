@@ -1891,6 +1891,14 @@
       "isAvailable": true
     }
   ],
+  "base": [
+    {
+      "router": "0x7057aB3fB2BeE9c18e0cDe4240DE4ff7f159E365",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
+  ],
   "zkEvm": [
     {
       "router": "0x3689D3B912d4D73FfcAad3a80861e7caF2d4F049",
