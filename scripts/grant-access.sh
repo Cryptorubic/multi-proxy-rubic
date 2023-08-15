@@ -5,7 +5,7 @@ load() {
 
 NETWORK=$(cat ./networks | gum filter --placeholder "Network")
 ADDRESS=$(gum input --placeholder "Address?")
-METHODS=$(gum choose --no-limit 'addDex|0x536db266' 'batchAddDex|0xfcd8e49e' 'removeDex|0x124f1ead' 'batchRemoveDex|0x9afc19c7' 'executCallAndWithdraw|0x1458d7ad')
+METHODS=$(gum choose --no-limit 'addDex|0x536db266' 'batchAddDex|0xfcd8e49e' 'removeDex|0x124f1ead' 'batchRemoveDex|0x9afc19c7' 'executCallAndWithdraw|0x1458d7ad'  'setFeeTreasure|0xb395d295' 'setFixedNativeFee|0x6d0f18c4' 'setIntegratorInfo|0x825dc415' 'setMaxRubicPlatformFee|0xbcd97c25' 'setRubicPlatformFee|0x95c54f5a')
 
 ADDRS="deployments/$NETWORK.json"
 
@@ -28,6 +28,8 @@ grantAccess() {
   RPC="ETH_NODE_URI_$NETWORK"
 
   cast send $DIAMOND 'setCanExecute(bytes4,address,bool)' "$METHOD" "$ADDRESS" true --private-key $PRIVATE_KEY --rpc-url "${!RPC}" --legacy
+
+  echo "Granted!"
 }
 
 load
