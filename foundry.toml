@@ -40,6 +40,7 @@ telos = "${ETH_NODE_URI_TELOS}"
 zkSync = "${ETH_NODE_URI_ZKSYNC}"
 zkSyncTestnet = "${ETH_NODE_URI_ZKSYNC_TESTNET}"
 astar = "${ETH_NODE_URI_ASTAR}"
+base = "${ETH_NODE_URI_BASE}"
 pulse = "${ETH_NODE_URI_PULSE}"
 zkEvm = "${ETH_NODE_URI_ZKEVM}"
 
@@ -65,6 +66,7 @@ aurora = { key = "${AURORA_ETHERSCAN_API_KEY}", url = "https://explorer.aurora.d
 boba = { key = "${BOBA_ETHERSCAN_API_KEY}", url = "https://api.bobascan.com/api" }
 nova = { key = "${NOVA_ETHERSCAN_API_KEY}", url = "https://nova.arbiscan.io/api" }
 astar = {key = "${ASTAR_ETHERSCAN_API_KEY}", url = "https://blockscout.com/astar/api"}
+base = {key = "${BASE_ETHERSCAN_API_KEY}", url = "https://api.basescan.org/api"}
 pulse = {key = "${PULSE_ETHERSCAN_API_KEY}", url = "https://scan.pulsechain.com/api"}
 polygon-zkevm = {key = "${ZKEVM_ETHERSCAN_API_KEY}", url = "https://api-zkevm.polygonscan.com/api"}
 linea = {key = "${LINEA_ETHERSCAN_API_KEY}", url = "https://api.lineascan.build/api"}

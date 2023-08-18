@@ -8,6 +8,7 @@
     "optimism": "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b",
     "fantom": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6",
     "avalanche": "0x45A01E4e04F14f7A4a6702c74187c5F6222033cd",
+    "base": "0x45f1a95a4d3f3836523f5c83673c797f4d4d263b",
     "mumbai": "0x817436a076060D158204d955E5403b6Ed0A5fac0",
     "gnosis": "0x0000000000000000000000000000000000000000",
     "moonbeam": "0x0000000000000000000000000000000000000000",
@@ -47,6 +48,14 @@
     {
       "chainId": 10,
       "lzChainId": 111
+    },
+    {
+      "chainId": 1088,
+      "lzChainId": 151
+    },
+    {
+      "chainId": 8453,
+      "lzChainId": 184
     }
   ],
   "pools": {
@@ -234,6 +243,16 @@
       {
         "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
         "id": 19
+      }
+    ],
+    "base": [
+      {
+        "address": "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
+        "id": 1
+      },
+      {
+        "address": "0x224D8Fd7aB6AD4c6eb4611Ce56EF35Dec2277F03",
+        "id": 13
       }
     ],
     "mumbai": [
