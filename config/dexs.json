@@ -315,6 +315,10 @@
     "0x678Aa4bF4E210cf2166753e054d5b7c31cc7fa86",
     "0x6dd434082EAB5Cd134B33719ec1FF05fE985B97b"
   ],
+  "base": [
+    "0x327Df1E6de05895d2ab08513aaDD9313Fe505d86",
+    "0x224D8Fd7aB6AD4c6eb4611Ce56EF35Dec2277F03"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []
