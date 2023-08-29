@@ -69,9 +69,9 @@ verifyContract() {
   fi
 
 	if [ "$ARGS" = "0x" ]; then
-		forge verify-contract --watch --verifier-url https://api.basescan.org/api --etherscan-api-key "${!API_KEY}"  $ADDRESS $CONTRACT
+		forge verify-contract --watch -chain $NETWORK --etherscan-api-key "${!API_KEY}"  $ADDRESS $CONTRACT
 	else
-		forge verify-contract --watch --verifier-url https://api.basescan.org/api --etherscan-api-key "${!API_KEY}" $ADDRESS $CONTRACT --constructor-args $ARGS
+		forge verify-contract --watch -chain $NETWORK --etherscan-api-key "${!API_KEY}" $ADDRESS $CONTRACT --constructor-args $ARGS
 	fi
 }
 
