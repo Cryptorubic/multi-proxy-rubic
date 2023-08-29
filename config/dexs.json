@@ -322,6 +322,9 @@
     "0x224D8Fd7aB6AD4c6eb4611Ce56EF35Dec2277F03",
     "0x02F55D53DcE23B4AA962CC68b0f685f26143Bdb2"
   ],
+  "mantle": [
+    "0x25C030116Feb2E7BbA054b9de0915E5F51b03e31"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []

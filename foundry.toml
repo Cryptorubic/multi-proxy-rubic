@@ -43,6 +43,7 @@ astar = "${ETH_NODE_URI_ASTAR}"
 base = "${ETH_NODE_URI_BASE}"
 pulse = "${ETH_NODE_URI_PULSE}"
 zkEvm = "${ETH_NODE_URI_ZKEVM}"
+mantle = "${ETH_NODE_URI_MANTLE}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
@@ -70,6 +71,7 @@ base = {key = "${BASE_ETHERSCAN_API_KEY}", url = "https://api.basescan.org/api"}
 pulse = {key = "${PULSE_ETHERSCAN_API_KEY}", url = "https://scan.pulsechain.com/api"}
 polygon-zkevm = {key = "${ZKEVM_ETHERSCAN_API_KEY}", url = "https://api-zkevm.polygonscan.com/api"}
 linea = {key = "${LINEA_ETHERSCAN_API_KEY}", url = "https://api.lineascan.build/api"}
+mantle = {key = "${MANTLE_ETHERSCAN_API_KEY}", url = "https://explorer.mantle.xyz/api"}
 
 #testnets
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
