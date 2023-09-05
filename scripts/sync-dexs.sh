@@ -10,6 +10,8 @@ fi
 
 NETWORK=$(cat ./networks | gum filter --placeholder "Network")
 
+echo 'adding DEX on $NETWORK...'
+
 DIAMOND=$(jq -r '.RubicMultiProxy' "./deployments/${NETWORK}.${FILE_SUFFIX}json")
 CFG_DEXS=($(jq --arg n "$NETWORK" -r '.[$n] | @sh' "./config/dexs.json" | tr -d \' | tr '[:upper:]' '[:lower:]'))
 
