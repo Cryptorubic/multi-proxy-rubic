@@ -1909,6 +1909,12 @@
       "selector": "0x846a1bc6",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0x73Ce60416035B8D7019f6399778c14ccf5C9c7A1",
+      "selector": "0x2aac3cac",
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "zkEvm": [
