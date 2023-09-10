@@ -1899,7 +1899,7 @@
   ],
   "base": [
     {
-      "router": "0x7057aB3fB2BeE9c18e0cDe4240DE4ff7f159E365",
+      "router": "0x6F0f6393e45fE0E7215906B6f9cfeFf53EA139cf",
       "selector": "0xa11b1198",
       "offset": 0,
       "isAvailable": true
