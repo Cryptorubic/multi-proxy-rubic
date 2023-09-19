@@ -953,6 +953,18 @@
       "selector": "0xb06c52da",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0xbe1eace7",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0xed178619",
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "fantom": [
