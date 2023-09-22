@@ -12,7 +12,7 @@ run() {
 
   NETWORK=$(cat ./networks | gum filter --placeholder "Network")
 
-  echo 'running on $NETWORK...'
+  echo "running on ${NETWORK}..."
 
   SCRIPT=$(ls -1 script/management/ | sed -e 's/\.s.sol$//' | gum filter --placeholder "Deploy Script")
 
