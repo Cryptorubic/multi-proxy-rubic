@@ -363,6 +363,18 @@
       "isAvailable": true
     },
     {
+      "router": "0xeF4fB24aD0916217251F553c0596F8Edc630EB66",
+      "selector": "0xfbe16ca7",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
+      "selector": "0x4d8160ba",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xe40f2460",
       "offset": 0,
@@ -903,6 +915,17 @@
     {
       "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
       "selector": "0x846a1bc6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xeF4fB24aD0916217251F553c0596F8Edc630EB66",
+      "selector": "0xfbe16ca7",
+      "offset": 0,
+      "isAvailable": true
+    },{
+      "router": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
+      "selector": "0x4d8160ba",
       "offset": 0,
       "isAvailable": true
     },
