@@ -1,24 +1,55 @@
 {
   "routers": {
-    "goerli": "0x7612aE2a34E5A363E137De748801FB4c86499152",
     "mainnet": "0x8731d54E9D02c286767d56ac03e8037C07e01e98",
-    "bsc": "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
-    "polygon": "0x45A01E4e04F14f7A4a6702c74187c5F6222033cd",
     "arbitrum": "0x53Bf833A5d6c4ddA888F69c22C88C9f356a41614",
-    "optimism": "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b",
-    "fantom": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6",
+    "aurora": "0x0000000000000000000000000000000000000000",
     "avalanche": "0x45A01E4e04F14f7A4a6702c74187c5F6222033cd",
-    "base": "0x45f1a95a4d3f3836523f5c83673c797f4d4d263b",
-    "mumbai": "0x817436a076060D158204d955E5403b6Ed0A5fac0",
+    "base": "0x45f1A95A4D3f3836523F5c83673c797f4d4d263B",
+    "bsc": "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
+    "celo": "0x0000000000000000000000000000000000000000",
+    "cronos": "0x0000000000000000000000000000000000000000",
+    "fantom": "0xAf5191B0De278C7286d6C7CC6ab6BB8A73bA2Cd6",
     "gnosis": "0x0000000000000000000000000000000000000000",
     "moonbeam": "0x0000000000000000000000000000000000000000",
     "moonriver": "0x0000000000000000000000000000000000000000",
-    "fuse": "0x0000000000000000000000000000000000000000",
+    "nova": "0x0000000000000000000000000000000000000000",
+    "optimism": "0xB0D502E938ed5f4df2E681fE6E419ff29631d62b",
+    "polygon": "0x45A01E4e04F14f7A4a6702c74187c5F6222033cd",
+    "polygonzkevm": "0x0000000000000000000000000000000000000000"
+  },
+  "nativeRouters": {
+    "goerli": "0xb1b2eeF380f21747944f46d28f683cD1FBB4d03c",
+    "mainnet": "0xb1b2eeF380f21747944f46d28f683cD1FBB4d03c",
+    "base": "0x50B6EbC2103BFEc165949CC946d739d5650d7ae4",
+    "bsc": "0x0000000000000000000000000000000000000000",
+    "polygon": "0x0000000000000000000000000000000000000000",
+    "arbitrum": "0xb1b2eeF380f21747944f46d28f683cD1FBB4d03c",
+    "optimism": "0xb1b2eeF380f21747944f46d28f683cD1FBB4d03c",
+    "fantom": "0x0000000000000000000000000000000000000000",
+    "avalanche": "0x0000000000000000000000000000000000000000",
+    "gnosis": "0x0000000000000000000000000000000000000000",
+    "moonbeam": "0x0000000000000000000000000000000000000000",
+    "moonriver": "0x0000000000000000000000000000000000000000",
     "cronos": "0x0000000000000000000000000000000000000000",
     "harmony": "0x0000000000000000000000000000000000000000",
-    "evmos": "0x0000000000000000000000000000000000000000",
-    "boba": "0x0000000000000000000000000000000000000000",
-    "nova": "0x0000000000000000000000000000000000000000"
+    "aurora": "0x0000000000000000000000000000000000000000"
+  },
+  "composers": {
+    "mainnet": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "arbitrum": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "aurora": "0x0000000000000000000000000000000000000000",
+    "avalanche": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "base": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "bsc": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "fantom": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "fuse": "0x0000000000000000000000000000000000000000",
+    "harmony": "0x0000000000000000000000000000000000000000",
+    "gnosis": "0x0000000000000000000000000000000000000000",
+    "moonbeam": "0x0000000000000000000000000000000000000000",
+    "moonriver": "0x0000000000000000000000000000000000000000",
+    "optimism": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "polygon": "0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F",
+    "polygonzkevm": "0x0000000000000000000000000000000000000000"
   },
   "chains": [
     {
@@ -56,210 +87,18 @@
     {
       "chainId": 8453,
       "lzChainId": 184
+    },
+    {
+      "chainId": 59144,
+      "lzChainId": 183
+    },
+    {
+      "chainId": 324,
+      "lzChainId": 165
+    },
+    {
+      "chainId": 1101,
+      "lzChainId": 158
     }
-  ],
-  "pools": {
-    "mainnet": [
-      {
-        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-        "id": 1
-      },
-      {
-        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        "id": 2
-      },
-      {
-        "address": "0x4Fabb145d64652a948d72533023f6E7A623C7C53",
-        "id": 5
-      },
-      {
-        "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-        "id": 3
-      },
-      {
-        "address": "0x853d955aCEf822Db058eb8505911ED77F175b99e",
-        "id": 7
-      },
-      {
-        "address": "0x0C10bF8FcB7Bf5412187A595ab97a3609160b5c6",
-        "id": 11
-      },
-      {
-        "address": "0x72E2F4830b9E45d52F80aC08CB2bEC0FeF72eD9c",
-        "id": 13
-      },
-      {
-        "address": "0x57Ab1ec28D129707052df4dF418D58a2D46d5f51",
-        "id": 14
-      },
-      {
-        "address": "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
-        "id": 15
-      },
-      {
-        "address": "0x8D6CeBD76f18E1558D4DB88138e2DeFB3909fAD6",
-        "id": 16
-      },
-      {
-        "address": "0x9E32b13ce7f2E80A01932B42553652E053D6ed8e",
-        "id": 17
-      },
-      {
-        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        "id": 19
-      }
-    ],
-    "polygon": [
-      {
-        "address": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-        "id": 1
-      },
-      {
-        "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
-        "id": 2
-      },
-      {
-        "address": "0x9fB83c0635De2E815fd1c21b3a292277540C2e8d",
-        "id": 5
-      },
-      {
-        "address": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
-        "id": 3
-      },
-      {
-        "address": "0xa3Fa99A148fA48D14Ed51d610c367C61876997F1",
-        "id": 16
-      }
-    ],
-    "bsc": [
-      {
-        "address": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
-        "id": 1
-      },
-      {
-        "address": "0x55d398326f99059fF775485246999027B3197955",
-        "id": 2
-      },
-      {
-        "address": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
-        "id": 5
-      },
-      {
-        "address": "0xd17479997F34dd9156Deef8F95A52D81D265be9c",
-        "id": 11
-      },
-      {
-        "address": "0x3F56e0c36d275367b8C502090EDF38289b3dEa0d",
-        "id": 16
-      },
-      {
-        "address": "0xe552Fb52a4F19e44ef5A967632DBc320B0820639",
-        "id": 17
-      },
-      {
-        "address": "0x55d398326f99059fF775485246999027B3197955",
-        "id": 19
-      }
-    ],
-    "arbitrum": [
-      {
-        "address": "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
-        "id": 1
-      },
-      {
-        "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
-        "id": 2
-      },
-      {
-        "address": "0x17FC002b466eEc40DaE837Fc4bE5c67993ddBd6F",
-        "id": 7
-      },
-      {
-        "address": "0x82CbeCF39bEe528B5476FE6d1550af59a9dB6Fc0",
-        "id": 13
-      },
-      {
-        "address": "0x93b346b6BC2548dA6A1E7d98E9a421B42541425b",
-        "id": 15
-      },
-      {
-        "address": "0x3F56e0c36d275367b8C502090EDF38289b3dEa0d",
-        "id": 16
-      }
-    ],
-    "optimism": [
-      {
-        "address": "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
-        "id": 1
-      },
-      {
-        "address": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
-        "id": 3
-      },
-      {
-        "address": "0x2E3D870790dC77A83DD1d18184Acc7439A53f475",
-        "id": 7
-      },
-      {
-        "address": "0xb69c8CBCD90A39D8D3d3ccf0a3E968511C3856A0",
-        "id": 13
-      },
-      {
-        "address": "0x8c6f28f2F1A3C87F0f938b96d27520d9751ec8d9",
-        "id": 14
-      },
-      {
-        "address": "0xc40F949F8a4e094D1b49a23ea9241D289B7b2819",
-        "id": 15
-      },
-      {
-        "address": "0xdFA46478F9e5EA86d57387849598dbFB2e964b02",
-        "id": 16
-      }
-    ],
-    "fantom": [
-      {
-        "address": "0x28a92dde19D9989F39A49905d7C9C2FAc7799bDf",
-        "id": 21
-      }
-    ],
-    "avalanche": [
-      {
-        "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
-        "id": 1
-      },
-      {
-        "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
-        "id": 2
-      },
-      {
-        "address": "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64",
-        "id": 7
-      },
-      {
-        "address": "0x5c49b268c9841AFF1Cc3B0a418ff5c3442eE3F3b",
-        "id": 16
-      },
-      {
-        "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
-        "id": 19
-      }
-    ],
-    "base": [
-      {
-        "address": "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
-        "id": 1
-      },
-      {
-        "address": "0x224D8Fd7aB6AD4c6eb4611Ce56EF35Dec2277F03",
-        "id": 13
-      }
-    ],
-    "mumbai": [
-      {
-        "address": "0x742DfA5Aa70a8212857966D491D67B09Ce7D6ec7",
-        "id": 1
-      }
-    ]
-  }
+  ]
 }
