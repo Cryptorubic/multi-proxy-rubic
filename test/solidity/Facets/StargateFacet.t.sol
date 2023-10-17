@@ -2,15 +2,22 @@
 pragma solidity 0.8.17;
 
 import { LibAllowList, TestBaseFacet, console, RubicMultiProxy } from "../utils/TestBaseFacet.sol";
-import { OnlyContractOwner, InvalidConfig, AlreadyInitialized } from "src/Errors/GenericErrors.sol";
+import { OnlyContractOwner, AlreadyInitialized } from "src/Errors/GenericErrors.sol";
 import { StargateFacet } from "rubic/Facets/StargateFacet.sol";
 import { IStargateRouter } from "rubic/Interfaces/IStargateRouter.sol";
+
+import "forge-std/console.sol";
 
 // Stub CBridgeFacet Contract
 contract TestStargateFacet is StargateFacet {
     /// @notice Initialize the contract.
-    /// @param _router The contract address of the stargatefacet router on the source chain.
-    constructor(IStargateRouter _router) StargateFacet(_router) {}
+    /// @param _router The contract address of the stargate router on the source chain.
+    /// @param _nativeRouter The contract address of the native token stargate router on the source chain.
+    constructor(
+        IStargateRouter _router,
+        IStargateRouter _nativeRouter,
+        IStargateRouter _composer
+    ) StargateFacet(_router, _nativeRouter, _composer) {}
 
     function addDex(address _dex) external {
         LibAllowList.addAllowedContract(_dex);
@@ -23,7 +30,6 @@ contract TestStargateFacet is StargateFacet {
 
 contract StargateFacetTest is TestBaseFacet {
     // EVENTS
-    event StargatePoolIdSet(address indexed token, uint256 poolId);
     event LayerZeroChainIdSet(
         uint256 indexed chainId,
         uint16 layerZeroChainId
@@ -34,7 +40,11 @@ contract StargateFacetTest is TestBaseFacet {
         0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2;
     address internal constant MAINNET_ROUTER =
         0x8731d54E9D02c286767d56ac03e8037C07e01e98;
-    uint256 internal constant DST_CHAIN_ID = 137;
+    address internal constant MAINNET_NATIVE_ROUTER =
+        0xb1b2eeF380f21747944f46d28f683cD1FBB4d03c;
+    address internal constant MAINNET_COMPOSER =
+        0x3b83D454A50aBe06d94cb0d5d367825e190bDA8F;
+    uint256 internal constant DST_CHAIN_ID = 10;
     // -----
 
     TestStargateFacet internal stargateFacet;
@@ -42,11 +52,15 @@ contract StargateFacetTest is TestBaseFacet {
 
     function setUp() public {
         // set custom block number for forking
-        customBlockNumberForForking = 15588208;
+        customBlockNumberForForking = 18349720;
 
         initTestBase();
 
-        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
+        stargateFacet = new TestStargateFacet(
+            IStargateRouter(MAINNET_ROUTER),
+            IStargateRouter(MAINNET_NATIVE_ROUTER),
+            IStargateRouter(MAINNET_COMPOSER)
+        );
 
         bytes4[] memory functionSelectors = new bytes4[](8);
         functionSelectors[0] = stargateFacet.initStargate.selector;
@@ -57,7 +71,6 @@ contract StargateFacetTest is TestBaseFacet {
             .swapAndStartBridgeTokensViaStargate
             .selector;
         functionSelectors[3] = stargateFacet.setLayerZeroChainId.selector;
-        functionSelectors[4] = stargateFacet.setStargatePoolId.selector;
         functionSelectors[5] = stargateFacet.quoteLayerZeroFee.selector;
         functionSelectors[6] = stargateFacet.addDex.selector;
         functionSelectors[7] = stargateFacet
@@ -66,20 +79,14 @@ contract StargateFacetTest is TestBaseFacet {
 
         addFacet(diamond, address(stargateFacet), functionSelectors);
 
-        StargateFacet.PoolIdConfig[]
-            memory poolIdConfig = new StargateFacet.PoolIdConfig[](2);
         StargateFacet.ChainIdConfig[]
             memory chainIdConfig = new StargateFacet.ChainIdConfig[](2);
-        poolIdConfig[0] = StargateFacet.PoolIdConfig(ADDRESS_USDC, 1);
-        poolIdConfig[1] = StargateFacet.PoolIdConfig(
-            0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174,
-            1
-        );
+
         chainIdConfig[0] = StargateFacet.ChainIdConfig(1, 101);
-        chainIdConfig[1] = StargateFacet.ChainIdConfig(137, 109);
+        chainIdConfig[1] = StargateFacet.ChainIdConfig(10, 111);
 
         stargateFacet = TestStargateFacet(address(diamond));
-        stargateFacet.initStargate(poolIdConfig, chainIdConfig);
+        stargateFacet.initStargate(chainIdConfig);
 
         stargateFacet.addDex(address(uniswap));
         stargateFacet.setFunctionApprovalBySignature(
@@ -91,13 +98,20 @@ contract StargateFacetTest is TestBaseFacet {
         stargateFacet.setFunctionApprovalBySignature(
             uniswap.swapExactTokensForETH.selector
         );
+        stargateFacet.setFunctionApprovalBySignature(
+            uniswap.swapTokensForExactETH.selector
+        );
 
         setFacetAddressInTestBase(address(stargateFacet), "StargateFacet");
 
         bridgeData.bridge = "stargate";
+        // set dst chain to Optimism for the ability
+        // to bridge ETH
+        bridgeData.destinationChainId = 10;
         bridgeData.minAmount = defaultUSDCAmount;
 
         stargateData = StargateFacet.StargateData({
+            srcPoolId: 1,
             dstPoolId: 1,
             minAmountLD: (defaultUSDCAmount * 90) / 100,
             dstGasForCall: 0,
@@ -110,6 +124,7 @@ contract StargateFacetTest is TestBaseFacet {
             DST_CHAIN_ID,
             stargateData
         );
+
         stargateData.lzFee = addToMessageValue = fees;
     }
 
@@ -175,17 +190,17 @@ contract StargateFacetTest is TestBaseFacet {
         }
     }
 
-    function testBase_CanBridgeNativeTokens() public override {
-        // facet does not support native bridging
-    }
-
-    function testBase_CanBridgeNativeTokensWithFees() public override {
-        // facet does not support native bridging
-    }
-
-    function testBase_CanSwapAndBridgeNativeTokens() public override {
-        // facet does not support native bridging
-    }
+    //    function testBase_CanBridgeNativeTokens() public override {
+    //        // facet does not support native bridging
+    //    }
+    //
+    //    function testBase_CanBridgeNativeTokensWithFees() public override {
+    //        // facet does not support native bridging
+    //    }
+    //
+    //    function testBase_CanSwapAndBridgeNativeTokens() public override {
+    //        // facet does not support native bridging
+    //    }
 
     function test_revert_SetLayerZeroChainIdAsNonOwner() public {
         vm.startPrank(USER_SENDER);
@@ -200,79 +215,16 @@ contract StargateFacetTest is TestBaseFacet {
         stargateFacet.setLayerZeroChainId(123, 456);
     }
 
-    function test_revert_SetPoolIdAsNonOwner() public {
-        vm.startPrank(USER_SENDER);
-        vm.expectRevert(OnlyContractOwner.selector);
-        stargateFacet.setStargatePoolId(ADDRESS_USDC, 1);
-    }
-
-    function test_SetPoolIdAsOwner() public {
-        vm.startPrank(USER_DIAMOND_OWNER);
-        vm.expectEmit(true, true, true, true, address(stargateFacet));
-        emit StargatePoolIdSet(ADDRESS_USDC, 1);
-        stargateFacet.setStargatePoolId(ADDRESS_USDC, 1);
-    }
-
     function test_revert_InitializeAgain() public {
         vm.startPrank(USER_DIAMOND_OWNER);
 
-        StargateFacet.PoolIdConfig[]
-            memory poolIdConfig = new StargateFacet.PoolIdConfig[](2);
         StargateFacet.ChainIdConfig[]
             memory chainIdConfig = new StargateFacet.ChainIdConfig[](2);
-        poolIdConfig[0] = StargateFacet.PoolIdConfig(ADDRESS_USDC, 1);
-        poolIdConfig[1] = StargateFacet.PoolIdConfig(
-            0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174,
-            1
-        );
         chainIdConfig[0] = StargateFacet.ChainIdConfig(1, 101);
         chainIdConfig[1] = StargateFacet.ChainIdConfig(137, 109);
 
         vm.expectRevert(AlreadyInitialized.selector);
-        stargateFacet.initStargate(poolIdConfig, chainIdConfig);
-    }
-
-    function test_revert_ConfigContainsZeroAddress() public {
-        (RubicMultiProxy diamond2, ) = createDiamond(
-            FEE_TREASURY,
-            MAX_TOKEN_FEE
-        );
-        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
-
-        bytes4[] memory functionSelectors = new bytes4[](8);
-        functionSelectors[0] = stargateFacet.initStargate.selector;
-        functionSelectors[1] = stargateFacet
-            .startBridgeTokensViaStargate
-            .selector;
-        functionSelectors[2] = stargateFacet
-            .swapAndStartBridgeTokensViaStargate
-            .selector;
-        functionSelectors[3] = stargateFacet.setLayerZeroChainId.selector;
-        functionSelectors[4] = stargateFacet.setStargatePoolId.selector;
-        functionSelectors[5] = stargateFacet.quoteLayerZeroFee.selector;
-        functionSelectors[6] = stargateFacet.addDex.selector;
-        functionSelectors[7] = stargateFacet
-            .setFunctionApprovalBySignature
-            .selector;
-
-        addFacet(diamond2, address(stargateFacet), functionSelectors);
-
-        StargateFacet.PoolIdConfig[]
-            memory poolIdConfig = new StargateFacet.PoolIdConfig[](2);
-        StargateFacet.ChainIdConfig[]
-            memory chainIdConfig = new StargateFacet.ChainIdConfig[](2);
-        poolIdConfig[0] = StargateFacet.PoolIdConfig(address(0), 1);
-        poolIdConfig[1] = StargateFacet.PoolIdConfig(
-            0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174,
-            1
-        );
-        chainIdConfig[0] = StargateFacet.ChainIdConfig(1, 101);
-        chainIdConfig[1] = StargateFacet.ChainIdConfig(137, 109);
-
-        stargateFacet = TestStargateFacet(address(diamond2));
-
-        vm.expectRevert(InvalidConfig.selector);
-        stargateFacet.initStargate(poolIdConfig, chainIdConfig);
+        stargateFacet.initStargate(chainIdConfig);
     }
 
     function test_revert_InitializeAsNonOwner() public {
@@ -280,7 +232,11 @@ contract StargateFacetTest is TestBaseFacet {
             FEE_TREASURY,
             MAX_TOKEN_FEE
         );
-        stargateFacet = new TestStargateFacet(IStargateRouter(MAINNET_ROUTER));
+        stargateFacet = new TestStargateFacet(
+            IStargateRouter(MAINNET_ROUTER),
+            IStargateRouter(MAINNET_ROUTER),
+            IStargateRouter(MAINNET_ROUTER)
+        );
 
         bytes4[] memory functionSelectors = new bytes4[](8);
         functionSelectors[0] = stargateFacet.initStargate.selector;
@@ -291,7 +247,6 @@ contract StargateFacetTest is TestBaseFacet {
             .swapAndStartBridgeTokensViaStargate
             .selector;
         functionSelectors[3] = stargateFacet.setLayerZeroChainId.selector;
-        functionSelectors[4] = stargateFacet.setStargatePoolId.selector;
         functionSelectors[5] = stargateFacet.quoteLayerZeroFee.selector;
         functionSelectors[6] = stargateFacet.addDex.selector;
         functionSelectors[7] = stargateFacet
@@ -300,15 +255,8 @@ contract StargateFacetTest is TestBaseFacet {
 
         addFacet(diamond2, address(stargateFacet), functionSelectors);
 
-        StargateFacet.PoolIdConfig[]
-            memory poolIdConfig = new StargateFacet.PoolIdConfig[](2);
         StargateFacet.ChainIdConfig[]
             memory chainIdConfig = new StargateFacet.ChainIdConfig[](2);
-        poolIdConfig[0] = StargateFacet.PoolIdConfig(ADDRESS_USDC, 1);
-        poolIdConfig[1] = StargateFacet.PoolIdConfig(
-            0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174,
-            1
-        );
         chainIdConfig[0] = StargateFacet.ChainIdConfig(1, 101);
         chainIdConfig[1] = StargateFacet.ChainIdConfig(137, 109);
 
@@ -317,7 +265,7 @@ contract StargateFacetTest is TestBaseFacet {
         vm.startPrank(USER_SENDER);
 
         vm.expectRevert(OnlyContractOwner.selector);
-        stargateFacet.initStargate(poolIdConfig, chainIdConfig);
+        stargateFacet.initStargate(chainIdConfig);
     }
 
     function testBase_CanBridgeTokens_fuzzed(uint256 amount) public override {

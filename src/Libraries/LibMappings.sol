@@ -8,8 +8,6 @@ import { LibAccess } from "../Libraries/LibAccess.sol";
 /// @notice Provides mappings for all facets that may need them
 library LibMappings {
     /// Types ///
-    bytes32 internal constant STARGATE_NAMESPACE =
-        keccak256("com.rubic.library.mappings.stargate");
     bytes32 internal constant WORMHOLE_NAMESPACE =
         keccak256("com.rubic.library.mappings.wormhole");
     bytes32 internal constant AMAROK_NAMESPACE =
@@ -18,11 +16,6 @@ library LibMappings {
         keccak256("com.rubic.library.mappings.generic.cross.chain");
 
     /// Storage ///
-    struct StargateMappings {
-        mapping(address => uint16) stargatePoolId;
-        mapping(uint256 => uint16) layerZeroChainId;
-        bool initialized;
-    }
 
     struct WormholeMappings {
         mapping(uint256 => uint16) wormholeChainId;
@@ -40,19 +33,6 @@ library LibMappings {
 
     struct GenericCrossChainMappings {
         mapping(address => mapping(bytes4 => ProviderFunctionInfo)) selectorToInfo;
-    }
-
-    /// @dev Fetch local storage for Stargate
-    function getStargateMappings()
-        internal
-        pure
-        returns (StargateMappings storage ms)
-    {
-        bytes32 position = STARGATE_NAMESPACE;
-        // solhint-disable-next-line no-inline-assembly
-        assembly {
-            ms.slot := position
-        }
     }
 
     /// @dev Fetch local storage for Wormhole

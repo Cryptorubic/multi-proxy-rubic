@@ -8,6 +8,14 @@ interface IStargateRouter {
         bytes dstNativeAddr;
     }
 
+    /// @notice SwapAmount struct
+    /// @param amountLD The amount, in Local Decimals, to be swapped
+    /// @param minAmountLD The minimum amount accepted out on destination
+    struct SwapAmount {
+        uint256 amountLD;
+        uint256 minAmountLD;
+    }
+
     /// @notice Returns factory address used for creating pools.
     function factory() external view returns (address);
 
@@ -35,6 +43,22 @@ interface IStargateRouter {
         bytes calldata payload
     ) external payable;
 
+    /// @notice Swap native assets cross-chain.
+    /// @param _dstChainId Destination Stargate chainId
+    /// @param _refundAddress Refunds additional messageFee to this address
+    /// @param _toAddress The receiver of the destination ETH
+    /// @param _swapAmount The amount and the minimum swap amount
+    /// @param _lzTxParams The LZ tx params
+    /// @param _payload The payload to send to the destination
+    function swapETHAndCall(
+        uint16 _dstChainId,
+        address payable _refundAddress,
+        bytes calldata _toAddress,
+        SwapAmount memory _swapAmount,
+        IStargateRouter.lzTxObj memory _lzTxParams,
+        bytes calldata _payload
+    ) external payable;
+
     /// @notice Returns the native gas fee required for swap.
     function quoteLayerZeroFee(
         uint16 dstChainId,
@@ -43,14 +67,4 @@ interface IStargateRouter {
         bytes calldata transferAndCallPayload,
         lzTxObj memory lzTxParams
     ) external view returns (uint256 nativeFee, uint256 zroFee);
-}
-
-interface IFactory {
-    /// @notice Returns PoolInfo for poolId
-    function getPool(uint256) external view returns (address);
-}
-
-interface IPool {
-    /// @notice Returns PoolInfo for poolId
-    function token() external view returns (address);
 }

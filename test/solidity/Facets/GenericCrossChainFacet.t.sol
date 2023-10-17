@@ -141,9 +141,13 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
         bridgeData.bridge = "generic_testProvider";
         bridgeData.minAmount = defaultUSDCAmount;
 
+        //        addToMessageValue = 1 ether / 100;
+        // TODO: add extra native
+
         genericCrossChainData = GenericCrossChainFacet.GenericCrossChainData(
             payable(XSWAPPER),
             XSWAPPER,
+            //            addToMessageValue,
             0,
             abi.encodeWithSelector(
                 IXSwapper.swap.selector,

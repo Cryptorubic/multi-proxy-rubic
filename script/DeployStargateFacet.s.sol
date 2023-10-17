@@ -19,11 +19,22 @@ contract DeployScript is DeployScriptBase {
             "/config/stargate.json"
         );
         string memory json = vm.readFile(path);
+
         address stargateRouter = json.readAddress(
             string.concat(".routers.", network)
         );
+        address stargateNativeRouter = json.readAddress(
+            string.concat(".nativeRouters.", network)
+        );
+        address stargateComposer = json.readAddress(
+            string.concat(".composers.", network)
+        );
 
-        constructorArgs = abi.encode(stargateRouter);
+        constructorArgs = abi.encode(
+            stargateRouter,
+            stargateNativeRouter,
+            stargateComposer
+        );
 
         vm.startBroadcast(deployerPrivateKey);
 
@@ -44,7 +55,11 @@ contract DeployScript is DeployScriptBase {
                 )
             );
         } else {
-            deployed = new StargateFacet(IStargateRouter(stargateRouter));
+            deployed = new StargateFacet(
+                IStargateRouter(stargateRouter),
+                IStargateRouter(stargateNativeRouter),
+                IStargateRouter(stargateComposer)
+            );
         }
 
         vm.stopBroadcast();
