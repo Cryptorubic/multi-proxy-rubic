@@ -33,6 +33,7 @@ To populate `_stargateData` you will need to get the chain ID and pool ID you ar
 This data is specific to Stargate and is represented as the following struct type:
 
 ```solidity
+/// @param srcPoolId Source pool id.
 /// @param dstPoolId Dest pool id.
 /// @param minAmountLD The min qty you would accept on the destination.
 /// @param dstGasForCall Additional gas fee for extral call on the destination.
@@ -41,6 +42,7 @@ This data is specific to Stargate and is represented as the following struct typ
 /// @param callTo The address to send the tokens to on the destination.
 /// @param callData Additional payload.
 struct StargateData {
+    uint256 srcPoolId;
     uint256 dstPoolId;
     uint256 minAmountLD;
     uint256 dstGasForCall;
