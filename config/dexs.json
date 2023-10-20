@@ -350,6 +350,9 @@
     "0x25C030116Feb2E7BbA054b9de0915E5F51b03e31",
     "0x5989FB161568b9F133eDf5Cf6787f5597762797F"
   ],
+  "scroll": [
+    "0x80e38291e06339d10AAB483C65695D004dBD5C69"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []

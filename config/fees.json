@@ -20,6 +20,7 @@
       "base": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkEvm": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "mantle": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "scroll": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
@@ -84,6 +85,9 @@
     },
     "mantle": {
       "maxFixedNativeFee": 500000000000000000000
+    },
+    "scroll": {
+      "maxFixedNativeFee": 100000000000000000
     }
   }
 }
