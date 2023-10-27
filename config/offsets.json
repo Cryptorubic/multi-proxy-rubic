@@ -2454,6 +2454,12 @@
       "selector": "0x1a98b2e0",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0x778C974568e376146dbC64fF12aD55B2d1c4133f",
+      "selector": "0x2aac3cac",
+      "offset": 0,
+      "isAvailable": true
     }
   ]
 }
