@@ -10,7 +10,7 @@ fi
 
 NETWORK=$(cat ./networks | gum filter --placeholder "Network")
 
-echo 'adding sigs on $NETWORK...'
+echo "adding sigs on ${NETWORK}..."
 
 DIAMOND=$(jq -r '.RubicMultiProxy' "./deployments/${NETWORK}.${FILE_SUFFIX}json")
 CFG_SIGS=($(jq -r '.[] | @sh' "./config/sigs.json" | tr -d \' | tr '[:upper:]' '[:lower:]' ))
