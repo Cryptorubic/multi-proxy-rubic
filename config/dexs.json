@@ -353,6 +353,10 @@
   "scroll": [
     "0x80e38291e06339d10AAB483C65695D004dBD5C69"
   ],
+  "manta": [
+    "0x3EF68D3f7664b2805D4E88381b64868a56f88bC4",
+    "0x6352a56caadC4F1E25CD6c75970Fa768A3304e64"
+  ],
   "mumbai": [],
   "optimisticKovan": [],
   "avalancheFujiTestnet": []
