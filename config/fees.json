@@ -22,7 +22,8 @@
       "mantle": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "scroll": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkSyncTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "manta": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "manta": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "metis": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -92,6 +93,9 @@
     },
     "manta": {
       "maxFixedNativeFee": 100000000000000000
+    },
+    "metis": {
+      "maxFixedNativeFee": 20000000000000000000
     }
   }
 }

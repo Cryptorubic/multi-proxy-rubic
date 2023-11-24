@@ -46,6 +46,7 @@ zkEvm = "${ETH_NODE_URI_ZKEVM}"
 mantle = "${ETH_NODE_URI_MANTLE}"
 scroll = "${ETH_NODE_URI_SCROLL}"
 manta = "${ETH_NODE_URI_MANTA}"
+metis = "${ETH_NODE_URI_METIS}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
@@ -76,6 +77,7 @@ linea = {key = "${LINEA_ETHERSCAN_API_KEY}", url = "https://api.lineascan.build/
 mantle = {key = "${MANTLE_ETHERSCAN_API_KEY}", url = "https://explorer.mantle.xyz/api"}
 scroll = {key = "${SCROLL_ETHERSCAN_API_KEY}", url = "https://blockscout.scroll.io/api"}
 manta = {key = "${MANTA_ETHERSCAN_API_KEY}", url = "https://manta-pacific.calderaexplorer.xyz/api"}
+metis = {key = "${METIS_ETHERSCAN_API_KEY}", url = "https://andromeda-explorer.metis.io/api"}
 
 #testnets
 goerli = { key = "${MAINNET_ETHERSCAN_API_KEY}" }
