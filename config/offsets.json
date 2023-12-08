@@ -2890,5 +2890,13 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "metis": [
+    {
+      "router": "0x5523985926Aa12BA58DC5Ad00DDca99678D7227E",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
