@@ -14,10 +14,6 @@ contract DeployScript is DeployScriptBase {
             return WithdrawFacet(predicted);
         }
 
-        deployed = WithdrawFacet(
-            factory.deploy(salt, type(WithdrawFacet).creationCode)
-        );
-
         if (networkSupportsCreate3(network)) {
             deployed = WithdrawFacet(
                 factory.deploy(salt, type(WithdrawFacet).creationCode)
