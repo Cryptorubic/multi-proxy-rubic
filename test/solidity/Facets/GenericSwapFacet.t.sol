@@ -141,6 +141,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             ADDRESS_USDC,
             ADDRESS_DAI,
             amountIn,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForTokens.selector,
                 amountIn,
@@ -204,6 +205,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             address(0),
             ADDRESS_DAI,
             amountIn,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactETHForTokens.selector,
                 defaultAmountOut,
@@ -270,6 +272,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             ADDRESS_USDC,
             address(0),
             amountIn,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForETH.selector,
                 amountIn,
@@ -337,6 +340,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             ADDRESS_USDC,
             ADDRESS_DAI,
             amountInWithFee,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForTokens.selector,
                 amountIn,
@@ -396,6 +400,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             address(0),
             ADDRESS_DAI,
             amountInWithFee,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactETHForTokens.selector,
                 amountOut,
@@ -455,6 +460,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
             ADDRESS_USDC,
             address(0),
             amountInWithFee,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForETH.selector,
                 amountIn,

@@ -363,6 +363,7 @@ abstract contract TestBaseFacet is TestBase {
                 sendingAssetId: ADDRESS_USDC,
                 receivingAssetId: address(0),
                 fromAmount: amountIn,
+                extraNative: 0,
                 callData: abi.encodeWithSelector(
                     uniswap.swapTokensForExactETH.selector,
                     amountOut,

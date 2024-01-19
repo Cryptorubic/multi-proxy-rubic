@@ -82,6 +82,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token1),
             address(token2),
             10_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 token1,
@@ -98,6 +99,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token2),
             address(token3),
             10_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 token2,
@@ -134,6 +136,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token1),
             address(token3),
             10_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 token1,
@@ -150,6 +153,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token2),
             address(token3),
             10_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 token2,
@@ -186,6 +190,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(token1),
             address(token2),
             10_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 token1,
@@ -216,6 +221,7 @@ contract SwapperV2Test is DSTest, DiamondTest {
             address(0),
             address(token2),
             1 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 address(0),

@@ -320,6 +320,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
                 receivingAssetId: ADDRESS_USDC,
                 fromAmount: (amountIn * DENOMINATOR) /
                     (DENOMINATOR - TOKEN_FEE),
+                extraNative: 0,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,
@@ -355,6 +356,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
                 receivingAssetId: address(0),
                 fromAmount: (amountIn * DENOMINATOR) /
                     (DENOMINATOR - TOKEN_FEE),
+                extraNative: 0,
                 callData: abi.encodeWithSelector(
                     uniswap.swapTokensForExactETH.selector,
                     amountOut,
