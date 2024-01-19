@@ -67,6 +67,9 @@ contract SwapperV2Test is DSTest, DiamondTest {
         swapper = TestSwapperV2(address(diamond));
         swapper.addDex(address(amm));
         swapper.setFunctionApprovalBySignature(bytes4(amm.swap.selector));
+        swapper.setFunctionApprovalBySignature(
+            bytes4(amm.swapWithExtraNative.selector)
+        );
     }
 
     function testSwapCleanup() public {
@@ -235,6 +238,68 @@ contract SwapperV2Test is DSTest, DiamondTest {
         swapper.doSwaps{ value: 2 ether }(swapData);
 
         assertEq(address(0xb33f).balance, 1 ether);
+        assertEq(token2.balanceOf(address(1337)), 10_100 ether);
+    }
+
+    function testSwapNativeWithExtraNative() public {
+        ERC20 token2 = new ERC20("Token 2", "T2", 18);
+
+        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
+
+        swapData[0] = LibSwap.SwapData(
+            address(amm),
+            address(amm),
+            address(0),
+            address(token2),
+            1 ether,
+            amm.nativeFee(),
+            abi.encodeWithSelector(
+                amm.swapWithExtraNative.selector,
+                address(0),
+                1 ether,
+                token2,
+                10_100 ether
+            ),
+            true
+        );
+
+        swapper.doSwaps{ value: 2 ether }(swapData);
+
+        assertEq(address(0xb33f).balance, 2 ether - 1 ether - amm.nativeFee());
+        assertEq(address(amm).balance, amm.nativeFee());
+        assertEq(token2.balanceOf(address(1337)), 10_100 ether);
+    }
+
+    function testSwapERC20WithExtraNative() public {
+        ERC20 token1 = new ERC20("Token 1", "T1", 18);
+        ERC20 token2 = new ERC20("Token 2", "T2", 18);
+
+        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
+
+        swapData[0] = LibSwap.SwapData(
+            address(amm),
+            address(amm),
+            address(token1),
+            address(token2),
+            10_000 ether,
+            amm.nativeFee(),
+            abi.encodeWithSelector(
+                amm.swapWithExtraNative.selector,
+                token1,
+                10_000 ether,
+                token2,
+                10_100 ether
+            ),
+            true
+        );
+        token1.mint(address(this), 10_000 ether);
+        token1.transfer(address(swapper), 10_000 ether);
+
+        swapper.doSwaps{ value: amm.nativeFee() }(swapData);
+
+        assertEq(token1.balanceOf(address(this)), 0);
+        assertEq(token1.balanceOf(address(amm)), 0);
+        assertEq(address(amm).balance, amm.nativeFee());
         assertEq(token2.balanceOf(address(1337)), 10_100 ether);
     }
 }
