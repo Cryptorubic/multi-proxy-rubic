@@ -62,6 +62,17 @@ contract SwapperV2 is IRubic {
         } else {
             _;
         }
+
+        uint256 sendingAssetLeftovers = LibAsset.getOwnBalance(
+            _swaps[0].sendingAssetId
+        );
+        if (sendingAssetLeftovers > 0) {
+            LibAsset.transferAsset(
+                _swaps[0].sendingAssetId,
+                _leftoverReceiver,
+                sendingAssetLeftovers
+            );
+        }
     }
 
     /// @dev Sends any leftover balances back to the user reserving native tokens
@@ -106,6 +117,17 @@ contract SwapperV2 is IRubic {
             }
         } else {
             _;
+        }
+
+        uint256 sendingAssetLeftovers = LibAsset.getOwnBalance(
+            _swaps[0].sendingAssetId
+        );
+        if (sendingAssetLeftovers > 0) {
+            LibAsset.transferAsset(
+                _swaps[0].sendingAssetId,
+                _leftoverReceiver,
+                sendingAssetLeftovers
+            );
         }
     }
 

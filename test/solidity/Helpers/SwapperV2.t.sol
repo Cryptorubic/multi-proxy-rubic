@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.17;
 
-import { DSTest } from "ds-test/test.sol";
+import { Test } from "forge-std/Test.sol";
 import { console } from "../utils/Console.sol";
 import { DiamondTest, RubicMultiProxy } from "../utils/DiamondTest.sol";
 import { Vm } from "forge-std/Vm.sol";
@@ -44,11 +44,21 @@ contract TestSwapperV2 is SwapperV2 {
     }
 }
 
-contract SwapperV2Test is DSTest, DiamondTest {
-    Vm internal immutable vm = Vm(HEVM_ADDRESS);
+contract SwapperV2Test is Test, DiamondTest {
     RubicMultiProxy internal diamond;
     TestAMM internal amm;
     TestSwapperV2 internal swapper;
+
+    event Transfer(address from, address to, uint256 amount);
+    event AssetSwapped(
+        bytes32 transactionId,
+        address dex,
+        address fromAssetId,
+        address toAssetId,
+        uint256 fromAmount,
+        uint256 toAmount,
+        uint256 timestamp
+    );
 
     function setUp() public {
         (diamond, ) = createDiamond(address(this), 1);
@@ -69,6 +79,9 @@ contract SwapperV2Test is DSTest, DiamondTest {
         swapper.setFunctionApprovalBySignature(bytes4(amm.swap.selector));
         swapper.setFunctionApprovalBySignature(
             bytes4(amm.swapWithExtraNative.selector)
+        );
+        swapper.setFunctionApprovalBySignature(
+            bytes4(amm.swapWithLeftover.selector)
         );
     }
 
@@ -300,6 +313,50 @@ contract SwapperV2Test is DSTest, DiamondTest {
         assertEq(token1.balanceOf(address(this)), 0);
         assertEq(token1.balanceOf(address(amm)), 0);
         assertEq(address(amm).balance, amm.nativeFee());
+        assertEq(token2.balanceOf(address(1337)), 10_100 ether);
+    }
+
+    function testLeftoverReturn() public {
+        ERC20 token1 = new ERC20("Token 1", "T1", 18);
+        ERC20 token2 = new ERC20("Token 2", "T2", 18);
+
+        LibSwap.SwapData[] memory swapData = new LibSwap.SwapData[](1);
+
+        swapData[0] = LibSwap.SwapData(
+            address(amm),
+            address(amm),
+            address(token1),
+            address(token2),
+            10_000 ether,
+            0,
+            abi.encodeWithSelector(
+                amm.swapWithLeftover.selector,
+                token1,
+                10_000 ether,
+                token2,
+                10_100 ether
+            ),
+            true
+        );
+        token1.mint(address(this), 10_000 ether);
+        token1.transfer(address(swapper), 10_000 ether);
+
+        vm.expectEmit(true, true, true, true, address(diamond));
+        emit AssetSwapped(
+            "",
+            address(amm),
+            address(token1),
+            address(token2),
+            10_000 ether,
+            10_100 ether,
+            block.timestamp
+        );
+
+        swapper.doSwaps(swapData);
+
+        assertEq(token1.balanceOf(address(0xb33f)), 10_000 ether / 2);
+        assertEq(token1.balanceOf(address(this)), 0);
+        assertEq(token1.balanceOf(address(amm)), 0);
         assertEq(token2.balanceOf(address(1337)), 10_100 ether);
     }
 }
