@@ -248,7 +248,7 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.hasSourceSwaps = true;
 
         // reset swap data
-        setDefaultSwapDataSingleDAItoUSDC();
+        _setDefaultSwapDataSingleDAItoUSDC(false);
 
         // approval
         dai.approve(address(erc20proxy), swapData[0].fromAmount);
@@ -274,6 +274,7 @@ abstract contract TestBaseFacet is TestBase {
     function testBase_CanSwapAndBridgeTokensWithFees()
         public
         virtual
+        setDefaultSwapDataSingleDAItoUSDC(true)
         setIntegratorFee(swapData[0].fromAmount)
         assertBalanceChange(
             ADDRESS_DAI,
@@ -294,14 +295,11 @@ abstract contract TestBaseFacet is TestBase {
             int256(integratorFeeTokenAmount)
         )
     {
-        vm.startPrank(USER_SENDER);
-
         // prepare bridgeData
         bridgeData.hasSourceSwaps = true;
         bridgeData.integrator = INTEGRATOR;
 
-        // reset swap data
-        setDefaultSwapDataSingleDAItoUSDC();
+        vm.startPrank(USER_SENDER);
 
         // approval
         dai.approve(address(erc20proxy), swapData[0].fromAmount);
@@ -443,7 +441,7 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.receiver = address(0);
         bridgeData.hasSourceSwaps = true;
 
-        setDefaultSwapDataSingleDAItoUSDC();
+        _setDefaultSwapDataSingleDAItoUSDC(false);
 
         dai.approve(address(erc20proxy), swapData[0].fromAmount);
 
@@ -523,7 +521,7 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.hasSourceSwaps = true;
         bridgeData.minAmount = 0;
 
-        setDefaultSwapDataSingleDAItoUSDC();
+        _setDefaultSwapDataSingleDAItoUSDC(false);
 
         dai.approve(address(erc20proxy), swapData[0].fromAmount);
 
@@ -552,7 +550,7 @@ abstract contract TestBaseFacet is TestBase {
         bridgeData.destinationChainId = 1;
         bridgeData.hasSourceSwaps = true;
 
-        setDefaultSwapDataSingleDAItoUSDC();
+        _setDefaultSwapDataSingleDAItoUSDC(false);
         dai.approve(address(erc20proxy), swapData[0].fromAmount);
 
         vm.expectRevert(CannotBridgeToSameNetwork.selector);

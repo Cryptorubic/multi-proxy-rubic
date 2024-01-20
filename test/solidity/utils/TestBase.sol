@@ -164,6 +164,11 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     }
 
     modifier setIntegratorFee(uint256 amount) {
+        _setIntegratorFee(amount);
+        _;
+    }
+
+    function _setIntegratorFee(uint256 amount) internal {
         IFeesFacet(address(diamond)).setIntegratorInfo(
             INTEGRATOR,
             IFeesFacet.IntegratorFeeInfo({
@@ -179,7 +184,6 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
             rubicFeeTokenAmount,
             integratorFeeTokenAmount
         ) = IFeesFacet(address(diamond)).calcTokenFees(amount, INTEGRATOR);
-        _;
     }
 
     //@dev token == address(0) => check balance of native token
@@ -264,7 +268,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         string memory _facetName
     ) internal {
         _facetTestContractAddress = facetAddress;
-        setDefaultSwapDataSingleDAItoUSDC();
+        _setDefaultSwapDataSingleDAItoUSDC(false);
         vm.label(facetAddress, _facetName);
 
         facetName = _facetName;
@@ -298,8 +302,15 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         });
     }
 
+    modifier setDefaultSwapDataSingleDAItoUSDC(bool withFee) {
+        _setDefaultSwapDataSingleDAItoUSDC(withFee);
+        _;
+    }
+
     //@dev: be careful that _facetTestContractAddress is set before calling this function
-    function setDefaultSwapDataSingleDAItoUSDC() internal virtual {
+    function _setDefaultSwapDataSingleDAItoUSDC(
+        bool withFee
+    ) internal virtual {
         delete swapData;
         // Swap DAI -> USDC
         address[] memory path = new address[](2);
@@ -312,14 +323,19 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         uint256[] memory amounts = uniswap.getAmountsIn(amountOut, path);
         uint256 amountIn = amounts[0];
 
+        uint256 fromAmount = amountIn;
+
+        if (withFee) {
+            fromAmount = (amountIn * DENOMINATOR) / (DENOMINATOR - TOKEN_FEE);
+        }
+
         swapData.push(
             LibSwap.SwapData({
                 callTo: address(uniswap),
                 approveTo: address(uniswap),
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: ADDRESS_USDC,
-                fromAmount: (amountIn * DENOMINATOR) /
-                    (DENOMINATOR - TOKEN_FEE),
+                fromAmount: fromAmount,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,
