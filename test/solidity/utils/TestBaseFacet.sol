@@ -121,6 +121,7 @@ abstract contract TestBaseFacet is TestBase {
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
+        assertEq(usdc.balanceOf(address(diamond)), 0);
     }
 
     function testBase_CanBridgeTokensWithFees()
@@ -172,6 +173,7 @@ abstract contract TestBaseFacet is TestBase {
 
         initiateBridgeTxWithFacet(false);
         vm.stopPrank();
+        assertEq(usdc.balanceOf(address(diamond)), 0);
     }
 
     function testBase_CanBridgeNativeTokens()
@@ -197,6 +199,7 @@ abstract contract TestBaseFacet is TestBase {
 
         initiateBridgeTxWithFacet(true);
         vm.stopPrank();
+        assertEq(address(diamond).balance, 0);
     }
 
     function testBase_CanBridgeNativeTokensWithFees()
@@ -228,6 +231,7 @@ abstract contract TestBaseFacet is TestBase {
 
         initiateBridgeTxWithFacet(true);
         vm.stopPrank();
+        assertEq(address(diamond).balance, 0);
     }
 
     function testBase_CanSwapAndBridgeTokens()
@@ -269,6 +273,8 @@ abstract contract TestBaseFacet is TestBase {
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
+
+        assertEq(dai.balanceOf(address(diamond)), 0);
     }
 
     function testBase_CanSwapAndBridgeTokensWithFees()
@@ -321,6 +327,8 @@ abstract contract TestBaseFacet is TestBase {
 
         // execute call in child contract
         initiateSwapAndBridgeTxWithFacet(false);
+
+        assertEq(dai.balanceOf(address(diamond)), 0);
     }
 
     function testBase_CanSwapAndBridgeNativeTokens()
@@ -400,6 +408,7 @@ abstract contract TestBaseFacet is TestBase {
             usdc.balanceOf(USER_SENDER),
             initialUSDCBalance - swapData[0].fromAmount
         );
+        assertEq(address(diamond).balance, 0);
     }
 
     function testBase_Revert_BridgeWithInvalidDestinationCallFlag()
