@@ -48,6 +48,7 @@ scroll = "${ETH_NODE_URI_SCROLL}"
 manta = "${ETH_NODE_URI_MANTA}"
 metis = "${ETH_NODE_URI_METIS}"
 rootstock = "${ETH_NODE_URI_ROOTSTOCK}"
+blast = "${ETH_NODE_URI_BLAST}"
 testbera = "${ETH_NODE_URI_TESTBERA}"
 
 # testnets

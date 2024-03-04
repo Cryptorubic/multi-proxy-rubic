@@ -5336,5 +5336,13 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "blast": [
+    {
+      "router": "0x7057ab3fb2bee9c18e0cde4240de4ff7f159e365",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
