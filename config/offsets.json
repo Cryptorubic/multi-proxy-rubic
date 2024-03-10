@@ -465,6 +465,12 @@
   ],
   "bsc": [
     {
+      "router": "0x13e46b2a3f8512ed4682a8fb8b560589fe3c2172",
+      "selector": "0xf9c028ec",
+      "offset": 68,
+      "isAvailable": true
+    },
+    {
       "router": "0x7D26F09d4e2d032Efa0729fC31a4c2Db8a2394b1",
       "selector": "0x2aac3cac",
       "offset": 0,
@@ -2362,6 +2368,12 @@
     }
   ],
   "arbitrum": [
+    {
+      "router": "0x6a065083886ec63d274b8e1fe19ae2ddf498bfdd",
+      "selector": "0xf9c028ec",
+      "offset": 68,
+      "isAvailable": true
+    },
     {
       "router": "0x33383265290421C704c6b09F4BF27ce574DC4203",
       "selector": "0x2aac3cac",
