@@ -5457,6 +5457,18 @@
       "selector": "0xa11b1198",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0x43A86823EBBe2ECF9A384aDfD989E26A30626458",
+      "selector": "0x0c4fa155",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x43A86823EBBe2ECF9A384aDfD989E26A30626458",
+      "selector": "0xd99a86ec",
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "horizen": [
