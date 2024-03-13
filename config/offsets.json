@@ -5469,6 +5469,30 @@
       "selector": "0xd99a86ec",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
+      "selector": "0x846a1bc6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
+      "selector": "0x21477960",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
+      "selector": "0xe4a974cc",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
+      "selector": "0x1a98b2e0",
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "horizen": [
