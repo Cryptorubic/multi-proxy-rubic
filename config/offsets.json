@@ -5507,6 +5507,12 @@
   ],
   "blast": [
     {
+      "router": "0x73Ce60416035B8D7019f6399778c14ccf5C9c7A1",
+      "selector": "0x2aac3cac",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x13e46b2a3f8512ed4682a8fb8b560589fe3c2172",
       "selector": "0xf9c028ec",
       "offset": 68,
