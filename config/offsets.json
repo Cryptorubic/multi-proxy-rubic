@@ -941,6 +941,18 @@
   ],
   "mainnet": [
     {
+      "router": "0xc741900276cd598060b0fe6594fbe977392928f4",
+      "selector": "0xf9c028ec",
+      "offset": 68,
+      "isAvailable": true
+    },
+    {
+      "router": "0xc741900276cd598060b0fe6594fbe977392928f4",
+      "selector": "0x29723511",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x954367cb2028e704b62a4093f648be453aca3989",
       "selector": "0xfe359a0d",
       "offset": 36,
