@@ -5612,5 +5612,13 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "merlin": [
+    {
+      "router": "0xcE8f24A58D85eD5c5A6824f7be1F8d4711A0eb4C",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
