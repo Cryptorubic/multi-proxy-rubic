@@ -51,6 +51,7 @@ rootstock = "${ETH_NODE_URI_ROOTSTOCK}"
 blast = "${ETH_NODE_URI_BLAST}"
 horizen = "${ETH_NODE_URI_HORIZEN}"
 kroma = "${ETH_NODE_URI_KROMA}"
+merlin = "${ETH_NODE_URI_MERLIN}"
 testbera = "${ETH_NODE_URI_TESTBERA}"
 
 # testnets
