@@ -81,6 +81,12 @@ const config: HardhatUserConfig = {
       zksync: false,
       accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
     },
+    merlin: {
+      url: `${process.env.ETH_NODE_URI_MERLIN}`,
+      chainId: 4200,
+      zksync: false,
+      accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
+    },
     zkSync: {
       url: `${process.env.ETH_NODE_URI_ZKSYNC}`,
       ethNetwork: 'ethereum', // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
@@ -114,6 +120,19 @@ const config: HardhatUserConfig = {
     sources: './src',
     cache: './cache_hardhat',
   },
+  etherscan: {
+    apiKey: "abc",
+    customChains: [
+      {
+        network: "merlin",
+        chainId: 4200,
+        urls: {
+          apiURL: "https://scan.merlinchain.io/api/contract",
+          browserURL: "https://goerli.merlin.xyz",
+        }
+      }
+    ]
+  }
 }
 
 export default config
