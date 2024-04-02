@@ -29,6 +29,7 @@
       "horizen": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "kroma": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "merlin": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "mode": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "testbera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
@@ -117,6 +118,9 @@
     },
     "merlin": {
       "maxFixedNativeFee": 1724137931000000
+    },
+    "mode": {
+      "maxFixedNativeFee": 100000000000000000
     },
     "testbera": {
       "maxFixedNativeFee": 50000000000000000000
