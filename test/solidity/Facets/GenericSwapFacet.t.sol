@@ -5,7 +5,7 @@ import { DSTest } from "ds-test/test.sol";
 import { console } from "../utils/Console.sol";
 import { TestBase, RubicMultiProxy } from "../utils/TestBase.sol";
 import { Vm } from "forge-std/Vm.sol";
-import { GenericSwapFacet } from "rubic/Facets/GenericSwapFacet.sol";
+import { GenericSwapFacetV2 as GenericSwapFacet } from "rubic/Facets/GenericSwapFacetV2.sol";
 import { LibSwap } from "rubic/Libraries/LibSwap.sol";
 import { LibAllowList } from "rubic/Libraries/LibAllowList.sol";
 import { ERC20 } from "solmate/tokens/ERC20.sol";
@@ -47,7 +47,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         genericSwapFacet = new TestGenericSwapFacet();
 
         bytes4[] memory functionSelectors = new bytes4[](3);
-        functionSelectors[0] = genericSwapFacet.swapTokensGeneric.selector;
+        functionSelectors[0] = genericSwapFacet.swapTokensGenericV2.selector;
         functionSelectors[1] = genericSwapFacet.addDex.selector;
         functionSelectors[2] = genericSwapFacet
             .setFunctionApprovalBySignature
@@ -154,7 +154,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         );
 
         bytes memory callData = abi.encodeWithSelector(
-            genericSwapFacet.swapTokensGeneric.selector,
+            genericSwapFacet.swapTokensGenericV2.selector,
             "",
             address(0),
             address(0),
@@ -217,7 +217,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         );
 
         bytes memory callData = abi.encodeWithSelector(
-            genericSwapFacet.swapTokensGeneric.selector,
+            genericSwapFacet.swapTokensGenericV2.selector,
             "",
             address(0),
             address(0),
@@ -285,7 +285,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         );
 
         bytes memory callData = abi.encodeWithSelector(
-            genericSwapFacet.swapTokensGeneric.selector,
+            genericSwapFacet.swapTokensGenericV2.selector,
             "",
             address(0),
             address(0),
@@ -353,7 +353,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         );
 
         bytes memory callData = abi.encodeWithSelector(
-            genericSwapFacet.swapTokensGeneric.selector,
+            genericSwapFacet.swapTokensGenericV2.selector,
             "",
             INTEGRATOR,
             address(0),
@@ -412,7 +412,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         );
 
         bytes memory callData = abi.encodeWithSelector(
-            genericSwapFacet.swapTokensGeneric.selector,
+            genericSwapFacet.swapTokensGenericV2.selector,
             "",
             INTEGRATOR,
             address(0),
@@ -473,7 +473,7 @@ contract GenericSwapFacetTest is DSTest, TestBase {
         );
 
         bytes memory callData = abi.encodeWithSelector(
-            genericSwapFacet.swapTokensGeneric.selector,
+            genericSwapFacet.swapTokensGenericV2.selector,
             "",
             INTEGRATOR,
             address(0),
