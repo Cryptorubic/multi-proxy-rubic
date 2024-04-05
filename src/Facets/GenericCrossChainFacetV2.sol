@@ -7,6 +7,7 @@ import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { LibFees } from "../Libraries/LibFees.sol";
 import { LibUtil } from "../Libraries/LibUtil.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
+import { LibAccess } from "../Libraries/LibAccess.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
 import { UnAuthorized, LengthMissmatch, InvalidContract } from "../Errors/GenericErrors.sol";
@@ -60,7 +61,9 @@ contract GenericCrossChainFacetV2 is
         bytes4[] calldata _selectors,
         LibMappings.ProviderFunctionInfo[] calldata _infos
     ) external {
-        LibDiamond.enforceIsContractOwner();
+        if (msg.sender != LibDiamond.contractOwner()) {
+            LibAccess.enforceAccessControl();
+        }
 
         LibMappings.GenericCrossChainMappings storage sm = LibMappings
             .getGenericCrossChainMappings();

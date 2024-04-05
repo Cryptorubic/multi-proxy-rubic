@@ -5,6 +5,7 @@ import { LibAllowList, TestBaseFacet } from "../utils/TestBaseFacet.sol";
 import { TestToken } from "../utils/TestToken.sol";
 import { TestFacet } from "../utils/TestBase.sol";
 import { IXSwapper } from "rubic/Interfaces/IXSwapper.sol";
+import { IAccessManagerFacet } from "rubic/Interfaces/IAccessManagerFacet.sol";
 import { LibMappings } from "rubic/Libraries/LibMappings.sol";
 import { GenericCrossChainFacetV2 as GenericCrossChainFacet } from "rubic/Facets/GenericCrossChainFacetV2.sol";
 import { UnAuthorized } from "src/Errors/GenericErrors.sol";
@@ -200,6 +201,31 @@ contract GenericCrossChainFacetTest is TestBaseFacet {
             .getSelectorInfoV2(XSWAPPER, IXSwapper.swap.selector);
 
         assertEq(info.offset, 32 * 4 + 4);
+    }
+
+    function testCanUpdateSelecotrsWithAccess() public {
+        address[] memory _routers = new address[](1);
+        bytes4[] memory _selectors = new bytes4[](1);
+        LibMappings.ProviderFunctionInfo[]
+            memory _infos = new LibMappings.ProviderFunctionInfo[](1);
+
+        _routers[0] = XSWAPPER;
+        _selectors[0] = IXSwapper.swap.selector;
+        _infos[0] = LibMappings.ProviderFunctionInfo(true, 32 * 4 + 4);
+
+        IAccessManagerFacet(address(genericCrossChainFacet)).setCanExecute(
+            GenericCrossChainFacet.updateSelectorInfoV2.selector,
+            address(123),
+            true
+        );
+
+        vm.prank(address(123));
+
+        genericCrossChainFacet.updateSelectorInfoV2(
+            _routers,
+            _selectors,
+            _infos
+        );
     }
 
     function test_Revert_CannotUseNotAvailableProvider() public {
