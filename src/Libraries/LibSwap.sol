@@ -13,6 +13,7 @@ library LibSwap {
         address sendingAssetId;
         address receivingAssetId;
         uint256 fromAmount;
+        uint256 extraNative;
         bytes callData;
         bool requiresDeposit;
     }
@@ -32,8 +33,8 @@ library LibSwap {
         uint256 fromAmount = _swap.fromAmount;
         if (fromAmount == 0) revert NoSwapFromZeroBalance();
         uint256 nativeValue = LibAsset.isNativeAsset(_swap.sendingAssetId)
-            ? _swap.fromAmount
-            : 0;
+            ? _swap.fromAmount + _swap.extraNative
+            : _swap.extraNative;
         uint256 initialSendingAssetBalance = LibAsset.getOwnBalance(
             _swap.sendingAssetId
         );
@@ -41,7 +42,8 @@ library LibSwap {
             _swap.receivingAssetId
         );
 
-        if (nativeValue == 0) {
+        // If not a native asset
+        if (!LibAsset.isNativeAsset(_swap.sendingAssetId)) {
             LibAsset.maxApproveERC20(
                 IERC20(_swap.sendingAssetId),
                 _swap.approveTo,
