@@ -155,6 +155,7 @@ contract ReceiverTest is TestBase {
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: ADDRESS_USDC,
                 fromAmount: amountIn,
+                extraNative: 0,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,
@@ -231,6 +232,7 @@ contract ReceiverTest is TestBase {
                 sendingAssetId: ADDRESS_USDC, // swapped sending/receivingId => should fail
                 receivingAssetId: ADDRESS_DAI,
                 fromAmount: amountIn,
+                extraNative: 0,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,
@@ -319,6 +321,7 @@ contract ReceiverTest is TestBase {
                 sendingAssetId: ADDRESS_DAI,
                 receivingAssetId: ADDRESS_USDC,
                 fromAmount: amountIn,
+                extraNative: 0,
                 callData: abi.encodeWithSelector(
                     uniswap.swapExactTokensForTokens.selector,
                     amountIn,

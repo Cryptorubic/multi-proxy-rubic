@@ -137,6 +137,7 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenB),
             1_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 tokenA,
@@ -154,6 +155,7 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenC),
             1_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 tokenA,
@@ -171,6 +173,7 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenD),
             1_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 tokenA,
@@ -188,6 +191,7 @@ contract ExecutorTest is DSTest {
             address(tokenB),
             address(0),
             100 ether,
+            0,
             abi.encodeWithSelector(
                 vault.deposit.selector,
                 address(tokenB),
@@ -203,6 +207,7 @@ contract ExecutorTest is DSTest {
             address(tokenC),
             address(0),
             100 ether,
+            0,
             abi.encodeWithSelector(
                 vault.deposit.selector,
                 address(tokenC),
@@ -218,6 +223,7 @@ contract ExecutorTest is DSTest {
             address(tokenD),
             address(0),
             100 ether,
+            0,
             abi.encodeWithSelector(
                 vault.deposit.selector,
                 address(tokenD),
@@ -284,6 +290,7 @@ contract ExecutorTest is DSTest {
             DAI_ADDRESS,
             WETH_ADDRESS,
             amountIn,
+            0,
             abi.encodeWithSelector(
                 uniswap.swapExactTokensForETH.selector,
                 amountIn,
@@ -321,6 +328,7 @@ contract ExecutorTest is DSTest {
             address(0),
             address(tokenB),
             1_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 address(0),
@@ -338,6 +346,7 @@ contract ExecutorTest is DSTest {
             address(0),
             address(tokenC),
             1_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 address(0),
@@ -355,6 +364,7 @@ contract ExecutorTest is DSTest {
             address(0),
             address(tokenD),
             1_000 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 address(0),
@@ -372,6 +382,7 @@ contract ExecutorTest is DSTest {
             address(tokenB),
             address(0),
             100 ether,
+            0,
             abi.encodeWithSelector(
                 vault.deposit.selector,
                 address(tokenB),
@@ -387,6 +398,7 @@ contract ExecutorTest is DSTest {
             address(tokenC),
             address(0),
             100 ether,
+            0,
             abi.encodeWithSelector(
                 vault.deposit.selector,
                 address(tokenC),
@@ -402,6 +414,7 @@ contract ExecutorTest is DSTest {
             address(tokenD),
             address(0),
             100 ether,
+            0,
             abi.encodeWithSelector(
                 vault.deposit.selector,
                 address(tokenD),
@@ -442,6 +455,7 @@ contract ExecutorTest is DSTest {
             address(tokenA),
             address(tokenB),
             0.2 ether,
+            0,
             abi.encodeWithSelector(
                 amm.swap.selector,
                 tokenA,

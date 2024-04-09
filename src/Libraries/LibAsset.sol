@@ -146,9 +146,16 @@ library LibAsset {
         uint256 accruedFixedNativeFee = LibFees.accrueFixedNativeFee(
             integrator
         );
-        if (msg.value < accruedFixedNativeFee) revert InvalidAmount();
+
+        uint256 nativeAmountRequired = 0;
         for (uint256 i = 0; i < swaps.length; ) {
             LibSwap.SwapData memory swap = swaps[i];
+
+            nativeAmountRequired += swap.extraNative;
+            if (isNativeAsset(swap.sendingAssetId)) {
+                nativeAmountRequired += swap.fromAmount;
+            }
+
             if (swap.requiresDeposit) {
                 swap.fromAmount = _depositAndAccrueTokenFee(
                     swap.sendingAssetId,
@@ -163,6 +170,9 @@ library LibAsset {
                 i++;
             }
         }
+
+        if (msg.value < nativeAmountRequired + accruedFixedNativeFee)
+            revert InvalidAmount();
 
         return swaps;
     }
