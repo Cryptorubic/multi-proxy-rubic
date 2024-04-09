@@ -53,6 +53,7 @@ horizen = "${ETH_NODE_URI_HORIZEN}"
 kroma = "${ETH_NODE_URI_KROMA}"
 merlin = "${ETH_NODE_URI_MERLIN}"
 mode = "${ETH_NODE_URI_MODE}"
+zkfair = "${ETH_NODE_URI_ZKFAIR}"
 testbera = "${ETH_NODE_URI_TESTBERA}"
 
 # testnets
