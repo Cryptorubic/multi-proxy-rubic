@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 
 import { UpdateScriptBase } from "../utils/UpdateScriptBase.sol";
 import { stdJson } from "forge-std/StdJson.sol";
-import { GenericCrossChainFacet } from "rubic/Facets/GenericCrossChainFacet.sol";
+import { GenericCrossChainFacetV2 as GenericCrossChainFacet } from "rubic/Facets/GenericCrossChainFacetV2.sol";
 import { LibMappings } from "rubic/Libraries/LibMappings.sol";
 
 contract DeployScript is UpdateScriptBase {
@@ -46,7 +46,7 @@ contract DeployScript is UpdateScriptBase {
 
             LibMappings.ProviderFunctionInfo
                 memory setInfo = GenericCrossChainFacet(diamond)
-                    .getSelectorInfo(selectorInfosParsed[i].router, selector);
+                    .getSelectorInfoV2(selectorInfosParsed[i].router, selector);
             if (
                 setInfo.isAvailable != selectorInfosParsed[i].isAvailable ||
                 setInfo.offset != selectorInfosParsed[i].offset
@@ -66,7 +66,7 @@ contract DeployScript is UpdateScriptBase {
 
         vm.startBroadcast(deployerPrivateKey);
 
-        GenericCrossChainFacet(diamond).updateSelectorInfo(
+        GenericCrossChainFacet(diamond).updateSelectorInfoV2(
             routers,
             selectors,
             selectorsInfo
