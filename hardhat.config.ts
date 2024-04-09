@@ -121,18 +121,18 @@ const config: HardhatUserConfig = {
     cache: './cache_hardhat',
   },
   etherscan: {
-    apiKey: "abc",
+    apiKey: 'abc',
     customChains: [
       {
-        network: "merlin",
+        network: 'merlin',
         chainId: 4200,
         urls: {
-          apiURL: "https://scan.merlinchain.io/api/contract",
-          browserURL: "https://goerli.merlin.xyz",
-        }
-      }
-    ]
-  }
+          apiURL: 'https://scan.merlinchain.io/api/contract',
+          browserURL: 'https://goerli.merlin.xyz',
+        },
+      },
+    ],
+  },
 }
 
 export default config
