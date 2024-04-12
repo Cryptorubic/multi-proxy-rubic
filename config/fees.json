@@ -31,6 +31,7 @@
       "merlin": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "mode": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkfair": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "zetachain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "testbera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
@@ -124,6 +125,9 @@
       "maxFixedNativeFee": 100000000000000000
     },
     "zkfair": {
+      "maxFixedNativeFee": 100000000000000000000
+    },
+    "zetachain": {
       "maxFixedNativeFee": 100000000000000000000
     },
     "testbera": {
