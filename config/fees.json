@@ -32,6 +32,7 @@
       "mode": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zkfair": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zetachain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "zklink": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "testbera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
@@ -129,6 +130,9 @@
     },
     "zetachain": {
       "maxFixedNativeFee": 100000000000000000000
+    },
+    "zklink": {
+      "maxFixedNativeFee": 100000000000000000
     },
     "testbera": {
       "maxFixedNativeFee": 50000000000000000000
