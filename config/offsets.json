@@ -5670,5 +5670,13 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "zklink": [
+    {
+      "router": "0xAcb35C2D11FEA8849cd9f5Ff6fBC56bB5296641B",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
