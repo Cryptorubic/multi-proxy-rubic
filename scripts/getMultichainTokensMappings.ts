@@ -30,7 +30,7 @@ async function main(): Promise<void> {
         headers: {
           Accept: 'application/json',
         },
-      }
+      },
     )
 
     const jsonData = <any>await response.json()
@@ -64,7 +64,7 @@ async function main(): Promise<void> {
     console.log(fetchedTokens.length)
     fs.writeFileSync(
       'config/multichainTokens.json',
-      JSON.stringify(blockchains, null, 2)
+      JSON.stringify(blockchains, null, 2),
     )
     msg('Written for ' + blockchainName)
   }

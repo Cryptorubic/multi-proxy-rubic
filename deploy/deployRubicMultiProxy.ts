@@ -1,4 +1,4 @@
-import { Wallet } from 'zksync-web3'
+import { Wallet } from 'zksync-ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { Deployer } from '@matterlabs/hardhat-zksync-deploy'
 import { DEFAULT_PRIVATE_KEY, FILE_SUFFIX } from '../hardhat.config'
@@ -18,9 +18,11 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   const rawdata = fs.readFileSync(
     `deployments/${hre.network.name}.${FILE_SUFFIX}json`,
-    'utf-8'
+    'utf-8',
   )
   const deployments = JSON.parse(rawdata)
+
+  console.log('DC', deployments.DiamondCutFacet)
 
   const constructorArgs = [wallet.address, deployments.DiamondCutFacet]
 
@@ -33,6 +35,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     JSON.stringify({
       address: deployedContract.address,
       constructorArgs: constructorArgs,
-    })
+    }),
   )
 }

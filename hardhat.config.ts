@@ -4,7 +4,6 @@ import { HardhatUserConfig } from 'hardhat/types'
 import '@typechain/hardhat'
 import 'hardhat-preprocessor'
 import { node_url, accounts } from './utils/network'
-import '@nomiclabs/hardhat-etherscan'
 import '@matterlabs/hardhat-zksync-deploy'
 import '@matterlabs/hardhat-zksync-solc'
 import '@matterlabs/hardhat-zksync-verify'
@@ -28,7 +27,7 @@ function getRemappings() {
 
 const config: HardhatUserConfig = {
   zksolc: {
-    version: '1.3.10',
+    version: '1.4.0',
     compilerSource: 'binary',
     settings: {},
   },
@@ -87,6 +86,14 @@ const config: HardhatUserConfig = {
       zksync: false,
       accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
     },
+    zklink: {
+      url: `${process.env.ETH_NODE_URI_ZKLINK}`,
+      chainId: 810180,
+      zksync: true,
+      ethNetwork: 'ethereum',
+      accounts: [`0x${DEFAULT_PRIVATE_KEY}`],
+      verifyURL: 'https://explorer.zklink.io/contract_verification',
+    },
     zkSync: {
       url: `${process.env.ETH_NODE_URI_ZKSYNC}`,
       ethNetwork: 'ethereum', // or a Goerli RPC endpoint from Infura/Alchemy/Chainstack etc.
@@ -102,7 +109,7 @@ const config: HardhatUserConfig = {
     target: 'ethers-v5',
   },
   preprocess: {
-    eachLine: (hre) => ({
+    eachLine: () => ({
       transform: (line: string) => {
         if (line.match(/^\s*import /i)) {
           for (const [from, to] of getRemappings()) {

@@ -1,4 +1,4 @@
-import { Wallet } from 'zksync-web3'
+import { Wallet } from 'zksync-ethers'
 import { HardhatRuntimeEnvironment } from 'hardhat/types'
 import { Deployer } from '@matterlabs/hardhat-zksync-deploy'
 import { DEFAULT_PRIVATE_KEY } from '../hardhat.config'
@@ -34,6 +34,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     JSON.stringify({
       address: deployedContract.address,
       constructorArgs: constructorArgs,
-    })
+    }),
   )
 }

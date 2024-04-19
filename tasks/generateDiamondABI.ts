@@ -8,14 +8,14 @@ const libraryBasePath = 'src/Libraries/'
 
 task(
   'diamondABI',
-  'Generates ABI file for diamond, includes all ABIs of facets'
+  'Generates ABI file for diamond, includes all ABIs of facets',
 ).setAction(async () => {
   let files = fs.readdirSync(__dirname + '/../' + basePath)
   const abi: AbiCoder[] = []
   for (const file of files) {
     const jsonFile = file.replace('sol', 'json')
     const data = fs.readFileSync(
-      path.resolve(__dirname, `../artifacts/${basePath}${file}/${jsonFile}`)
+      path.resolve(__dirname, `../artifacts/${basePath}${file}/${jsonFile}`),
     )
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json: any = JSON.parse(data.toString())
@@ -30,8 +30,8 @@ task(
     const data = fs.readFileSync(
       path.resolve(
         __dirname,
-        `../artifacts/${libraryBasePath}${file}/${jsonFile}`
-      )
+        `../artifacts/${libraryBasePath}${file}/${jsonFile}`,
+      ),
     )
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const json: any = JSON.parse(data.toString())
