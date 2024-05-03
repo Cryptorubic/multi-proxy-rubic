@@ -15,7 +15,7 @@ update() {
 	SCRIPT=$(ls -1 script | sed -e 's/\.s.sol$//' | grep 'Update' | gum filter --placeholder "Diamond Update Script")
 	echo $SCRIPT
 	RAW_RETURN_DATA=$(NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK --json --silent --broadcast --skip-simulation --legacy)
-  checkFailure
+  checkFailure $RAW_RETURN_DATA
   echo $RAW_RETURN_DATA
 	CLEAN_RETURN_DATA=$(echo $RAW_RETURN_DATA | sed 's/^.*{\"logs/{\"logs/')
 	RETURN_DATA=$(echo $CLEAN_RETURN_DATA | jq -r '.returns' 2> /dev/null)
@@ -53,7 +53,7 @@ saveDiamond() {
 checkFailure() {
 	if [[ $? -ne 0 ]]; then
 		echo "Failed to deploy $CONTRACT"
-		exit 1
+		echo "Output: $1"
 	fi
 }
 
