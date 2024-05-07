@@ -501,6 +501,12 @@
   ],
   "bsc": [
     {
+      "router": "0x25aB3Efd52e6470681CE037cD546Dc60726948D3",
+      "selector": "0x60b068be",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x13e46b2a3f8512ed4682a8fb8b560589fe3c2172",
       "selector": "0xf9c028ec",
       "offset": 68,
