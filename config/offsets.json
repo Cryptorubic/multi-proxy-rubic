@@ -6250,5 +6250,19 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "taiko": [
+    {
+      "router": "0x2598d7bc9d3b4b6124f3282e49eee68db270f516",
+      "selector": "0xf9c028ec",
+      "offset": 68,
+      "isAvailable": true
+    },
+    {
+      "router": "0x2598d7bc9d3b4b6124f3282e49eee68db270f516",
+      "selector": "0x29723511",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
