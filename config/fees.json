@@ -34,6 +34,7 @@
       "zetachain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "zklink": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "xlayer": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "taiko": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "testbera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
@@ -137,6 +138,9 @@
     },
     "xlayer": {
       "maxFixedNativeFee": 2000000000000000000
+    },
+    "taiko": {
+      "maxFixedNativeFee": 100000000000000000
     },
     "testbera": {
       "maxFixedNativeFee": 50000000000000000000

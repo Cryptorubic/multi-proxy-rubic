@@ -57,6 +57,7 @@ zkfair = "${ETH_NODE_URI_ZKFAIR}"
 zklink = "${ETH_NODE_URI_ZKLINK}"
 zetachain = "${ETH_NODE_URI_ZETACHAIN}"
 xlayer = "${ETH_NODE_URI_XLAYER}"
+taiko = "${ETH_NODE_URI_TAIKO}"
 testbera = "${ETH_NODE_URI_TESTBERA}"
 
 # testnets
