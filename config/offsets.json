@@ -6263,6 +6263,12 @@
       "selector": "0x29723511",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0x7057aB3fB2BeE9c18e0cDe4240DE4ff7f159E365",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
     }
   ]
 }
