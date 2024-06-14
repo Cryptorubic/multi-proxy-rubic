@@ -1,6 +1,12 @@
 {
   "polygon": [
     {
+      "router": "0xd47b03ee6d86Cf251ee7860FB2ACf9f91B9fD4d7",
+      "selector": "0xcbef2aa9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x25aB3Efd52e6470681CE037cD546Dc60726948D3",
       "selector": "0x60b068be",
       "offset": 0,
