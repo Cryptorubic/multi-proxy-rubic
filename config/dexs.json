@@ -505,6 +505,10 @@
   "taiko": [
     "0x04830cfCED9772b8ACbAF76Cfc7A630Ad82c9148"
   ],
+  "core": [
+    "0x9B3336186a38E1b6c21955d112dbb0343Ee061eE",
+    "0x734583f62Bb6ACe3c9bA9bd5A53143CA2Ce8C55A"
+  ],
   "testbera": [
     "0xC0648f34dFC0d631A271526d1c5f4E1C31489F6d"
   ],
