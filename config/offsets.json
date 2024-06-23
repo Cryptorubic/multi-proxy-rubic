@@ -3785,6 +3785,12 @@
   ],
   "cronos": [
     {
+      "router": "0xcE8f24A58D85eD5c5A6824f7be1F8d4711A0eb4C",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x25aB3Efd52e6470681CE037cD546Dc60726948D3",
       "selector": "0x60b068be",
       "offset": 0,
@@ -6327,6 +6333,12 @@
     {
       "router": "0x13E46b2a3f8512eD4682a8Fb8B560589fE3C2172",
       "selector": "0x29723511",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x01A3c8E513B758EBB011F7AFaf6C37616c9C24d9",
+      "selector": "0xa11b1198",
       "offset": 0,
       "isAvailable": true
     }
