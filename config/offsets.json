@@ -4318,6 +4318,12 @@
     },
     {
       "router": "0x341e94069f53234fE6DabeF707aD424830525715",
+      "selector": "0x6e067161",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x341e94069f53234fE6DabeF707aD424830525715",
       "selector": "0x482c6a85",
       "offset": 0,
       "isAvailable": true
