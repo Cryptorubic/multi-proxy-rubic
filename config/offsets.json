@@ -6514,5 +6514,13 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "bahamut": [
+    {
+      "router": "0xf85FC807D05d3Ab2309364226970aAc57b4e1ea4",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
