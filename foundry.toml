@@ -60,6 +60,7 @@ xlayer = "${ETH_NODE_URI_XLAYER}"
 taiko = "${ETH_NODE_URI_TAIKO}"
 sei = "${ETH_NODE_URI_SEI}"
 core = "${ETH_NODE_URI_CORE}"
+bahamut = "${ETH_NODE_URI_BAHAMUT}"
 testbera = "${ETH_NODE_URI_TESTBERA}"
 
 # testnets
