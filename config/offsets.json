@@ -6249,6 +6249,12 @@
   ],
   "metis": [
     {
+      "router": "0xD9050e7043102a0391F81462a3916326F86331F0",
+      "selector": "0xcbef2aa9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x36ed193dc7160D3858EC250e69D12B03Ca087D08",
       "selector": "0xcbef2aa9",
       "offset": 0,
