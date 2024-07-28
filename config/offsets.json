@@ -6991,6 +6991,12 @@
       "selector": "0xa11b1198",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0x5c386D85b1B82FD9Db681b9176C8a4248bb6345B",
+      "selector": "0xcbef2aa9",
+      "offset": 0,
+      "isAvailable": true
     }
   ],
   "core": [
