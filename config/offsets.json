@@ -7178,6 +7178,12 @@
       "selector": "0xa11b1198",
       "offset": 0,
       "isAvailable": true
+    },
+    {
+      "router": "0xC626845BF4E6a5802Ef774dA0B3DfC6707F015F7",
+      "selector": "0xfc180638",
+      "offset": 100,
+      "isAvailable": true
     }
   ],
   "rootstock": [
