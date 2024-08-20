@@ -3113,6 +3113,12 @@
       "isAvailable": true
     },
     {
+      "router": "0x062b1Db694F6A437e3c028FC60dd6feA7444308c",
+      "selector": "0xe020dc5d",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xca506793A420E901BbCa8066be5661E3C52c84c2",
       "selector": "0xa11b1198",
       "offset": 0,
