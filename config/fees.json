@@ -38,7 +38,8 @@
       "testbera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "sei": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "core": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "bahamut": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "bahamut": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "bitlayer": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -153,6 +154,9 @@
     },
     "bahamut": {
       "maxFixedNativeFee": 50000000000000000000
+    },
+    "bitlayer": {
+      "maxFixedNativeFee": 1724137931000000
     },
     "testbera": {
       "maxFixedNativeFee": 50000000000000000000
