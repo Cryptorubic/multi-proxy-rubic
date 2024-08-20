@@ -7020,6 +7020,12 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb17d0e6e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x63e5468f",
       "offset": 0,
       "isAvailable": true
@@ -7261,6 +7267,12 @@
     }
   ],
   "blast": [
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb17d0e6e",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x01B4CE0d48Ce91eB6bcaf5dB33870C65d641b894",
       "selector": "0x06135b7c",
