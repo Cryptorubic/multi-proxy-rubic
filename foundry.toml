@@ -63,6 +63,7 @@ core = "${ETH_NODE_URI_CORE}"
 bahamut = "${ETH_NODE_URI_BAHAMUT}"
 testbera = "${ETH_NODE_URI_TESTBERA}"
 bitlayer = "${ETH_NODE_URI_BITLAYER}"
+gravity = "${ETH_NODE_URI_GRAVITY}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
