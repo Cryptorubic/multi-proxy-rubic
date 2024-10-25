@@ -3805,6 +3805,12 @@
   ],
   "optimism": [
     {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb17d0e6e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x6f26Bf09B1C792e3228e5467807a900A503c0281",
       "selector": "0x7b939232",
       "offset": 0,
@@ -6708,6 +6714,12 @@
     }
   ],
   "zkEvm": [
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb17d0e6e",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xDcD3979c23B0A375e276f33c65c70b4199d0AF5A",
       "selector": "0x6b55e991",
