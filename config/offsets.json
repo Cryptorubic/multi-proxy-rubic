@@ -3137,6 +3137,12 @@
   ],
   "arbitrum": [
     {
+      "router": "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C",
+      "selector": "0xda081c73",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xe35e9842fceaCA96570B734083f4a58e8F7C5f2A",
       "selector": "0x7b939232",
       "offset": 0,
