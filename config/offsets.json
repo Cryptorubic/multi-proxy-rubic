@@ -1,6 +1,36 @@
 {
   "polygon": [
     {
+      "router": "0x07d0ac7671D4242858D0cebcd34ec03907685947",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x07d0ac7671D4242858D0cebcd34ec03907685947",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xCf2DBA4e5C9f1B47AC09dc712A0F7bD8eE31A15d",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xCf2DBA4e5C9f1B47AC09dc712A0F7bD8eE31A15d",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xCf2DBA4e5C9f1B47AC09dc712A0F7bD8eE31A15d",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xb685760ebd368a891f27ae547391f4e2a289895b",
       "selector": "0x9ddf93bb",
       "offset": 0,
@@ -482,6 +512,18 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x345ad697",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xa5a11ab4",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x6b39e82b",
       "offset": 0,
       "isAvailable": true
@@ -674,6 +716,36 @@
     }
   ],
   "bsc": [
+    {
+      "router": "0x880E0cE34F48c0cbC68BF3E745F17175BA8c650e",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x880E0cE34F48c0cbC68BF3E745F17175BA8c650e",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xb685760ebd368a891f27ae547391f4e2a289895b",
       "selector": "0x9ddf93bb",
@@ -1114,6 +1186,18 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x40316f76",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x7263e87d",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x5a18f941",
       "offset": 0,
       "isAvailable": true
@@ -1313,6 +1397,36 @@
   ],
   "mainnet": [
     {
+      "router": "0xd3f64BAa732061F8B3626ee44bab354f854877AC",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xd3f64BAa732061F8B3626ee44bab354f854877AC",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xCf2DBA4e5C9f1B47AC09dc712A0F7bD8eE31A15d",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xCf2DBA4e5C9f1B47AC09dc712A0F7bD8eE31A15d",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xCf2DBA4e5C9f1B47AC09dc712A0F7bD8eE31A15d",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xb685760ebd368a891f27ae547391f4e2a289895b",
       "selector": "0x9ddf93bb",
       "offset": 0,
@@ -1321,6 +1435,12 @@
     {
       "router": "0xb685760ebd368a891f27ae547391f4e2a289895b",
       "selector": "0x16b3b4c2",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C",
+      "selector": "0xda081c73",
       "offset": 0,
       "isAvailable": true
     },
@@ -1974,6 +2094,18 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x66155375",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb0652ee6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xa5a11ab4",
       "offset": 0,
       "isAvailable": true
@@ -2160,6 +2292,36 @@
     }
   ],
   "avalanche": [
+    {
+      "router": "0x1C7F7e0258c81CF41bcEa31ea4bB5191914Bf7D7",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1C7F7e0258c81CF41bcEa31ea4bB5191914Bf7D7",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xDcD3979c23B0A375e276f33c65c70b4199d0AF5A",
       "selector": "0x6b55e991",
@@ -2793,6 +2955,18 @@
   ],
   "fantom": [
     {
+      "router": "0xBE2A77399Cde40EfbBc4e89207332c4a4079c83D",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xBE2A77399Cde40EfbBc4e89207332c4a4079c83D",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xb685760ebd368a891f27ae547391f4e2a289895b",
       "selector": "0x9ddf93bb",
       "offset": 0,
@@ -3178,6 +3352,36 @@
     }
   ],
   "arbitrum": [
+    {
+      "router": "0x1C7F7e0258c81CF41bcEa31ea4bB5191914Bf7D7",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1C7F7e0258c81CF41bcEa31ea4bB5191914Bf7D7",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xB5FB4BE02232B1bBA4dC8f81dc24C26980dE9e3C",
       "selector": "0xda081c73",
@@ -3672,6 +3876,24 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xe6c806ff",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb0652ee6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x7263e87d",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x345ad697",
       "offset": 0,
       "isAvailable": true
@@ -3882,6 +4104,36 @@
     }
   ],
   "optimism": [
+    {
+      "router": "0xad1D43efCF92133A9a0f33e5936F5ca10f2b012E",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xad1D43efCF92133A9a0f33e5936F5ca10f2b012E",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x6f26Bf09B1C792e3228e5467807a900A503c0281",
       "selector": "0x7b939232",
@@ -4275,6 +4527,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xb06c52da",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x345ad697",
       "offset": 0,
       "isAvailable": true
     },
@@ -4981,6 +5239,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x55206216",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x6b39e82b",
       "offset": 0,
       "isAvailable": true
     },
@@ -6080,6 +6344,18 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x53e4a6f4",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x7263e87d",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x6debed2b",
       "offset": 0,
       "isAvailable": true
@@ -6371,6 +6647,36 @@
   ],
   "base": [
     {
+      "router": "0x4F68248ecB782647D1E5981a181bBe1bfFee1040",
+      "selector": "0xd5a314ab",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x4F68248ecB782647D1E5981a181bBe1bfFee1040",
+      "selector": "0x6b3a5f07",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x601d4300",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x9e94d477",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xa9c430de6a91132330A09BE41f9f19bf45702f74",
+      "selector": "0x944437c6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x09aea4b2242abC8bb4BB78D537A67a245A7bEC64",
       "selector": "0x7b939232",
       "offset": 0,
@@ -6564,6 +6870,12 @@
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0xca360ae0",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xa8f66666",
       "offset": 0,
       "isAvailable": true
@@ -6679,6 +6991,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x3a3f7332",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x60d09476",
       "offset": 0,
       "isAvailable": true
     },
@@ -6999,6 +7317,12 @@
     {
       "router": "0xb91d3060C90aac7c4c706aef2B37997b3b2a1DcF",
       "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0xca360ae0",
       "offset": 0,
       "isAvailable": true
     },
@@ -7923,6 +8247,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6e067161",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x53e4a6f4",
       "offset": 0,
       "isAvailable": true
     },
