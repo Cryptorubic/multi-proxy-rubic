@@ -542,6 +542,12 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xb0652ee6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x40316f76",
       "offset": 0,
       "isAvailable": true
@@ -8839,6 +8845,12 @@
   ],
   "blast": [
     {
+      "router": "0xCF446713DDf0E83F7527A260047f8Ae89eFaE3e5",
+      "selector": "0x95950dee",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x2D509190Ed0172ba588407D4c2df918F955Cc6E1",
       "selector": "0x7b939232",
       "offset": 0,
@@ -9474,6 +9486,12 @@
     }
   ],
   "taiko": [
+    {
+      "router": "0xCF446713DDf0E83F7527A260047f8Ae89eFaE3e5",
+      "selector": "0x95950dee",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xDcD3979c23B0A375e276f33c65c70b4199d0AF5A",
       "selector": "0x6b55e991",
