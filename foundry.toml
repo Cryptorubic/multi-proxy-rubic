@@ -65,6 +65,7 @@ testbera = "${ETH_NODE_URI_TESTBERA}"
 bitlayer = "${ETH_NODE_URI_BITLAYER}"
 gravity = "${ETH_NODE_URI_GRAVITY}"
 flare = "${ETH_NODE_URI_FLARE}"
+sonic = "${ETH_NODE_URI_SONIC}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
