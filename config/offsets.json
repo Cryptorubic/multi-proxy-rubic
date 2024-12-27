@@ -7771,6 +7771,12 @@
   ],
   "zkEvm": [
     {
+      "router": "0xCF446713DDf0E83F7527A260047f8Ae89eFaE3e5",
+      "selector": "0x95950dee",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xf77f06C8FD415316DDF2fd65a03d2800A99f2ce5",
       "selector": "0x8a2e12a5",
       "offset": 0,
@@ -8102,6 +8108,12 @@
     }
   ],
   "mantle": [
+    {
+      "router": "0xCF446713DDf0E83F7527A260047f8Ae89eFaE3e5",
+      "selector": "0x95950dee",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x958CAE900315e85f6d00228c48E237822f9C22f8",
       "selector": "0x8a2e12a5",
@@ -9736,6 +9748,20 @@
       "router": "0x1C10CC06DC6D35970d1D53B2A23c76ef370d4135",
       "selector": "0xcbef2aa9",
       "offset": 0,
+      "isAvailable": true
+    }
+  ],
+  "sonic": [
+    {
+      "router": "0xd9d74a29307cc6fc8bf424ee4217f1a587fbc8dc",
+      "selector": "0xf9c028ec",
+      "offset": 68,
+      "isAvailable": true
+    },
+    {
+      "router": "0x7CFE8Aa0d8E92CCbBDfB12b95AEB7a54ec40f0F5",
+      "selector": "0xfc180638",
+      "offset": 100,
       "isAvailable": true
     }
   ]
