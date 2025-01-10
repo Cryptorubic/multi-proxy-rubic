@@ -31,7 +31,7 @@ deploy() {
 	echo "$CONTRACT deployed on $NETWORK at address $deployed"
 
 	saveContract $NETWORK $CONTRACT $deployed
-	verifyContract $NETWORK $CONTRACT $deployed $args
+#	verifyContract $NETWORK $CONTRACT $deployed $args
 }
 
 saveContract() {
