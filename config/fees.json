@@ -42,7 +42,8 @@
       "bitlayer": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "gravity": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "flare": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "sonic": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "sonic": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "morph": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -172,6 +173,9 @@
     },
     "sonic": {
       "maxFixedNativeFee": 1000000000000000000
+    },
+    "morph": {
+      "maxFixedNativeFee": 100000000000000000
     }
   }
 }
