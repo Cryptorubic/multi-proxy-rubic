@@ -7292,6 +7292,12 @@
     },
     {
       "router": "0xDE1E598b81620773454588B85D6b5D4eEC32573e",
+      "selector": "0x14d53077",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xDE1E598b81620773454588B85D6b5D4eEC32573e",
       "selector": "0x28cc4316",
       "offset": 0,
       "isAvailable": true
