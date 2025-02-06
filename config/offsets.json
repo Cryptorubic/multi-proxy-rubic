@@ -10356,5 +10356,13 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "soneium": [
+    {
+      "router": "0x3baD7AD0728f9917d1Bf08af5782dCbD516cDd96",
+      "selector": "0x7b939232",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
