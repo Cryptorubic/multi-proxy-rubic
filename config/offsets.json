@@ -10364,5 +10364,25 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "bera": [
+    {
+      "router": "0x45f1A95A4D3f3836523F5c83673c797f4d4d263B",
+      "selector": "0xcbef2aa9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xAF54BE5B6eEc24d6BFACf1cce4eaF680A8239398",
+      "selector": "0xcbef2aa9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xcE8f24A58D85eD5c5A6824f7be1F8d4711A0eb4C",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
