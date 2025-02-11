@@ -74,6 +74,7 @@ bera = "${ETH_NODE_URI_BERA}"
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
 mumbai = "${ETH_NODE_URI_MUMBAI}"
+monadTestnet = "${ETH_NODE_URI_MONADTESTNET}"
 
 [etherscan]
 mainnet = { key = "${MAINNET_ETHERSCAN_API_KEY}" }

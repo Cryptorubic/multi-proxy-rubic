@@ -46,7 +46,8 @@
       "morph": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "fraxtal": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "soneium": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "bera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "bera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "monadTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -188,6 +189,9 @@
     },
     "bera": {
       "maxFixedNativeFee": 14000000000000000000
+    },
+    "monadTestnet": {
+      "maxFixedNativeFee": 50000000000000000000000
     }
   }
 }
