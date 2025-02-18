@@ -171,7 +171,7 @@ For the complete deployment of the project some configuration must be performed.
    2) [sigs.json](./config/sigs.json) - function's signatures that should be whitelisted on corresponding blockchain
    3) Configs related to a specific cross-chain provider:
       1) [multichain.json](./config/multichain.json) - For each blockchain: **anyNative** - address of AnyToken which underlying is WNative, **routers** - address allowed to be called within MultichainFacet
-      2) [multichainTokens.json](config/multichainTokens.json) - For each blockcahin: **chainID**, **mappings** - array of **tokenAddress** address of ANY token and **anyTokenAddress** address of original token
+      2) [multichainTokens.json](config/multichainTokens.json) - For each blockchain: **chainID**, **mappings** - array of **tokenAddress** address of ANY token and **anyTokenAddress** address of original token
       2) [symbiosis.json](./config/symbiosis.json) - For each blockchain: **metaRouter** - address of Symbiosis metaRouter, **gateway** - address of Symbiosis gateway
       3) [stargate.json](./config/stargate.json) - **routers** - address of the Stargate router for each blockchain;
       For each blockchain: **chainId** - blockchain ID, **lzChainId** - Stargate's original blockchain ID;
