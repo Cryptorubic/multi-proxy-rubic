@@ -71,6 +71,7 @@ fraxtal = "${ETH_NODE_URI_FRAXTAL}"
 soneium = "${ETH_NODE_URI_SONEIUM}"
 bera = "${ETH_NODE_URI_BERA}"
 unichain = "${ETH_NODE_URI_UNICHAIN}"
+vana = "${ETH_NODE_URI_VANA}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
