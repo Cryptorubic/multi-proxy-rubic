@@ -90,6 +90,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     ERC20 internal usdc;
     ERC20 internal dai;
     ERC20 internal weth;
+    ERC20 internal usdt;
     ERC20Proxy internal erc20proxy;
     RubicMultiProxy internal diamond;
     IRubic.BridgeData internal bridgeData;
@@ -125,6 +126,8 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     // Contract addresses (ETH only)
     address internal constant ADDRESS_UNISWAP =
         0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    address internal constant ADDRESS_USDT =
+        0xdAC17F958D2ee523a2206206994597C13D831ec7;
     address internal constant ADDRESS_USDC =
         0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
     address internal constant ADDRESS_DAI =
@@ -241,6 +244,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
         usdc = ERC20(ADDRESS_USDC);
         dai = ERC20(ADDRESS_DAI);
         weth = ERC20(ADDRESS_WETH);
+        usdt = ERC20(ADDRESS_USDT);
 
         // deploy & configure diamond
         (diamond, erc20proxy) = createDiamond(FEE_TREASURY, MAX_TOKEN_FEE);
@@ -277,7 +281,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     function fork() internal virtual {
         string memory rpcUrl = bytes(customRpcUrlForForking).length != 0
             ? customRpcUrlForForking
-            : vm.envString("ETH_NODE_URI_MAINNET");
+            : vm.envString("FORK_URL");
         uint256 blockNumber = customBlockNumberForForking > 0
             ? customBlockNumberForForking
             : vm.envUint("FORK_NUMBER");
