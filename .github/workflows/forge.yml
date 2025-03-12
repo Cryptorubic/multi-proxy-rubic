@@ -10,6 +10,7 @@ jobs:
       ETH_NODE_URI_POLYGON: ${{ secrets.ETH_NODE_URI_POLYGON }}
       ETH_NODE_URI_GOERLI: ${{ secrets.ETH_NODE_URI_GOERLI }}
       FORK_NUMBER: ${{ secrets.FORK_NUMBER }}
+      FORK_URL: ${{ secrets.FORK_URL }}
       POLYGON_FORK_NUMBER: ${{ secrets.POLYGON_FORK_NUMBER }}
       FORK_NUMBER_POLYGON: 36004499
     steps:
