@@ -2653,18 +2653,6 @@
   ],
   "avalanche": [
     {
-      "router": "0x096f6df3d0dB9617771C4689338a8d663810140c",
-      "selector": "0x3e11741f",
-      "offset": 0,
-      "isAvailable": true
-    },
-    {
-      "router": "0x096f6df3d0dB9617771C4689338a8d663810140c",
-      "selector": "0x68f8fc10",
-      "offset": 0,
-      "isAvailable": true
-    },
-    {
       "router": "0xb685760ebd368a891f27ae547391f4e2a289895b",
       "selector": "0x9ddf93bb",
       "offset": 0,
