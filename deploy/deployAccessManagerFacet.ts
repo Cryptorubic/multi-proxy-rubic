@@ -21,6 +21,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   // Show the contract info.
   console.log(
-    JSON.stringify({ address: deployedContract.address, constructorArgs: '' }),
+    JSON.stringify({ address: deployedContract.address, constructorArgs: '' })
   )
 }

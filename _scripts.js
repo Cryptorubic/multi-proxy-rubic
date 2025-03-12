@@ -28,7 +28,7 @@ function parseArgs(rawArgs, numFixedArgs, expectedOptions) {
       } else {
         if (fixedArgs.length < numFixedArgs) {
           throw new Error(
-            `expected ${numFixedArgs} fixed args, got only ${fixedArgs.length}`,
+            `expected ${numFixedArgs} fixed args, got only ${fixedArgs.length}`
           )
         } else {
           extra.push(rawArg)
@@ -71,7 +71,7 @@ async function performAction(rawArgs) {
     await execute(
       `cross-env HARDHAT_DEPLOY_LOG=true HARDHAT_NETWORK=${
         fixedArgs[0]
-      } ts-node --files ${fixedArgs[1]} ${extra.join(' ')}`,
+      } ts-node --files ${fixedArgs[1]} ${extra.join(' ')}`
     )
   } else if (firstArg === 'deploy') {
     const { fixedArgs, extra } = parseArgs(args, 1, {})
@@ -79,7 +79,7 @@ async function performAction(rawArgs) {
   } else if (firstArg === 'export') {
     const { fixedArgs } = parseArgs(args, 2, {})
     await execute(
-      `hardhat --network ${fixedArgs[0]} export --export ${fixedArgs[1]}`,
+      `hardhat --network ${fixedArgs[0]} export --export ${fixedArgs[1]}`
     )
   } else if (firstArg === 'fork:run') {
     const { fixedArgs, options, extra } = parseArgs(args, 2, {
@@ -96,7 +96,7 @@ async function performAction(rawArgs) {
         options['no-impersonation']
           ? `HARDHAT_DEPLOY_NO_IMPERSONATION=true`
           : ''
-      } ts-node --files ${fixedArgs[1]} ${extra.join(' ')}`,
+      } ts-node --files ${fixedArgs[1]} ${extra.join(' ')}`
     )
   } else if (firstArg === 'fork:deploy') {
     const { fixedArgs, options, extra } = parseArgs(args, 1, {
@@ -110,7 +110,7 @@ async function performAction(rawArgs) {
         options['no-impersonation']
           ? `HARDHAT_DEPLOY_NO_IMPERSONATION=true`
           : ''
-      } hardhat deploy ${extra.join(' ')}`,
+      } hardhat deploy ${extra.join(' ')}`
     )
   } else if (firstArg === 'fork:node') {
     const { fixedArgs, options, extra } = parseArgs(args, 1, {
@@ -124,7 +124,7 @@ async function performAction(rawArgs) {
         options['no-impersonation']
           ? `HARDHAT_DEPLOY_NO_IMPERSONATION=true`
           : ''
-      } hardhat node ${extra.join(' ')}`,
+      } hardhat node ${extra.join(' ')}`
     )
   } else if (firstArg === 'fork:test') {
     const { fixedArgs, options, extra } = parseArgs(args, 1, {
@@ -139,8 +139,8 @@ async function performAction(rawArgs) {
           ? `HARDHAT_DEPLOY_NO_IMPERSONATION=true`
           : ''
       } HARDHAT_DEPLOY_FIXTURE=true HARDHAT_COMPILE=true mocha --bail --recursive test ${extra.join(
-        ' ',
-      )}`,
+        ' '
+      )}`
     )
   } else if (firstArg === 'fork:dev') {
     const { fixedArgs, options, extra } = parseArgs(args, 1, {
@@ -154,7 +154,7 @@ async function performAction(rawArgs) {
         options['no-impersonation']
           ? `HARDHAT_DEPLOY_NO_IMPERSONATION=true`
           : ''
-      } hardhat node --watch --export contractsInfo.json ${extra.join(' ')}`,
+      } hardhat node --watch --export contractsInfo.json ${extra.join(' ')}`
     )
   }
 }

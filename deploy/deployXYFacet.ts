@@ -34,6 +34,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     JSON.stringify({
       address: deployedContract.address,
       constructorArgs: constructorArgs,
-    }),
+    })
   )
 }
