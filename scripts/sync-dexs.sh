@@ -33,6 +33,7 @@ if [[ ! ${#NEW_DEXS[@]} -eq 0 ]]; then
     PARAMS+="${d},"
   done
   cast send $DIAMOND "batchAddDex(address[])" "[${PARAMS::-1}]" --rpc-url ${!RPC} --private-key ${PRIVATE_KEY} --legacy
+  echo "Tried to add ${#NEW_DEXS[@]} DEXs"
 else
   echo 'No new DEXs to add'
 fi
