@@ -2,6 +2,12 @@
   "polygon": [
     {
       "router": "0x0009876C47F6b2f0BCB41eb9729736757486c75f",
+      "selector": "0x3fea4367",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x0009876C47F6b2f0BCB41eb9729736757486c75f",
       "selector": "0x44dd6aa5",
       "offset": 0,
       "isAvailable": true
@@ -867,6 +873,12 @@
       "isAvailable": true
     },
     {
+      "router": "0x2787D48e0B74125597DD479978a5DE09Bb9a3C15",
+      "selector": "0x3fea4367",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xCF446713DDf0E83F7527A260047f8Ae89eFaE3e5",
       "selector": "0x95950dee",
       "offset": 0,
@@ -1367,6 +1379,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xb06c52da",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x24ac9c35",
       "offset": 0,
       "isAvailable": true
     },
