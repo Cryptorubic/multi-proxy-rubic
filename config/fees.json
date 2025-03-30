@@ -49,7 +49,8 @@
       "bera": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "monadTestnet": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "unichain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "vana": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "vana": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "megaeth": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -200,6 +201,9 @@
     },
     "vana": {
       "maxFixedNativeFee": 20000000000000000000
+    },
+    "megaeth": {
+      "maxFixedNativeFee": 100000000000000000
     }
   }
 }
