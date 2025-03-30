@@ -21,7 +21,7 @@ run() {
   DIAMOND=$(jq -r '.RubicMultiProxy' "./deployments/${NETWORK}.${FILE_SUFFIX}json")
   RPC="ETH_NODE_URI_$(tr '[:lower:]' '[:upper:]' <<< "$NETWORK")"
 
-  RAW_RETURN_DATA=$(NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/management/$SCRIPT.s.sol -f $NETWORK --json --silent --broadcast --skip-simulation --legacy)
+  RAW_RETURN_DATA=$(NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/management/$SCRIPT.s.sol -f $NETWORK --json --broadcast --skip-simulation --legacy)
   checkFailure
   CLEAN_RETURN_DATA=$(echo $RAW_RETURN_DATA | sed 's/^.*{\"logs/{\"logs/')
   echo $CLEAN_RETURN_DATA | jq '.returns' 2> /dev/null
