@@ -18,7 +18,7 @@ deploy() {
 
 	echo $SCRIPT
 
-	RAW_RETURN_DATA=$(SALT=$SALT NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK --json --broadcast --skip-simulation --silent --legacy)
+	RAW_RETURN_DATA=$(SALT=$SALT NETWORK=$NETWORK FILE_SUFFIX=$FILE_SUFFIX forge script script/$SCRIPT.s.sol -f $NETWORK --json --broadcast --skip-simulation --legacy)
   checkFailure
   echo $RAW_RETURN_DATA
 	CLEAN_RETURN_DATA=$(echo $RAW_RETURN_DATA | sed 's/^.*{\"logs/{\"logs/')
