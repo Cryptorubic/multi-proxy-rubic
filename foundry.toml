@@ -73,6 +73,7 @@ bera = "${ETH_NODE_URI_BERA}"
 unichain = "${ETH_NODE_URI_UNICHAIN}"
 vana = "${ETH_NODE_URI_VANA}"
 megaeth = "${ETH_NODE_URI_MEGAETH}"
+wanchain = "${ETH_NODE_URI_WANCHAIN}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
