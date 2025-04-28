@@ -18,7 +18,7 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 
   const rawdata = fs.readFileSync(
     `deployments/${hre.network.name}.${FILE_SUFFIX}json`,
-    'utf-8',
+    'utf-8'
   )
   const deployments = JSON.parse(rawdata)
 
@@ -35,6 +35,6 @@ export default async function (hre: HardhatRuntimeEnvironment) {
     JSON.stringify({
       address: deployedContract.address,
       constructorArgs: constructorArgs,
-    }),
+    })
   )
 }
