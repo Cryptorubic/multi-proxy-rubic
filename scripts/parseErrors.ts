@@ -22,5 +22,5 @@ fs.writeFile(
   function (err) {
     if (err) throw err
     console.log('Errors are parsed and written')
-  },
+  }
 )
