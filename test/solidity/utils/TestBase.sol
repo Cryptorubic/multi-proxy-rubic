@@ -218,7 +218,7 @@ abstract contract TestBase is Test, DiamondTest, IRubic {
     // FUNCTIONS
     function initTestBase() internal {
         // activate fork
-        fork();
+        //fork();
 
         // label addresses (for better readability in error traces)
         vm.label(USER_SENDER, "USER_SENDER");

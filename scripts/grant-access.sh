@@ -4,7 +4,7 @@ source .env
 load() {
 
 NETWORK=$(cat ./networks | gum filter --placeholder "Network")
-ADDRESS=$(gum input --placeholder "Address?")
+ADDRESS=0xAf1bDa7332239aB124feF081569B45F0f8D05c5a
 METHODS=$(gum choose --no-limit 'addDex|0x536db266' 'batchAddDex|0xfcd8e49e' 'removeDex|0x124f1ead' 'batchRemoveDex|0x9afc19c7' 'executCallAndWithdraw|0x1458d7ad'  'setFeeTreasure|0xb395d295' 'setFixedNativeFee|0x6d0f18c4' 'setIntegratorInfo|0x825dc415' 'setMaxRubicPlatformFee|0xbcd97c25' 'setRubicPlatformFee|0x95c54f5a')
 
 ADDRS="deployments/$NETWORK.json"

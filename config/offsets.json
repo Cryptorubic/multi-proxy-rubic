@@ -7835,6 +7835,12 @@
   ],
   "base": [
     {
+      "router": "0xcaf2dA315f5a5499299A312b8a86faAfe4BAD959",
+      "selector": "0x1fff991f",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x2715aa7156634256ae75240c2c5543814660cd04",
       "selector": "0x257011b6",
       "offset": 0,
