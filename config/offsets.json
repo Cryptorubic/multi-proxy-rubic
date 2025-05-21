@@ -9425,6 +9425,12 @@
       "isAvailable": true
     },
     {
+      "router": "0x3Fc69CC4A842838bCDC9499178740226062b14E4",
+      "selector": "0xc7c7f5b3",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xe6c806ff",
       "offset": 0,
