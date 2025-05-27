@@ -1835,6 +1835,12 @@
       "isAvailable": true
     },
     {
+      "router": "0xd87Fff92728792F6dFFA5A915Bd4F7BE1A5bb45E",
+      "selector": "0x8121165f",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xf9f4c3dc7ba8f56737a92d74fd67230c38af51f2",
       "selector": "0x63d42ae7",
       "offset": 0,
