@@ -14,9 +14,13 @@ contract DeployScript is DeployScriptBase {
             return TransferWithBytesFacet(predicted);
         }
 
-        deployed = TransferWithBytesFacet(
-            factory.deploy(salt, type(TransferWithBytesFacet).creationCode)
-        );
+        if (networkSupportsCreate3(network)) {
+            deployed = TransferWithBytesFacet(
+                factory.deploy(salt, type(TransferWithBytesFacet).creationCode)
+            );
+        } else {
+            deployed = new TransferWithBytesFacet();
+        }
 
         vm.stopBroadcast();
     }
