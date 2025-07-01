@@ -1,6 +1,18 @@
 {
   "polygon": [
     {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
       "selector": "0x5caab55a",
       "offset": 0,
@@ -897,6 +909,24 @@
   ],
   "bsc": [
     {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x4e8E101924eDE233C13e2D8622DC8aED2872d505",
       "selector": "0x7b939232",
       "offset": 0,
@@ -1732,6 +1762,18 @@
     }
   ],
   "mainnet": [
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xeeeeee9ec4769a09a76a83c7bc42b185872860ee",
       "selector": "0x6e305f80",
@@ -2850,6 +2892,18 @@
     }
   ],
   "avalanche": [
+    {
+      "router": "0x9ae5c1847f558dfbb9bd2d8abb6284eabfc66726",
+      "selector": "0x90d33ac7",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xe0b062d028236fa09fe33db8019ffeeee6bf79ed",
       "selector": "0x6e305f80",
@@ -5028,6 +5082,12 @@
     }
   ],
   "optimism": [
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
       "selector": "0x5caab55a",
@@ -8105,6 +8165,18 @@
   ],
   "base": [
     {
+      "router": "0xf9ab4a9d8cee371de059405206b627b4776d97f7",
+      "selector": "0x90d33ac7",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xeeeeee9ec4769a09a76a83c7bc42b185872860ee",
       "selector": "0x6e305f80",
       "offset": 0,
@@ -8449,6 +8521,12 @@
     {
       "router": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
       "selector": "0x4d8160ba",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0xe10c04c1",
       "offset": 0,
       "isAvailable": true
     },
@@ -10035,6 +10113,12 @@
   ],
   "metis": [
     {
+      "router": "0x82b3995ebe539cbed760be089e33484fe12830f9",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x6b7b5e5a75eb1c26689618c571143d255694c134",
       "selector": "0x6e305f80",
       "offset": 0,
@@ -10568,6 +10652,12 @@
     }
   ],
   "mode": [
+    {
+      "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xeeeeee9ec4769a09a76a83c7bc42b185872860ee",
       "selector": "0x6e305f80",
@@ -11355,6 +11445,12 @@
   ],
   "soneium": [
     {
+      "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xeeeeee9ec4769a09a76a83c7bc42b185872860ee",
       "selector": "0x6e305f80",
       "offset": 0,
@@ -11406,6 +11502,12 @@
     }
   ],
   "unichain": [
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xaaaaaaae92cc1ceef79a038017889fdd26d23d4d",
       "selector": "0x5caab55a",
