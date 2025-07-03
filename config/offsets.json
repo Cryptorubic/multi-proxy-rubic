@@ -9369,6 +9369,12 @@
   ],
   "mantle": [
     {
+      "router": "0x90bc1fe7561423d51d77ff56f4790805d3b5d885",
+      "selector": "0x5caab55a",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x610f3927901c41c219a1ad267df8073dbc883464",
       "selector": "0x6e305f80",
       "offset": 0,
