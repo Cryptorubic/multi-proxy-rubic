@@ -8165,6 +8165,12 @@
   ],
   "base": [
     {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xf9ab4a9d8cee371de059405206b627b4776d97f7",
       "selector": "0x90d33ac7",
       "offset": 0,
@@ -9369,6 +9375,12 @@
   ],
   "mantle": [
     {
+      "router": "0x113a327221d2c4660684449bfc39bc14ad1aaf38",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x90bc1fe7561423d51d77ff56f4790805d3b5d885",
       "selector": "0x5caab55a",
       "offset": 0,
@@ -10021,6 +10033,12 @@
   ],
   "manta": [
     {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x3db750fd20d09f7988b7331f412a516c524caf13",
       "selector": "0x6e305f80",
       "offset": 0,
@@ -10118,6 +10136,18 @@
     }
   ],
   "metis": [
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x82b3995ebe539cbed760be089e33484fe12830f9",
       "selector": "0x5caab55a",
