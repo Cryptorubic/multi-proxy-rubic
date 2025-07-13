@@ -51,7 +51,8 @@
       "unichain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "vana": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
       "megaeth": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
-      "wanchain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
+      "wanchain": "0x60745F5A9742FE905BbDE2F57808416edf2B8696",
+      "hemi": "0x60745F5A9742FE905BbDE2F57808416edf2B8696"
     },
     "hardhat": {
       "maxFixedNativeFee": 0
@@ -208,6 +209,9 @@
     },
     "wanchain": {
       "maxFixedNativeFee": 500000000000000000000
+    },
+    "hemi": {
+      "maxFixedNativeFee": 100000000000000000
     }
   }
 }
