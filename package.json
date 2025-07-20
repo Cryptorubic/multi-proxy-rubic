@@ -82,6 +82,8 @@
     "@connext/nxtp-sdk": "^0.1.31",
     "@connext/nxtp-utils": "^0.1.31",
     "@hop-protocol/sdk": "0.0.1-beta.310",
+    "@layerzerolabs/lz-evm-oapp-v2": "^3.0.88",
+    "@layerzerolabs/lz-evm-protocol-v2": "^3.0.88",
     "@uma/sdk": "^0.22.1",
     "@uniswap/sdk": "^3.0.3",
     "chalk": "4.1.2",

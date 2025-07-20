@@ -925,6 +925,16 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@layerzerolabs/lz-evm-oapp-v2@^3.0.88":
+  version "3.0.88"
+  resolved "https://registry.yarnpkg.com/@layerzerolabs/lz-evm-oapp-v2/-/lz-evm-oapp-v2-3.0.88.tgz#7b67a2cd6058e73355ed9e2a0a42cf5de66fae5a"
+  integrity sha512-+EvHw4xBppODJegZdiDS56oTnX6wxRTGU64SB/NPlooJEuwNMDAJydpFblVbG+3F4BxaZqnL51p0FoTWvczpsA==
+
+"@layerzerolabs/lz-evm-protocol-v2@^3.0.88":
+  version "3.0.88"
+  resolved "https://registry.yarnpkg.com/@layerzerolabs/lz-evm-protocol-v2/-/lz-evm-protocol-v2-3.0.88.tgz#ae547efd6f03d5d0ce4b50ed3d8451d78b2b81c2"
+  integrity sha512-qM3wTQQup/X62uuW96az2HYuQpWqQp3WLgx7pl6930QaH+C0ane8aPRfryjPObti84apbDRjf3q1g966JOTqBA==
+
 "@maticnetwork/maticjs@^2.0.38":
   version "2.0.51"
   resolved "https://registry.yarnpkg.com/@maticnetwork/maticjs/-/maticjs-2.0.51.tgz#4fe82150384d6241ed2276bba4ad7c111445593f"
