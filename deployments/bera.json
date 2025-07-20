@@ -10,5 +10,6 @@
   "AccessManagerFacet": "0xC9fa6Ca19d49ff5a677181369eB8a58688E74924",
   "GenericSwapFacet": "0xb656E75248Ee97e14Dccb5EC559Da32a5b70c8eF",
   "GenericCrossChainFacet": "0x1C7cc271Ad9DBe625a07C653aE61b757fdFCbe91",
-  "TransferWithBytesFacet": "0xF0d40864FC8d0b2255871af3C355963593372e01"
+  "TransferWithBytesFacet": "0xF0d40864FC8d0b2255871af3C355963593372e01",
+  "StargateV2Receiver": "0x690A5605d76E16E6Fe131B9B7d10599f2164eE91"
 }
