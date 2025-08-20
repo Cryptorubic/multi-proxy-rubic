@@ -1859,6 +1859,12 @@
   ],
   "mainnet": [
     {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x337685fdaB40D39bd02028545a4FfA7D287cC3E2",
       "selector": "0xe4269fc4",
       "offset": 0,
@@ -8530,6 +8536,12 @@
     }
   ],
   "base": [
+    {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x337685fdaB40D39bd02028545a4FfA7D287cC3E2",
       "selector": "0xe4269fc4",
