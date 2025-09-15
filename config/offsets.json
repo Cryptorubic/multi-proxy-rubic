@@ -10821,6 +10821,18 @@
   ],
   "metis": [
     {
+      "router": "0xcd740b0e005cb8647f9baf4febedc8753ceef861",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x113a327221d2c4660684449bfc39bc14ad1aaf38",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
       "selector": "0x30875056",
       "offset": 0,
@@ -12240,6 +12252,12 @@
     }
   ],
   "fraxtal": [
+    {
+      "router": "0xe530d28960d48708ccf3e62aa7b42a80bc427aef",
+      "selector": "0x1725dc9b",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xe530d28960d48708ccf3e62aa7b42a80bc427aef",
       "selector": "0x5a2c71cd",
