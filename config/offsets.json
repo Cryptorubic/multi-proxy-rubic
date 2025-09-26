@@ -7987,6 +7987,12 @@
   ],
   "linea": [
     {
+      "router": "0x7E63A5f1a8F0B4d0934B2f2327DAED3F6bb2ee75",
+      "selector": "0xad5425c6",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
       "selector": "0x58181a80",
       "offset": 0,
