@@ -2838,6 +2838,12 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xe5f27d54",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xec9c6cb1",
       "offset": 0,
       "isAvailable": true
@@ -3777,6 +3783,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xed178619",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x24ac9c35",
       "offset": 0,
       "isAvailable": true
     },
@@ -7202,6 +7214,12 @@
     }
   ],
   "zkSync": [
+    {
+      "router": "0xE0B015E54d54fc84a6cB9B666099c46adE9335FF",
+      "selector": "0xad5425c6",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xc7a4a594ef6e834ae75392a62a79638e0b6178c1",
       "selector": "0x5caab55a",
