@@ -12813,6 +12813,18 @@
       "isAvailable": true
     },
     {
+      "router": "0x026F252016A7C47CDEf1F05a3Fc9E20C92a49C37",
+      "selector": "0xa1f1ce43",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x026F252016A7C47CDEf1F05a3Fc9E20C92a49C37",
+      "selector": "0x1794958f",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0xcE8f24A58D85eD5c5A6824f7be1F8d4711A0eb4C",
       "selector": "0xa11b1198",
       "offset": 0,
