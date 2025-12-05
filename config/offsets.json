@@ -13073,6 +13073,18 @@
   ],
   "monadPrivate": [
     {
+      "router": "0xeF4fB24aD0916217251F553c0596F8Edc630EB66",
+      "selector": "0xfbe16ca7",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xeF4fB24aD0916217251F553c0596F8Edc630EB66",
+      "selector": "0xb9303701",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x70f6060Fc8b01B56869fEba8361df468F98c2900",
       "selector": "0xf9c028ec",
       "offset": 0,
