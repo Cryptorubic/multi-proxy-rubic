@@ -2658,6 +2658,12 @@
     },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6a51e9a9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xf72fbce2",
       "offset": 0,
       "isAvailable": true
@@ -5137,6 +5143,12 @@
     {
       "router": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
       "selector": "0x4d8160ba",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6f9206ba",
       "offset": 0,
       "isAvailable": true
     },
@@ -13117,6 +13129,12 @@
     {
       "router": "0xe530d28960d48708ccf3e62aa7b42a80bc427aef",
       "selector": "0x1725dc9b",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
+      "selector": "0x4d8160ba",
       "offset": 0,
       "isAvailable": true
     }
