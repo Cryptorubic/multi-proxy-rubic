@@ -776,6 +776,12 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x3410816d",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x58bf7c03",
       "offset": 0,
       "isAvailable": true
@@ -2965,6 +2971,12 @@
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0xb06c52da",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x6debed2b",
       "offset": 0,
       "isAvailable": true
     },
@@ -13084,6 +13096,12 @@
     }
   ],
   "monadPrivate": [
+    {
+      "router": "0xd2ecb3afe598b746F8123CaE365a598DA831A449",
+      "selector": "0xad5425c6",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0xeF4fB24aD0916217251F553c0596F8Edc630EB66",
       "selector": "0xfbe16ca7",
