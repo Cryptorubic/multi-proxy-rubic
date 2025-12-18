@@ -222,7 +222,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev Contains the business logic for the bridge via AllBridge into Stellar network
     /// @param _bridgeData Data used purely for tracking and analytics
-    /// @param _stargateData Data specific to bridge assets to the Stellar network
+    /// @param _stellarData Data specific to bridge assets to the Stellar network
     function _startBridge(
         IRubic.BridgeData memory _bridgeData,
         StellarData calldata _stellarData
