@@ -8,7 +8,7 @@ import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { IAllBridgeCore } from "../Interfaces/IAllBridgeCore.sol";
-import { AlreadyInitialized, NotInitialized } from "../Errors/GenericErrors.sol";
+import { AlreadyInitialized, NotInitialized, UnsupportedChainId, NotEnoughBalance } from "../Errors/GenericErrors.sol";
 
 contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     bytes32 internal constant ALL_BRIDGE_NAMESPACE =
@@ -88,6 +88,9 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
      * @param params see below in `DepositEventParams` structure
      */
     event Deposit(DepositEventParams params);
+
+    /// Errors ///
+    error UsedNonce(uint256 nonce);
 
     constructor(address _allBridgeCore) {
         allBridgeCore = IAllBridgeCore(_allBridgeCore);
@@ -224,16 +227,21 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         IRubic.BridgeData memory _bridgeData,
         StellarData calldata _stellarData
     ) private noNativeAsset(_bridgeData) {
-        if (_bridgeData.destinationChainId != DEST_CHAIN_ID) revert();
+        if (_bridgeData.destinationChainId != DEST_CHAIN_ID)
+            revert UnsupportedChainId(_bridgeData.destinationChainId);
 
         Storage storage s = getStorage();
 
-        if (s.nonceSent[_stellarData.nonce]) revert();
+        if (s.nonceSent[_stellarData.nonce])
+            revert UsedNonce(_stellarData.nonce);
         s.nonceSent[_stellarData.nonce] = true;
 
         uint256 relayerFee = calculateRelayerFee(_bridgeData.sendingAssetId);
         if (relayerFee + _stellarData.allBridgeFee >= _bridgeData.minAmount)
-            revert();
+            revert NotEnoughBalance(
+                relayerFee + _stellarData.allBridgeFee,
+                _bridgeData.minAmount
+            );
 
         if (relayerFee > 0) {
             _bridgeData.minAmount -= relayerFee;
