@@ -12,7 +12,7 @@ import { AlreadyInitialized, NotInitialized, UnsupportedChainId, NotEnoughBalanc
 
 contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     bytes32 internal constant STELLAR_NAMESPACE =
-        keccak256("com.rubic.facets.stellar"); // TODO: LibMappings => "com.rubic.library.mappings.stellar"
+        keccak256("com.rubic.facets.stellar");
     uint256 internal constant DEST_CHAIN_ID = 7;
     uint256 internal constant DENOMINATOR = 10 ** 18;
 
@@ -298,6 +298,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
                 _stellarData.destinationSwapDeadline
             )
         );
+        emit RubicTransferStarted(_bridgeData);
     }
 
     function _addressToBytes32(address a) internal pure returns (bytes32) {
