@@ -283,20 +283,26 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             revert UsedNonce(_stellarData.nonce);
         s.nonceSent[_stellarData.nonce] = true;
 
-        uint256 relayerFee = calculateRelayerFee(_bridgeData.sendingAssetId);
-        if (relayerFee + _stellarData.allBridgeFee >= _bridgeData.minAmount)
-            revert NotEnoughBalance(
-                relayerFee + _stellarData.allBridgeFee,
-                _bridgeData.minAmount
+        if (_bridgeData.hasDestinationCall) {
+            uint256 relayerFee = calculateRelayerFee(
+                _bridgeData.sendingAssetId
             );
+            if (
+                relayerFee + _stellarData.allBridgeFee >= _bridgeData.minAmount
+            )
+                revert NotEnoughBalance(
+                    relayerFee + _stellarData.allBridgeFee,
+                    _bridgeData.minAmount
+                );
 
-        if (relayerFee > 0) {
-            _bridgeData.minAmount -= relayerFee;
-            LibAsset.transferERC20(
-                _bridgeData.sendingAssetId,
-                s.relayerFeeReceiver,
-                relayerFee
-            );
+            if (relayerFee > 0) {
+                _bridgeData.minAmount -= relayerFee;
+                LibAsset.transferERC20(
+                    _bridgeData.sendingAssetId,
+                    s.relayerFeeReceiver,
+                    relayerFee
+                );
+            }
         }
 
         LibAsset.maxApproveERC20(
