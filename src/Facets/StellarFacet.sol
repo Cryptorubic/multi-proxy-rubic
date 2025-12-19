@@ -8,7 +8,7 @@ import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
 import { LibDiamond } from "../Libraries/LibDiamond.sol";
 import { IAllBridgeCore } from "../Interfaces/IAllBridgeCore.sol";
-import { AlreadyInitialized, NotInitialized, UnsupportedChainId, NotEnoughBalance } from "../Errors/GenericErrors.sol";
+import { AlreadyInitialized, NotInitialized, UnsupportedChainId, NotEnoughBalance, InformationMismatch } from "../Errors/GenericErrors.sol";
 
 contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     bytes32 internal constant STELLAR_NAMESPACE =
@@ -229,6 +229,15 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     ) private noNativeAsset(_bridgeData) {
         if (_bridgeData.destinationChainId != DEST_CHAIN_ID)
             revert UnsupportedChainId(_bridgeData.destinationChainId);
+
+        if (
+            _bridgeData.hasDestinationCall &&
+            _stellarData.allBridgeReceiver == _stellarData.finalReceiver
+        ) revert InformationMismatch();
+        if (
+            !_bridgeData.hasDestinationCall &&
+            _stellarData.allBridgeReceiver != _stellarData.finalReceiver
+        ) revert InformationMismatch();
 
         Storage storage s = getStorage();
 
