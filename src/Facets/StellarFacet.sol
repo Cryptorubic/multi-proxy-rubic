@@ -323,6 +323,8 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         );
 
         emit RubicTransferStarted(_bridgeData);
+
+        return _bridgeData.minAmount;
     }
 
     function _addressToBytes32(address a) internal pure returns (bytes32) {
