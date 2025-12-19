@@ -50,7 +50,6 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// Events ///
     /** @notice Params for `Deposit` event
      * @param rubicId txn id in Rubic Ecosystem
-     * @param sender address
      * @param integrator address
      * @param tokenIn input token address
      * @param amountIn input token amount
@@ -68,7 +67,6 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
      */
     struct DepositEventParams {
         bytes32 rubicId;
-        address sender;
         address integrator;
         address tokenIn;
         uint256 amountIn;
@@ -145,7 +143,6 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         emit Deposit(
             DepositEventParams(
                 _bridgeData.transactionId,
-                msg.sender,
                 _bridgeData.integrator,
                 _bridgeData.sendingAssetId,
                 _bridgeData.minAmount,
@@ -195,7 +192,6 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         emit Deposit(
             DepositEventParams(
                 _bridgeData.transactionId,
-                msg.sender,
                 _bridgeData.integrator,
                 _swapData[0].sendingAssetId,
                 _swapData[0].fromAmount,
