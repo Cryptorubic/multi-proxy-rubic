@@ -102,7 +102,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @notice Initialize local variables for the Stellar Facet
     /// @param _feeReceiver Relayer fee receiver address
     /// @param _scalingFactor Multiplier to calculate relayer fee based on the AllBridge protocol fee
-    function initialize(
+    function initStellar(
         address _feeReceiver,
         uint256 _scalingFactor
     ) external {
