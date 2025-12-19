@@ -11,7 +11,7 @@ import { IAllBridgeCore } from "../Interfaces/IAllBridgeCore.sol";
 import { AlreadyInitialized, NotInitialized, UnsupportedChainId, NotEnoughBalance } from "../Errors/GenericErrors.sol";
 
 contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
-    bytes32 internal constant ALL_BRIDGE_NAMESPACE =
+    bytes32 internal constant STELLAR_NAMESPACE =
         keccak256("com.rubic.facets.stellar"); // TODO: LibMappings => "com.rubic.library.mappings.stellar"
     uint256 internal constant DEST_CHAIN_ID = 7;
     uint256 internal constant DENOMINATOR = 10 ** 18;
@@ -200,7 +200,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
 
     /// @dev fetch local storage
     function getStorage() private pure returns (Storage storage s) {
-        bytes32 namespace = ALL_BRIDGE_NAMESPACE;
+        bytes32 namespace = STELLAR_NAMESPACE;
         // solhint-disable-next-line no-inline-assembly
         assembly {
             s.slot := namespace
