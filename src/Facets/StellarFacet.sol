@@ -141,6 +141,27 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         );
 
         _startBridge(_bridgeData, _stellarData);
+
+        emit Deposit(
+            DepositEventParams(
+                _bridgeData.transactionId,
+                msg.sender,
+                _bridgeData.integrator,
+                _bridgeData.sendingAssetId,
+                _bridgeData.minAmount,
+                _bridgeData.sendingAssetId,
+                _bridgeData.minAmount,
+                _stellarData.tokensOut[0],
+                _stellarData.tokensOut[1],
+                _stellarData.amountOutMin,
+                _stellarData.finalReceiver,
+                _stellarData.allBridgeReceiver,
+                _stellarData.allBridgeFee,
+                _bridgeData.destinationChainId,
+                _stellarData.nonce,
+                _stellarData.destinationSwapDeadline
+            )
+        );
     }
 
     /// @notice Performs a swap before bridging via AllBridge
@@ -169,7 +190,28 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             0
         );
 
-        _startBridge(_bridgeData, _stellarData);
+        _bridgeData.minAmount = _startBridge(_bridgeData, _stellarData);
+
+        emit Deposit(
+            DepositEventParams(
+                _bridgeData.transactionId,
+                msg.sender,
+                _bridgeData.integrator,
+                _swapData[0].sendingAssetId,
+                _swapData[0].fromAmount,
+                _bridgeData.sendingAssetId,
+                _bridgeData.minAmount,
+                _stellarData.tokensOut[0],
+                _stellarData.tokensOut[1],
+                _stellarData.amountOutMin,
+                _stellarData.finalReceiver,
+                _stellarData.allBridgeReceiver,
+                _stellarData.allBridgeFee,
+                _bridgeData.destinationChainId,
+                _stellarData.nonce,
+                _stellarData.destinationSwapDeadline
+            )
+        );
     }
 
     function setScalingFactor(uint256 _scalingFactor) external {
@@ -226,7 +268,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     function _startBridge(
         IRubic.BridgeData memory _bridgeData,
         StellarData calldata _stellarData
-    ) private noNativeAsset(_bridgeData) {
+    ) private noNativeAsset(_bridgeData) returns (uint256) {
         if (_bridgeData.destinationChainId != DEST_CHAIN_ID)
             revert UnsupportedChainId(_bridgeData.destinationChainId);
 
@@ -278,26 +320,6 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
             _stellarData.allBridgeFee
         );
 
-        emit Deposit(
-            DepositEventParams(
-                _bridgeData.transactionId,
-                msg.sender,
-                _bridgeData.integrator,
-                _bridgeData.sendingAssetId,
-                _bridgeData.minAmount,
-                _bridgeData.sendingAssetId,
-                _bridgeData.minAmount,
-                _stellarData.tokensOut[0],
-                _stellarData.tokensOut[1],
-                _stellarData.amountOutMin,
-                _stellarData.finalReceiver,
-                _stellarData.allBridgeReceiver,
-                _stellarData.allBridgeFee,
-                _bridgeData.destinationChainId,
-                _stellarData.nonce,
-                _stellarData.destinationSwapDeadline
-            )
-        );
         emit RubicTransferStarted(_bridgeData);
     }
 
