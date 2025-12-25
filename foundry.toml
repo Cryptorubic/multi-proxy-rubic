@@ -76,6 +76,7 @@ megaeth = "${ETH_NODE_URI_MEGAETH}"
 wanchain = "${ETH_NODE_URI_WANCHAIN}"
 hemi = "${ETH_NODE_URI_HEMI}"
 plasma ="${ETH_NODE_URI_PLASMA}"
+hyper = "${ETH_NODE_URI_HYPER}"
 
 # testnets
 goerli = "${ETH_NODE_URI_GOERLI}"
