@@ -5,7 +5,8 @@ import { LibAllowList, TestBaseFacet, console, RubicMultiProxy, IRubic } from ".
 import { OnlyContractOwner, InvalidConfig, AlreadyInitialized } from "rubic/Errors/GenericErrors.sol";
 import { StellarFacet } from "rubic/Facets/StellarFacet.sol";
 import { IAllBridgeCore } from "rubic/Interfaces/IAllBridgeCore.sol";
-import { AlreadyInitialized, OnlyContractOwner } from "rubic/Errors/GenericErrors.sol";
+import { IAccessManagerFacet } from "rubic/Interfaces/IAccessManagerFacet.sol";
+import { AlreadyInitialized, UnAuthorized } from "rubic/Errors/GenericErrors.sol";
 
 // Stub CBridgeFacet Contract
 contract TestStellarFacet is StellarFacet {
@@ -60,6 +61,24 @@ contract StellarFacetTest is TestBaseFacet {
             .selector;
 
         addFacet(diamond, address(stellarFacet), functionSelectors);
+
+        IAccessManagerFacet(address(diamond)).setCanExecute(
+            stellarFacet.initStellar.selector,
+            address(this),
+            true
+        );
+
+        IAccessManagerFacet(address(diamond)).setCanExecute(
+            stellarFacet.setScalingFactor.selector,
+            address(this),
+            true
+        );
+
+        IAccessManagerFacet(address(diamond)).setCanExecute(
+            stellarFacet.setRelayerFeeReceiver.selector,
+            address(this),
+            true
+        );
 
         stellarFacet = TestStellarFacet(address(diamond));
         stellarFacet.initStellar(USER_RECEIVER, 5 * 10 ** 18);
@@ -320,19 +339,19 @@ contract StellarFacetTest is TestBaseFacet {
 
     function test_Revert_InitOwnable() public {
         vm.startPrank(USER_SENDER);
-        vm.expectRevert(OnlyContractOwner.selector);
+        vm.expectRevert(UnAuthorized.selector);
         stellarFacet.initStellar(USER_RECEIVER, 5 * 10 ** 18);
     }
 
     function test_Revert_SetScalingFactorOwnable() public {
         vm.startPrank(USER_SENDER);
-        vm.expectRevert(OnlyContractOwner.selector);
+        vm.expectRevert(UnAuthorized.selector);
         stellarFacet.setScalingFactor(5 * 10 ** 18);
     }
 
     function test_Revert_SetRelayerFeeReceiverOwnable() public {
         vm.startPrank(USER_SENDER);
-        vm.expectRevert(OnlyContractOwner.selector);
+        vm.expectRevert(UnAuthorized.selector);
         stellarFacet.setRelayerFeeReceiver(USER_RECEIVER);
     }
 

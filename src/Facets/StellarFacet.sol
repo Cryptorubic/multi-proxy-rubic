@@ -6,7 +6,7 @@ import { LibAsset, IERC20 } from "../Libraries/LibAsset.sol";
 import { SwapperV2, LibSwap } from "../Helpers/SwapperV2.sol";
 import { ReentrancyGuard } from "../Helpers/ReentrancyGuard.sol";
 import { Validatable } from "../Helpers/Validatable.sol";
-import { LibDiamond } from "../Libraries/LibDiamond.sol";
+import { LibAccess } from "../Libraries/LibAccess.sol";
 import { IAllBridgeCore } from "../Interfaces/IAllBridgeCore.sol";
 import { AlreadyInitialized, NotInitialized, UnsupportedChainId, NotEnoughBalance, InformationMismatch } from "../Errors/GenericErrors.sol";
 
@@ -104,7 +104,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
         address _feeReceiver,
         uint256 _scalingFactor
     ) external {
-        LibDiamond.enforceIsContractOwner();
+        LibAccess.enforceAccessControl();
         Storage storage s = getStorage();
 
         if (s.initialized) revert AlreadyInitialized();
@@ -211,14 +211,14 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     }
 
     function setScalingFactor(uint256 _scalingFactor) external {
-        LibDiamond.enforceIsContractOwner();
+        LibAccess.enforceAccessControl();
         Storage storage s = getStorage();
         if (!s.initialized) revert NotInitialized();
         s.scalingFactor = _scalingFactor;
     }
 
     function setRelayerFeeReceiver(address _feeReceiver) external {
-        LibDiamond.enforceIsContractOwner();
+        LibAccess.enforceAccessControl();
         Storage storage s = getStorage();
         if (!s.initialized) revert NotInitialized();
         s.relayerFeeReceiver = _feeReceiver;
@@ -261,6 +261,7 @@ contract StellarFacet is IRubic, ReentrancyGuard, SwapperV2, Validatable {
     /// @dev Contains the business logic for the bridge via AllBridge into Stellar network
     /// @param _bridgeData Data used purely for tracking and analytics
     /// @param _stellarData Data specific to bridge assets to the Stellar network
+    // solhint-disable-next-line code-complexity
     function _startBridge(
         IRubic.BridgeData memory _bridgeData,
         StellarData calldata _stellarData
