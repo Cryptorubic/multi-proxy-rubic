@@ -3944,6 +3944,12 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x58bf7c03",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x24ac9c35",
       "offset": 0,
       "isAvailable": true
@@ -5430,6 +5436,18 @@
     },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0x6debed2b",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
+      "selector": "0xec9c6cb1",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0x58bf7c03",
       "offset": 0,
       "isAvailable": true
@@ -5706,6 +5724,12 @@
     }
   ],
   "optimism": [
+    {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x6f26Bf09B1C792e3228e5467807a900A503c0281",
       "selector": "0x1ce550e2",
@@ -13153,6 +13177,50 @@
     {
       "router": "0x663dc15d3c1ac63ff12e45ab68fea3f0a883c251",
       "selector": "0x4d8160ba",
+      "offset": 0,
+      "isAvailable": true
+    }
+  ],
+  "hyper": [
+    {
+      "router": "0xce16F69375520ab01377ce7B88f5BA8C48F8D666",
+      "selector": "0x58181a80",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x663DC15D3C1aC63ff12E45Ab68FeA3F0a883C251",
+      "selector": "0x4d8160ba",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x35E63eA3eb0fb7A3bc543C71FB66412e1F6B0E04",
+      "selector": "0x7b939232",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xcE8f24A58D85eD5c5A6824f7be1F8d4711A0eb4C",
+      "selector": "0xa11b1198",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+      "selector": "0x30be5567",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xbbbfd134e9b44bfb5123898ba36b01de7ab93d98",
+      "selector": "0x30875056",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x25aB3Efd52e6470681CE037cD546Dc60726948D3",
+      "selector": "0x60b068be",
       "offset": 0,
       "isAvailable": true
     }
