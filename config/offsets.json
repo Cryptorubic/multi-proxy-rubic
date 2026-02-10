@@ -14448,5 +14448,37 @@
       "offset": 0,
       "isAvailable": true
     }
+  ],
+  "megaeth": [
+    {
+      "router": "0x4cd00e387622c35bddb9b4c962c136462338bc31",
+      "selector": "0x49290c1c",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x4cd00e387622c35bddb9b4c962c136462338bc31",
+      "selector": "0xe8017952",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xb92fe925dc43a0ecde6c8b1a2709c170ec4fff4f",
+      "selector": "0xcd6e13f7",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0xccc88a9d1b4ed6b0eaba998850414b24f1c315be",
+      "selector": "0xf9e4bab4",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x9151434b16b9763660705744891fa906f660ecc5",
+      "selector": "0xc7c7f5b3",
+      "offset": 0,
+      "isAvailable": true
+    }
   ]
 }
