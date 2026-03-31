@@ -6158,6 +6158,12 @@
   "optimism": [
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x3110c7b9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x4f3b0759",
       "offset": 0,
       "isAvailable": true
@@ -8049,7 +8055,7 @@
       "isAvailable": true
     },
     {
-      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "router": "0x341e94069f53234fe6dabef707ad424830525715",
       "selector": "0xa3443faa",
       "offset": 0,
       "isAvailable": true
