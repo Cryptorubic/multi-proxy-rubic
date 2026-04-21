@@ -4997,6 +4997,12 @@
   ],
   "arbitrum": [
     {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x092e8fa4",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x8d7285C97D0d0C451be72F737875A98751870B97",
       "selector": "0x5e3bd9e9",
       "offset": 0,
@@ -14784,6 +14790,12 @@
     }
   ],
   "hyper": [
+    {
+      "router": "0x0a0758d937d1059c356D4714e57F5df0239bce1A",
+      "selector": "0x9e75aa95",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x4cd00e387622c35bddb9b4c962c136462338bc31",
       "selector": "0x49290c1c",
