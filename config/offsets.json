@@ -9379,6 +9379,12 @@
   ],
   "linea": [
     {
+      "router": "0x337685fdaB40D39bd02028545a4FfA7D287cC3E2",
+      "selector": "0x30dedc57",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
       "offset": 0,
