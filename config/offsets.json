@@ -1,6 +1,30 @@
 {
   "polygon": [
     {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6d21c5df",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x5b50845B94fC47c6172d9ab90845D3613e36Aed5",
+      "selector": "0xa5a305fa",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x81b6711C0AeA07a60f65e92a5678c516d84cA467",
+      "selector": "0x08af27de",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x4e175B3Bc61e437af893b49c436235AC1137670f",
+      "selector": "0x08af27de",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
       "offset": 0,
@@ -1203,6 +1227,12 @@
   ],
   "bsc": [
     {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6d21c5df",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
       "offset": 0,
@@ -2338,6 +2368,12 @@
     }
   ],
   "mainnet": [
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6d21c5df",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
@@ -5273,6 +5309,12 @@
   ],
   "arbitrum": [
     {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6d21c5df",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
       "offset": 0,
@@ -6546,6 +6588,12 @@
     }
   ],
   "optimism": [
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6d21c5df",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
@@ -10300,6 +10348,12 @@
     }
   ],
   "base": [
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x6d21c5df",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x69460570c93f9DE5E2edbC3052bf10125f0Ca22d",
       "selector": "0xb25b1c31",
