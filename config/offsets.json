@@ -2,6 +2,12 @@
   "polygon": [
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6d21c5df",
       "offset": 0,
       "isAvailable": true
@@ -2370,6 +2376,12 @@
   "mainnet": [
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6d21c5df",
       "offset": 0,
       "isAvailable": true
@@ -3848,6 +3860,12 @@
   "avalanche": [
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c4b6dd9",
       "offset": 0,
       "isAvailable": true
@@ -5310,6 +5328,12 @@
   "arbitrum": [
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6d21c5df",
       "offset": 0,
       "isAvailable": true
@@ -6588,6 +6612,12 @@
     }
   ],
   "optimism": [
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6d21c5df",
@@ -10348,6 +10378,12 @@
     }
   ],
   "base": [
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x6d21c5df",
@@ -14464,6 +14500,12 @@
   "sei": [
     {
       "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
       "selector": "0x9c4b6dd9",
       "offset": 0,
       "isAvailable": true
@@ -15708,6 +15750,12 @@
     }
   ],
   "hyper": [
+    {
+      "router": "0x0a0758d937d1059c356D4714e57F5df0239bce1A",
+      "selector": "0x17917a4e",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x0a0758d937d1059c356D4714e57F5df0239bce1A",
       "selector": "0x30c48952",
