@@ -2477,6 +2477,12 @@
   ],
   "mainnet": [
     {
+      "router": "0x6769155b16f25d317819efef011e0a50a48e83c5",
+      "selector": "0xb9051e86",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
       "router": "0x1231deb6f5749ef6ce6943a275a1d3e7486f4eae",
       "selector": "0x80c65808",
       "offset": 0,
@@ -8870,6 +8876,18 @@
     }
   ],
   "zkSync": [
+    {
+      "router": "0x341e94069f53234fe6dabef707ad424830525715",
+      "selector": "0x9c4b6dd9",
+      "offset": 0,
+      "isAvailable": true
+    },
+    {
+      "router": "0x7C99cED6d8011AF8A52488884F7BA2c61b0FA57D",
+      "selector": "0x110560ad",
+      "offset": 0,
+      "isAvailable": true
+    },
     {
       "router": "0x341e94069f53234fe6dabef707ad424830525715",
       "selector": "0xc46059b2",
